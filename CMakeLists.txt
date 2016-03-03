@@ -11,7 +11,14 @@ execute_process (COMMAND llvm-config --cxxflags --ldflags
 
 string (REPLACE "\n" " " LLVM_CONFIG "${LLVM_CONFIG_N}")
 
-set (CMAKE_CXX_FLAGS "-O0 ${LLVM_CONFIG}")
+set (CMAKE_CXX_FLAGS "-O0 -g -Wall ${LLVM_CONFIG}")
 
 add_subdirectory (lib)
-add_subdirectory (tests)
+
+# Test configuration
+option(test "Compiles the tests" OFF)
+
+if (test)
+  enable_testing()
+  add_subdirectory (tests)
+endif()
