@@ -1,3 +1,4 @@
 add_library (Features 
   Feature.cpp
-  FeatureInfo.cpp)
+  FeatureInfo.cpp
+  StringFeature.cpp)
