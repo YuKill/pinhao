@@ -10,6 +10,15 @@
 
 using namespace pinhao;
 
+bool Feature::isComposite() {
+  switch (Kind) {
+    case StringKind: return false;
+    case FPVector:   return true;
+    case IntVector:  return true;
+  }
+  return false;
+}
+
 std::map<std::string, std::unique_ptr<Feature>> Feature::RegisteredFeatures;
 
 bool Feature::isNameRegistered(std::string Name) {

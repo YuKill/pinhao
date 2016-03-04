@@ -29,8 +29,9 @@ namespace pinhao {
     public:
       /// @brief The kind of the feature.
       enum FeatureKind {
-        StringKind,     ///< Has one string feature.
-        CompositeKind   ///< Has two or more features within it.
+        StringKind,
+        IntVector,
+        FPVector
       };
       
       /// @brief How the feature information is gathered.
@@ -64,15 +65,16 @@ namespace pinhao {
        */
       static bool isNameRegistered(std::string Name);
 
+      std::unique_ptr<FeatureInfo> Info;
       GatherMode Mode; 
       FeatureKind Kind;
-      std::unique_ptr<FeatureInfo> Info;
 
     public:
       virtual ~Feature() {};
 
       /// @brief Constructs a @a Feature with the information @a FeatInfo.
-      Feature(std::unique_ptr<FeatureInfo> FeatInfo) : Info(std::move(FeatInfo)) {}
+      Feature(FeatureInfo* InfoPtr, GatherMode GMode, FeatureKind FKind) : 
+        Info(std::unique_ptr<FeatureInfo>(InfoPtr)), Mode(GMode), Kind(FKind) {}
 
       /// @brief Gets the name of the feature.
       std::string getName() { return Info->getName(); }
@@ -96,8 +98,8 @@ namespace pinhao {
       /// @brief Gets the @ end iterator of the information mapping.
       std::map<std::string, std::string>::iterator end() { return Info->end(); }
 
-      /// @brief Returns true if it is a composite kind.
-      bool isComposite() { return Kind == FeatureKind::CompositeKind; }
+      /// @brief Returns true if the feature has more than two sub-features.
+      bool isComposite();
 
       /// @brief Returns true if it is a static feature.
       bool isStaticFeature() { return Mode == GatherMode::Dynamic; }
@@ -151,9 +153,8 @@ namespace pinhao {
   template <class FeatureClass>
   class RegisterFeature {
     public:
-      RegisterFeature(FeatureInfo *Info) {
-        std::unique_ptr<FeatureInfo> InfoPtr(Info);
-        FeatureClass *F = new FeatureClass(std::move(InfoPtr)); 
+      RegisterFeature(FeatureInfo *InfoPtr) {
+        FeatureClass *F = new FeatureClass(InfoPtr);
 
         Feature *BaseF = dynamic_cast<Feature*>(F);
         assert(BaseF != nullptr && "FeatureClass is not a Feature type.");
