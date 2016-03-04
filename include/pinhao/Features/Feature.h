@@ -49,6 +49,21 @@ namespace pinhao {
        */
       static std::map<std::string, std::unique_ptr<Feature>> RegisteredFeatures;
 
+      /**
+       * @brief Checks whether a feature (or sub-feature) is already
+       * registered.
+       *
+       * @details
+       * It iterates each element in the @a RegisteredFeatures, checking also
+       * the sub-feature names. 
+       *
+       * @param Name The name of the feature or sub-feature.
+       *
+       * @return True if there already is a feature (or sub-feature) registered
+       * with the same name.
+       */
+      static bool isNameRegistered(std::string Name);
+
       GatherMode Mode; 
       FeatureKind Kind;
       std::unique_ptr<FeatureInfo> Info;
@@ -64,6 +79,22 @@ namespace pinhao {
 
       /// @brief Gets the description of the feature.
       std::string getDescription() { return Info->getDescription(); }
+
+      /// @brief Returns true if there is a sub-feature with name @a SubFeatureName.
+      bool hasSubFeature(std::string SubFeatureName) { 
+        return Info->hasSubFeature(SubFeatureName); 
+      }
+
+      /// @brief Gets the description of the sub-feature with name @a SubFeatureName.
+      std::string getSubFeatureDescription(std::string SubFeatureName) { 
+        return Info->getSubFeatureDescription(SubFeatureName); 
+      }
+
+      /// @brief Gets the @ begin iterator of the information mapping.
+      std::map<std::string, std::string>::iterator begin() { return Info->begin(); }
+
+      /// @brief Gets the @ end iterator of the information mapping.
+      std::map<std::string, std::string>::iterator end() { return Info->end(); }
 
       /// @brief Returns true if it is a composite kind.
       bool isComposite() { return Kind == FeatureKind::CompositeKind; }
@@ -85,7 +116,6 @@ namespace pinhao {
        */
       virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() {
         assert("Feature doesn't implements 'getShogunFeature' function." && false);
-        return nullptr;
       }
 
       /**
@@ -122,9 +152,13 @@ namespace pinhao {
   class RegisterFeature {
     public:
       RegisterFeature(FeatureInfo *Info) {
-        std::unique_ptr InfoPtr = std::unique_ptr(Info);
+        std::unique_ptr<FeatureInfo> InfoPtr(Info);
         FeatureClass *F = new FeatureClass(std::move(InfoPtr)); 
-        Feature::registerFeature(F);
+
+        Feature *BaseF = dynamic_cast<Feature*>(F);
+        assert(BaseF != nullptr && "FeatureClass is not a Feature type.");
+
+        Feature::registerFeature(BaseF);
       }
   }; 
 

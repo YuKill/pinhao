@@ -1,1 +1,3 @@
-add_library (Features FeatureInfo.cpp)
+add_library (Features 
+  Feature.cpp
+  FeatureInfo.cpp)
