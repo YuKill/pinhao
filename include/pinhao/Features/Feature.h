@@ -30,8 +30,8 @@ namespace pinhao {
       /// @brief The kind of the feature.
       enum FeatureKind {
         StringKind,
-        IntVector,
-        FPVector
+        VectorKind,
+        MapVectorKind
       };
       
       /// @brief How the feature information is gathered.
@@ -39,6 +39,9 @@ namespace pinhao {
         Static, ///< Statically gathered features.
         Dynamic ///< Dynamically gathered features.
       };
+
+    protected:
+      std::unique_ptr<FeatureInfo> Info;
 
     private:
       /**
@@ -65,7 +68,6 @@ namespace pinhao {
        */
       static bool isNameRegistered(std::string Name);
 
-      std::unique_ptr<FeatureInfo> Info;
       GatherMode Mode; 
       FeatureKind Kind;
 

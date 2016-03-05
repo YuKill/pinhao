@@ -13,8 +13,8 @@ using namespace pinhao;
 bool Feature::isComposite() {
   switch (Kind) {
     case StringKind: return false;
-    case FPVector:   return true;
-    case IntVector:  return true;
+    case VectorKind: return true;
+    case MapVectorKind: return true;
   }
   return false;
 }
