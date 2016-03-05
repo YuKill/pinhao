@@ -1,31 +1,45 @@
 /*-------------------------- PINHAO project --------------------------*/
 
 /**
- * @file VectorFeature.cpp
- * @brief This file implements the functions of the composite features
- * classes. Such as the CompositeFeature itself, the VectorFeature and
+ * @file Features.cpp
+ * @brief This file implements the functions of the basic implementations
+ * of the feature classes. Such as the StringFeature , the VectorFeature and
  * the MapVectorFeature.
  */
 
-#include "pinhao/Features/CompositeFeatures.h"
+#include "pinhao/Features/Features.h"
 
 #include "shogun/lib/SGMatrix.h"
+#include "shogun/lib/SGString.h"
+#include "shogun/lib/SGStringList.h"
 #include "shogun/features/DenseFeatures.h"
+#include "shogun/features/StringFeatures.h"
 
 
 using namespace pinhao;
 
 /*
- * -------------------------------------=
- * Class: CompositeFeature < ElemType, KeyType >
+ * ----------------------------------=
+ * Class: StringFeature
  */
-template <class ElemType, class KeyType>
-uint64_t CompositeFeature<ElemType, KeyType>::getIndexOfSubFeature(std::string SubFeatureName) {
-  uint64_t Index = 0;
-  for (auto &InfoPair : *Info)
-    if (SubFeatureName == InfoPair.first) return Index;
-    else ++Index;
-  return Index;
+std::unique_ptr<shogun::CFeatures> StringFeature::getShogunFeature() {
+  unsigned Length = TheFeature.length();
+  if (Length > 0) {
+    char *Buffer = new char[Length + 1];
+    TheFeature.copy(Buffer, Length);
+    Buffer[Length] = '\0';
+
+    shogun::SGString<char> *SGString = 
+      new shogun::SGString<char>(Buffer, Length, true);
+    shogun::SGStringList<char> *SGStringList = 
+      new shogun::SGStringList<char>(SGString, 1, Length + 1);
+    shogun::CStringFeatures<char> *StrFeatures = 
+      new shogun::CStringFeatures<char>(*SGStringList, shogun::EAlphabet::UNKNOWN);
+
+    return std::unique_ptr<shogun::CFeatures>(StrFeatures);
+  }
+
+  return std::unique_ptr<shogun::CFeatures>(new shogun::CStringFeatures<char>(shogun::EAlphabet::UNKNOWN));
 }
 
 /*
@@ -33,9 +47,9 @@ uint64_t CompositeFeature<ElemType, KeyType>::getIndexOfSubFeature(std::string S
  * Class: VectorFeature < ElemType >
  */
 template <class ElemType>
-const ElemType* VectorFeature<ElemType>::getSubFeature(std::string SubFeatureName, uint64_t Key) {
-  if (!this->hasSubFeature(SubFeatureName)) return nullptr;
-  uint64_t Index = this->getIndexOfSubFeature(SubFeatureName); 
+const ElemType* VectorFeature<ElemType>::getSubFeature(std::string SubFeatureName) {
+  if (!hasSubFeature(SubFeatureName)) return nullptr;
+  uint64_t Index = Info->getIndexOfSubFeature(SubFeatureName); 
   return &TheFeature[Index];
 }
 
@@ -59,9 +73,9 @@ std::unique_ptr<shogun::CFeatures> VectorFeature<ElemType>::getShogunFeature() {
  * Class: MapVectorFeature < KeyType, ElemType >
  */
 template <class KeyType, class ElemType>
-const ElemType* MapVectorFeature<KeyType, ElemType>::getSubFeature(std::string SubFeatureName, KeyType Key) {
-  if (this->hasSubFeature(SubFeatureName) && TheFeature.count(Key) > 0) {
-    uint64_t Index = this->getIndexOfSubFeature(SubFeatureName); 
+const ElemType* MapVectorFeature<KeyType, ElemType>::getSubFeatureForKey(std::string SubFeatureName, KeyType Key) {
+  if (hasSubFeature(SubFeatureName) && TheFeature.count(Key) > 0) {
+    uint64_t Index = Info->getIndexOfSubFeature(SubFeatureName); 
     return &(TheFeature[Key][Index]);
   }
   return nullptr;

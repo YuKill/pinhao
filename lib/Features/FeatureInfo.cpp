@@ -10,6 +10,16 @@
 
 using namespace pinhao;
 
+uint64_t CompositeFeatureInfo::getIndexOfSubFeature(std::string SubFeatureName) {
+  uint64_t Index = 0;
+  for (auto &MapPair : FeaturesInfo) {
+    if (SubFeatureName == MapPair.first)
+      return Index;
+    ++Index;
+  }
+  return Index;
+}
+
 bool CompositeFeatureInfo::hasSubFeature(std::string SubFeatureName) {
   return FeaturesInfo.count(SubFeatureName) > 0;
 }

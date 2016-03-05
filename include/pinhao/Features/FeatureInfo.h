@@ -51,6 +51,11 @@ namespace pinhao {
         assert("Feature doesn't have any sub-features." && false); 
       }
 
+      /// @brief Gets the position of the sub-feature (insert order).
+      virtual uint64_t getIndexOfSubFeature(std::string SubFeatureName) {
+        assert("Feature doesn't have any sub-features." && false); 
+      }
+
       /// @brief Gets the @a begin iterator of the information mapping.
       virtual std::map<std::string, std::string>::iterator begin() {
         assert("Feature doesn't have any sub-features." && false); 
@@ -79,6 +84,7 @@ namespace pinhao {
           std::map<std::string, std::string> Infos) : 
         FeatureInfo(FeatureName, FeatureDesc), FeaturesInfo(Infos) {}
   
+      virtual uint64_t getIndexOfSubFeature(std::string SubFeatureName) override; 
       virtual bool hasSubFeature(std::string SubFeatureName) override;
       virtual std::string getSubFeatureDescription(std::string SubFeatureName) override;
 
