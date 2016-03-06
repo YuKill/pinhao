@@ -39,6 +39,11 @@ namespace pinhao {
         return TheFeature;
       }
 
+      /// @brief Sets the string feature to @a New.
+      void setStringFeature(std::string New) {
+        TheFeature = New;
+      }
+
       virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override;
 
   };
@@ -60,16 +65,27 @@ namespace pinhao {
       virtual ~VectorFeature() {};
 
       VectorFeature(FeatureInfo *Info, GatherMode Mode)
-        : Feature(Info, Mode, FeatureKind::VectorKind) {}
+        : Feature(Info, Mode, FeatureKind::VectorKind) {
+          TheFeature = std::vector<ElemType>(Info->getNumberOfSubFeatures(), 0); 
+        }
 
       /**
        * @brief Gets the sub-feature, which has type @a ElemType, with
        * name @a SubFeatureName.
        *
        * @param SubFeatureName The name of the desired sub-feature.
-       * @return A const pointer to the sub-feature value.
+       * @return A pointer to the sub-feature value with const modifier.
        */
-      const ElemType* getSubFeature(std::string SubFeatureName) override;
+      const ElemType* getSubFeature(std::string SubFeatureName);
+
+      /**
+       * @brief Sets the sub-feature with name @a SubFeatureName to
+       * @a Elem.
+       *
+       * @param SubFeatureName The name of the desired sub-feature.
+       * @param Elem The element that will replace the old element.
+       */
+      void setSubFeature(std::string SubFeatureName, ElemType Elem); 
 
       virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override;
 
@@ -89,11 +105,24 @@ namespace pinhao {
       /// @brief The vector container of the feature itself.
       std::map<KeyType, std::vector<ElemType>> TheFeature;
 
+      /// @brief Initializes the vector of the key at the map @a TheFeature.
+      void initVectorOfKey(KeyType Key);
+
     public:
       virtual ~MapVectorFeature() {}
 
       MapVectorFeature(FeatureInfo *Info, GatherMode Mode)
         : Feature(Info, Mode, FeatureKind::MapVectorKind) {}
+
+      /**
+       * @brief Sets the value of the sub-feature, with name @a SubFeatureName, of key @a Key,
+       * to value @a Elem.
+       *
+       * @param SubFeatureName The name of the sub-feature.
+       * @param Elem The value that will replace the old one.
+       * @param Key The key from which it will set the sub-feature value.
+       */
+      virtual void setSubFeatureOfKey(std::string SubFeatureName, ElemType Elem, KeyType Key);
 
       /**
        * @brief Gets the sub-feature value, whose name is @a SubFeatureName, and
@@ -107,7 +136,7 @@ namespace pinhao {
        * @param Key The key to get from.
        * @return A const pointer to the value of the sub-feature of the key.
        */
-      const ElemType* getSubFeatureForKey(std::string SubFeatureName, KeyType Key) override;
+      const ElemType* getSubFeatureOfKey(std::string SubFeatureName, KeyType Key);
 
       virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override;
 

@@ -48,9 +48,16 @@ std::unique_ptr<shogun::CFeatures> StringFeature::getShogunFeature() {
  */
 template <class ElemType>
 const ElemType* VectorFeature<ElemType>::getSubFeature(std::string SubFeatureName) {
-  if (!hasSubFeature(SubFeatureName)) return nullptr;
+  assert(hasSubFeature(SubFeatureName) && "VectorFeature has no such sub-feature.");
   uint64_t Index = Info->getIndexOfSubFeature(SubFeatureName); 
   return &TheFeature[Index];
+}
+
+template <class ElemType>
+void VectorFeature<ElemType>::setSubFeature(std::string SubFeatureName, ElemType Elem) {
+  assert(hasSubFeature(SubFeatureName) && "VectorFeature has no such sub-feature.");
+  uint64_t Index = Info->getIndexOfSubFeature(SubFeatureName); 
+  TheFeature[Index] = Elem;
 }
 
 template <class ElemType>
@@ -73,8 +80,27 @@ std::unique_ptr<shogun::CFeatures> VectorFeature<ElemType>::getShogunFeature() {
  * Class: MapVectorFeature < KeyType, ElemType >
  */
 template <class KeyType, class ElemType>
-const ElemType* MapVectorFeature<KeyType, ElemType>::getSubFeatureForKey(std::string SubFeatureName, KeyType Key) {
-  if (hasSubFeature(SubFeatureName) && TheFeature.count(Key) > 0) {
+void MapVectorFeature<KeyType, ElemType>::initVectorOfKey(KeyType Key) {
+
+  if (TheFeature.count(Key) > 0) return;
+  TheFeature[Key] = std::vector<ElemType>(Info->getNumberOfSubFeatures(), 0);
+}
+
+template <class KeyType, class ElemType>
+void MapVectorFeature<KeyType, ElemType>::setSubFeatureOfKey(std::string SubFeatureName, 
+    ElemType Elem, KeyType Key) {
+  assert(hasSubFeature(SubFeatureName) && "MapVectorFeature has no such sub-feature.");
+
+  initVectorOfKey(Key);
+  uint64_t Index = Info->getIndexOfSubFeature(SubFeatureName);
+  TheFeature[Key][Index] = Elem;
+}
+
+template <class KeyType, class ElemType>
+const ElemType* MapVectorFeature<KeyType, ElemType>::getSubFeatureOfKey(std::string SubFeatureName, KeyType Key) {
+  assert(hasSubFeature(SubFeatureName) && "MapVectorFeature has no such sub-feature.");
+
+  if (TheFeature.count(Key) > 0) {
     uint64_t Index = Info->getIndexOfSubFeature(SubFeatureName); 
     return &(TheFeature[Key][Index]);
   }
