@@ -41,7 +41,7 @@ namespace pinhao {
       };
 
     protected:
-      std::unique_ptr<FeatureInfo> Info;
+      std::shared_ptr<FeatureInfo> Info;
 
     private:
       /**
@@ -76,7 +76,7 @@ namespace pinhao {
 
       /// @brief Constructs a @a Feature with the information @a FeatInfo.
       Feature(FeatureInfo* InfoPtr, GatherMode GMode, FeatureKind FKind) : 
-        Info(std::unique_ptr<FeatureInfo>(InfoPtr)), Mode(GMode), Kind(FKind) {}
+        Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Mode(GMode), Kind(FKind) {}
 
       /// @brief Gets the name of the feature.
       std::string getName() { return Info->getName(); }
@@ -131,7 +131,7 @@ namespace pinhao {
        *
        * @param Module The module to be processed.
        */
-      virtual void processModule(llvm::Module Module) = 0;
+      virtual void processModule(llvm::Module& Module) = 0;
 
       /**
        * @brief Clones the feature.
