@@ -56,6 +56,11 @@ namespace pinhao {
         assert("Feature doesn't have any sub-features." && false); 
       }
 
+      /// @brief Gets the number of sub-features.
+      virtual uint64_t getNumberOfSubFeatures() {
+        assert("Feature doesn't have any sub-features." && false); 
+      }
+
       /// @brief Gets the @a begin iterator of the information mapping.
       virtual std::map<std::string, std::string>::iterator begin() {
         assert("Feature doesn't have any sub-features." && false); 
@@ -88,8 +93,10 @@ namespace pinhao {
       virtual bool hasSubFeature(std::string SubFeatureName) override;
       virtual std::string getSubFeatureDescription(std::string SubFeatureName) override;
 
-      virtual std::map<std::string, std::string>::iterator begin() { return FeaturesInfo.begin(); }
-      virtual std::map<std::string, std::string>::iterator end() { return FeaturesInfo.end(); }
+      virtual uint64_t getNumberOfSubFeatures() override { return FeaturesInfo.size(); }
+
+      virtual std::map<std::string, std::string>::iterator begin() override { return FeaturesInfo.begin(); }
+      virtual std::map<std::string, std::string>::iterator end() override { return FeaturesInfo.end(); }
   };
 
 }
