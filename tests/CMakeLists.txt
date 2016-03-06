@@ -9,5 +9,5 @@ add_executable(RunTests
 add_test(UnitTests RunTests)
 
 target_link_libraries(RunTests
-  Features
+  Features CFGStaticFeatures
   gtest gtest_main pthread)
