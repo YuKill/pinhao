@@ -5,7 +5,7 @@
 using namespace pinhao;
 
 TEST(FeatureInfoTest, SimpleFeatureInfoTest) {
-  FeatureInfo *FI = new FeatureInfo("theName", "theDescription");
+  FeatureInfo *FI = new FeatureInfo("theName", "theDescription", FeatureInfo::StringType, FeatureInfo::Static);
   ASSERT_EQ(FI->getName(), "theName");
   ASSERT_EQ(FI->getDescription(), "theDescription");
 }
@@ -17,37 +17,43 @@ TEST(FeatureInfoTest, CompositeFeatureInfoTest) {
       {"nof_functions", "Number of Functions"}
   };
 
-  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", TheFeatures);
-  ASSERT_EQ(FI->getName(), "theName");
-  ASSERT_EQ(FI->getDescription(), "theDescription");
+  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", FeatureInfo::FloatType, FeatureInfo::Dynamic, TheFeatures);
+  ASSERT_TRUE(FI->isComposite());
 
-  ASSERT_TRUE(FI->hasSubFeature("nof_bb"));
-  ASSERT_TRUE(FI->hasSubFeature("nof_inst"));
-  ASSERT_TRUE(FI->hasSubFeature("nof_functions"));
-  ASSERT_FALSE(FI->hasSubFeature("nof_PHI"));
+  CompositeFeatureInfo *CFI = static_cast<CompositeFeatureInfo*>(FI);
+  ASSERT_EQ(CFI->getName(), "theName");
+  ASSERT_EQ(CFI->getDescription(), "theDescription");
 
-  ASSERT_EQ(FI->getSubFeatureDescription("nof_bb"), TheFeatures["nof_bb"]);
-  ASSERT_EQ(FI->getSubFeatureDescription("nof_inst"), TheFeatures["nof_inst"]);
-  ASSERT_EQ(FI->getSubFeatureDescription("nof_functions"), TheFeatures["nof_functions"]);
+  ASSERT_TRUE(CFI->hasSubFeature("nof_bb"));
+  ASSERT_TRUE(CFI->hasSubFeature("nof_inst"));
+  ASSERT_TRUE(CFI->hasSubFeature("nof_functions"));
+  ASSERT_FALSE(CFI->hasSubFeature("nof_PHI"));
+
+  ASSERT_EQ(CFI->getSubFeatureDescription("nof_bb"), TheFeatures["nof_bb"]);
+  ASSERT_EQ(CFI->getSubFeatureDescription("nof_inst"), TheFeatures["nof_inst"]);
+  ASSERT_EQ(CFI->getSubFeatureDescription("nof_functions"), TheFeatures["nof_functions"]);
 }
 
 TEST(FeatureInfoTest, CompositeFeatureInfoTmpCtorTest) {
-  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription",
+  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", FeatureInfo::IntType, FeatureInfo::Static,
       std::map<std::string, std::string> {
       {"nof_bb", "Number of Basic Blocks"},
       {"nof_inst", "Number of Instructions"},
       {"nof_functions", "Number of Functions"}
       });
-  ASSERT_EQ(FI->getName(), "theName");
-  ASSERT_EQ(FI->getDescription(), "theDescription");
+  ASSERT_TRUE(FI->isComposite());
 
-  ASSERT_TRUE(FI->hasSubFeature("nof_bb"));
-  ASSERT_TRUE(FI->hasSubFeature("nof_inst"));
-  ASSERT_TRUE(FI->hasSubFeature("nof_functions"));
-  ASSERT_FALSE(FI->hasSubFeature("nof_PHI"));
+  CompositeFeatureInfo *CFI = static_cast<CompositeFeatureInfo*>(FI);
+  ASSERT_EQ(CFI->getName(), "theName");
+  ASSERT_EQ(CFI->getDescription(), "theDescription");
 
-  ASSERT_EQ(FI->getSubFeatureDescription("nof_bb"), "Number of Basic Blocks");
-  ASSERT_EQ(FI->getSubFeatureDescription("nof_inst"), "Number of Instructions");
-  ASSERT_EQ(FI->getSubFeatureDescription("nof_functions"), "Number of Functions");
+  ASSERT_TRUE(CFI->hasSubFeature("nof_bb"));
+  ASSERT_TRUE(CFI->hasSubFeature("nof_inst"));
+  ASSERT_TRUE(CFI->hasSubFeature("nof_functions"));
+  ASSERT_FALSE(CFI->hasSubFeature("nof_PHI"));
+
+  ASSERT_EQ(CFI->getSubFeatureDescription("nof_bb"), "Number of Basic Blocks");
+  ASSERT_EQ(CFI->getSubFeatureDescription("nof_inst"), "Number of Instructions");
+  ASSERT_EQ(CFI->getSubFeatureDescription("nof_functions"), "Number of Functions");
 }
 
