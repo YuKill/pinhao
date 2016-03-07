@@ -31,8 +31,8 @@ namespace pinhao {
 
       /// @brief Creates a StringFeature with @a Info and some @a Mode.
       /// Sets the @a FeatureKind as @a StringKind.
-      StringFeature(FeatureInfo *Info, GatherMode Mode) : 
-        Feature(Info, Mode, FeatureKind::StringKind) {}
+      StringFeature(FeatureInfo *Info) : 
+        Feature(Info, FeatureKind::StringKind) {}
 
       /// @brief Gets the string feature.
       std::string getStringFeature() {
@@ -64,9 +64,11 @@ namespace pinhao {
     public:
       virtual ~VectorFeature() {};
 
-      VectorFeature(FeatureInfo *Info, GatherMode Mode)
-        : Feature(Info, Mode, FeatureKind::VectorKind) {
-          TheFeature = std::vector<ElemType>(Info->getNumberOfSubFeatures(), 0); 
+      VectorFeature(FeatureInfo *Info)
+        : Feature(Info, FeatureKind::VectorKind) {
+          assert(Info->isComposite() && "VectorFeature must have CompositeFeatureInfo.");
+          CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info);
+          TheFeature = std::vector<ElemType>(CompInfo->getNumberOfSubFeatures(), 0); 
         }
 
       /**
@@ -111,8 +113,10 @@ namespace pinhao {
     public:
       virtual ~MapVectorFeature() {}
 
-      MapVectorFeature(FeatureInfo *Info, GatherMode Mode)
-        : Feature(Info, Mode, FeatureKind::MapVectorKind) {}
+      MapVectorFeature(FeatureInfo *Info)
+        : Feature(Info, FeatureKind::MapVectorKind) {
+          assert(Info->isComposite() && "VectorFeature must have CompositeFeatureInfo.");
+        }
 
       /**
        * @brief Sets the value of the sub-feature, with name @a SubFeatureName, of key @a Key,
