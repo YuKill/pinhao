@@ -33,12 +33,6 @@ namespace pinhao {
         VectorKind,
         MapVectorKind
       };
-      
-      /// @brief How the feature information is gathered.
-      enum GatherMode {
-        Static, ///< Statically gathered features.
-        Dynamic ///< Dynamically gathered features.
-      };
 
     protected:
       std::shared_ptr<FeatureInfo> Info;
@@ -68,15 +62,14 @@ namespace pinhao {
        */
       static bool isNameRegistered(std::string Name);
 
-      GatherMode Mode; 
       FeatureKind Kind;
 
     public:
       virtual ~Feature() {};
 
       /// @brief Constructs a @a Feature with the information @a FeatInfo.
-      Feature(FeatureInfo* InfoPtr, GatherMode GMode, FeatureKind FKind) : 
-        Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Mode(GMode), Kind(FKind) {}
+      Feature(FeatureInfo* InfoPtr, FeatureKind FKind) : 
+        Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Kind(FKind) {}
 
       /// @brief Gets the name of the feature.
       std::string getName() { return Info->getName(); }
@@ -86,28 +79,40 @@ namespace pinhao {
 
       /// @brief Returns true if there is a sub-feature with name @a SubFeatureName.
       bool hasSubFeature(std::string SubFeatureName) { 
-        return Info->hasSubFeature(SubFeatureName); 
+        if (!isComposite()) return false;
+        CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
+        return CompInfo->hasSubFeature(SubFeatureName); 
       }
 
       /// @brief Gets the description of the sub-feature with name @a SubFeatureName.
       std::string getSubFeatureDescription(std::string SubFeatureName) { 
-        return Info->getSubFeatureDescription(SubFeatureName); 
+        assert(hasSubFeature(SubFeatureName) && "This feature does not have the sub-feature desired.");
+        CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
+        return CompInfo->getSubFeatureDescription(SubFeatureName); 
       }
 
-      /// @brief Gets the @ begin iterator of the information mapping.
-      std::map<std::string, std::string>::iterator begin() { return Info->begin(); }
-
-      /// @brief Gets the @ end iterator of the information mapping.
-      std::map<std::string, std::string>::iterator end() { return Info->end(); }
-
       /// @brief Returns true if the feature has more than two sub-features.
-      bool isComposite();
+      bool isComposite() { return Info->isComposite(); }
 
       /// @brief Returns true if it is a static feature.
-      bool isStaticFeature() { return Mode == GatherMode::Dynamic; }
+      bool isStaticFeature() { return Info->isStaticFeature(); }
 
       /// @brief Returns true if it is a dynamic feature.
-      bool isDynamicFeature() { return Mode == GatherMode::Static; }
+      bool isDynamicFeature() { return Info->isDynamicFeature(); }
+
+      /// @brief Gets the @a begin iterator of the @a Info.
+      std::map<std::string, std::string>::iterator begin() {
+        assert(isComposite() && "This feature is not a composite type feature."); 
+        CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
+        return CompInfo->begin();
+      }
+
+      /// @brief Gets the @a end iterator of the @a Info.
+      std::map<std::string, std::string>::iterator end() {
+        assert(isComposite() && "This feature is not a composite type feature."); 
+        CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
+        return CompInfo->end();
+      }
 
       /**
        * @brief Transforms the data stored in this class to a shogun::CFeature. 
