@@ -34,8 +34,8 @@ namespace {
 
     public:
       ~CFGBasicBlockStaticFeatures() {}
-      CFGBasicBlockStaticFeatures(FeatureInfo *Info) : MapVectorFeature<void*, uint64_t>
-                                                       (Info, GatherMode::Static) {}
+      CFGBasicBlockStaticFeatures(FeatureInfo *Info) : 
+        MapVectorFeature<void*, uint64_t>(Info) {}
 
       std::unique_ptr<Feature> clone() override;
 
@@ -244,5 +244,6 @@ static std::map<std::string, std::string> SubFeatures = {
   { "bb_phinode_inst", "Nof PHI nodes" }
 };
 
-static RegisterFeature<CFGBasicBlockStaticFeatures> X(new CompositeFeatureInfo("cfg_bb_static", 
-      "Static Information of BasicBlocks at CFG", SubFeatures));
+static RegisterFeature<CFGBasicBlockStaticFeatures> 
+X(new CompositeFeatureInfo("cfg_bb_static", "Static Information of BasicBlocks at CFG", 
+      FeatureInfo::IntType, FeatureInfo::Static, SubFeatures));
