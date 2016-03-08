@@ -37,7 +37,7 @@ namespace {
       CFGBasicBlockStaticFeatures(FeatureInfo *Info) : 
         MapVectorFeature<void*, uint64_t>(Info) {}
 
-      std::unique_ptr<Feature> clone() override;
+      std::unique_ptr<Feature> clone() const override;
 
       /// @brief This function iterates over all basic blocks and collects
       /// information about each instruction.
@@ -211,7 +211,7 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
   }
 }
 
-std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() {
+std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
   Feature *Clone = new CFGBasicBlockStaticFeatures(*this); 
   return std::unique_ptr<Feature>(Clone);
 }
