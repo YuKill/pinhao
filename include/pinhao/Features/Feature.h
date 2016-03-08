@@ -9,6 +9,7 @@
 #define PINHAO_FEATURE_H
 
 #include "pinhao/Features/FeatureInfo.h"
+#include "pinhao/Features/FeatureRegistry.h"
 
 #include "llvm/IR/Module.h"
 #include "shogun/features/Features.h"
@@ -38,30 +39,6 @@ namespace pinhao {
       std::shared_ptr<FeatureInfo> Info;
 
     private:
-      /**
-       * @brief Stores unique pointers to all registered features.
-       *
-       * @details
-       * In order to use a registered feature, one should clone the
-       * desired feature. It maps the name to the feature.
-       */
-      static std::map<std::string, std::unique_ptr<Feature>> RegisteredFeatures;
-
-      /**
-       * @brief Checks whether a feature (or sub-feature) is already
-       * registered.
-       *
-       * @details
-       * It iterates each element in the @a RegisteredFeatures, checking also
-       * the sub-feature names. 
-       *
-       * @param Name The name of the feature or sub-feature.
-       *
-       * @return True if there already is a feature (or sub-feature) registered
-       * with the same name.
-       */
-      static bool isNameRegistered(std::string Name);
-
       FeatureKind Kind;
 
     public:
@@ -78,7 +55,7 @@ namespace pinhao {
       std::string getDescription() { return Info->getDescription(); }
 
       /// @brief Returns true if there is a sub-feature with name @a SubFeatureName.
-      bool hasSubFeature(std::string SubFeatureName) { 
+      bool hasSubFeature (std::string SubFeatureName) const { 
         if (!isComposite()) return false;
         CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
         return CompInfo->hasSubFeature(SubFeatureName); 
@@ -92,13 +69,13 @@ namespace pinhao {
       }
 
       /// @brief Returns true if the feature has more than two sub-features.
-      bool isComposite() { return Info->isComposite(); }
+      bool isComposite() const { return Info->isComposite(); }
 
       /// @brief Returns true if it is a static feature.
-      bool isStaticFeature() { return Info->isStaticFeature(); }
+      bool isStaticFeature() const { return Info->isStaticFeature(); }
 
       /// @brief Returns true if it is a dynamic feature.
-      bool isDynamicFeature() { return Info->isDynamicFeature(); }
+      bool isDynamicFeature() const { return Info->isDynamicFeature(); }
 
       /// @brief Gets the @a begin iterator of the @a Info.
       std::map<std::string, std::string>::iterator begin() {
@@ -143,14 +120,11 @@ namespace pinhao {
        *
        * @return A unique pointer to the clone Feature.
        */
-      virtual std::unique_ptr<Feature> clone() = 0;
+      virtual std::unique_ptr<Feature> clone() const = 0;
 
-      /// @brief Register a feature in order to become available.
-      static void registerFeature(Feature *F);
-  
   };
 
-  /**
+  /** 
    * @brief Class responsible to register the new feature.
    *
    * @details
@@ -158,18 +132,17 @@ namespace pinhao {
    * take care and register the template @a FeatureClass.
    */
   template <class FeatureClass>
-  class RegisterFeature {
-    public:
-      RegisterFeature(FeatureInfo *InfoPtr) {
-        FeatureClass *F = new FeatureClass(InfoPtr);
+    class RegisterFeature {
+      public:
+        RegisterFeature(FeatureInfo *InfoPtr) {
+          FeatureClass *F = new FeatureClass(InfoPtr);
 
-        Feature *BaseF = dynamic_cast<Feature*>(F);
-        assert(BaseF != nullptr && "FeatureClass is not a Feature type.");
+          Feature *BaseF = dynamic_cast<Feature*>(F);
+          assert(BaseF != nullptr && "FeatureClass is not a Feature type.");
 
-        Feature::registerFeature(BaseF);
-      }
-  }; 
-
+          FeatureRegistry::registerFeature(BaseF);
+        }   
+    };
 }
 
 #endif

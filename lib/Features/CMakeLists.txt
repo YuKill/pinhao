@@ -1,5 +1,5 @@
 add_library (Features 
-  Feature.cpp
+  FeatureRegistry.cpp
   FeatureInfo.cpp
   Features.cpp)
 

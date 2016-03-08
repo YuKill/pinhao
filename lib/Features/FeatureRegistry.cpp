@@ -1,18 +1,19 @@
 /*-------------------------- PINHAO project --------------------------*/
 
 /**
- * @file Feature.cpp
+ * @file FeatureRegistry.cpp
  * @brief This file implements the functions and defines the static
- * members of the Feature class.
+ * members of the FeatureRegistry class.
  */
 
+#include "pinhao/Features/FeatureRegistry.h"
 #include "pinhao/Features/Feature.h"
 
 using namespace pinhao;
 
-std::map<std::string, std::unique_ptr<Feature>> Feature::RegisteredFeatures;
+std::map<std::string, std::unique_ptr<const Feature>> FeatureRegistry::RegisteredFeatures;
 
-bool Feature::isNameRegistered(std::string Name) {
+bool FeatureRegistry::isNameRegistered(std::string Name) {
   for (auto &RegFeature : RegisteredFeatures) {
     auto FeaturePointer = &(RegFeature.second);
 
@@ -24,7 +25,7 @@ bool Feature::isNameRegistered(std::string Name) {
   return false;
 }
 
-void Feature::registerFeature(Feature *F) {
+void FeatureRegistry::registerFeature(Feature *F) {
   assert(RegisteredFeatures.count(F->getName()) == 0 &&
       "Feature Name already registered.");
 
@@ -34,4 +35,10 @@ void Feature::registerFeature(Feature *F) {
   }
 
   RegisteredFeatures.insert(std::make_pair(F->getName(), std::unique_ptr<Feature>(F)));
+}
+
+std::unique_ptr<Feature> FeatureRegistry::get(std::string FeatureName) {
+  if (RegisteredFeatures.count(FeatureName) > 0) 
+    return RegisteredFeatures[FeatureName]->clone();
+  return std::unique_ptr<Feature>();
 }
