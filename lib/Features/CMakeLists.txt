@@ -4,4 +4,5 @@ add_library (Features
   Features.cpp)
 
 add_library (CFGStaticFeatures SHARED
-  CFGBasicBlockStaticFeatures.cpp)
+  CFGBasicBlockStaticFeatures.cpp
+  CFGFunctionStaticFeatures.cpp)
