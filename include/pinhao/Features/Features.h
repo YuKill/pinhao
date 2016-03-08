@@ -35,7 +35,7 @@ namespace pinhao {
         Feature(Info, FeatureKind::StringKind) {}
 
       /// @brief Gets the string feature.
-      std::string getStringFeature() {
+      const std::string& getStringFeature() {
         return TheFeature;
       }
 
@@ -78,7 +78,7 @@ namespace pinhao {
        * @param SubFeatureName The name of the desired sub-feature.
        * @return A pointer to the sub-feature value with const modifier.
        */
-      const ElemType* getSubFeature(std::string SubFeatureName);
+      const ElemType& getSubFeature(std::string SubFeatureName);
 
       /**
        * @brief Sets the sub-feature with name @a SubFeatureName to
@@ -140,7 +140,7 @@ namespace pinhao {
        * @param Key The key to get from.
        * @return A const pointer to the value of the sub-feature of the key.
        */
-      const ElemType* getSubFeatureOfKey(std::string SubFeatureName, KeyType Key);
+      const ElemType& getSubFeatureOfKey(std::string SubFeatureName, KeyType Key);
 
       virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override;
 

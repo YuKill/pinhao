@@ -47,11 +47,11 @@ std::unique_ptr<shogun::CFeatures> StringFeature::getShogunFeature() {
  * Class: VectorFeature < ElemType >
  */
 template <class ElemType>
-const ElemType* VectorFeature<ElemType>::getSubFeature(std::string SubFeatureName) {
+const ElemType& VectorFeature<ElemType>::getSubFeature(std::string SubFeatureName) {
   assert(hasSubFeature(SubFeatureName) && "VectorFeature has no such sub-feature.");
   CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
   uint64_t Index = CompInfo->getIndexOfSubFeature(SubFeatureName); 
-  return &TheFeature[Index];
+  return TheFeature[Index];
 }
 
 template <class ElemType>
@@ -101,15 +101,13 @@ void MapVectorFeature<KeyType, ElemType>::setSubFeatureOfKey(std::string SubFeat
 }
 
 template <class KeyType, class ElemType>
-const ElemType* MapVectorFeature<KeyType, ElemType>::getSubFeatureOfKey(std::string SubFeatureName, KeyType Key) {
+const ElemType& MapVectorFeature<KeyType, ElemType>::getSubFeatureOfKey(std::string SubFeatureName, KeyType Key) {
   assert(hasSubFeature(SubFeatureName) && "MapVectorFeature has no such sub-feature.");
 
-  if (TheFeature.count(Key) > 0) {
-    CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
-    uint64_t Index = CompInfo->getIndexOfSubFeature(SubFeatureName); 
-    return &(TheFeature[Key][Index]);
-  }
-  return nullptr;
+  initVectorOfKey(Key);
+  CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
+  uint64_t Index = CompInfo->getIndexOfSubFeature(SubFeatureName); 
+  return TheFeature[Key][Index];
 }
 
 template <class KeyType, class ElemType>
