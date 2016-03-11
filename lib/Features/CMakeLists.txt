@@ -1,9 +1,9 @@
-add_library (Features 
+add_library (Features OBJECT
+  Features.cpp
   FeatureRegistry.cpp
-  FeatureInfo.cpp
-  Features.cpp)
+  FeatureInfo.cpp)
 
-add_library (CFGStaticFeatures SHARED
+add_library (CFGStaticFeatures OBJECT
   CFGBasicBlockStaticFeatures.cpp
   CFGFunctionStaticFeatures.cpp
   CFGModuleStaticFeatures.cpp)
