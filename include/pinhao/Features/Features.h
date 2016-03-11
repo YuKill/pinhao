@@ -168,6 +168,39 @@ namespace pinhao {
    */
   template <class KeyType, class ElemType>
     class MapFeature : public MappedFeature<KeyType, ElemType> {
+      private:
+        /// @brief The vector container of the feature itself.
+        std::map<KeyType, ElemType> TheFeature;
+
+      public:
+        virtual ~MapFeature() {}
+        MapFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {}
+
+        void setValueOfKey(std::string FeatureName, ElemType Elem, KeyType Key) override {
+          assert(FeatureName == this->getName() && "FeatureName doesn't equal the name of this feature.");
+          TheFeature[Key] = Elem;
+        }
+
+        const ElemType& getValueOfKey(std::string FeatureName, KeyType Key) override {
+          assert(FeatureName == this->getName() && "FeatureName doesn't equal the name of this feature.");
+          return TheFeature[Key];
+        }
+
+        virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override {
+          if (!TheFeature.empty()) {
+            ElemType *Vector = new ElemType[TheFeature.size()]();
+
+            int I = 0;
+            for (auto &Pair : TheFeature) 
+              Vector[I++] = Pair.second;
+
+            shogun::SGMatrix<ElemType> *SGMatrix = new shogun::SGMatrix<ElemType>(Vector, 1, TheFeature.size());
+            shogun::CDenseFeatures<ElemType> *DFeatures = new shogun::CDenseFeatures<ElemType>(*SGMatrix);
+
+            return std::unique_ptr<shogun::CFeatures>(DFeatures);
+          }
+          return std::unique_ptr<shogun::CFeatures>(new shogun::CDenseFeatures<ElemType>());
+        }
     };
 
   /**
@@ -195,7 +228,7 @@ namespace pinhao {
         virtual ~MapVectorFeature() {}
 
         MapVectorFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {
-          assert(this->isComposite() && "VectorFeature must have CompositeFeatureInfo.");
+          assert(this->isComposite() && "MapVectorFeature must have CompositeFeatureInfo.");
         }
 
         /**
