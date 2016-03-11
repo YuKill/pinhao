@@ -5,6 +5,7 @@
  * @brief This file implements the @a CFGFunctionStaticFeatures class.
  */
 
+#include "pinhao/Features/FeatureRegistry.h"
 #include "pinhao/Features/Features.h"
 
 #include "llvm/IR/CFG.h"
@@ -26,8 +27,8 @@ namespace {
       void copyFeaturesFromFunction(void *Function); 
 
       void addNToSubFeature(std::string SubFeatureName, uint64_t N) {
-        uint64_t Total = getSubFeature(SubFeatureName) + N;
-        setSubFeature(SubFeatureName, Total);
+        uint64_t Total = getValueOf(SubFeatureName) + N;
+        setValueOf(SubFeatureName, Total);
       }
 
     public:
@@ -51,7 +52,7 @@ void CFGModuleStaticFeatures::copyFeaturesFromFunction(void *Function) {
     static_cast<MapVectorFeature<void*, uint64_t>*>(FunctionFeatures.get());
   for (auto &Pair : *FunctionFeatures) {
     std::string FeatureName = ModPrefix + Pair.first.substr(Prefix.length(), std::string::npos);
-    addNToSubFeature(FeatureName, FnFeatures->getSubFeatureOfKey(Pair.first, Function));
+    addNToSubFeature(FeatureName, FnFeatures->getValueOfKey(Pair.first, Function));
   }
 }
 

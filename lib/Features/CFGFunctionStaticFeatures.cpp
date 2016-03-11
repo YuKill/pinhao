@@ -27,8 +27,8 @@ namespace {
       /// @brief Gets the total of the sub-feature @a SubFeatureName of @a Key,
       /// and adds 1 to it.
       void addOneToSubFeatureOfKey(std::string SubFeatureName, void* Key) {
-        uint64_t Quantity = 1 + getSubFeatureOfKey(SubFeatureName, Key);
-        setSubFeatureOfKey(SubFeatureName, Quantity, Key);
+        uint64_t Quantity = 1 + getValueOfKey(SubFeatureName, Key);
+        setValueOfKey(SubFeatureName, Quantity, Key);
       }
 
       /// @brief Processes a basic block of a function.
@@ -65,10 +65,10 @@ void CFGFunctionStaticFeatures::copyFeaturesFromBB(void *BasicBlock, llvm::Funct
   for (auto &Pair : *BasicBlockFeatures) {
     std::string FeatureName = FunctionPrefix + Pair.first.substr(Prefix.length(), std::string::npos);
 
-    uint64_t BBTotal = BBFeatures->getSubFeatureOfKey(Pair.first, BasicBlock);
-    uint64_t Total = BBTotal + getSubFeatureOfKey(FeatureName, Function);
+    uint64_t BBTotal = BBFeatures->getValueOfKey(Pair.first, BasicBlock);
+    uint64_t Total = BBTotal + getValueOfKey(FeatureName, Function);
 
-    setSubFeatureOfKey(FeatureName, Total, Function);
+    setValueOfKey(FeatureName, Total, Function);
   }
 }
 
@@ -106,8 +106,8 @@ void CFGFunctionStaticFeatures::processBasicBlockOfFunction(llvm::BasicBlock &Ba
   else if (NumSuccessors > 2 && NumPredecessors > 2)
     addOneToSubFeatureOfKey("fn_g2pred_g2suc_bb", Function); 
 
-  int TotalEdges = NumSuccessors + getSubFeatureOfKey("fn_cfg_edges", Function);
-  setSubFeatureOfKey("fn_cfg_edges", TotalEdges, Function);
+  int TotalEdges = NumSuccessors + getValueOfKey("fn_cfg_edges", Function);
+  setValueOfKey("fn_cfg_edges", TotalEdges, Function);
 
   for (auto I = 0; I < NumSuccessors; ++I)
     if (isCriticalEdge(BasicBlock.getTerminator(), I, true))

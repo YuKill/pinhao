@@ -26,8 +26,8 @@ namespace {
       /// @brief Gets the total of the sub-feature @a SubFeatureName of @a Key,
       /// and adds 1 to it.
       void addOneToSubFeatureOfKey(std::string SubFeatureName, void* Key) {
-        uint64_t Quantity = 1 + getSubFeatureOfKey(SubFeatureName, Key);
-        setSubFeatureOfKey(SubFeatureName, Quantity, Key);
+        uint64_t Quantity = 1 + getValueOfKey(SubFeatureName, Key);
+        setValueOfKey(SubFeatureName, Quantity, Key);
       }
 
     public:
