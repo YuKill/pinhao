@@ -30,9 +30,8 @@ namespace pinhao {
     public:
       /// @brief The kind of the feature.
       enum FeatureKind {
-        StringKind,
-        VectorKind,
-        MapVectorKind
+        LinearKind, ///< Can get the value only by the name of the feature.
+        MappedKind  ///< Needs a key in order to get the value.
       };
 
     protected:
@@ -70,6 +69,9 @@ namespace pinhao {
 
       /// @brief Returns true if the feature has more than two sub-features.
       bool isComposite() const { return Info->isComposite(); }
+
+      bool isLinear() const { return Kind == LinearKind; }
+      bool isMapped() const { return Kind == MappedKind; }
 
       /// @brief Returns true if it is a static feature.
       bool isStaticFeature() const { return Info->isStaticFeature(); }
