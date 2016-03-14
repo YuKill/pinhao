@@ -35,21 +35,6 @@ namespace pinhao {
        */
       static std::map<std::string, std::unique_ptr<const Feature>> RegisteredFeatures;
 
-      /**
-       * @brief Checks whether a feature (or sub-feature) is already
-       * registered.
-       *
-       * @details
-       * It iterates each element in the @a RegisteredFeatures, checking also
-       * the sub-feature names. 
-       *
-       * @param Name The name of the feature or sub-feature.
-       *
-       * @return True if there already is a feature (or sub-feature) registered
-       * with the same name.
-       */
-      static bool isNameRegistered(std::string Name);
-
     public:
       /// @brief Register a feature in order to become available.
       static void registerFeature(Feature *F);
