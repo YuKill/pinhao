@@ -47,31 +47,31 @@ namespace {
 void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Instruction, 
     llvm::BasicBlock& BasicBlock) {
 
-  addOneToSubFeatureOfKey("bb_inst", &BasicBlock);
+  addOneToSubFeatureOfKey("nof_inst", &BasicBlock);
 
   switch(Instruction.getOpcode()) {
     /* Terminator Instructions */
     case llvm::Instruction::Br:
       {
         llvm::BranchInst *BI = llvm::dyn_cast<llvm::BranchInst>(&Instruction);
-        if (BI->isConditional()) addOneToSubFeatureOfKey("bb_condbr_inst", &BasicBlock);
-        else addOneToSubFeatureOfKey("bb_uncondbr_inst", &BasicBlock);
+        if (BI->isConditional()) addOneToSubFeatureOfKey("nof_condbr_inst", &BasicBlock);
+        else addOneToSubFeatureOfKey("nof_uncondbr_inst", &BasicBlock);
         break;
       }
 
     case llvm::Instruction::Switch:
-      addOneToSubFeatureOfKey("bb_switch_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_switch_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::IndirectBr:
-      addOneToSubFeatureOfKey("bb_indirectbr_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_indirectbr_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Ret:
     case llvm::Instruction::Invoke:
     case llvm::Instruction::Resume:
     case llvm::Instruction::Unreachable:
-      addOneToSubFeatureOfKey("bb_terminator_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_terminator_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Add:
@@ -81,8 +81,8 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
     case llvm::Instruction::SDiv:
     case llvm::Instruction::URem:
     case llvm::Instruction::SRem:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_binop_int_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_binop_int_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::FAdd:
@@ -90,8 +90,8 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
     case llvm::Instruction::FMul:
     case llvm::Instruction::FDiv:
     case llvm::Instruction::FRem:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_binop_flt_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_binop_flt_inst", &BasicBlock);
       break;
     case llvm::Instruction::Shl:
     case llvm::Instruction::LShr:
@@ -99,45 +99,45 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
     case llvm::Instruction::And:
     case llvm::Instruction::Or:
     case llvm::Instruction::Xor:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_binop_bitw_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_binop_bitw_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::ExtractElement:
     case llvm::Instruction::InsertElement:
     case llvm::Instruction::ShuffleVector:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_vector_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_vector_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::ExtractValue:
     case llvm::Instruction::InsertValue:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_aggregate_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_aggregate_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Load:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_load_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_load_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Store:
-      addOneToSubFeatureOfKey("bb_store_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_store_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Fence:
-      addOneToSubFeatureOfKey("bb_memory_adress_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_memory_adress_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Alloca:
     case llvm::Instruction::AtomicRMW:
     case llvm::Instruction::AtomicCmpXchg:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_memory_adress_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_memory_adress_inst", &BasicBlock);
       break;
     case llvm::Instruction::GetElementPtr:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_getelemptr_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_getelemptr_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Trunc:
@@ -149,16 +149,16 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
     case llvm::Instruction::IntToPtr:
     case llvm::Instruction::BitCast:
     case llvm::Instruction::AddrSpaceCast:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_conv_int_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_conv_int_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::FPTrunc:
     case llvm::Instruction::FPExt:
     case llvm::Instruction::FPToUI:
     case llvm::Instruction::FPToSI:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_conv_flt_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_conv_flt_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::ICmp:
@@ -166,33 +166,33 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
     case llvm::Instruction::Select:
     case llvm::Instruction::VAArg:
     case llvm::Instruction::LandingPad:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_other_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_other_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::PHI:
-      addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("bb_phinode_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+      addOneToSubFeatureOfKey("nof_phinode_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::Call:
       {
-        addOneToSubFeatureOfKey("bb_assign_inst", &BasicBlock);
-        addOneToSubFeatureOfKey("bb_call_inst", &BasicBlock);
+        addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
+        addOneToSubFeatureOfKey("nof_call_inst", &BasicBlock);
         llvm::CallInst *CI = llvm::dyn_cast<llvm::CallInst>(&Instruction);
         llvm::Type *Ty = CI->getFunctionType()->getReturnType();
 
         // arguments
-        if (CI->getNumArgOperands() > 4) addOneToSubFeatureOfKey("bb_callarg_g4_inst", &BasicBlock);
+        if (CI->getNumArgOperands() > 4) addOneToSubFeatureOfKey("nof_callarg_g4_inst", &BasicBlock);
         for (unsigned O = 0; O < CI->getNumArgOperands(); ++O)
           if (CI->getArgOperand(O)->getType()->isPointerTy())
-            addOneToSubFeatureOfKey("bb_callarg_ptr_inst", &BasicBlock);
+            addOneToSubFeatureOfKey("nof_callarg_ptr_inst", &BasicBlock);
 
         // return type
         if (Ty->isVoidTy()) break;
-        else if (Ty->isIntegerTy()) addOneToSubFeatureOfKey("bb_callret_int_inst", &BasicBlock);
-        else if (Ty->isFloatingPointTy()) addOneToSubFeatureOfKey("bb_callret_flt_inst", &BasicBlock);
-        else if (Ty->isPointerTy()) addOneToSubFeatureOfKey("bb_callret_ptr_inst", &BasicBlock);
+        else if (Ty->isIntegerTy()) addOneToSubFeatureOfKey("nof_callret_int_inst", &BasicBlock);
+        else if (Ty->isFloatingPointTy()) addOneToSubFeatureOfKey("nof_callret_flt_inst", &BasicBlock);
+        else if (Ty->isPointerTy()) addOneToSubFeatureOfKey("nof_callret_ptr_inst", &BasicBlock);
         break;
       }
 
@@ -215,31 +215,31 @@ std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
 }
 
 static std::map<std::string, std::string> SubFeatures = {
-  { "bb_inst", "Number of Instructions" },
-  { "bb_assign_inst", "Nof assignment instructions" },
-  { "bb_binop_int_inst", "Nof integer binop instructions" },
-  { "bb_binop_flt_inst", "Nof float binop instructions" },
-  { "bb_terminator_inst", "Nof terminator instructions" },
-  { "bb_binop_bitw_inst", "Nof bitwise binop instructions" },
-  { "bb_vector_inst", "Nof vector instructions" },
-  { "bb_memory_adress_inst", "Nof memory access and addressing instructions" },
-  { "bb_aggregate_inst", "Nof aggregate instructions" },
-  { "bb_conv_int_inst", "Nof integer conversion instructions" },
-  { "bb_conv_flt_inst", "Nof float conversion instructions" },
-  { "bb_call_inst", "Nof call instructions" },
-  { "bb_callarg_ptr_inst", "Nof call instructions that has pointers as arguments" },
-  { "bb_callarg_g4_inst", "Nof call instructions that have more than 4 arguments" },
-  { "bb_callret_int_inst", "Nof call instructions that return an integer" },
-  { "bb_callret_flt_inst", "Nof call instructions that return a float" },
-  { "bb_callret_ptr_inst", "Nof call instructions that return a pointer" },
-  { "bb_switch_inst", "Nof switch instructions" },
-  { "bb_indirectbr_inst", "Nof indirect branches instructions" },
-  { "bb_condbr_inst", "Nof conditional branches instructions" },
-  { "bb_uncondbr_inst", "Nof unconditional branches instructions" },
-  { "bb_load_inst", "Nof load instructions" },
-  { "bb_store_inst", "Nof store instructions" },
-  { "bb_getelemptr_inst", "Nof GetElemPtr instructions" },
-  { "bb_phinode_inst", "Nof PHI nodes" }
+  { "nof_inst", "Number of Instructions" },
+  { "nof_assign_inst", "Nof assignment instructions" },
+  { "nof_binop_int_inst", "Nof integer binop instructions" },
+  { "nof_binop_flt_inst", "Nof float binop instructions" },
+  { "nof_terminator_inst", "Nof terminator instructions" },
+  { "nof_binop_bitw_inst", "Nof bitwise binop instructions" },
+  { "nof_vector_inst", "Nof vector instructions" },
+  { "nof_memory_adress_inst", "Nof memory access and addressing instructions" },
+  { "nof_aggregate_inst", "Nof aggregate instructions" },
+  { "nof_conv_int_inst", "Nof integer conversion instructions" },
+  { "nof_conv_flt_inst", "Nof float conversion instructions" },
+  { "nof_call_inst", "Nof call instructions" },
+  { "nof_callarg_ptr_inst", "Nof call instructions that has pointers as arguments" },
+  { "nof_callarg_g4_inst", "Nof call instructions that have more than 4 arguments" },
+  { "nof_callret_int_inst", "Nof call instructions that return an integer" },
+  { "nof_callret_flt_inst", "Nof call instructions that return a float" },
+  { "nof_callret_ptr_inst", "Nof call instructions that return a pointer" },
+  { "nof_switch_inst", "Nof switch instructions" },
+  { "nof_indirectbr_inst", "Nof indirect branches instructions" },
+  { "nof_condbr_inst", "Nof conditional branches instructions" },
+  { "nof_uncondbr_inst", "Nof unconditional branches instructions" },
+  { "nof_load_inst", "Nof load instructions" },
+  { "nof_store_inst", "Nof store instructions" },
+  { "nof_getelemptr_inst", "Nof GetElemPtr instructions" },
+  { "nof_phinode_inst", "Nof PHI nodes" }
 };
 
 static RegisterFeature<CFGBasicBlockStaticFeatures> 
