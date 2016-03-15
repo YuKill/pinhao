@@ -55,6 +55,9 @@ void CFGModuleStaticFeatures::copyFeaturesFromFunction(void *Function) {
 }
 
 void CFGModuleStaticFeatures::processModule(llvm::Module &Module) {
+  if (this->isProcessed()) return;
+  Processed = true;
+
   if (!FunctionFeatures.get()) {
     FunctionFeatures.reset(FeatureRegistry::get("cfg_fn_static").release());
     FunctionFeatures->processModule(Module);

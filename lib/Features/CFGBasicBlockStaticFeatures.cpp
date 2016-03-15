@@ -201,6 +201,9 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
 }
 
 void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
+  if (this->isProcessed()) return;
+  Processed = true;
+
   for (auto &Function : Module) {
     for (auto &BasicBlock : Function) {
       for (auto &Instruction : BasicBlock)

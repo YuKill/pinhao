@@ -114,6 +114,9 @@ void CFGFunctionStaticFeatures::processBasicBlockOfFunction(llvm::BasicBlock &Ba
 }
 
 void CFGFunctionStaticFeatures::processModule(llvm::Module &Module) {
+  if (this->isProcessed()) return;
+  Processed = true;
+
   if (!BasicBlockFeatures.get()) {
     BasicBlockFeatures.reset(FeatureRegistry::get("cfg_bb_static").release());
     BasicBlockFeatures->processModule(Module);
