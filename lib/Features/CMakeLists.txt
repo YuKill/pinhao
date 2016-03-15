@@ -1,7 +1,8 @@
 add_library (Features OBJECT
   Features.cpp
   FeatureRegistry.cpp
-  FeatureInfo.cpp)
+  FeatureInfo.cpp
+  FeatureSet.cpp)
 
 add_library (CFGStaticFeatures OBJECT
   CFGBasicBlockStaticFeatures.cpp
