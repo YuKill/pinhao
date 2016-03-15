@@ -36,6 +36,7 @@ namespace pinhao {
 
     protected:
       std::shared_ptr<FeatureInfo> Info;
+      bool Processed;
 
     private:
       FeatureKind Kind;
@@ -45,7 +46,7 @@ namespace pinhao {
 
       /// @brief Constructs a @a Feature with the information @a FeatInfo.
       Feature(FeatureInfo* InfoPtr, FeatureKind FKind) : 
-        Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Kind(FKind) {}
+        Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Kind(FKind) { Processed = false; }
 
       /// @brief Gets the name of the feature.
       std::string getName() { return Info->getName(); }
@@ -69,6 +70,9 @@ namespace pinhao {
 
       /// @brief Returns true if the feature has more than two sub-features.
       bool isComposite() const { return Info->isComposite(); }
+
+      /// @brief Returns true if the feature has already been processed.
+      bool isProcessed() const { return Processed; }
 
       bool isLinear() const { return Kind == LinearKind; }
       bool isMapped() const { return Kind == MappedKind; }
