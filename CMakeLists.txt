@@ -11,7 +11,7 @@ execute_process (COMMAND llvm-config --cxxflags --ldflags
 
 string (REPLACE "\n" " " LLVM_CONFIG "${LLVM_CONFIG_N}")
 
-set (CMAKE_CXX_FLAGS "-O0 -g -Wall ${LLVM_CONFIG}")
+set (CMAKE_CXX_FLAGS "-O0 -g -Wall ${LLVM_CONFIG} -Wl,-rpath,/usr/local/lib")
 
 add_subdirectory (lib)
 
