@@ -15,9 +15,20 @@ add_executable(RunCFGStaticFeaturesTest
   $<TARGET_OBJECTS:CFGStaticFeatures>)
 add_test(CFGStaticFeaturesTest RunCFGStaticFeaturesTest)
 
+add_executable(RunFeatureSetTest
+  MainTest.cpp
+  FeatureSetTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:CFGStaticFeatures>)
+add_test(FeatureSetTest RunFeatureSetTest)
+
 target_link_libraries(RunFeatureInfoTest
   gtest gtest_main shogun pthread)
 target_link_libraries(RunCFGStaticFeaturesTest
+  LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main shogun 
+  rt dl tinfo pthread z m)
+target_link_libraries(RunFeatureSetTest
   LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main shogun 
   rt dl tinfo pthread z m)
