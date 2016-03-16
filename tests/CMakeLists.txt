@@ -23,7 +23,9 @@ add_executable(RunFeatureSetTest
 add_test(FeatureSetTest RunFeatureSetTest)
 
 target_link_libraries(RunFeatureInfoTest
-  gtest gtest_main shogun pthread)
+  LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main shogun 
+  rt dl tinfo pthread z m)
 target_link_libraries(RunCFGStaticFeaturesTest
   LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main shogun 
