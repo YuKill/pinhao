@@ -80,6 +80,33 @@ namespace pinhao {
         FeatureType getSubfeatureOfKey(std::pair<std::string, std::string> FeaturePair, KeyType Key) {
           getFeature<FeatureType, KeyType>(FeaturePair.first, FeaturePair.second, Key);
         }
+
+      friend class FeatureSetWrapperPass;
+
+  };
+
+  /**
+   * @brief A @a llvm::ModulePass for the @a FeatureSet.
+   *
+   * @details
+   * It executes the member function @a processModule for all enabled features.
+   */
+  class FeatureSetWrapperPass : public llvm::ModulePass {
+    private:
+      std::shared_ptr<FeatureSet> Set;
+
+    public:
+      static char ID;
+      FeatureSetWrapperPass(std::shared_ptr<FeatureSet> *Set = nullptr) : llvm::ModulePass(ID) {
+        if (Set) this->Set = *Set;
+      }
+
+      void getAnalysisUsage(llvm::AnalysisUsage &Info) const override {
+        Info.setPreservesAll();
+      }
+
+      bool runOnModule(llvm::Module &Module) override;
+
   };
 
 }
