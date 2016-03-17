@@ -11,9 +11,6 @@
 
 #include "pinhao/Features/Feature.h"
 
-#include "shogun/lib/SGMatrix.h"
-#include "shogun/features/DenseFeatures.h"
-
 namespace pinhao {
 
   /**
@@ -62,7 +59,6 @@ namespace pinhao {
    * @brief Implements a string version of a linear feature.
    *
    * @details
-   * It also implements the @a getShogunFeature function. 
    * As it is just a string, it can have this implementation. Classes 
    * that extend this one can override the implementation.
    */
@@ -76,7 +72,7 @@ namespace pinhao {
       StringFeature(FeatureInfo *Info) : LinearFeature<std::string>(Info) {}
 
       /// @brief Sets the string feature to @a New.
-      void setValueOf(std::string FeatureName, std::string Value) {
+      void setValueOf(std::string FeatureName, std::string Value) override {
         assert(FeatureName == this->Info->getName() && "FeatureName doesn't equal the name of this feature.");
         TheFeature = Value;
       }
@@ -88,7 +84,7 @@ namespace pinhao {
         return TheFeature;
       }
 
-      virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override;
+      virtual void appendYaml(YAML::Emitter &Emitter) override;
 
   };
 
@@ -121,7 +117,7 @@ namespace pinhao {
          * @param FeatureName The name of the desired sub-feature.
          * @param Elem The element that will replace the old element.
          */
-        void setValueOf(std::string FeatureName, ElemType Elem) {
+        void setValueOf(std::string FeatureName, ElemType Elem) override {
           assert(this->hasSubFeature(FeatureName) && "VectorFeature has no such sub-feature.");
           CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
           uint64_t Index = CompInfo->getIndexOfSubFeature(FeatureName); 
@@ -135,28 +131,28 @@ namespace pinhao {
          * @param FeatureName The name of the desired sub-feature.
          * @return A pointer to the sub-feature value with const modifier.
          */
-        const ElemType& getValueOf(std::string FeatureName) {
+        const ElemType& getValueOf(std::string FeatureName) override {
           assert(this->hasSubFeature(FeatureName) && "VectorFeature has no such sub-feature.");
           CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
           uint64_t Index = CompInfo->getIndexOfSubFeature(FeatureName); 
           return TheFeature[Index];
         }
 
-        virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override {
-          if (!TheFeature.empty()) {
-            ElemType *Vector = new ElemType[TheFeature.size()]();
-            for (int I = 0, E = TheFeature.size(); I < E; ++I)
-              Vector[I] = TheFeature[I];
+        virtual void appendYaml(YAML::Emitter &Emitter) override {
+          Emitter << YAML::BeginMap;
+          Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
-            shogun::SGMatrix<ElemType> *SGMatrix = new shogun::SGMatrix<ElemType>(Vector, 1, TheFeature.size());
-            shogun::CDenseFeatures<ElemType> *DFeatures = new shogun::CDenseFeatures<ElemType>(*SGMatrix);
-
-            return std::unique_ptr<shogun::CFeatures>(DFeatures);
+          Emitter << YAML::Key << "features:";
+          Emitter << YAML::Value << YAML::BeginMap;
+          for (auto &InfoPair : *(this)) {
+            Emitter << YAML::Key << InfoPair.first;
+            Emitter << YAML::Value << getValueOf(InfoPair.first);
           }
-          return std::unique_ptr<shogun::CFeatures>(new shogun::CDenseFeatures<ElemType>());
-        }
+          Emitter << YAML::EndMap;
 
-    };
+          Emitter << YAML::EndMap;
+        }
+  };
 
   /**
    * @brief This class maps a @a KeyType to a @a ElemType feature.
@@ -186,21 +182,21 @@ namespace pinhao {
           return TheFeature[Key];
         }
 
-        virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override {
-          if (!TheFeature.empty()) {
-            ElemType *Vector = new ElemType[TheFeature.size()]();
+        virtual void appendYaml(YAML::Emitter &Emitter) override {
+          Emitter << YAML::BeginMap;
+          Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
-            int I = 0;
-            for (auto &Pair : TheFeature) 
-              Vector[I++] = Pair.second;
-
-            shogun::SGMatrix<ElemType> *SGMatrix = new shogun::SGMatrix<ElemType>(Vector, 1, TheFeature.size());
-            shogun::CDenseFeatures<ElemType> *DFeatures = new shogun::CDenseFeatures<ElemType>(*SGMatrix);
-
-            return std::unique_ptr<shogun::CFeatures>(DFeatures);
+          Emitter << YAML::Key << "values";
+          Emitter << YAML::Value << YAML::BeginMap;
+          for (auto &Pair : TheFeature) {
+            Emitter << YAML::Key << Pair.first;
+            Emitter << YAML::Value << Pair.second;
           }
-          return std::unique_ptr<shogun::CFeatures>(new shogun::CDenseFeatures<ElemType>());
+          Emitter << YAML::EndMap;
+          
+          Emitter << YAML::EndMap;
         }
+
     };
 
   /**
@@ -269,26 +265,24 @@ namespace pinhao {
           return TheFeature[Key][Index];
         }
 
-        virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() override {
-          if (!TheFeature.empty()) {
-            uint64_t Rows = TheFeature.size(),
-                     Cols = (TheFeature.begin()->second).size(),
-                     I    = 0;
-            ElemType *Matrix = new ElemType[Rows * Cols]();
-            for (auto &MapPair : TheFeature) 
-              for (auto &Elem : MapPair.second) {
-                uint64_t Line = I / Cols,
-                         Col  = I % Cols;
-                Matrix[(Line * Cols) + Col] = Elem;
-                ++I;
-              }
+        virtual void appendYaml(YAML::Emitter &Emitter) override {
+          Emitter << YAML::BeginMap;
+          Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
-            shogun::SGMatrix<ElemType> *SGMatrix = new shogun::SGMatrix<ElemType>(Matrix, Rows, Cols);
-            shogun::CDenseFeatures<ElemType> *DFeatures = new shogun::CDenseFeatures<ElemType>(*SGMatrix);
-
-            return std::unique_ptr<shogun::CFeatures>(DFeatures);
+          Emitter << YAML::Key << "values";
+          Emitter << YAML::Value << YAML::BeginMap;
+          for (auto &ValuePair : TheFeature) {
+            Emitter << YAML::Key << ValuePair.first;
+            Emitter << YAML::Value << YAML::BeginMap;
+            for (auto &InfoPair : *(this)) {
+              Emitter << YAML::Key << InfoPair.first;
+              Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
+            }
+            Emitter << YAML::EndMap;
           }
-          return std::unique_ptr<shogun::CFeatures>(new shogun::CDenseFeatures<ElemType>());
+          Emitter << YAML::EndMap;
+
+          Emitter << YAML::EndMap;
         }
 
     };

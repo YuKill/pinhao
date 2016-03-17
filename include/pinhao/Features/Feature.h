@@ -12,10 +12,12 @@
 #include "pinhao/Features/FeatureRegistry.h"
 
 #include "llvm/IR/Module.h"
-#include "shogun/features/Features.h"
+
+#include "yaml-cpp/yaml.h"
 
 #include <map>
 #include <cassert>
+#include <iostream>
 
 namespace pinhao {
 
@@ -98,17 +100,21 @@ namespace pinhao {
       }
 
       /**
-       * @brief Transforms the data stored in this class to a shogun::CFeature. 
+       * @brief Prints its information into a @a std::ostream object in the format yaml.
        *
-       * @details 
-       * It should be used whenever the machine learning algorithm used is
-       * in the shogun toolbox.
-       *
-       * @return A unique pointer to the equivalent shogun feature.
+       * @param Out The output stream that the function shall print.
        */
-      virtual std::unique_ptr<shogun::CFeatures> getShogunFeature() {
-        assert("Feature doesn't implements 'getShogunFeature' function." && false);
+      void printYaml(std::ostream &Out = std::cout) {
+        YAML::Emitter Emitter(Out); 
+        appendYaml(Emitter);
       }
+
+      /**
+       * @brief Appends to a @a YAML::Emitter this feature data.
+       *
+       * @param Emitter The place where the data information will be appended.
+       */
+      virtual void appendYaml(YAML::Emitter &Emitter) = 0;
 
       /**
        * @brief Gets the necessary information from a llvm::Module.

@@ -9,33 +9,18 @@
 
 #include "pinhao/Features/Features.h"
 
-#include "shogun/lib/SGString.h"
-#include "shogun/lib/SGStringList.h"
-#include "shogun/features/StringFeatures.h"
-
-
 using namespace pinhao;
 
 /*
  * ----------------------------------=
  * Class: StringFeature
  */
-std::unique_ptr<shogun::CFeatures> StringFeature::getShogunFeature() {
-  unsigned Length = TheFeature.length();
-  if (Length > 0) {
-    char *Buffer = new char[Length + 1];
-    TheFeature.copy(Buffer, Length);
-    Buffer[Length] = '\0';
+void StringFeature::appendYaml(YAML::Emitter &Emitter) {
+  Emitter << YAML::BeginMap;
+  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
-    shogun::SGString<char> *SGString = 
-      new shogun::SGString<char>(Buffer, Length, true);
-    shogun::SGStringList<char> *SGStringList = 
-      new shogun::SGStringList<char>(SGString, 1, Length + 1);
-    shogun::CStringFeatures<char> *StrFeatures = 
-      new shogun::CStringFeatures<char>(*SGStringList, shogun::EAlphabet::UNKNOWN);
+  Emitter << YAML::Key << "values";
+  Emitter << YAML::Value << TheFeature;
 
-    return std::unique_ptr<shogun::CFeatures>(StrFeatures);
-  }
-
-  return std::unique_ptr<shogun::CFeatures>(new shogun::CStringFeatures<char>(shogun::EAlphabet::UNKNOWN));
+  Emitter << YAML::EndMap;
 }
