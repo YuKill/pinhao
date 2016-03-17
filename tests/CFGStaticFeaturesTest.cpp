@@ -12,5 +12,9 @@ TEST(CFGStaticFeaturesTest, GetFeatures) {
   ASSERT_NE(FunctionFeatures.get(), nullptr);
   std::unique_ptr<Feature> BasicBlockFeatures = FeatureRegistry::get("cfg_bb_static");
   ASSERT_NE(BasicBlockFeatures.get(), nullptr);
+
+  ModuleFeatures->printYaml();
+  FunctionFeatures->printYaml();
+  BasicBlockFeatures->printYaml();
 }
 
