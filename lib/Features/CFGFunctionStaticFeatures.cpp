@@ -21,30 +21,30 @@ namespace {
   /**
    * @brief This class collects some static features for each Function in the Module.
    */
-  class CFGFunctionStaticFeatures : public MapVectorFeature<void*, uint64_t> {
+  class CFGFunctionStaticFeatures : public MapVectorFeature<std::string, uint64_t> {
     private:
 
       /// @brief Gets the total of the sub-feature @a SubFeatureName of @a Key,
       /// and adds 1 to it.
-      void addOneToSubFeatureOfKey(std::string SubFeatureName, void* Key) {
+      void addOneToSubFeatureOfKey(std::string SubFeatureName, std::string Key) {
         uint64_t Quantity = 1 + getValueOfKey(SubFeatureName, Key);
         setValueOfKey(SubFeatureName, Quantity, Key);
       }
 
       /// @brief Processes a basic block of a function.
-      void processBasicBlockOfFunction(llvm::BasicBlock &BasicBlock, llvm::Function *Function);
+      void processBasicBlockOfFunction(llvm::BasicBlock &BasicBlock, std::string FunctionName);
 
       /// @brief Gets the features collected by the @a CFGBasicBlockStaticFeatures class, and
       /// sums into the function.
-      void copyFeaturesFromBB(void *BasicBlock, llvm::Function *Function);
+      void copyFeaturesFromBB(void *BasicBlock, std::string FunctionName);
 
       std::shared_ptr<Feature> BasicBlockFeatures;
-      std::map<std::string, void*> FunctionPointer;
+      uint64_t NamelessCount;
 
     public:
       ~CFGFunctionStaticFeatures() {}
       CFGFunctionStaticFeatures(FeatureInfo *Info, std::shared_ptr<Feature> *F = nullptr) : 
-        MapVectorFeature<void*, uint64_t>(Info) {
+        MapVectorFeature<std::string, uint64_t>(Info) {
           if (F) BasicBlockFeatures = *F; 
         }
 
@@ -57,59 +57,59 @@ namespace {
 
 }
 
-void CFGFunctionStaticFeatures::copyFeaturesFromBB(void *BasicBlock, llvm::Function *Function) {
+void CFGFunctionStaticFeatures::copyFeaturesFromBB(void *BasicBlock, std::string FunctionName) {
   MapVectorFeature<void*, uint64_t> *BBFeatures =
     static_cast<MapVectorFeature<void*, uint64_t>*>(BasicBlockFeatures.get());
   for (auto &Pair : *BasicBlockFeatures) {
     std::string FeatureName = Pair.first;
 
     uint64_t BBTotal = BBFeatures->getValueOfKey(FeatureName, BasicBlock);
-    uint64_t Total = BBTotal + getValueOfKey(FeatureName, Function);
+    uint64_t Total = BBTotal + getValueOfKey(FeatureName, FunctionName);
 
-    setValueOfKey(FeatureName, Total, Function);
+    setValueOfKey(FeatureName, Total, FunctionName);
   }
 }
 
-void CFGFunctionStaticFeatures::processBasicBlockOfFunction(llvm::BasicBlock &BasicBlock, llvm::Function *Function) {
+void CFGFunctionStaticFeatures::processBasicBlockOfFunction(llvm::BasicBlock &BasicBlock, std::string FunctionName) {
   int NumPredecessors = 0, NumSuccessors = 0;
 
   NumSuccessors = BasicBlock.getTerminator()->getNumSuccessors();
   for (auto I = llvm::pred_begin(&BasicBlock), E = llvm::pred_end(&BasicBlock); I != E; ++I)
     ++NumPredecessors;
 
-  addOneToSubFeatureOfKey("nof_bb", Function); 
+  addOneToSubFeatureOfKey("nof_bb", FunctionName); 
 
   switch(NumPredecessors) {
     case 0: break;
-    case 1: addOneToSubFeatureOfKey("nof_1pred_bb", Function); 
-    case 2: addOneToSubFeatureOfKey("nof_2pred_bb", Function); 
-    default: addOneToSubFeatureOfKey("nof_g2pred_bb", Function); 
+    case 1: addOneToSubFeatureOfKey("nof_1pred_bb", FunctionName); 
+    case 2: addOneToSubFeatureOfKey("nof_2pred_bb", FunctionName); 
+    default: addOneToSubFeatureOfKey("nof_g2pred_bb", FunctionName); 
   }
 
   switch(NumSuccessors) {
     case 0: break;
-    case 1: addOneToSubFeatureOfKey("nof_1suc_bb", Function); 
-    case 2: addOneToSubFeatureOfKey("nof_2suc_bb", Function); 
-    default: addOneToSubFeatureOfKey("nof_g2suc_bb", Function); 
+    case 1: addOneToSubFeatureOfKey("nof_1suc_bb", FunctionName); 
+    case 2: addOneToSubFeatureOfKey("nof_2suc_bb", FunctionName); 
+    default: addOneToSubFeatureOfKey("nof_g2suc_bb", FunctionName); 
   }
 
   if (NumSuccessors == 1 && NumPredecessors == 1)
-    addOneToSubFeatureOfKey("nof_1pred_1suc_bb", Function); 
+    addOneToSubFeatureOfKey("nof_1pred_1suc_bb", FunctionName); 
   else if (NumSuccessors == 1 && NumPredecessors == 2)
-    addOneToSubFeatureOfKey("nof_1pred_2suc_bb", Function); 
+    addOneToSubFeatureOfKey("nof_1pred_2suc_bb", FunctionName); 
   else if (NumSuccessors == 2 && NumPredecessors == 1)
-    addOneToSubFeatureOfKey("nof_2pred_1suc_bb", Function); 
+    addOneToSubFeatureOfKey("nof_2pred_1suc_bb", FunctionName); 
   else if (NumSuccessors == 2 && NumPredecessors == 2)
-    addOneToSubFeatureOfKey("nof_2pred_2suc_bb", Function); 
+    addOneToSubFeatureOfKey("nof_2pred_2suc_bb", FunctionName); 
   else if (NumSuccessors > 2 && NumPredecessors > 2)
-    addOneToSubFeatureOfKey("nof_g2pred_g2suc_bb", Function); 
+    addOneToSubFeatureOfKey("nof_g2pred_g2suc_bb", FunctionName); 
 
-  int TotalEdges = NumSuccessors + getValueOfKey("nof_cfg_edges", Function);
-  setValueOfKey("nof_cfg_edges", TotalEdges, Function);
+  int TotalEdges = NumSuccessors + getValueOfKey("nof_cfg_edges", FunctionName);
+  setValueOfKey("nof_cfg_edges", TotalEdges, FunctionName);
 
   for (auto I = 0; I < NumSuccessors; ++I)
     if (isCriticalEdge(BasicBlock.getTerminator(), I, true))
-      addOneToSubFeatureOfKey("nof_cfg_crit_edges", Function); 
+      addOneToSubFeatureOfKey("nof_cfg_crit_edges", FunctionName); 
 
 }
 
@@ -117,15 +117,18 @@ void CFGFunctionStaticFeatures::processModule(llvm::Module &Module) {
   if (this->isProcessed()) return;
   Processed = true;
 
+  NamelessCount = 0;
   if (!BasicBlockFeatures.get()) {
     BasicBlockFeatures.reset(FeatureRegistry::get("cfg_bb_static").release());
     BasicBlockFeatures->processModule(Module);
   }
   for (auto &Function : Module) {
+    std::string FunctionName = Function.getName();
+    if (FunctionName == "") 
+      FunctionName = "Nameless" + std::to_string(NamelessCount++);
     for (auto &BasicBlock : Function) {
-      FunctionPointer[Function.getName()] = (void*) &Function;
-      copyFeaturesFromBB(&BasicBlock, &Function); 
-      processBasicBlockOfFunction(BasicBlock, &Function);
+      copyFeaturesFromBB(&BasicBlock, FunctionName); 
+      processBasicBlockOfFunction(BasicBlock, FunctionName);
     } 
   }
 }
