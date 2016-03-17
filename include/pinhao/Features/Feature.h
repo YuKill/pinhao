@@ -107,6 +107,7 @@ namespace pinhao {
       void printYaml(std::ostream &Out = std::cout) {
         YAML::Emitter Emitter(Out); 
         appendYaml(Emitter);
+        Out << std::endl;
       }
 
       /**

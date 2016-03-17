@@ -142,11 +142,12 @@ namespace pinhao {
           Emitter << YAML::BeginMap;
           Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
-          Emitter << YAML::Key << "features:";
+          Emitter << YAML::Key << "features";
           Emitter << YAML::Value << YAML::BeginMap;
           for (auto &InfoPair : *(this)) {
             Emitter << YAML::Key << InfoPair.first;
             Emitter << YAML::Value << getValueOf(InfoPair.first);
+            Emitter << YAML::Comment(InfoPair.second);
           }
           Emitter << YAML::EndMap;
 
@@ -185,6 +186,7 @@ namespace pinhao {
         virtual void appendYaml(YAML::Emitter &Emitter) override {
           Emitter << YAML::BeginMap;
           Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
+          Emitter << YAML::Comment(this->getDescription());
 
           Emitter << YAML::Key << "values";
           Emitter << YAML::Value << YAML::BeginMap;
@@ -277,6 +279,7 @@ namespace pinhao {
             for (auto &InfoPair : *(this)) {
               Emitter << YAML::Key << InfoPair.first;
               Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
+              Emitter << YAML::Comment(InfoPair.second);
             }
             Emitter << YAML::EndMap;
           }
