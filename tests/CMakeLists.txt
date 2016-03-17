@@ -24,13 +24,13 @@ add_test(FeatureSetTest RunFeatureSetTest)
 
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
-  gtest gtest_main shogun 
+  gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
 target_link_libraries(RunCFGStaticFeaturesTest
   LLVMAnalysis LLVMCore LLVMSupport
-  gtest gtest_main shogun 
+  gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
 target_link_libraries(RunFeatureSetTest
   LLVMAnalysis LLVMCore LLVMSupport
-  gtest gtest_main shogun 
+  gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
