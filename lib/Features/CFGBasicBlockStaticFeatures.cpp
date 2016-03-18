@@ -30,6 +30,9 @@ namespace {
         setValueOfKey(SubFeatureName, Quantity, Key);
       }
 
+      /// @brief Holds which basic block each void pointer represents.
+      std::map<void*, std::pair<std::string, uint64_t>> Order; 
+
     public:
       ~CFGBasicBlockStaticFeatures() {}
       CFGBasicBlockStaticFeatures(FeatureInfo *Info) : 
@@ -40,6 +43,8 @@ namespace {
       /// @brief This function iterates over all basic blocks and collects
       /// information about each instruction.
       void processModule(llvm::Module &Module) override;
+
+      void appendYaml(YAML::Emitter &Emitter) override;
   };
 
 }
@@ -204,8 +209,13 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
   if (this->isProcessed()) return;
   Processed = true;
 
+  uint64_t NamelessCount = 0;
   for (auto &Function : Module) {
+    uint64_t Count = 0;
+    std::string FunctionName = Function.getName();
+    if (FunctionName == "") FunctionName = "Nameless" + std::to_string(NamelessCount++); 
     for (auto &BasicBlock : Function) {
+      Order.insert(std::make_pair(&BasicBlock, std::make_pair(FunctionName, Count++)));
       for (auto &Instruction : BasicBlock)
         processInstructionOfBB(Instruction, BasicBlock); 
     }
@@ -215,6 +225,35 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
 std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
   Feature *Clone = new CFGBasicBlockStaticFeatures(*this); 
   return std::unique_ptr<Feature>(Clone);
+}
+
+void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter) {
+  Emitter << YAML::BeginMap;
+  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
+
+  Emitter << YAML::Key << "values";
+  Emitter << YAML::Value << YAML::BeginMap;
+  for (auto &ValuePair : TheFeature) {
+    Emitter << YAML::Key << ValuePair.first;
+    Emitter << YAML::Value << YAML::BeginMap;
+    for (auto &InfoPair : *(this)) {
+      Emitter << YAML::Key << InfoPair.first;
+      Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
+      Emitter << YAML::Comment(InfoPair.second);
+    }
+    Emitter << YAML::EndMap;
+  }
+  Emitter << YAML::EndMap;
+
+  Emitter << YAML::Key << "index";
+  Emitter << YAML::Value << YAML::BeginMap;
+  for (auto &OrderPair : Order) {
+    Emitter << YAML::Key << OrderPair.first;
+    Emitter << YAML::Value << YAML::BeginSeq << OrderPair.second.first << OrderPair.second.second << YAML::EndSeq;
+  }
+  Emitter << YAML::EndMap;
+
+  Emitter << YAML::EndMap;
 }
 
 static std::map<std::string, std::string> SubFeatures = {
