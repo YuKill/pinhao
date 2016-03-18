@@ -47,6 +47,9 @@ namespace pinhao {
         virtual ~MappedFeature() {}
         MappedFeature(FeatureInfo *Info) : Feature(Info, MappedKind) {}
 
+        /// @brief Returns true if the key @a Key is mapped to some value.
+        virtual bool hasKey(const KeyType &Key) = 0;
+
         /// @brief Sets the value of the feature @a FeatureName of the key @a Key to @a Value.
         virtual void setValueOfKey(std::string FeatureName, ValueType Value, KeyType Key) = 0;
 
@@ -174,6 +177,10 @@ namespace pinhao {
         virtual ~MapFeature() {}
         MapFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {}
 
+        virtual bool hasKey(const KeyType &Key) override {
+          return TheFeature.count(Key) > 0;
+        }
+
         void setValueOfKey(std::string FeatureName, ElemType Elem, KeyType Key) override {
           assert(FeatureName == this->getName() && "FeatureName doesn't equal the name of this feature.");
           TheFeature[Key] = Elem;
@@ -231,6 +238,10 @@ namespace pinhao {
           assert(this->isComposite() && "MapVectorFeature must have CompositeFeatureInfo.");
         }
 
+        virtual bool hasKey(const KeyType &Key) override {
+          return TheFeature.count(Key) > 0;
+        }
+      
         /**
          * @brief Sets the value of the sub-feature, with name @a FeatureName, of key @a Key,
          * to value @a Elem.
