@@ -63,7 +63,7 @@ namespace pinhao {
    * that extend this one can override the implementation.
    */
   class StringFeature : public LinearFeature<std::string> {
-    private:
+    protected:
       /// @brief The string feature "container".
       std::string TheFeature;
 
@@ -97,7 +97,7 @@ namespace pinhao {
    */
   template <class ElemType>
     class VectorFeature : public LinearFeature<ElemType> {
-      private:
+      protected:
         /// @brief The vector container of the feature itself.
         std::vector<ElemType> TheFeature;
 
@@ -165,7 +165,7 @@ namespace pinhao {
    */
   template <class KeyType, class ElemType>
     class MapFeature : public MappedFeature<KeyType, ElemType> {
-      private:
+      protected:
         /// @brief The vector container of the feature itself.
         std::map<KeyType, ElemType> TheFeature;
 
@@ -211,10 +211,11 @@ namespace pinhao {
    */
   template <class KeyType, class ElemType>
     class MapVectorFeature : public MappedFeature<KeyType, ElemType> {
-      private:
+      protected:
         /// @brief The vector container of the feature itself.
         std::map<KeyType, std::vector<ElemType>> TheFeature;
 
+      private:
         /// @brief Initializes the vector of the key at the map @a TheFeature.
         void initVectorOfKey(KeyType Key) {
           if (TheFeature.count(Key) > 0) return;
