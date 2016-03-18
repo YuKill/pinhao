@@ -172,7 +172,6 @@ void CFGBasicBlockStaticFeatures::processInstructionOfBB(llvm::Instruction& Inst
     case llvm::Instruction::VAArg:
     case llvm::Instruction::LandingPad:
       addOneToSubFeatureOfKey("nof_assign_inst", &BasicBlock);
-      addOneToSubFeatureOfKey("nof_other_inst", &BasicBlock);
       break;
 
     case llvm::Instruction::PHI:
@@ -234,9 +233,10 @@ void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter) {
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
   for (auto &ValuePair : TheFeature) {
-    Emitter << YAML::Key << ValuePair.first;
+    Emitter << YAML::Key << std::to_string((uint64_t)ValuePair.first);
     Emitter << YAML::Value << YAML::BeginMap;
     for (auto &InfoPair : *(this)) {
+      if (getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
       Emitter << YAML::Key << InfoPair.first;
       Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
       Emitter << YAML::Comment(InfoPair.second);
@@ -248,8 +248,9 @@ void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter) {
   Emitter << YAML::Key << "index";
   Emitter << YAML::Value << YAML::BeginMap;
   for (auto &OrderPair : Order) {
-    Emitter << YAML::Key << OrderPair.first;
-    Emitter << YAML::Value << YAML::BeginSeq << OrderPair.second.first << OrderPair.second.second << YAML::EndSeq;
+    Emitter << YAML::Key << std::to_string((uint64_t)OrderPair.first);
+    Emitter << YAML::Value << 
+      YAML::BeginSeq << OrderPair.second.first << std::to_string(OrderPair.second.second) << YAML::EndSeq;
   }
   Emitter << YAML::EndMap;
 

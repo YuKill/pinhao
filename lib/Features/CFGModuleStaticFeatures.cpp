@@ -24,7 +24,7 @@ namespace {
 
       /// @brief Copy the value of all features collected from the @a FunctionFeatures
       /// and sums to the total of this vector.
-      void copyFeaturesFromFunction(void *Function); 
+      void copyFeaturesFromFunction(std::string FunctionName); 
 
       void addNToSubFeature(std::string SubFeatureName, uint64_t N) {
         uint64_t Total = getValueOf(SubFeatureName) + N;
@@ -45,12 +45,12 @@ namespace {
 
 }
 
-void CFGModuleStaticFeatures::copyFeaturesFromFunction(void *Function) {
-  MapVectorFeature<void*, uint64_t> *FnFeatures =
-    static_cast<MapVectorFeature<void*, uint64_t>*>(FunctionFeatures.get());
+void CFGModuleStaticFeatures::copyFeaturesFromFunction(std::string FunctionName) {
+  MapVectorFeature<std::string, uint64_t> *FnFeatures =
+    static_cast<MapVectorFeature<std::string, uint64_t>*>(FunctionFeatures.get());
   for (auto &Pair : *FunctionFeatures) {
     std::string FeatureName = Pair.first;
-    addNToSubFeature(FeatureName, FnFeatures->getValueOfKey(FeatureName, Function));
+    addNToSubFeature(FeatureName, FnFeatures->getValueOfKey(FeatureName, FunctionName));
   }
 }
 
@@ -62,9 +62,12 @@ void CFGModuleStaticFeatures::processModule(llvm::Module &Module) {
     FunctionFeatures.reset(FeatureRegistry::get("cfg_fn_static").release());
     FunctionFeatures->processModule(Module);
   }
+  uint64_t NamelessCount = 0;
   for (auto &Function : Module) {
     if (Function.getBasicBlockList().size() > 0) {
-      copyFeaturesFromFunction(&Function);
+      std::string FunctionName = Function.getName();
+      if (FunctionName == "") FunctionName = "Nameless" + std::to_string(NamelessCount++);
+      copyFeaturesFromFunction(FunctionName);
       addNToSubFeature("nof_functions", 1);
     }
   }
@@ -101,8 +104,9 @@ static std::map<std::string, std::string> SubFeatures = {
   { "nof_store_inst", "Nof store instructions" },
   { "nof_getelemptr_inst", "Nof GetElemPtr instructions" },
   { "nof_phinode_inst", "Nof PHI nodes" },
+  { "nof_functions", "Number of Functions" },
   { "nof_cfg_edges", "Nof edges in a cfg" },
-  { "nof_cfgcrit_edges", "Nof critical edges in a cfg" },
+  { "nof_cfg_crit_edges", "Nof critical edges in a cfg" },
   { "nof_bb", "Number of BasicBlocks" },
   { "nof_1suc_bb", "Nof BBs with 1-suc" },
   { "nof_2suc_bb", "Nof BBs with 2-suc" },

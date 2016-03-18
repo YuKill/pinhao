@@ -165,7 +165,7 @@ static std::map<std::string, std::string> SubFeatures = {
   { "nof_getelemptr_inst", "Nof GetElemPtr instructions" },
   { "nof_phinode_inst", "Nof PHI nodes" },
   { "nof_cfg_edges", "Nof edges in a cfg" },
-  { "nof_cfgcrit_edges", "Nof critical edges in a cfg" },
+  { "nof_cfg_crit_edges", "Nof critical edges in a cfg" },
   { "nof_bb", "Number of BasicBlocks" },
   { "nof_1suc_bb", "Nof BBs with 1-suc" },
   { "nof_2suc_bb", "Nof BBs with 2-suc" },
