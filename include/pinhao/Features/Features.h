@@ -84,7 +84,7 @@ namespace pinhao {
         return TheFeature;
       }
 
-      virtual void appendYaml(YAML::Emitter &Emitter) override;
+      virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override;
 
   };
 
@@ -138,13 +138,14 @@ namespace pinhao {
           return TheFeature[Index];
         }
 
-        virtual void appendYaml(YAML::Emitter &Emitter) override {
+        virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override {
           Emitter << YAML::BeginMap;
           Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
           Emitter << YAML::Key << "features";
           Emitter << YAML::Value << YAML::BeginMap;
           for (auto &InfoPair : *(this)) {
+            if (printReduced && getValueOf(InfoPair.first) == 0) continue;
             Emitter << YAML::Key << InfoPair.first;
             Emitter << YAML::Value << getValueOf(InfoPair.first);
             Emitter << YAML::Comment(InfoPair.second);
@@ -183,7 +184,7 @@ namespace pinhao {
           return TheFeature[Key];
         }
 
-        virtual void appendYaml(YAML::Emitter &Emitter) override {
+        virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override {
           Emitter << YAML::BeginMap;
           Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
           Emitter << YAML::Comment(this->getDescription());
@@ -268,7 +269,7 @@ namespace pinhao {
           return TheFeature[Key][Index];
         }
 
-        virtual void appendYaml(YAML::Emitter &Emitter) override {
+        virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override {
           Emitter << YAML::BeginMap;
           Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
@@ -278,6 +279,7 @@ namespace pinhao {
             Emitter << YAML::Key << ValuePair.first;
             Emitter << YAML::Value << YAML::BeginMap;
             for (auto &InfoPair : *(this)) {
+              if (printReduced && getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
               Emitter << YAML::Key << InfoPair.first;
               Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
               Emitter << YAML::Comment(InfoPair.second);

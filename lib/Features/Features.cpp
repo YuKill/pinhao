@@ -15,7 +15,7 @@ using namespace pinhao;
  * ----------------------------------=
  * Class: StringFeature
  */
-void StringFeature::appendYaml(YAML::Emitter &Emitter) {
+void StringFeature::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
   Emitter << YAML::BeginMap;
   Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 

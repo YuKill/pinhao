@@ -104,9 +104,9 @@ namespace pinhao {
        *
        * @param Out The output stream that the function shall print.
        */
-      void printYaml(std::ostream &Out = std::cout) {
+      void printYaml(std::ostream &Out = std::cout, bool printReduced = true) {
         YAML::Emitter Emitter(Out); 
-        appendYaml(Emitter);
+        appendYaml(Emitter, printReduced);
         Out << std::endl;
       }
 
@@ -115,7 +115,7 @@ namespace pinhao {
        *
        * @param Emitter The place where the data information will be appended.
        */
-      virtual void appendYaml(YAML::Emitter &Emitter) = 0;
+      virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced = true) = 0;
 
       /**
        * @brief Gets the necessary information from a llvm::Module.

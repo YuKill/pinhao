@@ -44,7 +44,7 @@ namespace {
       /// information about each instruction.
       void processModule(llvm::Module &Module) override;
 
-      void appendYaml(YAML::Emitter &Emitter) override;
+      void appendYaml(YAML::Emitter &Emitter, bool printReduced) override;
   };
 
 }
@@ -226,7 +226,7 @@ std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
   return std::unique_ptr<Feature>(Clone);
 }
 
-void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter) {
+void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
   Emitter << YAML::BeginMap;
   Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
 
@@ -236,7 +236,7 @@ void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter) {
     Emitter << YAML::Key << std::to_string((uint64_t)ValuePair.first);
     Emitter << YAML::Value << YAML::BeginMap;
     for (auto &InfoPair : *(this)) {
-      if (getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
+      if (printReduced && getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
       Emitter << YAML::Key << InfoPair.first;
       Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
       Emitter << YAML::Comment(InfoPair.second);
