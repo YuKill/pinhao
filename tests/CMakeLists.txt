@@ -22,6 +22,12 @@ add_executable(RunFeatureSetTest
   $<TARGET_OBJECTS:CFGStaticFeatures>)
 add_test(FeatureSetTest RunFeatureSetTest)
 
+configure_file (CFGStaticFeaturesBenchmarkTest.sh.in tmp/CFGStaticFeaturesBenchmarkTest.sh @ONLY)
+file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/CFGStaticFeaturesBenchmarkTest.sh" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" 
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE 
+  GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+add_test(CFGStaticFeaturesBenchmarkTest CFGStaticFeaturesBenchmarkTest.sh)
+
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp

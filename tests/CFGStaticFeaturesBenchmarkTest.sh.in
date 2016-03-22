@@ -1,0 +1,26 @@
+#! /bin/bash
+
+ROOT="@CMAKE_SOURCE_DIR@"
+BUILD="@CMAKE_BINARY_DIR@"
+
+LIB="${BUILD}/tools/OptLibraries/libCFGStaticFeaturesPass.so"
+LIBPASS="-cfg-sfprint -cfg-sfprint -cfg-sfeat-diff"
+
+POLYBENCH="${ROOT}/benchmark/polybench-ll"
+
+LOG="cfg-stfeat.log"
+
+ret=0
+
+for f in `ls ${POLYBENCH}`; do
+  echo -n "Testing ${f}..."
+  opt -load ${LIB} ${LIBPASS} ${POLYBENCH}/${f}/${f}.bc > /dev/null 2> ${LOG}
+  if [ $? -ne 0 ]; then
+    ret=1
+    echo "FAIL"
+    break;
+  fi
+  echo "OK"
+done
+
+exit ${ret}
