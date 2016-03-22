@@ -26,9 +26,12 @@ namespace {
       static char ID;
       CFGStaticFeaturesPass() : ModulePass(ID) {}
 
-      void getAnalysisUsage(AnalysisUsage &Info) {
+      void getAnalysisUsage(AnalysisUsage &Info) const override {
         Info.setPreservesAll(); 
       }
+
+      uint64_t getVectorSize() { return CFGFeatures.size(); }
+      std::shared_ptr<Feature> getNthFeature(int N) { return CFGFeatures[N]; }
   
       bool runOnModule(Module &M) override;
   };
@@ -40,7 +43,6 @@ bool CFGStaticFeaturesPass::runOnModule(Module &M) {
   CFGFeatures.push_back(FeatureRegistry::get("cfg_md_static"));
   for (auto &F : CFGFeatures) {
     F->processModule(M); 
-    F->printYaml(std::cerr);
   }
   CFGStaticFeaturesCollection.push_back(std::make_pair(CFGFeatures[0], CFGFeatures[1]));
   return false;
@@ -48,3 +50,31 @@ bool CFGStaticFeaturesPass::runOnModule(Module &M) {
 
 char CFGStaticFeaturesPass::ID = 0;
 static RegisterPass<CFGStaticFeaturesPass> X("cfg-sfeat", "Collects the static features of the CFG.", false, false);
+
+namespace {
+
+  class CFGStaticFeaturesPrinterPass : public ModulePass {
+    public:
+      static char ID;
+      CFGStaticFeaturesPrinterPass() : ModulePass(ID) {}
+
+      void getAnalysisUsage(AnalysisUsage &Info) const override {
+        Info.setPreservesAll(); 
+        Info.addRequired<CFGStaticFeaturesPass>();
+      }
+  
+      bool runOnModule(Module &M) override;
+  };
+
+}
+
+bool CFGStaticFeaturesPrinterPass::runOnModule(Module &M) {
+  CFGStaticFeaturesPass &StaticFeatures = getAnalysis<CFGStaticFeaturesPass>();
+  for (uint64_t I = 0, E = StaticFeatures.getVectorSize(); I < E; ++I) {
+    StaticFeatures.getNthFeature(I)->printYaml(std::cerr);
+  }
+  return false;
+}
+
+char CFGStaticFeaturesPrinterPass::ID = 0;
+static RegisterPass<CFGStaticFeaturesPrinterPass> Y("cfg-sfprint", "Prints the static features of the CFG collected.", false, false);
