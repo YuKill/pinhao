@@ -26,7 +26,7 @@ namespace {
       static char ID;
       CFGStaticFeaturesDiffPass() : ModulePass(ID) {}
 
-      void getAnalysisUsage(AnalysisUsage &Info) {
+      void getAnalysisUsage(AnalysisUsage &Info) const override {
         Info.setPreservesAll(); 
       }
   
@@ -92,5 +92,5 @@ bool CFGStaticFeaturesDiffPass::runOnModule(Module &M) {
 }
 
 char CFGStaticFeaturesDiffPass::ID = 0;
-static RegisterPass<CFGStaticFeaturesDiffPass> X("cfg-sfeat-diff", 
+static RegisterPass<CFGStaticFeaturesDiffPass> X("cfg-sfdiff", 
     "Prints the difference between each consecutive static features collections.", false, false);

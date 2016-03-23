@@ -4,7 +4,7 @@ ROOT="@CMAKE_SOURCE_DIR@"
 BUILD="@CMAKE_BINARY_DIR@"
 
 LIB="${BUILD}/tools/OptLibraries/libCFGStaticFeaturesPass.so"
-LIBPASS="-cfg-sfprint -cfg-sfprint -cfg-sfeat-diff"
+LIBPASS="-cfg-sfprint -cfg-sfprint -cfg-sfdiff"
 
 POLYBENCH="${ROOT}/benchmark/polybench-ll"
 
