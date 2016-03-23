@@ -57,3 +57,7 @@ TEST(FeatureInfoTest, CompositeFeatureInfoTmpCtorTest) {
   ASSERT_EQ(CFI->getSubFeatureDescription("nof_functions"), "Number of Functions");
 }
 
+int main(int argc, char **argv) {
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
