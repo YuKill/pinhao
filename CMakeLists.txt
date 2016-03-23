@@ -10,7 +10,8 @@ execute_process (COMMAND llvm-config --cxxflags --ldflags
   OUTPUT_VARIABLE LLVM_CONFIG_N)
 
 string (REPLACE "\n" " " LLVM_CONFIG_EXCEPTION "${LLVM_CONFIG_N}")
-string (REPLACE "-fno-exceptions" "" LLVM_CONFIG "${LLVM_CONFIG_EXCEPTION}")
+string (REPLACE "-fno-exceptions" "" LLVM_CONFIG_PED "${LLVM_CONFIG_EXCEPTION}")
+string (REPLACE "-pedantic" "" LLVM_CONFIG "${LLVM_CONFIG_PED}")
 
 set (CMAKE_CXX_FLAGS "-O0 -g -Wall ${LLVM_CONFIG} -Wl,-rpath,/usr/local/lib")
 
