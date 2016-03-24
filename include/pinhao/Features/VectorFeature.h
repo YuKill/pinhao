@@ -78,7 +78,6 @@ template <class ElemType>
 void VectorFeature<ElemType>::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
   Emitter << YAML::BeginMap;
   Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
-
   Emitter << YAML::Key << "features";
   Emitter << YAML::Value << YAML::BeginMap;
   for (auto &InfoPair : *(this)) {
@@ -88,7 +87,6 @@ void VectorFeature<ElemType>::appendYaml(YAML::Emitter &Emitter, bool printReduc
     Emitter << YAML::Comment(InfoPair.second);
   }
   Emitter << YAML::EndMap;
-
   Emitter << YAML::EndMap;
 }
 

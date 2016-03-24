@@ -6,7 +6,8 @@
  */
 
 #include "pinhao/Features/FeatureRegistry.h"
-#include "pinhao/Features/Features.h"
+#include "pinhao/Features/MapVectorFeature.h"
+#include "pinhao/Features/VectorFeature.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"

@@ -5,7 +5,7 @@
  * @brief This file implements the @a CFGBasicBlockStaticFeatures class.
  */
 
-#include "pinhao/Features/Features.h"
+#include "pinhao/Features/MapVectorFeature.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"

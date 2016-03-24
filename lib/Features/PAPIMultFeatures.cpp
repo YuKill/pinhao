@@ -6,7 +6,8 @@
  * multiplexing.
  */
 
-#include "pinhao/Features/Features.h"
+#include "pinhao/Features/VectorFeature.h"
+#include "pinhao/Features/MapVectorFeature.h"
 #include "pinhao/Support/JITExecutor.h"
 
 #include "papi.h"

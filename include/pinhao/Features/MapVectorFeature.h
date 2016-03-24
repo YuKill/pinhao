@@ -103,7 +103,6 @@ template <class KeyType, class ElemType>
 void MapVectorFeature<KeyType, ElemType>::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
   Emitter << YAML::BeginMap;
   Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
-
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
   for (auto &ValuePair : TheFeature) {
@@ -118,7 +117,6 @@ void MapVectorFeature<KeyType, ElemType>::appendYaml(YAML::Emitter &Emitter, boo
     Emitter << YAML::EndMap;
   }
   Emitter << YAML::EndMap;
-
   Emitter << YAML::EndMap;
 }
 

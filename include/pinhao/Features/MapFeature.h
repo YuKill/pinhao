@@ -65,7 +65,6 @@ void MapFeature<KeyType, ElemType>::appendYaml(YAML::Emitter &Emitter, bool prin
   Emitter << YAML::BeginMap;
   Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
   Emitter << YAML::Comment(this->getDescription());
-
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
   for (auto &Pair : TheFeature) {
@@ -73,7 +72,6 @@ void MapFeature<KeyType, ElemType>::appendYaml(YAML::Emitter &Emitter, bool prin
     Emitter << YAML::Value << Pair.second;
   }
   Emitter << YAML::EndMap;
-
   Emitter << YAML::EndMap;
 }
 
