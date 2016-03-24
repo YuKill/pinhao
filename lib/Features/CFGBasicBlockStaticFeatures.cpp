@@ -14,23 +14,15 @@ using namespace pinhao;
 
 namespace {
 
-  /**
-   * @brief This class collects some static features for each BasicBlock in the Module.
-   */
   class CFGBasicBlockStaticFeatures : public MapVectorFeature<void*, uint64_t> {
     private:
-      /// @brief Updates the basic block @a BasicBlock informations based on the
-      /// current instruction @a Instruction.
       void processInstructionOfBB(llvm::Instruction& Instruction, llvm::BasicBlock& BasicBlock);
 
-      /// @brief Gets the total of the sub-feature @a SubFeatureName of @a Key,
-      /// and adds 1 to it.
       void addOneToSubFeatureOfKey(std::string SubFeatureName, void* Key) {
         uint64_t Quantity = 1 + getValueOfKey(SubFeatureName, Key);
         setValueOfKey(SubFeatureName, Quantity, Key);
       }
 
-      /// @brief Holds which basic block each void pointer represents.
       std::map<void*, std::pair<std::string, uint64_t>> Order; 
 
     public:
@@ -40,8 +32,6 @@ namespace {
 
       std::unique_ptr<Feature> clone() const override;
 
-      /// @brief This function iterates over all basic blocks and collects
-      /// information about each instruction.
       void processModule(llvm::Module &Module) override;
 
       void appendYaml(YAML::Emitter &Emitter, bool printReduced) override;

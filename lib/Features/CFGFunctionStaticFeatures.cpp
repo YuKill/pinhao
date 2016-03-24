@@ -18,24 +18,16 @@ namespace llvm {
 
 namespace {
 
-  /**
-   * @brief This class collects some static features for each Function in the Module.
-   */
   class CFGFunctionStaticFeatures : public MapVectorFeature<std::string, uint64_t> {
     private:
 
-      /// @brief Gets the total of the sub-feature @a SubFeatureName of @a Key,
-      /// and adds 1 to it.
       void addOneToSubFeatureOfKey(std::string SubFeatureName, std::string Key) {
         uint64_t Quantity = 1 + getValueOfKey(SubFeatureName, Key);
         setValueOfKey(SubFeatureName, Quantity, Key);
       }
 
-      /// @brief Processes a basic block of a function.
       void processBasicBlockOfFunction(llvm::BasicBlock &BasicBlock, std::string FunctionName);
 
-      /// @brief Gets the features collected by the @a CFGBasicBlockStaticFeatures class, and
-      /// sums into the function.
       void copyFeaturesFromBB(void *BasicBlock, std::string FunctionName);
 
       std::shared_ptr<Feature> BasicBlockFeatures;
@@ -50,8 +42,6 @@ namespace {
 
       std::unique_ptr<Feature> clone() const override;
 
-      /// @brief This function iterates over all basic blocks and collects
-      /// information about each instruction.
       void processModule(llvm::Module &Module) override;
   };
 

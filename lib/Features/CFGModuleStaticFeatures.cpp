@@ -15,15 +15,10 @@ using namespace pinhao;
 
 namespace {
 
-  /**
-   * @brief This class collects some static features for each Function in the Module.
-   */
   class CFGModuleStaticFeatures : public VectorFeature<uint64_t> {
     private:
       std::shared_ptr<Feature> FunctionFeatures;
 
-      /// @brief Copy the value of all features collected from the @a FunctionFeatures
-      /// and sums to the total of this vector.
       void copyFeaturesFromFunction(std::string FunctionName); 
 
       void addNToSubFeature(std::string SubFeatureName, uint64_t N) {
