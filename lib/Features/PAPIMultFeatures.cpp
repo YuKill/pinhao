@@ -15,9 +15,6 @@ using namespace pinhao;
 
 namespace {
 
-  /**
-   * @brief This class collects dynamic information with PAPI by multiplexing it.
-   */
   class PAPIMultFeatures : public VectorFeature<uint64_t> {
     private:
       std::vector<std::string> Args;
