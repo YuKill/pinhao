@@ -58,6 +58,20 @@ namespace pinhao {
         virtual const ValueType& getValueOfKey(std::string FeatureName, KeyType Key) = 0;
     };
 
+}
+
+namespace pinhao {
+  class StringFeature;
+
+  template <>
+    class Yamlfy<StringFeature> : public YamlfyTemplateBase<StringFeature> {
+      public:
+        Yamlfy<StringFeature>(const StringFeature *SFPtr) : YamlfyTemplateBase<StringFeature>(SFPtr) {}
+
+        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
+        void get(const YAML::Node &Node) override;
+    };
+
   /**
    * @brief Implements a string version of a linear feature.
    *
@@ -72,7 +86,9 @@ namespace pinhao {
 
     public:
       virtual ~StringFeature() {};
-      StringFeature(FeatureInfo *Info) : LinearFeature<std::string>(Info) {}
+      StringFeature(FeatureInfo *Info) : LinearFeature<std::string>(Info) {
+        if (Yaml.get() == nullptr) Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<StringFeature>(this));
+      }
 
       /// @brief Sets the string feature to @a New.
       void setValueOf(std::string FeatureName, std::string Value) override {
@@ -86,8 +102,6 @@ namespace pinhao {
         assert(FeatureName == this->Info->getName() && "FeatureName doesn't equal the name of this feature.");
         return TheFeature;
       }
-
-      virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override;
 
   };
 
