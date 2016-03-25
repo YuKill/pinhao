@@ -89,18 +89,19 @@ namespace pinhao {
 
 template <class KeyType, class ElemType>
 void Yamlfy<MapVectorFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  MapVectorFeature<KeyType, ElemType> *Pointer = this->Value;
   Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->Value->getName();
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &ValuePair : this->Value->TheFeature) {
+  for (auto &ValuePair : Pointer->TheFeature) {
     Emitter << YAML::Key;
     Yamlfy<KeyType>(&ValuePair.first).append(Emitter, PrintReduced); 
     Emitter << YAML::Value << YAML::BeginMap;
-    for (auto &InfoPair : *(this->Value)) {
-      if (PrintReduced && this->Value->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
+    for (auto &InfoPair : *(Pointer)) {
+      if (PrintReduced && Pointer->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
       Emitter << YAML::Key << InfoPair.first << YAML::Value;
-      Yamlfy<ElemType>(&this->Value->getValueOfKey(InfoPair.first, ValuePair.first)).append(Emitter, PrintReduced);
+      Yamlfy<ElemType>(&Pointer->getValueOfKey(InfoPair.first, ValuePair.first)).append(Emitter, PrintReduced);
       Emitter << YAML::Comment(InfoPair.second);
     }
     Emitter << YAML::EndMap;
@@ -111,6 +112,7 @@ void Yamlfy<MapVectorFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter,
 
 template <class KeyType, class ElemType>
 void Yamlfy<MapVectorFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
+  MapVectorFeature<KeyType, ElemType> *Pointer = this->Value;
   YAML::Node Values = Node["values"];
   for (auto I = Values.begin(), E = Values.end(); I != E; ++I) {
     KeyType Key;
@@ -119,7 +121,7 @@ void Yamlfy<MapVectorFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
       ElemType Elem;
       std::string FeatureName = FI->first.as<std::string>();
       Yamlfy<ElemType>(&Elem).get(FI->second);
-      this->Value->setValueOfKey(FeatureName, Elem, Key);
+      Pointer->setValueOfKey(FeatureName, Elem, Key);
     }
   }
 }

@@ -57,12 +57,13 @@ namespace pinhao {
 
 template <class KeyType, class ElemType>
 void Yamlfy<MapFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  MapFeature<KeyType, ElemType> *Pointer = this->Value;
   Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->Value->getName();
-  Emitter << YAML::Comment(this->Value->getDescription());
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
+  Emitter << YAML::Comment(Pointer->getDescription());
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &Pair : this->Value->TheFeature) {
+  for (auto &Pair : Pointer->TheFeature) {
     Emitter << YAML::Key;
     Yamlfy<KeyType>(Pair.first).append(Emitter, PrintReduced);
     Emitter << YAML::Value;
@@ -74,13 +75,14 @@ void Yamlfy<MapFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter, bool 
 
 template <class KeyType, class ElemType>
 void Yamlfy<MapFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
+  MapFeature<KeyType, ElemType> *Pointer = this->Value;
   YAML::Node Values = Node["values"];
   for (auto I = Values.begin(), E = Values.end(); I != E; ++I) {
     KeyType Key;
     Yamlfy<KeyType>(&Key).get(I->first);
     ElemType Elem;
     Yamlfy<KeyType>(&Elem).get(I->second);
-    setValueOfKey(this->Value->getName(), Elem, Key);
+    setValueOfKey(Pointer->getName(), Elem, Key);
   }
 }
 

@@ -237,17 +237,18 @@ std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
 }
 
 void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  CFGBasicBlockStaticFeatures *Pointer = this->Value;
   Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->Value->getName();
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &ValuePair : this->Value->TheFeature) {
+  for (auto &ValuePair : Pointer->TheFeature) {
     Emitter << YAML::Key << std::to_string((uint64_t)ValuePair.first);
     Emitter << YAML::Value << YAML::BeginMap;
-    for (auto &InfoPair : *(this->Value)) {
-      if (PrintReduced && this->Value->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
+    for (auto &InfoPair : *(Pointer)) {
+      if (PrintReduced && Pointer->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
       Emitter << YAML::Key << InfoPair.first;
-      Emitter << YAML::Value << this->Value->getValueOfKey(InfoPair.first, ValuePair.first);
+      Emitter << YAML::Value << Pointer->getValueOfKey(InfoPair.first, ValuePair.first);
       Emitter << YAML::Comment(InfoPair.second);
     }
     Emitter << YAML::EndMap;
@@ -255,7 +256,7 @@ void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool Pr
   Emitter << YAML::EndMap;
   Emitter << YAML::Key << "index";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &OrderPair : this->Value->Order) {
+  for (auto &OrderPair : Pointer->Order) {
     Emitter << YAML::Key << std::to_string((uint64_t)OrderPair.first);
     Emitter << YAML::Value << 
       YAML::BeginSeq << OrderPair.second.first << std::to_string(OrderPair.second.second) << YAML::EndSeq;
@@ -265,11 +266,12 @@ void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool Pr
 }
 
 void Yamlfy<CFGBasicBlockStaticFeatures>::get(const YAML::Node &Node) {
-  Yamlfy<MapVectorFeature<void*, uint64_t>>(this->Value).get(Node);
+  CFGBasicBlockStaticFeatures *Pointer = this->Value;
+  Yamlfy<MapVectorFeature<void*, uint64_t>>(Pointer).get(Node);
   YAML::Node Index = Node["index"];
   for (auto I = Index.begin(), E = Index.end(); I != E; ++I) {
     void *Key = (void*) I->first.as<uint64_t>();  
-    this->Value->Order[Key] = std::make_pair(I->second[0].as<std::string>(), I->second[1].as<uint64_t>());
+    Pointer->Order[Key] = std::make_pair(I->second[0].as<std::string>(), I->second[1].as<uint64_t>());
   }
 }
 
