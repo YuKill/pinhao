@@ -71,6 +71,24 @@ TEST(YAMLTest, CFGBasicBlockStaticFeatureTest) {
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
 
+TEST(YAMLTest, GeneFeatureTest) {
+  const std::string YamlFile1("2mm-gene-1.yaml");
+  const std::string YamlFile2("2mm-gene-2.yaml");
+  std::ofstream Of1(YamlFile1), Of2(YamlFile2);
+  std::string Benchmark("../../benchmark/polybench-ll/2mm/2mm.bc");
+  ModuleReader Reader(Benchmark);
+  std::unique_ptr<Feature> GeneFeature = FeatureRegistry::get("function-dna");
+  GeneFeature->processModule(*(Reader.getModule().get()));
+  GeneFeature->printYaml(Of1);
+
+  GeneFeature.reset(FeatureRegistry::get("function-dna").release());
+  YAML::Node LoadFile = YAML::LoadFile(YamlFile1);
+  GeneFeature->getFromYamlNode(LoadFile);
+  GeneFeature->printYaml(Of2);
+
+  ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
