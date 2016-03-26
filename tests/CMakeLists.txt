@@ -44,6 +44,12 @@ add_executable(RunGeneFeaturesTest
   $<TARGET_OBJECTS:GeneFeatures>)
 add_test(GeneFeaturesTest RunGeneFeaturesTest)
 
+configure_file (GeneFeaturesBenchmarkTest.sh.in tmp/GeneFeaturesBenchmarkTest.sh @ONLY)
+file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/GeneFeaturesBenchmarkTest.sh" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" 
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE 
+  GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+add_test(GeneFeaturesBenchmarkTest GeneFeaturesBenchmarkTest.sh)
+
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
