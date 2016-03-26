@@ -232,7 +232,8 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
 }
 
 std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
-  Feature *Clone = new CFGBasicBlockStaticFeatures(*this); 
+  CFGBasicBlockStaticFeatures *Clone = new CFGBasicBlockStaticFeatures(*this); 
+  Clone->Yaml.reset(new Yamlfy<CFGBasicBlockStaticFeatures>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 
