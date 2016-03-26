@@ -34,8 +34,15 @@ add_test(PAPIFeaturesTest RunPAPIFeaturesTest)
 add_executable(RunYAMLTest
   YAMLTest.cpp
   $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:GeneFeatures>
   $<TARGET_OBJECTS:CFGStaticFeatures>)
 add_test(YAMLTest RunYAMLTest)
+
+add_executable(RunGeneFeaturesTest
+  GeneFeaturesTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:GeneFeatures>)
+add_test(GeneFeaturesTest RunGeneFeaturesTest)
 
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
@@ -57,6 +64,10 @@ target_link_libraries(RunPAPIFeaturesTest
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m papi)
 target_link_libraries(RunYAMLTest
+  LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m)
+target_link_libraries(RunGeneFeaturesTest
   LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
