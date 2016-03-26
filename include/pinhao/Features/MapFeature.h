@@ -62,9 +62,9 @@ void Yamlfy<MapFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter, bool 
   Emitter << YAML::Value << YAML::BeginMap;
   for (auto &Pair : Pointer->TheFeature) {
     Emitter << YAML::Key;
-    Yamlfy<KeyType>(Pair.first).append(Emitter, PrintReduced);
+    Yamlfy<KeyType>(&(Pair.first)).append(Emitter, PrintReduced);
     Emitter << YAML::Value;
-    Yamlfy<ElemType>(Pair.second).append(Emitter, PrintReduced);
+    Yamlfy<ElemType>(&(Pair.second)).append(Emitter, PrintReduced);
   }
   Emitter << YAML::EndMap;
   Emitter << YAML::EndMap;
@@ -79,7 +79,7 @@ void Yamlfy<MapFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
     Yamlfy<KeyType>(&Key).get(I->first);
     ElemType Elem;
     Yamlfy<KeyType>(&Elem).get(I->second);
-    setValueOfKey(Pointer->getName(), Elem, Key);
+    Pointer->setValueOfKey(Pointer->getName(), Elem, Key);
   }
 }
 
