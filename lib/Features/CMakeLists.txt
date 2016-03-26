@@ -12,3 +12,5 @@ add_library (CFGStaticFeatures OBJECT
 add_library (PAPIFeatures OBJECT
   PAPIMultFeatures.cpp)
 
+add_library (GeneFeatures OBJECT
+  FunctionsGeneFeature.cpp)
