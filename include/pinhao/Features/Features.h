@@ -86,9 +86,7 @@ namespace pinhao {
 
     public:
       virtual ~StringFeature() {};
-      StringFeature(FeatureInfo *Info) : LinearFeature<std::string>(Info) {
-        if (Yaml.get() == nullptr) Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<StringFeature>(this));
-      }
+      StringFeature(FeatureInfo *Info) : LinearFeature<std::string>(Info) {}
 
       /// @brief Sets the string feature to @a New.
       void setValueOf(std::string FeatureName, std::string Value) override {

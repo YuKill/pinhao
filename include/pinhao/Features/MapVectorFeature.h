@@ -52,8 +52,6 @@ namespace pinhao {
 
         MapVectorFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {
           assert(this->isComposite() && "MapVectorFeature must have CompositeFeatureInfo.");
-          if (this->Yaml.get() == nullptr)
-            this->Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<MapVectorFeature<KeyType, ElemType>>(this));
         }
 
         virtual bool hasKey(const KeyType &Key) override;

@@ -39,10 +39,7 @@ namespace pinhao {
 
       public:
         virtual ~MapFeature() {}
-        MapFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {
-          if (this->Yaml.get() == nullptr) 
-            this->Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<MapFeature<KeyType, ElemType>>(this));
-        }
+        MapFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {}
 
         virtual bool hasKey(const KeyType &Key) override; 
 

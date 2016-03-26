@@ -97,8 +97,6 @@ VectorFeature<ElemType>::VectorFeature(FeatureInfo *Info) : LinearFeature<ElemTy
   assert(this->isComposite() && "VectorFeature must have CompositeFeatureInfo.");
   CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
   TheFeature = std::vector<ElemType>(CompInfo->getNumberOfSubFeatures(), 0); 
-  if (this->Yaml.get() == nullptr)
-    this->Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<VectorFeature<ElemType>>(this));
 }
 
 template <class ElemType>
