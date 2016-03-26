@@ -19,17 +19,23 @@ add_executable(RunFeatureSetTest
   $<TARGET_OBJECTS:CFGStaticFeatures>)
 add_test(FeatureSetTest RunFeatureSetTest)
 
+configure_file (CFGStaticFeaturesBenchmarkTest.sh.in tmp/CFGStaticFeaturesBenchmarkTest.sh @ONLY)
+file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/CFGStaticFeaturesBenchmarkTest.sh" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" 
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE 
+  GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+add_test(CFGStaticFeaturesBenchmarkTest CFGStaticFeaturesBenchmarkTest.sh)
+
 add_executable(RunPAPIFeaturesTest
   PAPIFeaturesTest.cpp
   $<TARGET_OBJECTS:Features>
   $<TARGET_OBJECTS:PAPIFeatures>)
 add_test(PAPIFeaturesTest RunPAPIFeaturesTest)
 
-configure_file (CFGStaticFeaturesBenchmarkTest.sh.in tmp/CFGStaticFeaturesBenchmarkTest.sh @ONLY)
-file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/CFGStaticFeaturesBenchmarkTest.sh" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" 
-  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE 
-  GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-add_test(CFGStaticFeaturesBenchmarkTest CFGStaticFeaturesBenchmarkTest.sh)
+add_executable(RunYAMLTest
+  YAMLTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:CFGStaticFeatures>)
+add_test(YAMLTest RunYAMLTest)
 
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
@@ -50,3 +56,7 @@ target_link_libraries(RunPAPIFeaturesTest
   LLVMInstCombine LLVMInstrumentation LLVMTransformUtils LLVMipa LLVMMC LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m papi)
+target_link_libraries(RunYAMLTest
+  LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m)

@@ -10,6 +10,7 @@
 
 #include "pinhao/Features/FeatureInfo.h"
 #include "pinhao/Features/FeatureRegistry.h"
+#include "pinhao/Support/Yamlfy.h"
 
 #include "llvm/IR/Module.h"
 
@@ -37,6 +38,7 @@ namespace pinhao {
       };
 
     protected:
+      std::shared_ptr<YamlfyBase> Yaml;
       std::shared_ptr<FeatureInfo> Info;
       bool Processed;
 
@@ -115,7 +117,16 @@ namespace pinhao {
        *
        * @param Emitter The place where the data information will be appended.
        */
-      virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced = true) = 0;
+      virtual void appendYaml(YAML::Emitter &Emitter, bool PrintReduced = true) {
+        Yaml->append(Emitter, PrintReduced); 
+      }
+
+      /**
+       * @brief Gets the feature data from a @a YAML::Node.
+       */
+      virtual void getFromYamlNode(YAML::Node &Node) {
+        Yaml->get(Node); 
+      }
 
       /**
        * @brief Gets the necessary information from a llvm::Module.

@@ -12,6 +12,16 @@
 using namespace pinhao;
 
 namespace pinhao {
+  template <class KeyType, class ElemType> class MapFeature;
+
+  template <class KeyType, class ElemType>
+    class Yamlfy<MapFeature<KeyType, ElemType>> : public YamlfyTemplateBase<MapFeature<KeyType, ElemType>> {
+      public:
+        Yamlfy(const MapFeature<KeyType, ElemType> *MFPtr) : YamlfyTemplateBase<MapFeature<KeyType, ElemType>>(MFPtr) {}
+
+        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
+        void get(const YAML::Node &Node) override;
+    };
 
   /**
    * @brief This class maps a @a KeyType to a @a ElemType feature.
@@ -37,10 +47,40 @@ namespace pinhao {
 
         const ElemType& getValueOfKey(std::string FeatureName, KeyType Key) override;
 
-        virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override;
-
+        friend class Yamlfy<MapFeature<KeyType, ElemType>>;
     };
 
+}
+
+template <class KeyType, class ElemType>
+void Yamlfy<MapFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  MapFeature<KeyType, ElemType> *Pointer = this->Value;
+  Emitter << YAML::BeginMap;
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
+  Emitter << YAML::Comment(Pointer->getDescription());
+  Emitter << YAML::Key << "values";
+  Emitter << YAML::Value << YAML::BeginMap;
+  for (auto &Pair : Pointer->TheFeature) {
+    Emitter << YAML::Key;
+    Yamlfy<KeyType>(Pair.first).append(Emitter, PrintReduced);
+    Emitter << YAML::Value;
+    Yamlfy<ElemType>(Pair.second).append(Emitter, PrintReduced);
+  }
+  Emitter << YAML::EndMap;
+  Emitter << YAML::EndMap;
+}
+
+template <class KeyType, class ElemType>
+void Yamlfy<MapFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
+  MapFeature<KeyType, ElemType> *Pointer = this->Value;
+  YAML::Node Values = Node["values"];
+  for (auto I = Values.begin(), E = Values.end(); I != E; ++I) {
+    KeyType Key;
+    Yamlfy<KeyType>(&Key).get(I->first);
+    ElemType Elem;
+    Yamlfy<KeyType>(&Elem).get(I->second);
+    setValueOfKey(Pointer->getName(), Elem, Key);
+  }
 }
 
 template <class KeyType, class ElemType>
@@ -60,19 +100,5 @@ const ElemType& MapFeature<KeyType, ElemType>::getValueOfKey(std::string Feature
   return TheFeature[Key];
 }
 
-template <class KeyType, class ElemType>
-void MapFeature<KeyType, ElemType>::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
-  Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
-  Emitter << YAML::Comment(this->getDescription());
-  Emitter << YAML::Key << "values";
-  Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &Pair : TheFeature) {
-    Emitter << YAML::Key << Pair.first;
-    Emitter << YAML::Value << Pair.second;
-  }
-  Emitter << YAML::EndMap;
-  Emitter << YAML::EndMap;
-}
 
 #endif

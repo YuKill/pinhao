@@ -125,6 +125,7 @@ void CFGFunctionStaticFeatures::processModule(llvm::Module &Module) {
 
 std::unique_ptr<Feature> CFGFunctionStaticFeatures::clone() const {
   CFGFunctionStaticFeatures *Clone = new CFGFunctionStaticFeatures(*this);
+  Clone->Yaml.reset(new Yamlfy<MapVectorFeature<std::string, uint64_t>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 

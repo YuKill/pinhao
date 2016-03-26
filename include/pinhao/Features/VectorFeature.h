@@ -12,6 +12,16 @@
 using namespace pinhao;
 
 namespace pinhao {
+  template <class ElemType> class VectorFeature;
+
+  template <class ElemType>
+    class Yamlfy<VectorFeature<ElemType>> : public YamlfyTemplateBase<VectorFeature<ElemType>> {
+      public:
+        Yamlfy(const VectorFeature<ElemType> *VFPtr) : YamlfyTemplateBase<VectorFeature<ElemType>>(VFPtr) {}
+
+        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
+        void get(const YAML::Node &Node) override;
+    };
 
   /**
    * @brief Implements a template vector feature class.
@@ -29,11 +39,7 @@ namespace pinhao {
       public:
         virtual ~VectorFeature() {};
 
-        VectorFeature(FeatureInfo *Info) : LinearFeature<ElemType>(Info) {
-          assert(this->isComposite() && "VectorFeature must have CompositeFeatureInfo.");
-          CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
-          TheFeature = std::vector<ElemType>(CompInfo->getNumberOfSubFeatures(), 0); 
-        }
+        VectorFeature(FeatureInfo *Info);
 
         /**
          * @brief Sets the sub-feature with name @a FeatureName to
@@ -53,9 +59,44 @@ namespace pinhao {
          */
         const ElemType& getValueOf(std::string FeatureName) override;
 
-        virtual void appendYaml(YAML::Emitter &Emitter, bool printReduced) override; 
     };
 
+}
+
+template <class ElemType>
+void Yamlfy<VectorFeature<ElemType>>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  VectorFeature<ElemType> *Pointer = this->Value;
+  Emitter << YAML::BeginMap;
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
+  Emitter << YAML::Key << "features";
+  Emitter << YAML::Value << YAML::BeginMap;
+  for (auto &InfoPair : *(Pointer)) {
+    if (PrintReduced && Pointer->getValueOf(InfoPair.first) == 0) continue;
+    Emitter << YAML::Key << InfoPair.first << YAML::Value;
+    Yamlfy<ElemType>(&Pointer->getValueOf(InfoPair.first)).append(Emitter, PrintReduced);
+    Emitter << YAML::Comment(InfoPair.second);
+  }
+  Emitter << YAML::EndMap;
+  Emitter << YAML::EndMap;
+}
+
+template <class ElemType>
+void Yamlfy<VectorFeature<ElemType>>::get(const YAML::Node &Node) {
+  VectorFeature<ElemType> *Pointer = this->Value;
+  YAML::Node Features = Node["features"];
+  for (auto I = Features.begin(), E = Features.end(); I != E; ++I) {
+    ElemType Elem;
+    std::string FeatureName = I->first.as<std::string>();
+    Yamlfy<ElemType>(&Elem).get(I->second); 
+    Pointer->setValueOf(FeatureName, Elem);
+  }
+}
+
+template <class ElemType>
+VectorFeature<ElemType>::VectorFeature(FeatureInfo *Info) : LinearFeature<ElemType>(Info) {
+  assert(this->isComposite() && "VectorFeature must have CompositeFeatureInfo.");
+  CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
+  TheFeature = std::vector<ElemType>(CompInfo->getNumberOfSubFeatures(), 0); 
 }
 
 template <class ElemType>
@@ -72,22 +113,6 @@ const ElemType& VectorFeature<ElemType>::getValueOf(std::string FeatureName) {
   CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
   uint64_t Index = CompInfo->getIndexOfSubFeature(FeatureName); 
   return TheFeature[Index];
-}
-
-template <class ElemType>
-void VectorFeature<ElemType>::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
-  Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
-  Emitter << YAML::Key << "features";
-  Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &InfoPair : *(this)) {
-    if (printReduced && getValueOf(InfoPair.first) == 0) continue;
-    Emitter << YAML::Key << InfoPair.first;
-    Emitter << YAML::Value << getValueOf(InfoPair.first);
-    Emitter << YAML::Comment(InfoPair.second);
-  }
-  Emitter << YAML::EndMap;
-  Emitter << YAML::EndMap;
 }
 
 #endif

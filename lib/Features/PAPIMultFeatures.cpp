@@ -37,6 +37,9 @@ namespace {
 }
 
 void PAPIMultFeatures::processModule(llvm::Module &Module) {
+  if (this->isProcessed()) return;
+  Processed = true;
+
   CompositeFeatureInfo *CInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
   int Size, *EventCodes = new int[CInfo->getNumberOfSubFeatures()], 
       EventSet = PAPI_NULL;
@@ -110,6 +113,7 @@ void PAPIMultFeatures::getMeasures(long long *Values, int *EventCodes, int Size)
 
 std::unique_ptr<Feature> PAPIMultFeatures::clone() const {
   PAPIMultFeatures *Clone = new PAPIMultFeatures(*this);
+  Clone->Yaml.reset(new Yamlfy<VectorFeature<uint64_t>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 

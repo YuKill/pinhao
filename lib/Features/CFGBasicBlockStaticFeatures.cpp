@@ -6,11 +6,28 @@
  */
 
 #include "pinhao/Features/MapVectorFeature.h"
+#include "pinhao/Features/MapFeature.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"
 
 using namespace pinhao;
+
+namespace {
+  class CFGBasicBlockStaticFeatures; 
+}
+
+namespace pinhao {
+
+  template <>
+    class Yamlfy<CFGBasicBlockStaticFeatures> : public YamlfyTemplateBase<CFGBasicBlockStaticFeatures> {
+      public:
+        Yamlfy(const CFGBasicBlockStaticFeatures *BBSFPtr) : YamlfyTemplateBase(BBSFPtr) {} 
+        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
+        void get(const YAML::Node &Node) override;
+    };
+
+}
 
 namespace {
 
@@ -28,13 +45,16 @@ namespace {
     public:
       ~CFGBasicBlockStaticFeatures() {}
       CFGBasicBlockStaticFeatures(FeatureInfo *Info) : 
-        MapVectorFeature<void*, uint64_t>(Info) {}
+        MapVectorFeature<void*, uint64_t>(Info) {
+          Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<CFGBasicBlockStaticFeatures>(this)); 
+        }
 
       std::unique_ptr<Feature> clone() const override;
 
       void processModule(llvm::Module &Module) override;
 
-      void appendYaml(YAML::Emitter &Emitter, bool printReduced) override;
+      friend class Yamlfy<CFGBasicBlockStaticFeatures>; 
+
   };
 
 }
@@ -212,39 +232,48 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
 }
 
 std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
-  Feature *Clone = new CFGBasicBlockStaticFeatures(*this); 
+  CFGBasicBlockStaticFeatures *Clone = new CFGBasicBlockStaticFeatures(*this); 
+  Clone->Yaml.reset(new Yamlfy<CFGBasicBlockStaticFeatures>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 
-void CFGBasicBlockStaticFeatures::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
+void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  CFGBasicBlockStaticFeatures *Pointer = this->Value;
   Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
-
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &ValuePair : TheFeature) {
+  for (auto &ValuePair : Pointer->TheFeature) {
     Emitter << YAML::Key << std::to_string((uint64_t)ValuePair.first);
     Emitter << YAML::Value << YAML::BeginMap;
-    for (auto &InfoPair : *(this)) {
-      if (printReduced && getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
+    for (auto &InfoPair : *(Pointer)) {
+      if (PrintReduced && Pointer->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
       Emitter << YAML::Key << InfoPair.first;
-      Emitter << YAML::Value << getValueOfKey(InfoPair.first, ValuePair.first);
+      Emitter << YAML::Value << Pointer->getValueOfKey(InfoPair.first, ValuePair.first);
       Emitter << YAML::Comment(InfoPair.second);
     }
     Emitter << YAML::EndMap;
   }
   Emitter << YAML::EndMap;
-
   Emitter << YAML::Key << "index";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &OrderPair : Order) {
+  for (auto &OrderPair : Pointer->Order) {
     Emitter << YAML::Key << std::to_string((uint64_t)OrderPair.first);
     Emitter << YAML::Value << 
       YAML::BeginSeq << OrderPair.second.first << std::to_string(OrderPair.second.second) << YAML::EndSeq;
   }
   Emitter << YAML::EndMap;
-
   Emitter << YAML::EndMap;
+}
+
+void Yamlfy<CFGBasicBlockStaticFeatures>::get(const YAML::Node &Node) {
+  CFGBasicBlockStaticFeatures *Pointer = this->Value;
+  Yamlfy<MapVectorFeature<void*, uint64_t>>(Pointer).get(Node);
+  YAML::Node Index = Node["index"];
+  for (auto I = Index.begin(), E = Index.end(); I != E; ++I) {
+    void *Key = (void*) I->first.as<uint64_t>();  
+    Pointer->Order[Key] = std::make_pair(I->second[0].as<std::string>(), I->second[1].as<uint64_t>());
+  }
 }
 
 static std::map<std::string, std::string> SubFeatures = {

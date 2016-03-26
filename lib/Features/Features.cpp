@@ -13,14 +13,18 @@ using namespace pinhao;
 
 /*
  * ----------------------------------=
- * Class: StringFeature
+ * Class: Yamlfy<StringFeature>
  */
-void StringFeature::appendYaml(YAML::Emitter &Emitter, bool printReduced) {
+
+void Yamlfy<StringFeature>::append(YAML::Emitter &Emitter, bool PrintReduced) {
   Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
-
+  Emitter << YAML::Key << "feature-name" << YAML::Value << Value->getName();
   Emitter << YAML::Key << "values";
-  Emitter << YAML::Value << TheFeature;
-
+  Emitter << YAML::Value << Value->getValueOf(Value->getName());
   Emitter << YAML::EndMap;
+}
+
+void Yamlfy<StringFeature>::get(const YAML::Node &Node) {
+  std::string FeatureName = Node["feature-name"].as<std::string>();
+  Value->setValueOf(FeatureName, Node["values"].as<std::string>());
 }
