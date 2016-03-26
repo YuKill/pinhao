@@ -6,7 +6,6 @@
  */
 
 #include "pinhao/Features/MapVectorFeature.h"
-#include "pinhao/Features/MapFeature.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"

@@ -7,7 +7,6 @@
  */
 
 #include "pinhao/Features/VectorFeature.h"
-#include "pinhao/Features/MapVectorFeature.h"
 #include "pinhao/Support/JITExecutor.h"
 
 #include "papi.h"
