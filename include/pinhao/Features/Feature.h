@@ -31,6 +31,8 @@ namespace pinhao {
    */
   class Feature {
     public:
+      typedef std::map<std::string, std::string>::iterator iterator;
+
       /// @brief The kind of the feature.
       enum FeatureKind {
         LinearKind, ///< Can get the value only by the name of the feature.
@@ -88,14 +90,14 @@ namespace pinhao {
       bool isDynamicFeature() const { return Info->isDynamicFeature(); }
 
       /// @brief Gets the @a begin iterator of the @a Info.
-      std::map<std::string, std::string>::iterator begin() {
+      iterator begin() {
         assert(isComposite() && "This feature is not a composite type feature."); 
         CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
         return CompInfo->begin();
       }
 
       /// @brief Gets the @a end iterator of the @a Info.
-      std::map<std::string, std::string>::iterator end() {
+      iterator end() {
         assert(isComposite() && "This feature is not a composite type feature."); 
         CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
         return CompInfo->end();
