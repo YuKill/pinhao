@@ -22,17 +22,63 @@ namespace pinhao {
    * @brief This class holds all enabled features.
    */
   class FeatureSet {
-    private:
+    public:
       /// @brief Has the needed information to decide whether some feature must be
       /// enabled or not.
-      static std::map<std::string, std::vector<bool>> EnableFeature;
+      static std::map<std::string, std::map<std::string, bool>> EnabledFeatures;
 
+
+    private:
       /// @brief All the enabled features.
       std::map<std::string, std::unique_ptr<Feature>> Features;
 
       FeatureSet() {}
 
     public:
+
+      /**
+       * @brief Iterates over the features/sub-features of the enabled features.
+       * 
+       * @details
+       * It will iterate over the features enabled. More specifically, over a @a FeatureSet. For each
+       * Feature or SubFeature found, it will return a iterator pointing to a @a std::pair.
+       *
+       * { "FeatureName", "SubFeatureName" }
+       *
+       * If there is no sub-feature in the feature, an empty string is returned.
+       */
+      class iterator : std::iterator<std::forward_iterator_tag, std::pair<std::string, std::string>> {
+        private:
+          typedef std::map<std::string, std::unique_ptr<Feature>> EnabledFeaturesMap;
+          typedef value_type PairType;
+
+          PairType Pair;
+          Feature::iterator FeatureIterator;
+          EnabledFeaturesMap *Map;
+          EnabledFeaturesMap::iterator MapIterator;
+          std::string FeatureName;
+
+          void incMapIterator();
+          void setPair();
+
+        public:
+          iterator() {}
+
+          /**
+           * @param M Pointer to the map that it should iterate.
+           * @param It The initial iterator position.
+           * @param Name A feature name that it should iterate.
+           */
+          iterator(EnabledFeaturesMap *M, EnabledFeaturesMap::iterator It, std::string Name = ""); 
+
+          const PairType *operator->() const;
+          PairType &operator*();
+          iterator &operator++();
+          iterator operator++(int);
+          bool operator==(const iterator &It);
+          bool operator!=(const iterator &It);
+      };
+
       ~FeatureSet() {}
 
       /// @brief Constructs a @a FeatureSet object based on the @a EnableFeature.
@@ -80,6 +126,22 @@ namespace pinhao {
         FeatureType getSubfeatureOfKey(std::pair<std::string, std::string> FeaturePair, KeyType Key) {
           getFeature<FeatureType, KeyType>(FeaturePair.first, FeaturePair.second, Key);
         }
+
+      /**
+       * @brief Gets a iterator to the first feature.
+       *
+       * @details
+       * If the @a FeatureName is specified, it will return a iterator pointing to the first subfeature of
+       * the feature specified. If not, it will iterate over all sub-features enabled.
+       *
+       * @param FeatureName The name of the feature to be iterated over.
+       */
+      iterator begin(std::string FeatureName = "") { return iterator(&Features, Features.begin(), FeatureName); }
+
+      /**
+       * @brief Gets a iterator to the end of the features list.
+       */
+      iterator end(std::string FeatureName = "") { return iterator(&Features, Features.end(), FeatureName); }
 
       friend class FeatureSetWrapperPass;
 
