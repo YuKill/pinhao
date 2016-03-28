@@ -16,7 +16,9 @@ add_test(CFGStaticFeaturesTest RunCFGStaticFeaturesTest)
 add_executable(RunFeatureSetTest
   FeatureSetTest.cpp
   $<TARGET_OBJECTS:Features>
-  $<TARGET_OBJECTS:CFGStaticFeatures>)
+  $<TARGET_OBJECTS:CFGStaticFeatures>
+  $<TARGET_OBJECTS:GeneFeatures>
+  $<TARGET_OBJECTS:PAPIFeatures>)
 add_test(FeatureSetTest RunFeatureSetTest)
 
 configure_file (CFGStaticFeaturesBenchmarkTest.sh.in tmp/CFGStaticFeaturesBenchmarkTest.sh @ONLY)
@@ -59,9 +61,12 @@ target_link_libraries(RunCFGStaticFeaturesTest
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
 target_link_libraries(RunFeatureSetTest
-  LLVMAnalysis LLVMCore LLVMSupport
+  LLVMX86Disassembler LLVMX86AsmParser LLVMX86CodeGen LLVMSelectionDAG LLVMX86Desc LLVMMCDisassembler LLVMX86Info 
+  LLVMX86AsmPrinter LLVMX86Utils LLVMIRReader LLVMMCJIT LLVMInterpreter LLVMExecutionEngine LLVMRuntimeDyld LLVMAsmParser 
+  LLVMAsmPrinter LLVMCodeGen LLVMTarget LLVMScalarOpts LLVMProfileData LLVMObject LLVMMCParser LLVMBitReader 
+  LLVMInstCombine LLVMInstrumentation LLVMTransformUtils LLVMipa LLVMMC LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
-  rt dl tinfo pthread z m)
+  rt dl tinfo pthread z m papi)
 target_link_libraries(RunPAPIFeaturesTest
   LLVMX86Disassembler LLVMX86AsmParser LLVMX86CodeGen LLVMSelectionDAG LLVMX86Desc LLVMMCDisassembler LLVMX86Info 
   LLVMX86AsmPrinter LLVMX86Utils LLVMIRReader LLVMMCJIT LLVMInterpreter LLVMExecutionEngine LLVMRuntimeDyld LLVMAsmParser 
