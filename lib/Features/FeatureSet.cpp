@@ -25,6 +25,35 @@ std::unique_ptr<FeatureSet> FeatureSet::get() {
   return std::unique_ptr<FeatureSet>(Set);
 }
 
+bool FeatureSet::isEnabled(std::string FeatureName, std::string SubFeatureName) {
+  if (SubFeatureName == "")
+    return EnabledFeatures.count(FeatureName) > 0;
+  return isEnabled(FeatureName) && 
+    (EnabledFeatures[FeatureName].size() == 0 || EnabledFeatures[FeatureName].count(SubFeatureName) > 0);
+}
+
+bool FeatureSet::isEnabled(std::pair<std::string, std::string> Pair) {
+  return isEnabled(Pair.first, Pair.second);
+}
+
+void FeatureSet::enable(std::string FeatureName) {
+  if (isEnabled(FeatureName)) 
+    EnabledFeatures[FeatureName].clear();
+  else
+    EnabledFeatures.insert(std::make_pair(FeatureName, std::map<std::string, bool>()));
+}
+
+void FeatureSet::enable(std::string FeatureName, std::vector<std::string> SubFeatures) {
+  enable(FeatureName);
+  EnabledFeatures[FeatureName].clear();
+  for (auto &SubFeature : SubFeatures) 
+    EnabledFeatures[FeatureName].insert(std::make_pair(SubFeature, true)); 
+}
+
+void FeatureSet::disableAll() {
+  EnabledFeatures.clear();
+}
+
 /*=--------------------------------------------=
  * class: FeatureSetWrapperPass::iterator
  */
@@ -36,7 +65,7 @@ FeatureSet::iterator::iterator(EnabledFeaturesMap *M, EnabledFeaturesMap::iterat
       if (MapIterator->second->isComposite()) 
         FeatureIterator = MapIterator->second->begin();
     }
-    setPair();
+    update();
   }
 
 void FeatureSet::iterator::setPair() {
@@ -46,6 +75,12 @@ void FeatureSet::iterator::setPair() {
     Pair.second = FeatureIterator->first;
   else
     Pair.second = "";
+}
+
+void FeatureSet::iterator::update() {
+  setPair();
+  if (MapIterator != Map->end() && !FeatureSet::isEnabled(Pair))
+    operator++();
 }
 
 const FeatureSet::iterator::PairType *FeatureSet::iterator::operator->() const {
@@ -79,7 +114,7 @@ FeatureSet::iterator &FeatureSet::iterator::operator++() {
       MapIterator = Map->end();
 
   } 
-  setPair();
+  update();
   return *this;
 }
 

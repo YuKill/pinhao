@@ -22,19 +22,35 @@ namespace pinhao {
    * @brief This class holds all enabled features.
    */
   class FeatureSet {
-    public:
+    private:
       /// @brief Has the needed information to decide whether some feature must be
       /// enabled or not.
       static std::map<std::string, std::map<std::string, bool>> EnabledFeatures;
 
-
-    private:
       /// @brief All the enabled features.
       std::map<std::string, std::unique_ptr<Feature>> Features;
 
       FeatureSet() {}
 
     public:
+      /// @brief Constructs a @a FeatureSet object based on the @a EnableFeature.
+      static std::unique_ptr<FeatureSet> get();
+
+      /// @brief Returns true if the feature @a FeatureName is enabled. If @a SubFeatureName
+      /// is provided, it returns true only if the sub-feature @a SubFeatureName is also enabled.
+      static bool isEnabled(std::string FeatureName, std::string SubFeatureName = "");
+
+      static bool isEnabled(std::pair<std::string, std::string> Pair);
+
+      /// @brief Enables the feature called @a FeatureName.
+      static void enable(std::string FeatureName);
+
+      /// @brief Enables only the sub-features in the @a SubFeatures, of the feature 
+      /// called @a FeatureName.
+      static void enable(std::string FeatureName, std::vector<std::string> SubFeatures);
+
+      /// @brief Disables all enabled features.
+      static void disableAll();
 
       /**
        * @brief Iterates over the features/sub-features of the enabled features.
@@ -52,14 +68,24 @@ namespace pinhao {
           typedef std::map<std::string, std::unique_ptr<Feature>> EnabledFeaturesMap;
           typedef value_type PairType;
 
+          /// @brief The actual pair that will be returned.
           PairType Pair;
+
+          /// @brief The iterator of composite features.
           Feature::iterator FeatureIterator;
+
+          /// @brief A pointer to the map to be iterated.
           EnabledFeaturesMap *Map;
+
+          /// @brief The current iterator position in the map.
           EnabledFeaturesMap::iterator MapIterator;
+
+          /// @brief The name of the feature being iterated, if specified.
           std::string FeatureName;
 
           void incMapIterator();
           void setPair();
+          void update();
 
         public:
           iterator() {}
@@ -80,9 +106,6 @@ namespace pinhao {
       };
 
       ~FeatureSet() {}
-
-      /// @brief Constructs a @a FeatureSet object based on the @a EnableFeature.
-      static std::unique_ptr<FeatureSet> get();
 
       /**
        * @brief Gets a feature or sub-feature which has type @a FeatureType.
