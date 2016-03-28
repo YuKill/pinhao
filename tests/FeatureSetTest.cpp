@@ -17,11 +17,70 @@ TEST(FeatureSetTest, EmptyInstantiation) {
   ASSERT_NE(FSWP, nullptr);
 }
 
+TEST(FeatureSetTest, EnablingFeatures) {
+  FeatureSet::disableAll();
+  std::vector<std::string> Names = { "cfg_md_static", "cfg_fn_static", "cfg_bb_static", "papi-feat-m", "function-dna" };
+
+  for (auto &Name : Names) {
+    ASSERT_FALSE(FeatureSet::isEnabled(Name));
+    FeatureSet::enable(Name);
+  }
+  for (auto &Name : Names) {
+    ASSERT_TRUE(FeatureSet::isEnabled(Name));
+    std::unique_ptr<Feature> F(FeatureRegistry::get(Name));
+    if (F->isComposite())
+      for (auto &Pair : *(F.get())) {
+        // std::cout << "isEnabled(" << F->getName() << ", " << Pair.first << ")" << std::endl;
+        ASSERT_TRUE(FeatureSet::isEnabled(F->getName(), Pair.first)); 
+      }
+    else
+      ASSERT_TRUE(FeatureSet::isEnabled(F->getName())); 
+  }
+
+
+}
+
+TEST(FeatureSetTest, EnablingSomeFeatures) {
+  FeatureSet::disableAll();
+  std::vector<std::string> Names = { "cfg_md_static", "cfg_fn_static", "cfg_bb_static", "papi-feat-m", "function-dna" };
+
+  for (auto &Name : Names) {
+    ASSERT_FALSE(FeatureSet::isEnabled(Name));
+    FeatureSet::enable(Name);
+  }
+
+  for (auto &Name : Names) {
+    ASSERT_TRUE(FeatureSet::isEnabled(Name));
+    std::unique_ptr<Feature> F(FeatureRegistry::get(Name));
+    if (F->isComposite()) {
+      bool First = true;
+      FeatureSet::enable(Name, std::vector<std::string> { F->begin()->first });
+
+      for (auto &Pair : *(F.get())) {
+        // std::cout << "isEnabled(" << F->getName() << ", " << Pair.first << ")" << std::endl;
+        if (First) {
+          ASSERT_TRUE(FeatureSet::isEnabled(F->getName(), Pair.first)); 
+          First = false;
+        } else ASSERT_FALSE(FeatureSet::isEnabled(F->getName(), Pair.first));
+      }
+    } else
+      ASSERT_TRUE(FeatureSet::isEnabled(F->getName())); 
+  }
+
+  std::unique_ptr<FeatureSet> Set(FeatureSet::get()); 
+  int Count =  0;
+  for (auto &Pair : *(Set.get())) {
+    std::cout << Pair.first << " - " << Pair.second << std::endl;
+    Count++;
+  }
+  ASSERT_EQ(Count, Names.size());
+}
+
 TEST(FeatureSetTest, Iterating) {
   std::vector<std::string> Names = { "cfg_md_static", "cfg_fn_static", "cfg_bb_static", "papi-feat-m", "function-dna" };
   std::vector<std::shared_ptr<Feature>> Features;
   for (auto &Name : Names) {
-    FeatureSet::EnabledFeatures.insert(std::make_pair(Name, std::map<std::string, bool>()));
+    FeatureSet::enable(Name);
     Features.push_back(FeatureRegistry::get(Name));
   }
 
@@ -36,7 +95,7 @@ TEST(FeatureSetTest, Iterating) {
   }
 
   for (auto &Pair : *(Set)) {
-    // std::cout << Pair.first << " - " << Pair.second << std::endl;
+    std::cout << Pair.first << " - " << Pair.second << std::endl;
     bool Exists = false;
     for (auto &F : Features)
       Exists = Exists || (F->getName() == Pair.first && (!F->isComposite() || (F->isComposite() && F->hasSubFeature(Pair.second))));
@@ -48,7 +107,7 @@ TEST(FeatureSetTest, IteratingEachFeature) {
   std::vector<std::string> Names = { "cfg_md_static", "cfg_fn_static", "cfg_bb_static", "papi-feat-m", "function-dna" };
   std::vector<std::shared_ptr<Feature>> Features;
   for (auto &Name : Names) {
-    FeatureSet::EnabledFeatures.insert(std::make_pair(Name, std::map<std::string, bool>()));
+    FeatureSet::enable(Name);
     Features.push_back(FeatureRegistry::get(Name));
   }
 
