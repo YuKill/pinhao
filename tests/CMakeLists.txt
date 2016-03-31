@@ -46,6 +46,11 @@ add_executable(RunGeneFeaturesTest
   $<TARGET_OBJECTS:GeneFeatures>)
 add_test(GeneFeaturesTest RunGeneFeaturesTest)
 
+add_executable(RunYamlOptionsTest
+  YamlOptionsTest.cpp
+  $<TARGET_OBJECTS:Support>)
+add_test(YamlOptionsTest RunYamlOptionsTest)
+
 configure_file (GeneFeaturesBenchmarkTest.sh.in tmp/GeneFeaturesBenchmarkTest.sh @ONLY)
 file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/GeneFeaturesBenchmarkTest.sh" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" 
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE 
@@ -82,3 +87,5 @@ target_link_libraries(RunGeneFeaturesTest
   LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
+target_link_libraries(RunYamlOptionsTest
+  gtest gtest_main yaml-cpp pthread)
