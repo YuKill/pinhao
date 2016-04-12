@@ -5,7 +5,7 @@
 using namespace pinhao;
 
 TEST(FeatureInfoTest, SimpleFeatureInfoTest) {
-  FeatureInfo *FI = new FeatureInfo("theName", "theDescription", FeatureInfo::StringType, FeatureInfo::Static);
+  FeatureInfo *FI = new FeatureInfo("theName", "theDescription", ValueType::String, FeatureInfo::Static);
   ASSERT_EQ(FI->getName(), "theName");
   ASSERT_EQ(FI->getDescription(), "theDescription");
 }
@@ -17,7 +17,7 @@ TEST(FeatureInfoTest, CompositeFeatureInfoTest) {
       {"nof_functions", "Number of Functions"}
   };
 
-  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", FeatureInfo::FloatType, FeatureInfo::Dynamic, TheFeatures);
+  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", ValueType::Float, FeatureInfo::Dynamic, TheFeatures);
   ASSERT_TRUE(FI->isComposite());
 
   CompositeFeatureInfo *CFI = static_cast<CompositeFeatureInfo*>(FI);
@@ -35,7 +35,7 @@ TEST(FeatureInfoTest, CompositeFeatureInfoTest) {
 }
 
 TEST(FeatureInfoTest, CompositeFeatureInfoTmpCtorTest) {
-  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", FeatureInfo::IntType, FeatureInfo::Static,
+  FeatureInfo *FI = new CompositeFeatureInfo("theName", "theDescription", ValueType::Int, FeatureInfo::Static,
       std::map<std::string, std::string> {
       {"nof_bb", "Number of Basic Blocks"},
       {"nof_inst", "Number of Instructions"},

@@ -9,6 +9,8 @@
 #ifndef PINHAO_FEATURE_INFO_H
 #define PINHAO_FEATURE_INFO_H
 
+#include "pinhao/Support/Types.h"
+
 #include <map>
 #include <vector>
 #include <string>
@@ -38,18 +40,11 @@ namespace pinhao {
         Dynamic ///< Dynamically gathered features.
       };
 
-      /// @brief The type of this feature (or each sub-feature).
-      enum FeatureType {
-        StringType, 
-        IntType, 
-        FloatType 
-      };
-
     private:
       std::string Name;
       std::string Description;
 
-      FeatureType Type;
+      ValueType Type;
       GatherMode  Mode;
       FeatureInfoKind Kind;
 
@@ -63,7 +58,7 @@ namespace pinhao {
        * @param Mode How this feature should be gathered.
        * @param Kind The class of this @a FeatureInfo class.
        */
-      FeatureInfo(std::string FeatureName, std::string FeatureDesc, FeatureType Type, GatherMode Mode, 
+      FeatureInfo(std::string FeatureName, std::string FeatureDesc, ValueType Type, GatherMode Mode, 
           FeatureInfoKind Kind = FeatureInfoKind::SimpleKind) : 
         Name(FeatureName), Description(FeatureDesc), Type(Type), Mode(Mode), Kind(Kind) {}
 
@@ -108,7 +103,7 @@ namespace pinhao {
        * @param Kind The class of this @a FeatureInfo class.*
        * @param Infos A map of each name and description of the sub-features.
        */
-      CompositeFeatureInfo(std::string FeatureName, std::string FeatureDesc, FeatureType Type, 
+      CompositeFeatureInfo(std::string FeatureName, std::string FeatureDesc, ValueType Type, 
           GatherMode Mode, std::map<std::string, std::string> Infos) : 
         FeatureInfo(FeatureName, FeatureDesc, Type, Mode, FeatureInfoKind::CompositeKind), FeaturesInfo(Infos) {}
   
