@@ -305,4 +305,4 @@ static std::map<std::string, std::string> SubFeatures = {
 
 static RegisterFeature<CFGBasicBlockStaticFeatures> 
 X(new CompositeFeatureInfo("cfg_bb_static", "Static Information of BasicBlocks at CFG", 
-      FeatureInfo::IntType, FeatureInfo::Static, SubFeatures));
+      ValueType::Int, FeatureInfo::Static, SubFeatures));

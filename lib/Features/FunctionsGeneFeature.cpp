@@ -160,4 +160,4 @@ std::unique_ptr<Feature> FunctionsGeneFeature::clone() const {
 } 
 
 static RegisterFeature<FunctionsGeneFeature> 
-X(new FeatureInfo("function-dna", "Extract Function DNA.", FeatureInfo::StringType, FeatureInfo::Static));
+X(new FeatureInfo("function-dna", "Extract Function DNA.", ValueType::String, FeatureInfo::Static));

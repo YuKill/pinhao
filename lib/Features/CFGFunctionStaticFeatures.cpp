@@ -176,4 +176,4 @@ static std::map<std::string, std::string> SubFeatures = {
 
 static RegisterFeature<CFGFunctionStaticFeatures> 
 X(new CompositeFeatureInfo("cfg_fn_static", "Static Information of Functions at CFG", 
-      FeatureInfo::IntType, FeatureInfo::Static, SubFeatures));
+      ValueType::Int, FeatureInfo::Static, SubFeatures));

@@ -229,4 +229,4 @@ static std::map<std::string, std::string> SubFeatures = {
 
 static RegisterFeature<PAPIMultFeatures> 
 X(new CompositeFeatureInfo("papi-feat-m", "Dynamic information collected by the PAPI tool.", 
-      FeatureInfo::IntType, FeatureInfo::Dynamic, SubFeatures));
+      ValueType::Int, FeatureInfo::Dynamic, SubFeatures));

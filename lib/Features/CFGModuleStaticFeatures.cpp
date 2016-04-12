@@ -123,4 +123,4 @@ static std::map<std::string, std::string> SubFeatures = {
 
 static RegisterFeature<CFGModuleStaticFeatures> 
 X(new CompositeFeatureInfo("cfg_md_static", "Static Information of Module at CFG", 
-      FeatureInfo::IntType, FeatureInfo::Static, SubFeatures));
+      ValueType::Int, FeatureInfo::Static, SubFeatures));
