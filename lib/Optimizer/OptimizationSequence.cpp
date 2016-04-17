@@ -51,9 +51,11 @@ struct OptimizationInfoCompare {
 };
 
 std::unique_ptr<OptimizationSequence> 
-OptimizationSequence::generate(std::shared_ptr<OptimizationSet> Set) {
+OptimizationSequence::generate(std::shared_ptr<OptimizationSet> Set, int Size) {
   if (Set->size() == 0) 
     return std::unique_ptr<OptimizationSequence>();
+
+  if (Size == -1) Size = Set->size();
 
   srand(time(0));
   double PickProbability = 0.5;
@@ -77,6 +79,9 @@ OptimizationSequence::generate(std::shared_ptr<OptimizationSet> Set) {
 
       if (Repetition[Pair.first])
         Finish = false;
+
+      if (Size == OptSeq->Sequence.size()) break;
+
     }
     if (Finish) break;
   }
@@ -126,6 +131,7 @@ void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPas
 
 void OptimizationSequence::print() {
   print(std::cout);
+  std::cout << std::endl;
 }
 
 void OptimizationSequence::print(std::ostream &Out) {

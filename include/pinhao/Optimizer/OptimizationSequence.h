@@ -44,7 +44,7 @@ namespace pinhao {
     public:
 
       /// @brief Generates a @a OptimizationSequence from a specified @a OptimizationSet.
-      static std::unique_ptr<OptimizationSequence> generate(std::shared_ptr<OptimizationSet> Set);
+      static std::unique_ptr<OptimizationSequence> generate(std::shared_ptr<OptimizationSet> Set, int Size = -1);
 
       /// @brief Encapsulates a vector of @a Optimizations into a @a OptimizationSequence.
       static std::unique_ptr<OptimizationSequence> generate(std::vector<Optimization> Sequence);
