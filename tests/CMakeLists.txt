@@ -57,6 +57,11 @@ file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/GeneFeaturesBenchmarkTest.sh" DESTIN
   GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 add_test(GeneFeaturesBenchmarkTest GeneFeaturesBenchmarkTest.sh)
 
+add_executable(RunOptimizerTest
+  OptimizerTest.cpp
+  $<TARGET_OBJECTS:Optimizer>)
+add_test(OptimizerTest RunOptimizerTest)
+
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
@@ -89,3 +94,9 @@ target_link_libraries(RunGeneFeaturesTest
   rt dl tinfo pthread z m)
 target_link_libraries(RunYamlOptionsTest
   gtest gtest_main yaml-cpp pthread)
+target_link_libraries(RunOptimizerTest
+  LLVMBitWriter LLVMIRReader LLVMAsmParser LLVMipo LLVMVectorize LLVMCodeGen LLVMTarget LLVMInstrumentation 
+  LLVMScalarOpts LLVMProfileData LLVMObject LLVMMCParser LLVMMC LLVMBitReader LLVMInstCombine LLVMTransformUtils 
+  LLVMipa LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m)
