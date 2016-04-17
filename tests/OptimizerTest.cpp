@@ -4,20 +4,43 @@
 
 #include "ModuleReader.h"
 
-using namespace llvm;
+using namespace pinhao;
+
+
+TEST(OptimizerTest, PrintOptimization) {
+  for (auto OptName : Optimizations) {
+    OptimizationSet Set;
+    Set.enableOptimization(getOptimization(OptName));
+    Set.generateRandomSequenceIfNone(); 
+    Set.DefaultSequence->print();
+  }
+}
 
 TEST(OptimizerTest, EachOptimizationTest) {
   std::string Filepath("../../benchmark/polybench-ll/2mm/2mm.bc");
   ModuleReader Reader(Filepath);  
-  Module *M = Reader.getModule().get();
+  llvm::Module *M = Reader.getModule().get();
 
-  for (auto OptName : pinhao::Optimizations) {
+  for (auto OptName : Optimizations) {
     std::cout << "Applying " << OptName << "..." << std::endl;
-    pinhao::OptimizationSet Set;
-    Set.enableOptimization(pinhao::getOptimization(OptName));
+    OptimizationSet Set;
+    Set.enableOptimization(getOptimization(OptName));
 
-    Module *NewModule = pinhao::applyOptimizations(*M, &Set);
+    llvm::Module *NewModule = applyOptimizations(*M, &Set);
     ASSERT_NE(NewModule, nullptr);
+  }
+}
+
+TEST(OptimizerTest, RandomizationTest) {
+  std::string Filepath("../../benchmark/polybench-ll/2mm/2mm.bc");
+  ModuleReader Reader(Filepath);  
+  llvm::Module *M = Reader.getModule().get();
+
+  for (int N = 0; N < 10; ++N) {
+    std::cout << "--------= Sequence: " << N << " =----------" << std::endl;
+    std::unique_ptr<OptimizationSequence> Seq(OptimizationSequence::randomize(10)); 
+    (void) applyOptimizations(*M, Seq.get());
+    Seq->print();
   }
 }
 
