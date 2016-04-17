@@ -4,85 +4,49 @@
  * @file OptimizationSequence.cpp
  */
 
+#include "pinhao/Optimizer/Optimizations.h"
+#include "pinhao/Optimizer/OptimizationProperties.h"
 #include "pinhao/Optimizer/OptimizationSequence.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
-#include "pinhao/Optimizer/OptimizationProperties.h"
 
-#include "llvm/IR/LLVMContext.h"
-#include "llvm/IRReader/IRReader.h"
-#include "llvm/Bitcode/ReaderWriter.h"
-#include "llvm/Support/SourceMgr.h"
-#include "llvm/Support/FileSystem.h"
-#include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Scalar.h"
 
-#include <iostream>
-#include <unistd.h>
-#include <sys/wait.h>
+#include <ostream>
 
 using namespace pinhao;
 
-static void printModule(llvm::Module *Module, std::string Path) {
-  std::error_code Err;
-  llvm::raw_fd_ostream *Out = new llvm::raw_fd_ostream(Path, Err, llvm::sys::fs::OpenFlags::F_RW);
-  llvm::WriteBitcodeToFile(Module, *Out);   
-  Out->flush();
-  delete Out;
+/*
+ * ----------------------------------=
+ * Class: Yamlfy<OptimizationSequence>
+ */
+Yamlfy<OptimizationSequence>::Yamlfy(const OptimizationSequence *V) : 
+  YamlfyTemplateBase<OptimizationSequence>(V) {
+
+  }
+
+void Yamlfy<OptimizationSequence>::append(YAML::Emitter &Emitter, bool PrintReduced) {
+  Emitter << YAML::BeginMap;
+
+  for (auto Opt : Value->Sequence) {
+    OptimizationProperties Prop = Value->Set->getOptimizationProperties(Opt);
+
+    Emitter << YAML::Key << getOptimizationName(Opt);
+    Emitter << YAML::Value; 
+    Yamlfy<OptimizationProperties>(&Prop).append(Emitter, false);
+  }
+
+  Emitter << YAML::EndMap;
 }
 
-static llvm::Module *readModule(std::string Path) {
-  llvm::LLVMContext &Context = llvm::getGlobalContext();
-  llvm::SMDiagnostic Error;
-  return llvm::parseIRFile(Path, Error, Context).release();
-}
-
-llvm::Module *pinhao::optimize(llvm::Module &Module, OptimizationSequence &Sequence) {
-  std::string TmpName = ".tmp-" + std::to_string(time(0));
-
-  fflush(stdout);
-  pid_t Pid = fork();
-
-  if (Pid == 0) {
-    llvm::legacy::PassManager PM;
-    Sequence.populatePassManager(PM);
-    PM.run(Module);
-
-    printModule(&Module, TmpName);
-    exit(0);
+void Yamlfy<OptimizationSequence>::get(const YAML::Node &Node) {
+  Value->Set.reset(new OptimizationSet());
+  std::shared_ptr<OptimizationSet> Set(Value->Set);
+  for (auto I = Node.begin(), E = Node.end(); I != E; ++I) {
+    Optimization Opt = getOptimization(I->first.as<std::string>());
+    OptimizationProperties Prop(Opt);
+    Yamlfy<OptimizationProperties>(&Prop).get(I->second);
+    Set->enableOptimization(Opt, Prop);
   }
-
-  int Return;
-  waitpid(Pid, &Return, 0);
-  if (Return != 0) {
-    std::cerr << "Failed when applying optimizations." << std::endl;
-    return nullptr;
-  }
-
-  return readModule(TmpName);
-}
-
-llvm::Module *pinhao::optimize(llvm::Module &Module, llvm::Function &Function, OptimizationSequence &Sequence) {
-  std::string TmpName = ".tmp-" + std::to_string(time(0));
-
-  fflush(stdout);
-  pid_t Pid = fork();
-  if (Pid == 0) {
-    llvm::legacy::FunctionPassManager FPM(&Module);
-    Sequence.populateFunctionPassManager(FPM);
-    FPM.run(Function);
-
-    printModule(&Module, TmpName);
-    exit(0);
-  }
-
-  int Return;
-  waitpid(Pid, &Return, 0);
-  if (Return != 0) {
-    std::cerr << "Failed when applying optimizations." << std::endl;
-    return nullptr;
-  }
-
-  return readModule(TmpName);
 }
 
 /*
@@ -198,4 +162,13 @@ void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPas
     assert(P->getPassKind() < 4 && "Cannot add Pass with PassKind over 4.");
     FPM.add(P); 
   }
+}
+
+void OptimizationSequence::print() {
+  print(std::cout);
+}
+
+void OptimizationSequence::print(std::ostream &Out) {
+  YAML::Emitter Emitter(Out);
+  Yamlfy<OptimizationSequence>(this).append(Emitter, false);
 }

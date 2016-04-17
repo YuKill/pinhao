@@ -7,24 +7,25 @@
 #ifndef PINHAO_OPTIMIZATION_SEQUENCE_H
 #define PINHAO_OPTIMIZATION_SEQUENCE_H
 
-#include "llvm/IR/Module.h"
-#include "llvm/IR/Function.h"
+#include "pinhao/Optimizer/Optimizations.h"
+#include "pinhao/Support/Yamlfy.h"
+
 #include "llvm/IR/LegacyPassManager.h"
 
 #include <vector>
+#include <iostream>
 
 namespace pinhao {
-  class OptimizationSequence;
   class OptimizationSet;
-  enum class Optimization;
+  class OptimizationSequence;
 
-  /// @brief Applies the @a OptimizationSequence to a module.
-  /// @return The optimized module.
-  llvm::Module *optimize(llvm::Module &Module, OptimizationSequence &Sequence);
-
-  /// @brief Applies the @a OptimizationSequence to a function.
-  /// @return The optimized function's module.
-  llvm::Module *optimize(llvm::Module &Module, llvm::Function &Function, OptimizationSequence &Sequence);
+  template<>
+    class Yamlfy<OptimizationSequence> : public YamlfyTemplateBase<OptimizationSequence> {
+      public:
+        Yamlfy(const OptimizationSequence *V); 
+        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
+        void get(const YAML::Node &Node) override;
+    };
 
   /**
    * @brief Contains a sequence for a specific @a OptimizationSet.
@@ -60,9 +61,16 @@ namespace pinhao {
       /// @details Note that all the optimizations must be for functions (PassKind < 4).
       void populateFunctionPassManager(llvm::legacy::FunctionPassManager &FPM);
 
+      /// @brief Prints the sequence at the standard output.
+      void print();
+      /// @brief Prints the sequence at @a Out.
+      void print(std::ostream &Out);
+
       typedef std::vector<Optimization>::iterator SequenceIterator;
       SequenceIterator begin() { return Sequence.begin(); }
       SequenceIterator end() { return Sequence.end(); }
+
+      friend class Yamlfy<OptimizationSequence>;
   
   };
 
