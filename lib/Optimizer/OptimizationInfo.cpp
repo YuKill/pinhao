@@ -30,9 +30,11 @@ void Yamlfy<OptimizationInfo>::append(YAML::Emitter &Emitter, bool PrintReduced)
   Emitter << YAML::Value << Value->getName();
 
   if (Value->getNumberOfArguments() > 0) {
-    Emitter << YAML::Key << "args" << YAML::Value;
+    Emitter << YAML::Key << "args";
+    Emitter << YAML::Value << YAML::BeginSeq;
     for (uint64_t I = 0, E = Value->getNumberOfArguments(); I < E; ++I) 
       Yamlfy<OptimizationArgBase>(Value->getOptimizationArg(I)).append(Emitter, false);
+    Emitter << YAML::EndSeq;
   }
 
   Emitter << YAML::EndMap;
