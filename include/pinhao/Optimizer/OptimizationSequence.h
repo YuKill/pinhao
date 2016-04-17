@@ -8,6 +8,7 @@
 #define PINHAO_OPTIMIZATION_SEQUENCE_H
 
 #include "pinhao/Optimizer/Optimizations.h"
+#include "pinhao/Optimizer/OptimizationInfo.h"
 #include "pinhao/Support/Yamlfy.h"
 
 #include "llvm/IR/LegacyPassManager.h"
@@ -33,13 +34,10 @@ namespace pinhao {
   class OptimizationSequence {
     private:
       /// @brief The sequence of optimizations itself.
-      std::vector<Optimization> Sequence;
+      std::vector<OptimizationInfo> Sequence;
 
       /// @brief A reference to the set from where it was generated.
       std::shared_ptr<OptimizationSet> Set;
-
-      /// @brief Creates the specific @a llvm::Pass of the @a Optimization.
-      llvm::Pass *getPass(Optimization Opt); 
 
       OptimizationSequence() {}
 
@@ -66,7 +64,7 @@ namespace pinhao {
       /// @brief Prints the sequence at @a Out.
       void print(std::ostream &Out);
 
-      typedef std::vector<Optimization>::iterator SequenceIterator;
+      typedef std::vector<OptimizationInfo>::iterator SequenceIterator;
       SequenceIterator begin() { return Sequence.begin(); }
       SequenceIterator end() { return Sequence.end(); }
 

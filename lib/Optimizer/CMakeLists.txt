@@ -1,5 +1,5 @@
 add_library (Optimizer OBJECT
   Optimizations.cpp
-  OptimizationProperties.cpp
+  OptimizationInfo.cpp
   OptimizationSequence.cpp
   OptimizationSet.cpp)

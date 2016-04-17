@@ -5,7 +5,7 @@
  */
 
 #include "pinhao/Optimizer/OptimizationSet.h"
-#include "pinhao/Optimizer/OptimizationProperties.h"
+#include "pinhao/Optimizer/OptimizationInfo.h"
 
 #include <algorithm>
 
@@ -20,22 +20,26 @@ OptimizationSet::~OptimizationSet() {
 }
 
 bool OptimizationSet::hasEnabled(Optimization Opt) {
-  return EnabledOptimizations.count(Opt) > 0;
+  for (auto Pair : EnabledOptimizations)
+    if (Pair.first.getOptimization() == Opt)
+      return true;
+  return false;
 }
 
 void OptimizationSet::disableOptimization(Optimization Opt) {
   if (!hasEnabled(Opt)) return;
-  EnabledOptimizations.erase(Opt);
+  for (auto I = EnabledOptimizations.begin(), E = EnabledOptimizations.end(); I != E; ++I)
+    if (I->first.getOptimization() == Opt)
+      EnabledOptimizations.erase(I);
 }
 
-void OptimizationSet::enableOptimization(Optimization Opt) {
+void OptimizationSet::enableOptimization(Optimization Opt, uint64_t Repetition) {
   if (hasEnabled(Opt)) return;
-  EnabledOptimizations.insert(std::make_pair(Opt, OptimizationProperties(Opt)));
+  EnabledOptimizations.push_back(std::make_pair(OptimizationInfo(Opt), Repetition));
 }
 
-void OptimizationSet::enableOptimization(Optimization Opt, OptimizationProperties Prop) {
-  if (hasEnabled(Opt)) return;
-  EnabledOptimizations.insert(std::make_pair(Opt, Prop));
+void OptimizationSet::enableOptimization(OptimizationInfo Info, uint64_t Repetition) {
+  EnabledOptimizations.push_back(std::make_pair(Info, Repetition));
 }
 
 void OptimizationSet::enableOptimizations(std::vector<Optimization> Opts) {
@@ -60,16 +64,6 @@ void OptimizationSet::enableFunctionOptimizations() {
       enableOptimization(getOptimization(OName)); 
 }
 
-void OptimizationSet::setOptimizationProperties(Optimization Opt, OptimizationProperties Prop) {
-  if (hasEnabled(Opt))
-    EnabledOptimizations[Opt] = Prop;
-}
-
-OptimizationProperties OptimizationSet::getOptimizationProperties(Optimization Opt) {
-  assert(hasEnabled(Opt) && "Can't get property of disabled optimization.");
-  return EnabledOptimizations[Opt];
-}
-
 void OptimizationSet::generateRandomSequenceIfNone() {
   if (DefaultSequence) return;
   std::shared_ptr<OptimizationSet> Wrapper(this);
@@ -82,14 +76,17 @@ uint64_t OptimizationSet::size() {
 
 std::unique_ptr<OptimizationSet> OptimizationSet::getFromSequence(OptimizationSequence Seq) {
   OptimizationSet *Set = new OptimizationSet();
+
+  std::map<Optimization, uint64_t> Repetition;
   for (auto &O : Seq) {
-    if (!Set->hasEnabled(O)) 
-      Set->enableOptimization(O);
-    else {
-      OptimizationProperties Properties = Set->getOptimizationProperties(O);
-      ++Properties.Repetition;
-      Set->setOptimizationProperties(O, Properties); 
-    }
+    if (Repetition.count(O.getOptimization()) > 0)
+      Repetition[O.getOptimization()]++;
+    else
+      Repetition[O.getOptimization()] = 0;
   }
+
+  for (auto Pair : Repetition)
+    Set->enableOptimization(Pair.first, Pair.second); 
+
   return std::unique_ptr<OptimizationSet>(Set);
 }

@@ -1,28 +1,24 @@
 /*-------------------------- PINHAO project --------------------------*/
 
 /**
- * @file OptimizationProperties.h
+ * @file OptimizationInfo.h
  */
 
-#ifndef PINHAO_OPTIMIZATION_PROPERTIES_H
-#define PINHAO_OPTIMIZATION_PROPERTIES_H
+#ifndef PINHAO_OPTIMIZATION_INFO_H
+#define PINHAO_OPTIMIZATION_INFO_H
 
 #include "pinhao/Optimizer/Optimizations.h"
 #include "pinhao/Support/Yamlfy.h"
 #include "pinhao/Support/Types.h"
 
-#include <stdint.h>
-#include <vector>
-#include <cassert>
-
 namespace pinhao {
-  class OptimizationProperties;
+  class OptimizationInfo;
   struct OptimizationArgBase;
 
   template<>
-    class Yamlfy<OptimizationProperties> : public YamlfyTemplateBase<OptimizationProperties> {
+    class Yamlfy<OptimizationInfo> : public YamlfyTemplateBase<OptimizationInfo> {
       public:
-        Yamlfy(const OptimizationProperties *V); 
+        Yamlfy(const OptimizationInfo *V); 
         void append(YAML::Emitter &Emitter, bool PrintReduced) override;
         void get(const YAML::Node &Node) override;
     };
@@ -40,8 +36,8 @@ namespace pinhao {
    */
   struct OptimizationArgBase {
     ValueType Type;
-    OptimizationArgBase(ValueType Type);
-    virtual ~OptimizationArgBase();
+    OptimizationArgBase(ValueType Type) : Type(Type) {}
+    virtual ~OptimizationArgBase() {}
   };
 
   /**
@@ -54,26 +50,25 @@ namespace pinhao {
         OptimizationArgBase(Type), Value(Val) {}
     };
 
-  /**
-   * @brief The properties of a optimization, when needed.
-   *
-   * @details 
-   * Includes the number of repetition times of the optimization,
-   * the number of arguments and the arguments itself, when needed.
-   * The number of arguments are set when this object is created.
-   */
-  class OptimizationProperties {
+  class OptimizationInfo {
     private:
+      Optimization Opt;
 
-      /// @brief The arguments itself.
-      std::vector<OptimizationArgBase> Args;
+      /// @brief The arguments of this optimization.
+      std::vector<std::shared_ptr<OptimizationArgBase>> Args;
 
     public:
-      /// @brief Number of repetitions.
-      uint64_t Repetition;
+      ~OptimizationInfo();
+      OptimizationInfo() {}
+      OptimizationInfo(Optimization Opt);
+      OptimizationInfo(std::string OptName);
 
-      OptimizationProperties();
-      OptimizationProperties(Optimization Opt, uint64_t Rep = 1);
+      /// @brief Gets the name of the optimization.
+      std::string getName();
+      /// @brief Gets the optimization.
+      Optimization getOptimization() const;
+      /// @brief Creates a @a llvm::Pass corresponding to this optimization.
+      llvm::Pass *createPass();
 
       /// @brief Gets a the @a Nth @a OptimizationArg.
       const OptimizationArgBase *getOptimizationArg(uint64_t N);
@@ -82,7 +77,7 @@ namespace pinhao {
       template <class ArgType>
         void setArg(int N, ArgType Value) {
           assert(N < Args.size() && "Setting out of bounds argument.");
-          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(&Args[N]);
+          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N].get());
           CastArg->Value = Value;
         }
 
@@ -90,7 +85,7 @@ namespace pinhao {
       template <class ArgType>
         ArgType getArg(uint64_t N) {
           assert(N < Args.size() && "Getting out of bounds argument.");
-          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(&Args[N]);
+          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N].get());
           return CastArg->Value;
         }
 
@@ -105,3 +100,5 @@ namespace pinhao {
 }
 
 #endif
+
+
