@@ -20,26 +20,32 @@ OptimizationSet::~OptimizationSet() {
 }
 
 bool OptimizationSet::hasEnabled(Optimization Opt) {
-  for (auto Pair : EnabledOptimizations)
-    if (Pair.first.getOptimization() == Opt)
-      return true;
-  return false;
+  OptimizationInfo Info(Opt);
+  return hasEnabled(Info);
+}
+
+bool OptimizationSet::hasEnabled(OptimizationInfo Info) {
+  return EnabledOptimizations.count(Info) > 0;
 }
 
 void OptimizationSet::disableOptimization(Optimization Opt) {
-  if (!hasEnabled(Opt)) return;
-  for (auto I = EnabledOptimizations.begin(), E = EnabledOptimizations.end(); I != E; ++I)
-    if (I->first.getOptimization() == Opt)
-      EnabledOptimizations.erase(I);
+  OptimizationInfo Info(Opt);
+  disableOptimization(Info);
+}
+
+void OptimizationSet::disableOptimization(OptimizationInfo Info) {
+  if (!hasEnabled(Info)) return;
+  EnabledOptimizations.erase(Info);
 }
 
 void OptimizationSet::enableOptimization(Optimization Opt, uint64_t Repetition) {
-  if (hasEnabled(Opt)) return;
-  EnabledOptimizations.push_back(std::make_pair(OptimizationInfo(Opt), Repetition));
+  OptimizationInfo Info(Opt);
+  enableOptimization(Info, Repetition);
 }
 
 void OptimizationSet::enableOptimization(OptimizationInfo Info, uint64_t Repetition) {
-  EnabledOptimizations.push_back(std::make_pair(Info, Repetition));
+  if (hasEnabled(Info)) return;
+  EnabledOptimizations.insert(std::make_pair(Info, Repetition));
 }
 
 void OptimizationSet::enableOptimizations(std::vector<Optimization> Opts) {
@@ -64,29 +70,50 @@ void OptimizationSet::enableFunctionOptimizations() {
       enableOptimization(getOptimization(OName)); 
 }
 
+void OptimizationSet::addOptimization(Optimization Opt) {
+  OptimizationInfo Info(Opt);
+  addOptimization(Info);
+}
+
+void OptimizationSet::addOptimization(OptimizationInfo Info) {
+  if (hasEnabled(Info)) setRepetition(Info, getRepetition(Info) + 1);
+  else enableOptimization(Info);
+}
+
+void OptimizationSet::setRepetition(Optimization Opt, uint64_t Rep) {
+  OptimizationInfo Info(Opt);
+  setRepetition(Info, Rep);
+}
+
+void OptimizationSet::setRepetition(OptimizationInfo Info, uint64_t Rep) {
+  if (!hasEnabled(Info)) return;
+  EnabledOptimizations[Info] = Rep;
+}
+
+uint64_t OptimizationSet::getRepetition(Optimization Opt) {
+  OptimizationInfo Info(Opt);
+  return getRepetition(Info);
+}
+
+uint64_t OptimizationSet::getRepetition(OptimizationInfo Info) {
+  if (!hasEnabled(Info)) return 0;
+  return EnabledOptimizations[Info];
+}
+
 void OptimizationSet::generateRandomSequenceIfNone() {
   if (DefaultSequence) return;
-  std::shared_ptr<OptimizationSet> Wrapper(this);
-  DefaultSequence = OptimizationSequence::generate(Wrapper).release();
+  DefaultSequence = OptimizationSequence::generate(*this).release();
 }
 
 uint64_t OptimizationSet::size() {
   return EnabledOptimizations.size();
 }
 
-std::unique_ptr<OptimizationSet> OptimizationSet::getFromSequence(OptimizationSequence Seq) {
+std::unique_ptr<OptimizationSet> OptimizationSet::generate(OptimizationSequence Seq) {
   OptimizationSet *Set = new OptimizationSet();
 
-  std::map<Optimization, uint64_t> Repetition;
-  for (auto &O : Seq) {
-    if (Repetition.count(O.getOptimization()) > 0)
-      Repetition[O.getOptimization()]++;
-    else
-      Repetition[O.getOptimization()] = 0;
-  }
-
-  for (auto Pair : Repetition)
-    Set->enableOptimization(Pair.first, Pair.second); 
+  for (auto &Info : Seq) 
+    Set->addOptimization(Info);
 
   return std::unique_ptr<OptimizationSet>(Set);
 }
