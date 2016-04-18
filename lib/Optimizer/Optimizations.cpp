@@ -115,7 +115,9 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, OptimizationSeque
     return nullptr;
   }
 
-  return readModule(TmpName);
+  llvm::Module *OptModule = readModule(TmpName);
+  remove(TmpName.c_str());
+  return OptModule;
 }
 
 llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, std::string FunctionName, OptimizationSequence *Sequence) {
@@ -143,5 +145,7 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, llvm::Function *F
     return nullptr;
   }
 
-  return readModule(TmpName);
+  llvm::Module *OptModule = readModule(TmpName);
+  remove(TmpName.c_str());
+  return OptModule;
 }
