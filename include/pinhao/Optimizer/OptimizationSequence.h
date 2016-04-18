@@ -49,8 +49,17 @@ namespace pinhao {
       /// @brief Generates a random sequence.
       static std::unique_ptr<OptimizationSequence> randomize(uint64_t Size);
 
+      /// @brief Creates a @a OptimizationSequence from a @a YAML::Node.
+      static std::unique_ptr<OptimizationSequence> get(YAML::Node &Node);
+
       /// @brief Populates a @a llvm::legacy::PassManager with the current @a Sequence.
       void populatePassManager(llvm::legacy::PassManager &PM);
+
+      /// @brief Gets the @a OptimizationInfo of the @a Nth element of the sequence.
+      OptimizationInfo getOptimization(uint64_t N);
+
+      /// @brief Gets the size of the sequence.
+      uint64_t size();
 
       /// @brief Populates a @a llvm::legacy::FunctionPassManager with the current @a Sequence.
       /// @details Note that all the optimizations must be for functions (PassKind < 4).

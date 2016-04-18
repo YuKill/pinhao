@@ -106,6 +106,22 @@ OptimizationSequence::randomize(uint64_t Size) {
   return std::unique_ptr<OptimizationSequence>(OptSeq);
 }
 
+std::unique_ptr<OptimizationSequence>
+OptimizationSequence::get(YAML::Node &Node) {
+  OptimizationSequence *Sequence = new OptimizationSequence();
+  Yamlfy<OptimizationSequence>(Sequence).get(Node);
+  return std::unique_ptr<OptimizationSequence>(Sequence);
+}
+
+OptimizationInfo OptimizationSequence::getOptimization(uint64_t N) {
+  assert(N < Sequence.size() && "Trying to get an out of bounds optimization.");
+  return Sequence[N];
+}
+
+uint64_t OptimizationSequence::size() {
+  return Sequence.size();
+}
+
 void OptimizationSequence::populatePassManager(llvm::legacy::PassManager &PM) {
   for (auto O : Sequence)
     PM.add(O.createPass()); 
