@@ -106,7 +106,35 @@ void Yamlfy<OptimizationArgBase>::get(const YAML::Node &Node) {
  * ----------------------------------=
  * Class: OptimizationInfo
  */
+void OptimizationInfo::copy(const OptimizationInfo &Info) {
+  Opt = Info.Opt;
+  for (uint64_t I = 0, E = Info.getNumberOfArguments(); I < E; ++I) {
+    switch (Info.getArgType(I)) {
+      case ValueType::Int:
+        Args.push_back(new OptimizationArg<int>(ValueType::Int, Info.getArg<int>(I)));
+        break;
+
+      case ValueType::Bool:
+        Args.push_back(new OptimizationArg<bool>(ValueType::Bool, Info.getArg<bool>(I)));
+        break;
+
+      case ValueType::Float:
+        Args.push_back(new OptimizationArg<double>(ValueType::Float, Info.getArg<double>(I)));
+        break;
+
+      case ValueType::String:
+        Args.push_back(new OptimizationArg<std::string>(ValueType::String, Info.getArg<std::string>(I)));
+        break;
+    }
+  }
+}
+
 OptimizationInfo::~OptimizationInfo() {
+  for (auto Arg : Args)
+    delete Arg; 
+}
+
+OptimizationInfo::OptimizationInfo() {
 
 }
 
@@ -118,40 +146,40 @@ OptimizationInfo::OptimizationInfo(std::string OptName) :
 OptimizationInfo::OptimizationInfo(Optimization Opt) : Opt(Opt) {
   switch (Opt) {
     case Optimization::gvn:
-      Args.push_back(std::shared_ptr<OptimizationArgBase>(new OptimizationArg<bool>(ValueType::Bool, true)));
+      Args.push_back(new OptimizationArg<bool>(ValueType::Bool, true));
       break;
     case Optimization::jumpThreading:
-      Args.push_back(std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)));
+      Args.push_back(new OptimizationArg<int>(ValueType::Int, -1));
       break;
 
     case Optimization::simplifycfg:
-      Args.push_back(std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)));
+      Args.push_back(new OptimizationArg<int>(ValueType::Int, -1));
       break;
 
     case Optimization::loopRotate:
-      Args.push_back(std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)));
+      Args.push_back(new OptimizationArg<int>(ValueType::Int, -1));
       break;
 
     case Optimization::loopUnswitch:
-      Args.push_back(std::shared_ptr<OptimizationArgBase>(new OptimizationArg<bool>(ValueType::Bool, false)));
+      Args.push_back(new OptimizationArg<bool>(ValueType::Bool, false));
       break;
 
     case Optimization::loopUnroll:
-      Args = std::vector<std::shared_ptr<OptimizationArgBase>> {
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1))
+      Args = std::vector<OptimizationArgBase*> {
+        new OptimizationArg<int>(ValueType::Int, -1),
+            new OptimizationArg<int>(ValueType::Int, -1),
+            new OptimizationArg<int>(ValueType::Int, -1),
+            new OptimizationArg<int>(ValueType::Int, -1)
       };
       break;
 
     case Optimization::scalarrepl:
-      Args = std::vector<std::shared_ptr<OptimizationArgBase>> {
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<bool>(ValueType::Bool, true)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1)),
-        std::shared_ptr<OptimizationArgBase>(new OptimizationArg<int>(ValueType::Int, -1))
+      Args = std::vector<OptimizationArgBase*> {
+        new OptimizationArg<int>(ValueType::Int, -1),
+            new OptimizationArg<bool>(ValueType::Bool, true),
+            new OptimizationArg<int>(ValueType::Int, -1),
+            new OptimizationArg<int>(ValueType::Int, -1),
+            new OptimizationArg<int>(ValueType::Int, -1)
       };
       break;
 
@@ -160,9 +188,18 @@ OptimizationInfo::OptimizationInfo(Optimization Opt) : Opt(Opt) {
   };
 }
 
+OptimizationInfo::OptimizationInfo(const OptimizationInfo &Info) {
+  copy(Info);
+}
+
+OptimizationInfo &OptimizationInfo::operator=(const OptimizationInfo &Info) {
+  copy(Info);
+  return *this;
+}
+
 const OptimizationArgBase *OptimizationInfo::getOptimizationArg(uint64_t N) {
   assert(N < Args.size() && "Arg out of bounds.");
-  return Args[N].get(); 
+  return Args[N];
 }
 
 std::string OptimizationInfo::getName() {
@@ -210,11 +247,11 @@ llvm::Pass *OptimizationInfo::createPass() {
   return PI->createPass();
 }
 
-ValueType OptimizationInfo::getArgType(uint64_t N) {
+ValueType OptimizationInfo::getArgType(uint64_t N) const {
   assert(N < Args.size() && "Arg out of bounds.");
   return Args[N]->Type;
 }
 
-uint64_t OptimizationInfo::getNumberOfArguments() {
+uint64_t OptimizationInfo::getNumberOfArguments() const {
   return Args.size();
 }

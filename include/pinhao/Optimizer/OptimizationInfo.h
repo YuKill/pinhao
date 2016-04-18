@@ -55,13 +55,18 @@ namespace pinhao {
       Optimization Opt;
 
       /// @brief The arguments of this optimization.
-      std::vector<std::shared_ptr<OptimizationArgBase>> Args;
+      std::vector<OptimizationArgBase*> Args;
+
+      /// @brief Copies the content of @a Info to @a this object.
+      void copy(const OptimizationInfo &Info);
 
     public:
       ~OptimizationInfo();
-      OptimizationInfo() {}
+
+      OptimizationInfo();
       OptimizationInfo(Optimization Opt);
       OptimizationInfo(std::string OptName);
+      OptimizationInfo(const OptimizationInfo &Info);
 
       /// @brief Gets the name of the optimization.
       std::string getName();
@@ -75,25 +80,32 @@ namespace pinhao {
 
       /// @brief Sets the @a Nth argument to @a Value.
       template <class ArgType>
-        void setArg(int N, ArgType Value) {
+        void setArg(int N, ArgType Value) const {
           assert(N < Args.size() && "Setting out of bounds argument.");
-          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N].get());
+          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N]);
           CastArg->Value = Value;
         }
 
       /// @brief Gets the @a Nth argument.
       template <class ArgType>
-        ArgType getArg(uint64_t N) {
+        ArgType getArg(uint64_t N) const {
           assert(N < Args.size() && "Getting out of bounds argument.");
-          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N].get());
+          OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N]);
           return CastArg->Value;
         }
 
       /// @brief Gets the type of the @a Nth argument.
-      ValueType getArgType(uint64_t N);
+      ValueType getArgType(uint64_t N) const;
 
       /// @brief Gets the number of arguments.
-      uint64_t getNumberOfArguments();
+      uint64_t getNumberOfArguments() const;
+
+      /// @brief Copy assignment operator.
+      OptimizationInfo &operator=(const OptimizationInfo &Info);
+
+      typedef std::vector<OptimizationArgBase*>::iterator ArgsIterator;
+      ArgsIterator begin() { return Args.begin(); }
+      ArgsIterator end() { return Args.end(); }
 
   };
 
