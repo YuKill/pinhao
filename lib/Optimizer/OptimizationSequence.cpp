@@ -37,36 +37,27 @@ void Yamlfy<OptimizationSequence>::get(const YAML::Node &Node) {
     Yamlfy<OptimizationInfo>(&Info).get(*I);
     Value->Sequence.push_back(Info);
   }
-  Value->Set.reset(OptimizationSet::getFromSequence(*Value).release());
 }
 
 /*
  * ----------------------------------=
  * Class: OptimizationSequence
  */
-struct OptimizationInfoCompare {
-  bool operator()(const OptimizationInfo &lhs, const OptimizationInfo &rhs) const {
-    return lhs.getOptimization() < rhs.getOptimization();
-  }
-};
-
 std::unique_ptr<OptimizationSequence> 
-OptimizationSequence::generate(std::shared_ptr<OptimizationSet> Set, int Size) {
-  if (Set->size() == 0) 
+OptimizationSequence::generate(OptimizationSet &Set, int Size) {
+  if (Set.size() == 0) 
     return std::unique_ptr<OptimizationSequence>();
 
-  if (Size == -1) Size = Set->size();
+  if (Size == -1) Size = Set.size();
 
   srand(time(0));
   double PickProbability = 0.5;
-  std::map<OptimizationInfo, uint64_t, OptimizationInfoCompare> Repetition;
-
+  std::map<OptimizationInfo, uint64_t> Repetition;
   OptimizationSequence *OptSeq = new OptimizationSequence();
-  OptSeq->Set = Set;
 
   while (true) {
     bool Finish = true;
-    for (auto &Pair : *Set) {
+    for (auto &Pair : Set) {
       if (Repetition.count(Pair.first) == 0)
         Repetition[Pair.first] = Pair.second;
       if (Repetition[Pair.first] == 0) continue;
@@ -80,7 +71,7 @@ OptimizationSequence::generate(std::shared_ptr<OptimizationSet> Set, int Size) {
       if (Repetition[Pair.first])
         Finish = false;
 
-      if (Size == OptSeq->Sequence.size()) break;
+      if ((unsigned)Size == OptSeq->Sequence.size()) break;
 
     }
     if (Finish) break;
@@ -97,7 +88,7 @@ OptimizationSequence::generate(std::vector<Optimization> Sequence) {
   OptimizationSequence *OptSeq = new OptimizationSequence();
   for (auto O : Sequence)
     OptSeq->Sequence.push_back(OptimizationInfo(O));
-  OptSeq->Set = OptimizationSet::getFromSequence(*OptSeq);
+
   return std::unique_ptr<OptimizationSequence>(OptSeq);
 }
 
@@ -112,7 +103,6 @@ OptimizationSequence::randomize(uint64_t Size) {
     int N = rand() % Optimizations.size(); 
     OptSeq->Sequence.push_back(OptimizationInfo(static_cast<Optimization>(N)));
   }
-  OptSeq->Set = OptimizationSet::getFromSequence(*OptSeq);
   return std::unique_ptr<OptimizationSequence>(OptSeq);
 }
 
@@ -129,12 +119,8 @@ void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPas
   }
 }
 
-void OptimizationSequence::print() {
-  print(std::cout);
-  std::cout << std::endl;
-}
-
 void OptimizationSequence::print(std::ostream &Out) {
   YAML::Emitter Emitter(Out);
   Yamlfy<OptimizationSequence>(this).append(Emitter, false);
+  Out << std::endl;
 }

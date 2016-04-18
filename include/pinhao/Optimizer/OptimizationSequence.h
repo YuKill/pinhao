@@ -36,15 +36,12 @@ namespace pinhao {
       /// @brief The sequence of optimizations itself.
       std::vector<OptimizationInfo> Sequence;
 
-      /// @brief A reference to the set from where it was generated.
-      std::shared_ptr<OptimizationSet> Set;
-
       OptimizationSequence() {}
 
     public:
 
       /// @brief Generates a @a OptimizationSequence from a specified @a OptimizationSet.
-      static std::unique_ptr<OptimizationSequence> generate(std::shared_ptr<OptimizationSet> Set, int Size = -1);
+      static std::unique_ptr<OptimizationSequence> generate(OptimizationSet &Set, int Size = -1);
 
       /// @brief Encapsulates a vector of @a Optimizations into a @a OptimizationSequence.
       static std::unique_ptr<OptimizationSequence> generate(std::vector<Optimization> Sequence);
@@ -59,10 +56,8 @@ namespace pinhao {
       /// @details Note that all the optimizations must be for functions (PassKind < 4).
       void populateFunctionPassManager(llvm::legacy::FunctionPassManager &FPM);
 
-      /// @brief Prints the sequence at the standard output.
-      void print();
       /// @brief Prints the sequence at @a Out.
-      void print(std::ostream &Out);
+      void print(std::ostream &Out = std::cout);
 
       typedef std::vector<OptimizationInfo>::iterator SequenceIterator;
       SequenceIterator begin() { return Sequence.begin(); }
