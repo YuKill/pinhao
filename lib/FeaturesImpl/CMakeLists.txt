@@ -1,3 +1,5 @@
+add_subdirectory (GEOSFeatures)
+
 add_library (CFGStaticFeatures OBJECT
   CFGBasicBlockStaticFeatures.cpp
   CFGFunctionStaticFeatures.cpp
