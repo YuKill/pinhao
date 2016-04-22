@@ -10,3 +10,6 @@ add_library (PAPIFeatures OBJECT
 
 add_library (GeneFeatures OBJECT
   FunctionsGeneFeature.cpp)
+
+add_library (StaticCostFeature OBJECT
+  FunctionStaticCostFeature.cpp)
