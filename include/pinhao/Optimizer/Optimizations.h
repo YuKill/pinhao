@@ -43,7 +43,7 @@ namespace pinhao {
     indvars,
     inlineOpt,
     instcombine,
-    internalize,
+    // internalize, <- Probably some llvm bug.
     ipconstprop,
     ipsccp,
     jumpThreading,
@@ -103,7 +103,7 @@ namespace pinhao {
     "indvars",
     "inline",
     "instcombine",
-    "internalize",
+    // "internalize",
     "ipconstprop",
     "ipsccp",
     "jump-threading",
