@@ -59,13 +59,6 @@ namespace pinhao {
         /// @brief Unregister this option.
         void unregister(); 
 
-        /**
-         * @brief Parses a @a YAML::Node.
-         * @details
-         * Fills in the value that was gotten by the parse.
-         */
-        virtual void parse(const YAML::Node &Node) = 0;
-
       public:
         virtual ~YamlOptBase(); 
 
@@ -80,7 +73,12 @@ namespace pinhao {
         /// @brief Returns true if this option has parsed a @a YAML::Node already.
         bool hasParsed();
 
-        friend void parseOptions(YAML::Node &Node);
+        /**
+         * @brief Parses a @a YAML::Node.
+         * @details
+         * Fills in the value that was gotten by the parse.
+         */
+        virtual void parse(const YAML::Node &Node) = 0;
 
     };
 
@@ -92,12 +90,6 @@ namespace pinhao {
         private:
           ValueType Value;
 
-        protected:
-          void parse(const YAML::Node &Node) override {
-            Value = Node.as<ValueType>();
-            Parsed = true;
-          }
-
         public:
           YamlOpt(std::string Name, std::string Description, bool Required) : 
             YamlOptBase(Name, Description, Required) {}
@@ -108,7 +100,12 @@ namespace pinhao {
             }
 
           /// @brief Gets a reference to @a Value associated with this class.
-          ValueType get() { return Value; }
+          ValueType &get() { return Value; }
+
+          void parse(const YAML::Node &Node) override {
+            Value = Node.as<ValueType>();
+            Parsed = true;
+          }
 
       };
 
