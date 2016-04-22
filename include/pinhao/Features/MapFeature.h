@@ -78,7 +78,7 @@ void Yamlfy<MapFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
     KeyType Key;
     Yamlfy<KeyType>(&Key).get(I->first);
     ElemType Elem;
-    Yamlfy<KeyType>(&Elem).get(I->second);
+    Yamlfy<ElemType>(&Elem).get(I->second);
     Pointer->setValueOfKey(Pointer->getName(), Elem, Key);
   }
 }
