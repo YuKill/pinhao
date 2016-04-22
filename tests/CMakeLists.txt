@@ -51,6 +51,11 @@ add_executable(RunYamlOptionsTest
   $<TARGET_OBJECTS:Support>)
 add_test(YamlOptionsTest RunYamlOptionsTest)
 
+add_executable(RunYamlOptionsGlobalTest
+  YamlOptionsGlobalTest.cpp
+  $<TARGET_OBJECTS:Support>)
+add_test(YamlOptionsGlobalTest RunYamlOptionsGlobalTest)
+
 configure_file (GeneFeaturesBenchmarkTest.sh.in tmp/GeneFeaturesBenchmarkTest.sh @ONLY)
 file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/GeneFeaturesBenchmarkTest.sh" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" 
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE 
@@ -61,6 +66,16 @@ add_executable(RunOptimizerTest
   OptimizerTest.cpp
   $<TARGET_OBJECTS:Optimizer>)
 add_test(OptimizerTest RunOptimizerTest)
+
+add_executable(RunGEOSFeaturesTest
+  GEOSFeaturesTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:Support>
+  $<TARGET_OBJECTS:Optimizer>
+  $<TARGET_OBJECTS:GEOSFeatures>)
+add_test(GEOSFeaturesTest RunGEOSFeaturesTest)
+
+# -----------------------------------------= Linker =------------------------------------------
 
 target_link_libraries(RunFeatureInfoTest
   LLVMAnalysis LLVMCore LLVMSupport
@@ -94,9 +109,20 @@ target_link_libraries(RunGeneFeaturesTest
   rt dl tinfo pthread z m)
 target_link_libraries(RunYamlOptionsTest
   gtest gtest_main yaml-cpp pthread)
+target_link_libraries(RunYamlOptionsGlobalTest
+  gtest gtest_main yaml-cpp pthread)
 target_link_libraries(RunOptimizerTest
   LLVMBitWriter LLVMIRReader LLVMAsmParser LLVMipo LLVMVectorize LLVMCodeGen LLVMTarget LLVMInstrumentation 
   LLVMScalarOpts LLVMProfileData LLVMObject LLVMMCParser LLVMMC LLVMBitReader LLVMInstCombine LLVMTransformUtils 
   LLVMipa LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
+target_link_libraries(RunGEOSFeaturesTest
+  GEOSMain GEOSCallCostReader GEOSProf GEOSProfileModule GEOSJITExecution GEOSCostEstimator 
+  LLVMObjCARCOpts LLVMX86AsmParser LLVMX86CodeGen LLVMX86Desc LLVMX86Info LLVMMCDisassembler LLVMX86AsmPrinter 
+  LLVMX86Utils LLVMSelectionDAG LLVMAsmPrinter LLVMipo LLVMVectorize LLVMCodeGen LLVMScalarOpts LLVMProfileData 
+  LLVMInstCombine LLVMInstrumentation LLVMTransformUtils LLVMipa LLVMBitWriter LLVMIRReader LLVMAsmParser 
+  LLVMMCJIT LLVMExecutionEngine LLVMTarget LLVMAnalysis LLVMRuntimeDyld LLVMObject LLVMMCParser LLVMBitReader 
+  LLVMMC LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m papi)
