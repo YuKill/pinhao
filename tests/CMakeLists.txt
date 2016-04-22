@@ -75,6 +75,12 @@ add_executable(RunGEOSFeaturesTest
   $<TARGET_OBJECTS:GEOSFeatures>)
 add_test(GEOSFeaturesTest RunGEOSFeaturesTest)
 
+add_executable(RunFunctionStaticCostFeatureTest
+  FunctionStaticCostFeatureTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:StaticCostFeature>)
+add_test(FunctionStaticCostFeatureTest RunFunctionStaticCostFeatureTest)
+
 # -----------------------------------------= Linker =------------------------------------------
 
 target_link_libraries(RunFeatureInfoTest
@@ -126,3 +132,8 @@ target_link_libraries(RunGEOSFeaturesTest
   LLVMMC LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m papi)
+target_link_libraries(RunFunctionStaticCostFeatureTest
+  StaticProfiler
+  LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m)
