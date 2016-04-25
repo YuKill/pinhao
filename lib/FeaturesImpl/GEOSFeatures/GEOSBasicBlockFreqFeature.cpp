@@ -4,28 +4,14 @@
  * @file GEOSBasicBlockFreqFeature.cpp
  */
 
+#include "pinhao/Initialization.h"
 #include "pinhao/Features/MapFeature.h"
-#include "pinhao/InitializeRoutines.h"
-#include "pinhao/Support/YamlOptions.h"
+#include "pinhao/PerformanceAnalyser/GEOSWrapper.h"
 
 #include "geos/ProfileModule/ProfileModule.h"
-#include "geos/Profiling/GEOSProfiler.h"
-
-#include "llvm/IR/LLVMContext.h"
-#include "llvm/Support/SourceMgr.h"
-#include "llvm/Support/FileSystem.h"
-#include "llvm/IRReader/IRReader.h"
-#include "llvm/Bitcode/ReaderWriter.h"
 
 using namespace pinhao;
 
-static config::YamlOpt<std::string> 
-GEOSProfLibFile("geos-prof-lib", "The GEOSProfLib file name.", true, "");
-
-static config::YamlOpt<std::string> 
-ModuleName("module", "The module.", false, "");
-
-static llvm::Module *GEOSProfLib;
 static std::shared_ptr<ProfileModule> PModule;
 
 namespace {
@@ -65,24 +51,9 @@ std::unique_ptr<Feature> GEOSBasicBlockFreqFeature::clone() const {
   return std::unique_ptr<Feature>(Clone);
 }
 
-static void propagateToInstructions(ProfileModule &PModule) {
-  for (auto &Function : *PModule.getLLVMModule())
-    for (auto &BasicBlock : Function)
-      for (auto &Instr : BasicBlock)
-        PModule.setInstructionFrequency(Instr, 
-            PModule.getBasicBlockFrequency(BasicBlock));
-}
-
 void pinhao::initializeGEOSBasicBlockFreqFeature(llvm::Module &Module) {
   PModule.reset(new ProfileModule(&Module));
-
-  llvm::SMDiagnostic Error;
-  llvm::LLVMContext &Context = llvm::getGlobalContext();
-  GEOSProfLib = parseIRFile(GEOSProfLibFile.get(), Error, Context).release();
-
-  std::unique_ptr<GEOSProfiler> GProfiler(new GEOSProfiler());
-  GProfiler->populateFrequency(PModule.get(), GEOSProfLib);
-  propagateToInstructions(*PModule);
+  GEOSWrapper::getFrequencies(PModule);
 }
 
 static RegisterFeature<GEOSBasicBlockFreqFeature> 

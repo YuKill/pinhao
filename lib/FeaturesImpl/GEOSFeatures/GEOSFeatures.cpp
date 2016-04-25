@@ -4,29 +4,17 @@
  * @file GEOSFeature.cpp
  */
 
+#include "pinhao/Initialization.h"
 #include "pinhao/Features/VectorFeature.h"
-#include "pinhao/InitializeRoutines.h"
-#include "pinhao/Support/YamlOptions.h"
-
-#include "geos/GEOS.h"
-#include "geos/CostEstimator/CostEstimatorOptions.h"
-#include "geos/Profiling/CallCostReader.h"
+#include "pinhao/PerformanceAnalyser/GEOSWrapper.h"
 
 #include <memory>
 
 using namespace pinhao;
 
-static config::YamlOpt<std::string>
-CallCostFile("call-cost", "File with call cost of extern functions.", true, "");
-
 namespace {
 
   class GEOSFeatures : public VectorFeature<double> {
-    private:
-      std::shared_ptr<Feature> BasicBlockFreq;
-
-      void setProfileModuleBBFrequencies(std::shared_ptr<ProfileModule>);
-
     public:
       GEOSFeatures(FeatureInfo *Info) : VectorFeature<double>(Info) {}
 
@@ -38,57 +26,24 @@ namespace {
 
 }
 
-void GEOSFeatures::setProfileModuleBBFrequencies(std::shared_ptr<ProfileModule> PModule) {
-  MappedFeature<void*, uint64_t> *BBFFeature = 
-    static_cast<MappedFeature<void*, uint64_t>*>(BasicBlockFreq.get());
-
-  for (auto &Function : *PModule->getLLVMModule()) {
-    for (auto &BasicBlock : Function) {
-      uint64_t Frequency = BBFFeature->getValueOfKey(BasicBlockFreq->getName(), &BasicBlock);
-      PModule->setBasicBlockFrequency(BasicBlock, Frequency); 
-    }
-  }
-}
-
 void GEOSFeatures::processModule(llvm::Module &Module) {
   if (this->isProcessed()) return;
   Processed = true;
 
-  if (!BasicBlockFreq.get()) {
-    BasicBlockFreq.reset(FeatureRegistry::get("geos-bbfreq").release());
-    BasicBlockFreq->processModule(Module);
-  }
-
-  std::shared_ptr<ProfileModule> PModule(new ProfileModule(&Module));
-  setProfileModuleBBFrequencies(PModule);
-
-  CostEstimatorOptions Opts;
-
-  Opts.AnalysisActivated = { RegisterUse };
-  setValueOf("RegisterUse", GEOS::analyseCost(PModule, Opts));
+  std::vector<double> Cost = GEOSWrapper::repairAndAnalyse(Module);
+  setValueOf("RegisterUse", Cost[0]);
 
   /*
   Opts.AnalysisActivated = { InstructionCache };
-  setValueOf("IntructionCache", GEOS::analyseCost(PModule, Opts));
+  setValueOf("IntructionCache", Cost[1]);
   */
 
-  Opts.AnalysisActivated = { StaticInstruction };
-  setValueOf("StaticInstruction", GEOS::analyseCost(PModule, Opts));
-
-  Opts.AnalysisActivated = { TTIInstruction };
-  setValueOf("TTIInstruction", GEOS::analyseCost(PModule, Opts));
-
-  Opts.AnalysisActivated = { Branch };
-  setValueOf("Branch", GEOS::analyseCost(PModule, Opts));
-
-  Opts.AnalysisActivated = { Call };
-  setValueOf("Call", GEOS::analyseCost(PModule, Opts));
-
-  Opts.AnalysisActivated = getAnalysisFor(NonArchSensitive);
-  setValueOf("NoArchSensitive", GEOS::analyseCost(PModule, Opts));
-
-  Opts.AnalysisActivated = getAnalysisFor(ArchSensitive);
-  setValueOf("ArchSensitive", GEOS::analyseCost(PModule, Opts));
+  setValueOf("StaticInstruction", Cost[2]);
+  setValueOf("TTIInstruction", Cost[3]);
+  setValueOf("Branch", Cost[4]);
+  setValueOf("Call", Cost[5]);
+  setValueOf("NoArchSensitive", Cost[6]);
+  setValueOf("ArchSensitive", Cost[7]);
 
 }
 
@@ -99,8 +54,7 @@ std::unique_ptr<Feature> GEOSFeatures::clone() const {
 }
 
 void pinhao::initializeGEOSFeatures(llvm::Module &Module) {
-  ProfileModule PModule(&Module);
-  loadCallCost(CallCostFile.get(), &PModule);
+  GEOSWrapper::loadCallCostFile(Module);
 }
 
 static std::map<std::string, std::string> SubFeatures = {
