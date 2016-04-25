@@ -18,8 +18,6 @@ namespace pinhao {
   class OptimizationSet;
   class OptimizationSequence;
 
-  void initializeOptimizer();
-
   /**
    * @brief Enumerator of the available optimizations.
    */
