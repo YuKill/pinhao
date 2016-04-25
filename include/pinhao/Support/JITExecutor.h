@@ -14,51 +14,50 @@
 
 #include <vector>
 
-using namespace llvm;
-
 namespace pinhao {
 
   /**
    * @brief Runs a given module at runtime.
    */
   class JITExecutor {
+    private:
 
-    Module *Mod;
-    ExecutionEngine *Engine;
+      llvm::Module *Mod;
+      llvm::ExecutionEngine *Engine;
 
     public:
 
-    JITExecutor(Module &M) {
-      Mod = CloneModule(&M);
-      assert(Mod != nullptr && "Module nil.");
-      Engine = EngineBuilder(std::unique_ptr<Module>(Mod)).create();
-      Engine->finalizeObject(); 
-    }
+      JITExecutor(llvm::Module &M) {
+        Mod = llvm::CloneModule(&M);
+        assert(Mod != nullptr && "Module nil.");
+        Engine = llvm::EngineBuilder(std::unique_ptr<llvm::Module>(Mod)).create();
+        Engine->finalizeObject(); 
+      }
 
-    void run(std::vector<std::string> &Argv, char *const *Env) {
-      Engine->runFunctionAsMain(Mod->getFunction("main"), Argv, Env);
-    }
+      void run(std::vector<std::string> &Argv, char *const *Env) {
+        Engine->runFunctionAsMain(Mod->getFunction("main"), Argv, Env);
+      }
 
 
-    void flushCache() {
-      int Doubles = 30 * 1024 * 1024 / sizeof(double); // 30MB
-      double Count = 0.0;
+      void flushCache() {
+        int Doubles = 30 * 1024 * 1024 / sizeof(double); // 30MB
+        double Count = 0.0;
 
-      double *Block = (double*) calloc(Doubles, sizeof(double));
-      for (int I = 0; I < Doubles; ++I)
-        Count += Block[I];
-      free(Block);
-    }
+        double *Block = (double*) calloc(Doubles, sizeof(double));
+        for (int I = 0; I < Doubles; ++I)
+          Count += Block[I];
+        free(Block);
+      }
 
-    ~JITExecutor() {
-      delete Engine;
-    }
+      ~JITExecutor() {
+        delete Engine;
+      }
 
-    static void init() {
-      InitializeNativeTarget();
-      InitializeNativeTargetAsmPrinter();
-      InitializeNativeTargetAsmParser();
-    }
+      static void init() {
+        llvm::InitializeNativeTarget();
+        llvm::InitializeNativeTargetAsmPrinter();
+        llvm::InitializeNativeTargetAsmParser();
+      }
 
   };
 
