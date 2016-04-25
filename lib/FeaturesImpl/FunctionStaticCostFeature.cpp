@@ -5,10 +5,9 @@
  */
 
 #include "pinhao/Features/MapFeature.h"
+#include "pinhao/PerformanceAnalyser/SProfWrapper.h"
 
 #include "llvm/IR/LegacyPassManager.h"
-
-#include "sprof/StaticFunctionCost.h"
 
 using namespace pinhao;
 
@@ -30,16 +29,11 @@ void FunctionStaticCostFeature::processModule(llvm::Module &Module) {
   if (this->isProcessed()) return;
   Processed = true;
 
-  std::shared_ptr<llvm::StaticFunctionCost> SFC;
-  SFC.reset(new llvm::StaticFunctionCost());
-
-  llvm::legacy::PassManager PM;
-  PM.add(new llvm::StaticFunctionCostPass(&SFC));
-  PM.run(Module);
+  SProfWrapper::CostMap CostMap = SProfWrapper::getAllFunctionsCost(Module);
 
   uint64_t NamelessCount = 0;
   const std::string Nameless("Nameless");
-  for (auto &Pair : SFC->Cost) {
+  for (auto &Pair : CostMap) {
     std::string FunctionName = (Pair.first->getName().str() == "") ?
       Nameless + std::to_string(NamelessCount++) : Pair.first->getName().str();
 
