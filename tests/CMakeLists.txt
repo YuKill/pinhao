@@ -81,6 +81,10 @@ add_executable(RunFunctionStaticCostFeatureTest
   $<TARGET_OBJECTS:StaticCostFeature>)
 add_test(FunctionStaticCostFeatureTest RunFunctionStaticCostFeatureTest)
 
+add_executable(RunPAPIWrapperTest
+  PAPIWrapperTest.cpp)
+add_test(PAPIWrapperTest RunPAPIWrapperTest)
+
 # -----------------------------------------= Linker =------------------------------------------
 
 target_link_libraries(RunFeatureInfoTest
@@ -124,6 +128,7 @@ target_link_libraries(RunOptimizerTest
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
 target_link_libraries(RunGEOSFeaturesTest
+  GEOSWrapper
   GEOSMain GEOSCallCostReader GEOSProf GEOSProfileModule GEOSJITExecution GEOSCostEstimator 
   LLVMObjCARCOpts LLVMX86AsmParser LLVMX86CodeGen LLVMX86Desc LLVMX86Info LLVMMCDisassembler LLVMX86AsmPrinter 
   LLVMX86Utils LLVMSelectionDAG LLVMAsmPrinter LLVMipo LLVMVectorize LLVMCodeGen LLVMScalarOpts LLVMProfileData 
@@ -133,7 +138,16 @@ target_link_libraries(RunGEOSFeaturesTest
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m papi)
 target_link_libraries(RunFunctionStaticCostFeatureTest
+  SProfWrapper
   StaticProfiler
   LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
+target_link_libraries(RunPAPIWrapperTest
+  PAPIWrapper
+  LLVMX86Disassembler LLVMX86AsmParser LLVMX86CodeGen LLVMSelectionDAG LLVMX86Desc LLVMMCDisassembler LLVMX86Info 
+  LLVMX86AsmPrinter LLVMX86Utils LLVMIRReader LLVMMCJIT LLVMInterpreter LLVMExecutionEngine LLVMRuntimeDyld LLVMAsmParser 
+  LLVMAsmPrinter LLVMCodeGen LLVMTarget LLVMScalarOpts LLVMProfileData LLVMObject LLVMMCParser LLVMBitReader 
+  LLVMInstCombine LLVMInstrumentation LLVMTransformUtils LLVMipa LLVMMC LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m papi)
