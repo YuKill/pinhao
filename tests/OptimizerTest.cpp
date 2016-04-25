@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 
+#include "pinhao/Initialization.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
 
 #include <sstream>

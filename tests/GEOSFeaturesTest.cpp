@@ -6,7 +6,7 @@
 #include "pinhao/Support/YamlOptions.h"
 #include "pinhao/Optimizer/Optimizations.h"
 #include "pinhao/Optimizer/OptimizationSequence.h"
-#include "pinhao/InitializeRoutines.h"
+#include "pinhao/Initialization.h"
 
 #include "ModuleReader.h"
 
