@@ -35,13 +35,16 @@ namespace pinhao {
    */
   template <class KeyType, class ElemType>
     class MapVectorFeature : public MappedFeature<KeyType, ElemType> {
+      public:
+        typedef StdMapKeyIterator<KeyType, std::vector<ElemType>> iterator;
+
       protected:
         /// @brief The vector container of the feature itself.
         std::map<KeyType, std::vector<ElemType>> TheFeature;
 
       private:
         /// @brief Initializes the vector of the key at the map @a TheFeature.
-        void initVectorOfKey(KeyType Key) {
+        void initVectorOfKey(const KeyType Key) {
           if (TheFeature.count(Key) > 0) return;
           CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
           TheFeature[Key] = std::vector<ElemType>(CompInfo->getNumberOfSubFeatures(), 0);
@@ -78,7 +81,10 @@ namespace pinhao {
          * @param Key The key to get from.
          * @return A const pointer to the value of the sub-feature of the key.
          */
-        const ElemType& getValueOfKey(std::string FeatureName, KeyType Key) override;
+        const ElemType& getValueOfKey(std::string FeatureName, const KeyType Key) override;
+
+        KeyIterator<KeyType> &beginKeys() override;
+        KeyIterator<KeyType> &endKeys() override;
 
         friend class Yamlfy<MapVectorFeature<KeyType, ElemType>>;
     };
@@ -92,14 +98,14 @@ void Yamlfy<MapVectorFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter,
   Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &ValuePair : Pointer->TheFeature) {
+  for (auto &I = Pointer->beginKeys(), &E = Pointer->endKeys(); I != E; ++I) {
     Emitter << YAML::Key;
-    Yamlfy<KeyType>(&ValuePair.first).append(Emitter, PrintReduced); 
+    Yamlfy<KeyType>(&(*I)).append(Emitter, PrintReduced); 
     Emitter << YAML::Value << YAML::BeginMap;
     for (auto &InfoPair : *(Pointer)) {
-      if (PrintReduced && Pointer->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
+      if (PrintReduced && Pointer->getValueOfKey(InfoPair.first, *I) == 0) continue;
       Emitter << YAML::Key << InfoPair.first << YAML::Value;
-      Yamlfy<ElemType>(&Pointer->getValueOfKey(InfoPair.first, ValuePair.first)).append(Emitter, PrintReduced);
+      Yamlfy<ElemType>(&Pointer->getValueOfKey(InfoPair.first, *I)).append(Emitter, PrintReduced);
       Emitter << YAML::Comment(InfoPair.second);
     }
     Emitter << YAML::EndMap;
@@ -140,13 +146,27 @@ void MapVectorFeature<KeyType, ElemType>::setValueOfKey(std::string FeatureName,
 }
 
 template <class KeyType, class ElemType>
-const ElemType& MapVectorFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, KeyType Key) {
+const ElemType& MapVectorFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, const KeyType Key) {
   assert(this->hasSubFeature(FeatureName) && "MapVectorFeature has no such sub-feature.");
 
   initVectorOfKey(Key);
   CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
   uint64_t Index = CompInfo->getIndexOfSubFeature(FeatureName); 
   return TheFeature[Key][Index];
+}
+
+template <class KeyType, class ElemType>
+KeyIterator<KeyType> &MapVectorFeature<KeyType, ElemType>::beginKeys() {
+  static iterator It;
+  It = iterator(&TheFeature, TheFeature.begin());
+  return It;
+}
+
+template <class KeyType, class ElemType>
+KeyIterator<KeyType> &MapVectorFeature<KeyType, ElemType>::endKeys() {
+  static iterator It;
+  It = iterator(&TheFeature, TheFeature.end());
+  return It;
 }
 
 #endif

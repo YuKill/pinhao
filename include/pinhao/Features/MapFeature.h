@@ -33,6 +33,9 @@ namespace pinhao {
    */
   template <class KeyType, class ElemType>
     class MapFeature : public MappedFeature<KeyType, ElemType> {
+      public:
+        typedef StdMapKeyIterator<KeyType, ElemType> iterator;
+
       protected:
         /// @brief The vector container of the feature itself.
         std::map<KeyType, ElemType> TheFeature;
@@ -45,7 +48,10 @@ namespace pinhao {
 
         void setValueOfKey(std::string FeatureName, ElemType Elem, KeyType Key) override;
 
-        const ElemType& getValueOfKey(std::string FeatureName, KeyType Key) override;
+        const ElemType& getValueOfKey(std::string FeatureName, const KeyType Key) override;
+
+        KeyIterator<KeyType> &beginKeys() override;
+        KeyIterator<KeyType> &endKeys() override;
 
         friend class Yamlfy<MapFeature<KeyType, ElemType>>;
     };
@@ -60,11 +66,11 @@ void Yamlfy<MapFeature<KeyType, ElemType>>::append(YAML::Emitter &Emitter, bool 
   Emitter << YAML::Comment(Pointer->getDescription());
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &Pair : Pointer->TheFeature) {
+  for (auto &I = Pointer->beginKeys(), &E = Pointer->endKeys(); I != E; ++I) {
     Emitter << YAML::Key;
-    Yamlfy<KeyType>(&(Pair.first)).append(Emitter, PrintReduced);
+    Yamlfy<KeyType>(&(*I)).append(Emitter, PrintReduced);
     Emitter << YAML::Value;
-    Yamlfy<ElemType>(&(Pair.second)).append(Emitter, PrintReduced);
+    Yamlfy<ElemType>(&(Pointer->getValueOfKey(Pointer->getName(), *I))).append(Emitter, PrintReduced);
   }
   Emitter << YAML::EndMap;
   Emitter << YAML::EndMap;
@@ -95,9 +101,23 @@ void MapFeature<KeyType, ElemType>::setValueOfKey(std::string FeatureName, ElemT
 }
 
 template <class KeyType, class ElemType>
-const ElemType& MapFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, KeyType Key) {
+const ElemType& MapFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, const KeyType Key) {
   assert(FeatureName == this->getName() && "FeatureName doesn't equal the name of this feature.");
   return TheFeature[Key];
+}
+
+template <class KeyType, class ElemType>
+KeyIterator<KeyType> &MapFeature<KeyType, ElemType>::beginKeys() {
+  static iterator It;
+  It = iterator(&TheFeature, TheFeature.begin());
+  return It;
+}
+
+template <class KeyType, class ElemType>
+KeyIterator<KeyType> &MapFeature<KeyType, ElemType>::endKeys() {
+  static iterator It;
+  It = iterator(&TheFeature, TheFeature.end());
+  return It;
 }
 
 
