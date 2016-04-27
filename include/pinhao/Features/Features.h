@@ -10,6 +10,7 @@
 #define PINHAO_FEATURES_H
 
 #include "pinhao/Features/Feature.h"
+#include "pinhao/Support/Iterator.h"
 
 namespace pinhao {
 
@@ -55,7 +56,12 @@ namespace pinhao {
 
         /// @brief Returns the value of a feature that has name @a FeatureName
         /// and key @a Key.
-        virtual const ValueType& getValueOfKey(std::string FeatureName, KeyType Key) = 0;
+        virtual const ValueType& getValueOfKey(std::string FeatureName, const KeyType Key) = 0;
+
+        /// @brief Returns the reference of the begin of an abstract iterator.
+        virtual KeyIterator<KeyType> &beginKeys() = 0;
+        /// @brief Returns the reference of the end of an abstract iterator.
+        virtual KeyIterator<KeyType> &endKeys() = 0;
     };
 
 }
