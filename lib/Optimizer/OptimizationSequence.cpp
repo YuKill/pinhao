@@ -15,32 +15,6 @@ using namespace pinhao;
 
 /*
  * ----------------------------------=
- * Class: Yamlfy<OptimizationSequence>
- */
-Yamlfy<OptimizationSequence>::Yamlfy(const OptimizationSequence *V) : 
-  YamlfyTemplateBase<OptimizationSequence>(V) {
-
-  }
-
-void Yamlfy<OptimizationSequence>::append(YAML::Emitter &Emitter, bool PrintReduced) {
-  Emitter << YAML::BeginSeq;
-
-  for (auto OptInfo : *Value) 
-    Yamlfy<OptimizationInfo>(&OptInfo).append(Emitter, false);
-
-  Emitter << YAML::EndSeq;
-}
-
-void Yamlfy<OptimizationSequence>::get(const YAML::Node &Node) {
-  for (auto I = Node.begin(), E = Node.end(); I != E; ++I) {
-    OptimizationInfo Info;
-    Yamlfy<OptimizationInfo>(&Info).get(*I);
-    Value->push_back(Info);
-  }
-}
-
-/*
- * ----------------------------------=
  * Class: OptimizationSequence
  */
 std::unique_ptr<OptimizationSequence> 
@@ -106,13 +80,6 @@ OptimizationSequence::randomize(uint64_t Size) {
   return std::unique_ptr<OptimizationSequence>(OptSeq);
 }
 
-std::unique_ptr<OptimizationSequence>
-OptimizationSequence::get(YAML::Node &Node) {
-  OptimizationSequence *Sequence = new OptimizationSequence();
-  Yamlfy<OptimizationSequence>(Sequence).get(Node);
-  return std::unique_ptr<OptimizationSequence>(Sequence);
-}
-
 OptimizationInfo OptimizationSequence::getOptimization(uint64_t N) {
   assert(N < size() && "Trying to get an out of bounds optimization.");
   return (*this)[N];
@@ -129,10 +96,4 @@ void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPas
     assert(P->getPassKind() < 4 && "Cannot add Pass with PassKind over 4.");
     FPM.add(P); 
   }
-}
-
-void OptimizationSequence::print(std::ostream &Out) {
-  YAML::Emitter Emitter(Out);
-  Yamlfy<OptimizationSequence>(this).append(Emitter, false);
-  Out << std::endl;
 }

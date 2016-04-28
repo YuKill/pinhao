@@ -18,24 +18,13 @@
 
 namespace pinhao {
   class OptimizationSet;
-  class OptimizationSequence;
-
-  template<>
-    class Yamlfy<OptimizationSequence> : public YamlfyTemplateBase<OptimizationSequence> {
-      public:
-        Yamlfy(const OptimizationSequence *V); 
-        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
-        void get(const YAML::Node &Node) override;
-    };
 
   /**
    * @brief Contains a sequence for a specific @a OptimizationSet.
    */
   class OptimizationSequence : public std::vector<OptimizationInfo> {
-    private:
-      OptimizationSequence() {}
-
     public:
+      OptimizationSequence() {}
 
       /// @brief Generates a @a OptimizationSequence from a specified @a OptimizationSet.
       static std::unique_ptr<OptimizationSequence> generate(OptimizationSet &Set, int Size = -1);
@@ -45,9 +34,6 @@ namespace pinhao {
 
       /// @brief Generates a random sequence.
       static std::unique_ptr<OptimizationSequence> randomize(uint64_t Size);
-
-      /// @brief Creates a @a OptimizationSequence from a @a YAML::Node.
-      static std::unique_ptr<OptimizationSequence> get(YAML::Node &Node);
 
       /// @brief Populates a @a llvm::legacy::PassManager with the current @a Sequence.
       void populatePassManager(llvm::legacy::PassManager &PM);
@@ -59,11 +45,6 @@ namespace pinhao {
       /// @details Note that all the optimizations must be for functions (PassKind < 4).
       void populateFunctionPassManager(llvm::legacy::FunctionPassManager &FPM);
 
-      /// @brief Prints the sequence at @a Out.
-      void print(std::ostream &Out = std::cout);
-
-      friend class Yamlfy<OptimizationSequence>;
-  
   };
 
 }
