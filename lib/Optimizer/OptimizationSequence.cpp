@@ -9,6 +9,8 @@
 #include "pinhao/Optimizer/OptimizationSequence.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
 
+#include "pinhao/Support/YAMLWrapper.h"
+
 #include <ostream>
 
 using namespace pinhao;
@@ -96,4 +98,8 @@ void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPas
     assert(P->getPassKind() < 4 && "Cannot add Pass with PassKind over 4.");
     FPM.add(P); 
   }
+}
+
+void OptimizationSequence::print(std::ostream &Out) {
+  YAMLWrapper::print(*this, Out);
 }

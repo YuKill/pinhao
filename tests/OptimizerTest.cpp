@@ -83,7 +83,7 @@ std::string getStringFrom(OptimizationSequence &Seq) {
 void checkOptimizationSequencePrint(OptimizationSequence &Sequence) {
   std::string Expected = getStringFrom(Sequence);
   std::ostringstream OSS;
-  YAMLWrapper::print(Sequence, OSS);
+  Sequence.print(OSS);
   ASSERT_EQ(OSS.str(), Expected);
 }
 
@@ -93,7 +93,7 @@ TEST(OptimizerTest, PrintOptimization) {
     Set.enableOptimization(getOptimization(OptName));
     Set.generateRandomSequenceIfNone(); 
 
-    YAMLWrapper::print(*Set.DefaultSequence);
+    Set.DefaultSequence->print();
     checkOptimizationSequencePrint(*Set.DefaultSequence);
   }
 }
@@ -152,7 +152,7 @@ TEST(OptimizerTest, RandomizationFunctionTest) {
     Set.enableFunctionOptimizations();
     std::unique_ptr<OptimizationSequence> Seq(OptimizationSequence::generate(Set, N * 10)); 
     (void) applyOptimizations(*M, M->getFunction("main"), Seq.get());
-    YAMLWrapper::print(*Seq);
+    Seq->print();
 
     checkOptimizationSequencePrint(*Seq.get());
   }
@@ -164,7 +164,7 @@ TEST(OptimizerTest, YamlGetTest) {
   for (uint64_t I = 0, E = 20; I < E; ++I) {
     std::ofstream OFS(Filename);
     std::unique_ptr<OptimizationSequence> Sequence = OptimizationSequence::randomize(Size); 
-    YAMLWrapper::print(*Sequence, OFS);
+    Sequence->print(OFS);
     OFS.close();
 
     std::unique_ptr<OptimizationSequence> ReadSequence;

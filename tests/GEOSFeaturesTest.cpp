@@ -58,7 +58,7 @@ TEST(GEOSFeaturesTest, RandomOptimizedCostAnalysisTest) {
 
     while (!Optimized) {
       std::cout << "BAD!! >> ";
-      YAMLWrapper::print(*Sequence);
+      Sequence->print();
 
       Sequence.reset(OptimizationSequence::randomize(SetSize).release());
       Optimized = applyOptimizations(*M, Sequence.get());
@@ -74,7 +74,7 @@ TEST(GEOSFeaturesTest, RandomOptimizedCostAnalysisTest) {
       if (First) {
         std::cout << Pair.first << std::endl;
         GF->print();
-        YAMLWrapper::print(*Sequence);
+        Sequence->print();
         First = false;
       }
       ASSERT_NE(GFCast->getValueOf(Pair.first), 0); 
