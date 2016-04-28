@@ -33,7 +33,7 @@ namespace pinhao {
 
         /// @brief Returns the value of a feature that has name @a FeatureName.
         /// It can be itself as well.
-        virtual const ValueType& getValueOf(std::string FeatureName) = 0;
+        virtual const ValueType& getValueOf(std::string FeatureName) const = 0;
     };
 
   /**
@@ -50,14 +50,14 @@ namespace pinhao {
         MappedFeature(FeatureInfo *Info) : Feature(Info, MappedKind) {}
 
         /// @brief Returns true if the key @a Key is mapped to some value.
-        virtual bool hasKey(const KeyType &Key) = 0;
+        virtual bool hasKey(const KeyType &Key) const = 0;
 
         /// @brief Sets the value of the feature @a FeatureName of the key @a Key to @a Value.
         virtual void setValueOfKey(std::string FeatureName, ValueType Value, KeyType Key) = 0;
 
         /// @brief Returns the value of a feature that has name @a FeatureName
         /// and key @a Key.
-        virtual const ValueType& getValueOfKey(std::string FeatureName, const KeyType Key) = 0;
+        virtual const ValueType& getValueOfKey(std::string FeatureName, const KeyType Key) const = 0;
 
         /// @brief Returns the reference of the begin of an abstract iterator.
         virtual KeyIterator<KeyType> &beginKeys() = 0;
@@ -103,7 +103,7 @@ namespace pinhao {
 
       /// @brief Gets the string feature (the @a FeatureName must be the same as
       /// this feature's name).
-      const std::string& getValueOf(std::string FeatureName) override {
+      const std::string& getValueOf(std::string FeatureName) const override {
         assert(FeatureName == this->Info->getName() && "FeatureName doesn't equal the name of this feature.");
         return TheFeature;
       }

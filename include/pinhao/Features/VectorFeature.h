@@ -57,7 +57,7 @@ namespace pinhao {
          * @param FeatureName The name of the desired sub-feature.
          * @return A pointer to the sub-feature value with const modifier.
          */
-        const ElemType& getValueOf(std::string FeatureName) override;
+        const ElemType& getValueOf(std::string FeatureName) const override;
 
     };
 
@@ -108,7 +108,7 @@ void VectorFeature<ElemType>::setValueOf(std::string FeatureName, ElemType Elem)
 }
 
 template <class ElemType>
-const ElemType& VectorFeature<ElemType>::getValueOf(std::string FeatureName) {
+const ElemType& VectorFeature<ElemType>::getValueOf(std::string FeatureName) const {
   assert(this->hasSubFeature(FeatureName) && "VectorFeature has no such sub-feature.");
   CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
   uint64_t Index = CompInfo->getIndexOfSubFeature(FeatureName); 
