@@ -43,10 +43,9 @@ namespace pinhao {
         /// @brief The vector container of the feature itself.
         std::map<KeyType, std::vector<ElemType>> TheFeature;
 
-      private:
         /// @brief Initializes the vector of the key at the map @a TheFeature.
         void initVectorOfKey(const KeyType Key) {
-          if (TheFeature.count(Key) > 0) return;
+          if (this->hasKey(Key)) return;
           CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
           TheFeature[Key] = std::vector<ElemType>(CompInfo->getNumberOfSubFeatures(), 0);
         }
@@ -58,7 +57,7 @@ namespace pinhao {
           assert(this->isComposite() && "MapVectorFeature must have CompositeFeatureInfo.");
         }
 
-        virtual bool hasKey(const KeyType &Key) override;
+        virtual bool hasKey(const KeyType &Key) const override;
 
         /**
          * @brief Sets the value of the sub-feature, with name @a FeatureName, of key @a Key,
@@ -82,7 +81,7 @@ namespace pinhao {
          * @param Key The key to get from.
          * @return A const pointer to the value of the sub-feature of the key.
          */
-        const ElemType& getValueOfKey(std::string FeatureName, const KeyType Key) override;
+        const ElemType& getValueOfKey(std::string FeatureName, const KeyType Key) const override;
 
         KeyIterator<KeyType> &beginKeys() override;
         KeyIterator<KeyType> &endKeys() override;
@@ -132,7 +131,7 @@ void Yamlfy<MapVectorFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
 }
 
 template <class KeyType, class ElemType>
-bool MapVectorFeature<KeyType, ElemType>::hasKey(const KeyType &Key) {
+bool MapVectorFeature<KeyType, ElemType>::hasKey(const KeyType &Key) const {
   return TheFeature.count(Key) > 0;
 }
 
@@ -147,13 +146,13 @@ void MapVectorFeature<KeyType, ElemType>::setValueOfKey(std::string FeatureName,
 }
 
 template <class KeyType, class ElemType>
-const ElemType& MapVectorFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, const KeyType Key) {
+const ElemType& MapVectorFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, const KeyType Key) const {
   assert(this->hasSubFeature(FeatureName) && "MapVectorFeature has no such sub-feature.");
+  assert(this->hasKey(Key) && "MapVectorFeature has no such key.");
 
-  initVectorOfKey(Key);
   CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(this->Info.get());
   uint64_t Index = CompInfo->getIndexOfSubFeature(FeatureName); 
-  return TheFeature[Key][Index];
+  return TheFeature.at(Key)[Index];
 }
 
 template <class KeyType, class ElemType>

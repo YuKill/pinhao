@@ -45,11 +45,11 @@ namespace pinhao {
         virtual ~MapFeature() {}
         MapFeature(FeatureInfo *Info) : MappedFeature<KeyType, ElemType>(Info) {}
 
-        virtual bool hasKey(const KeyType &Key) override; 
+        virtual bool hasKey(const KeyType &Key) const override; 
 
         void setValueOfKey(std::string FeatureName, ElemType Elem, KeyType Key) override;
 
-        const ElemType& getValueOfKey(std::string FeatureName, const KeyType Key) override;
+        const ElemType& getValueOfKey(std::string FeatureName, const KeyType Key) const override;
 
         KeyIterator<KeyType> &beginKeys() override;
         KeyIterator<KeyType> &endKeys() override;
@@ -91,7 +91,7 @@ void Yamlfy<MapFeature<KeyType, ElemType>>::get(const YAML::Node &Node) {
 }
 
 template <class KeyType, class ElemType>
-bool MapFeature<KeyType, ElemType>::hasKey(const KeyType &Key) {
+bool MapFeature<KeyType, ElemType>::hasKey(const KeyType &Key) const {
   return TheFeature.count(Key) > 0;
 }
 
@@ -102,9 +102,9 @@ void MapFeature<KeyType, ElemType>::setValueOfKey(std::string FeatureName, ElemT
 }
 
 template <class KeyType, class ElemType>
-const ElemType& MapFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, const KeyType Key) {
+const ElemType& MapFeature<KeyType, ElemType>::getValueOfKey(std::string FeatureName, const KeyType Key) const {
   assert(FeatureName == this->getName() && "FeatureName doesn't equal the name of this feature.");
-  return TheFeature[Key];
+  return TheFeature.at(Key);
 }
 
 template <class KeyType, class ElemType>

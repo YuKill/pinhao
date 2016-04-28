@@ -55,10 +55,10 @@ namespace pinhao {
         Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Kind(FKind) { Processed = false; }
 
       /// @brief Gets the name of the feature.
-      std::string getName() { return Info->getName(); }
+      std::string getName() const { return Info->getName(); }
 
       /// @brief Gets the description of the feature.
-      std::string getDescription() { return Info->getDescription(); }
+      std::string getDescription() const { return Info->getDescription(); }
 
       /// @brief Returns true if there is a sub-feature with name @a SubFeatureName.
       bool hasSubFeature (std::string SubFeatureName) const { 
