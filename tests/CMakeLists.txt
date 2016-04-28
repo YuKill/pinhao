@@ -13,6 +13,13 @@ add_executable(RunCFGStaticFeaturesTest
   $<TARGET_OBJECTS:CFGStaticFeatures>)
 add_test(CFGStaticFeaturesTest RunCFGStaticFeaturesTest)
 
+add_executable(RunKeyIteratorTest
+  KeyIteratorTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:CFGStaticFeatures>
+  $<TARGET_OBJECTS:GeneFeatures>)
+add_test(KeyIteratorTest RunKeyIteratorTest)
+
 add_executable(RunFeatureSetTest
   FeatureSetTest.cpp
   $<TARGET_OBJECTS:Features>
@@ -95,6 +102,10 @@ target_link_libraries(RunCFGStaticFeaturesTest
   LLVMAnalysis LLVMCore LLVMSupport
   gtest gtest_main yaml-cpp
   rt dl tinfo pthread z m)
+target_link_libraries(RunKeyIteratorTest
+  LLVMIRReader LLVMBitReader LLVMAsmParser LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m papi)
 target_link_libraries(RunFeatureSetTest
   LLVMX86Disassembler LLVMX86AsmParser LLVMX86CodeGen LLVMSelectionDAG LLVMX86Desc LLVMMCDisassembler LLVMX86Info 
   LLVMX86AsmPrinter LLVMX86Utils LLVMIRReader LLVMMCJIT LLVMInterpreter LLVMExecutionEngine LLVMRuntimeDyld LLVMAsmParser 
