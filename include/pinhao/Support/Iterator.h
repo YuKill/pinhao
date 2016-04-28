@@ -7,11 +7,16 @@
 #ifndef PINHAO_ITERATOR_H
 #define PINHAO_ITERATOR_H
 
+#include "pinhao/Features/Features.h"
+
 #include <iterator>
 #include <map>
 
 namespace pinhao {
 
+  /**
+   * @brief Base class for iterating over the keys of some @a MappedFeature.
+   */
   template <class KType>
     class KeyIterator : public std::iterator<std::forward_iterator_tag, KType> {
       public:
@@ -19,12 +24,19 @@ namespace pinhao {
 
         virtual const KType *operator->() const = 0;
         virtual const KType &operator*() = 0;
+
+        /// @brief It will return a reference, as it can't be instantiated.
         virtual KeyIterator &operator++() = 0;
+
         virtual bool operator==(const KeyIterator &It) = 0;
         virtual bool operator!=(const KeyIterator &It) = 0;
 
     };
 
+  /**
+   * @brief Concrete class that iterates over the keys of the stl provided
+   * std::map class.
+   */
   template <class KType, class VType>
     class StdMapKeyIterator : public KeyIterator<KType> {
       private:
@@ -90,6 +102,30 @@ bool pinhao::StdMapKeyIterator<KType, VType>::operator==(const pinhao::KeyIterat
 template <class KType, class VType>
 bool pinhao::StdMapKeyIterator<KType, VType>::operator!=(const pinhao::KeyIterator<KType> &It) {
   return !(*this == It);
+}
+
+namespace pinhao {
+  
+  /**
+   * @brief Wrapper function that casts some feature pointer to a @a MappedFeature, and
+   * returns a reference to a iterator at the beginning of the map.
+   */
+  template <class KType, class VType>
+  KeyIterator<KType> &beginKeys(Feature *F) {
+    MappedFeature<KType, VType> *Mapped = static_cast<MappedFeature<KType, VType>*>(F);
+    return Mapped->beginKeys();
+  }
+
+  /**
+   * @brief Wrapper function that casts some feature pointer to a @a MappedFeature, and
+   * returns a reference to a iterator at the end of the map.
+   */
+  template <class KType, class VType>
+  KeyIterator<KType> &endKeys(Feature *F) {
+    MappedFeature<KType, VType> *Mapped = static_cast<MappedFeature<KType, VType>*>(F);
+    return Mapped->endKeys();
+  }
+
 }
 
 #endif
