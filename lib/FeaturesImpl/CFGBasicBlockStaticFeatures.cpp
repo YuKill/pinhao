@@ -38,8 +38,6 @@ namespace {
       void append(YAML::Emitter &Emitter) const override;
       void get(const YAML::Node &Node) override;
 
-      friend class Yamlfy<CFGBasicBlockStaticFeatures>; 
-
   };
 
 }

@@ -10,7 +10,6 @@
 
 #include "pinhao/Features/FeatureInfo.h"
 #include "pinhao/Features/FeatureRegistry.h"
-#include "pinhao/Support/Yamlfy.h"
 
 #include "llvm/IR/Module.h"
 

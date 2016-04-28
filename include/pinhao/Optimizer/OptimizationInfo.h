@@ -8,7 +8,6 @@
 #define PINHAO_OPTIMIZATION_INFO_H
 
 #include "pinhao/Optimizer/Optimizations.h"
-#include "pinhao/Support/Yamlfy.h"
 #include "pinhao/Support/Types.h"
 
 namespace pinhao {
