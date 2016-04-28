@@ -12,24 +12,6 @@
 #include "pinhao/Support/Types.h"
 
 namespace pinhao {
-  class OptimizationInfo;
-  struct OptimizationArgBase;
-
-  template<>
-    class Yamlfy<OptimizationInfo> : public YamlfyTemplateBase<OptimizationInfo> {
-      public:
-        Yamlfy(const OptimizationInfo *V); 
-        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
-        void get(const YAML::Node &Node) override;
-    };
-
-  template<>
-    class Yamlfy<OptimizationArgBase> : public YamlfyTemplateBase<OptimizationArgBase> {
-      public:
-        Yamlfy(const OptimizationArgBase *V); 
-        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
-        void get(const YAML::Node &Node) override;
-    };
 
   /**
    * @brief Base class for optimization arguments.
