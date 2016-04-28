@@ -69,14 +69,14 @@ namespace pinhao {
       OptimizationInfo(const OptimizationInfo &Info);
 
       /// @brief Gets the name of the optimization.
-      std::string getName();
+      std::string getName() const;
       /// @brief Gets the optimization.
       Optimization getOptimization() const;
       /// @brief Creates a @a llvm::Pass corresponding to this optimization.
       llvm::Pass *createPass();
 
       /// @brief Gets a the @a Nth @a OptimizationArg.
-      const OptimizationArgBase *getOptimizationArg(uint64_t N);
+      const OptimizationArgBase *getOptimizationArg(uint64_t N) const;
 
       /// @brief Sets the @a Nth argument to @a Value.
       template <class ArgType>
