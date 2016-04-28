@@ -31,11 +31,8 @@ namespace pinhao {
   /**
    * @brief Contains a sequence for a specific @a OptimizationSet.
    */
-  class OptimizationSequence {
+  class OptimizationSequence : public std::vector<OptimizationInfo> {
     private:
-      /// @brief The sequence of optimizations itself.
-      std::vector<OptimizationInfo> Sequence;
-
       OptimizationSequence() {}
 
     public:
@@ -58,19 +55,12 @@ namespace pinhao {
       /// @brief Gets the @a OptimizationInfo of the @a Nth element of the sequence.
       OptimizationInfo getOptimization(uint64_t N);
 
-      /// @brief Gets the size of the sequence.
-      uint64_t size();
-
       /// @brief Populates a @a llvm::legacy::FunctionPassManager with the current @a Sequence.
       /// @details Note that all the optimizations must be for functions (PassKind < 4).
       void populateFunctionPassManager(llvm::legacy::FunctionPassManager &FPM);
 
       /// @brief Prints the sequence at @a Out.
       void print(std::ostream &Out = std::cout);
-
-      typedef std::vector<OptimizationInfo>::iterator SequenceIterator;
-      SequenceIterator begin() { return Sequence.begin(); }
-      SequenceIterator end() { return Sequence.end(); }
 
       friend class Yamlfy<OptimizationSequence>;
   

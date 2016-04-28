@@ -25,7 +25,7 @@ Yamlfy<OptimizationSequence>::Yamlfy(const OptimizationSequence *V) :
 void Yamlfy<OptimizationSequence>::append(YAML::Emitter &Emitter, bool PrintReduced) {
   Emitter << YAML::BeginSeq;
 
-  for (auto OptInfo : Value->Sequence) 
+  for (auto OptInfo : *Value) 
     Yamlfy<OptimizationInfo>(&OptInfo).append(Emitter, false);
 
   Emitter << YAML::EndSeq;
@@ -35,7 +35,7 @@ void Yamlfy<OptimizationSequence>::get(const YAML::Node &Node) {
   for (auto I = Node.begin(), E = Node.end(); I != E; ++I) {
     OptimizationInfo Info;
     Yamlfy<OptimizationInfo>(&Info).get(*I);
-    Value->Sequence.push_back(Info);
+    Value->push_back(Info);
   }
 }
 
@@ -64,14 +64,14 @@ OptimizationSequence::generate(OptimizationSet &Set, int Size) {
 
       double Roll = (double)rand() / RAND_MAX; 
       if (Roll < PickProbability) {
-        OptSeq->Sequence.push_back(Pair.first); 
+        OptSeq->push_back(Pair.first); 
         Repetition[Pair.first]--;
       }
 
       if (Repetition[Pair.first])
         Finish = false;
 
-      if ((unsigned)Size == OptSeq->Sequence.size()) break;
+      if ((unsigned)Size == OptSeq->size()) break;
 
     }
     if (Finish) break;
@@ -87,7 +87,7 @@ OptimizationSequence::generate(std::vector<Optimization> Sequence) {
 
   OptimizationSequence *OptSeq = new OptimizationSequence();
   for (auto O : Sequence)
-    OptSeq->Sequence.push_back(OptimizationInfo(O));
+    OptSeq->push_back(OptimizationInfo(O));
 
   return std::unique_ptr<OptimizationSequence>(OptSeq);
 }
@@ -99,9 +99,9 @@ OptimizationSequence::randomize(uint64_t Size) {
 
   srand(time(0));
   OptimizationSequence *OptSeq = new OptimizationSequence();
-  while (OptSeq->Sequence.size() != Size) {
+  while (OptSeq->size() != Size) {
     int N = rand() % Optimizations.size(); 
-    OptSeq->Sequence.push_back(OptimizationInfo(static_cast<Optimization>(N)));
+    OptSeq->push_back(OptimizationInfo(static_cast<Optimization>(N)));
   }
   return std::unique_ptr<OptimizationSequence>(OptSeq);
 }
@@ -114,21 +114,17 @@ OptimizationSequence::get(YAML::Node &Node) {
 }
 
 OptimizationInfo OptimizationSequence::getOptimization(uint64_t N) {
-  assert(N < Sequence.size() && "Trying to get an out of bounds optimization.");
-  return Sequence[N];
-}
-
-uint64_t OptimizationSequence::size() {
-  return Sequence.size();
+  assert(N < size() && "Trying to get an out of bounds optimization.");
+  return (*this)[N];
 }
 
 void OptimizationSequence::populatePassManager(llvm::legacy::PassManager &PM) {
-  for (auto O : Sequence)
+  for (auto O : *this)
     PM.add(O.createPass()); 
 }
 
 void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPassManager &FPM) {
-  for (auto O : Sequence) {
+  for (auto O : *this) {
     llvm::Pass *P = O.createPass();
     assert(P->getPassKind() < 4 && "Cannot add Pass with PassKind over 4.");
     FPM.add(P); 
