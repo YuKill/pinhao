@@ -197,12 +197,12 @@ OptimizationInfo &OptimizationInfo::operator=(const OptimizationInfo &Info) {
   return *this;
 }
 
-const OptimizationArgBase *OptimizationInfo::getOptimizationArg(uint64_t N) {
+const OptimizationArgBase *OptimizationInfo::getOptimizationArg(uint64_t N) const {
   assert(N < Args.size() && "Arg out of bounds.");
   return Args[N];
 }
 
-std::string OptimizationInfo::getName() {
+std::string OptimizationInfo::getName() const {
   return getOptimizationName(Opt);
 }
 
