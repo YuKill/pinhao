@@ -22,6 +22,7 @@ namespace {
     private:
 
       void addOneToSubFeatureOfKey(std::string SubFeatureName, std::string Key) {
+        initVectorOfKey(Key);
         uint64_t Quantity = 1 + getValueOfKey(SubFeatureName, Key);
         setValueOfKey(SubFeatureName, Quantity, Key);
       }
@@ -116,6 +117,10 @@ void CFGFunctionStaticFeatures::processModule(llvm::Module &Module) {
     std::string FunctionName = Function.getName();
     if (FunctionName == "") 
       FunctionName = "Nameless" + std::to_string(NamelessCount++);
+
+    if (Function.getBasicBlockList().size() == 0) continue;
+    initVectorOfKey(FunctionName);
+
     for (auto &BasicBlock : Function) {
       copyFeaturesFromBB(&BasicBlock, FunctionName); 
       processBasicBlockOfFunction(BasicBlock, FunctionName);

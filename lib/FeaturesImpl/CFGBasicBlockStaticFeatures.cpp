@@ -223,6 +223,7 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
     std::string FunctionName = Function.getName();
     if (FunctionName == "") FunctionName = "Nameless" + std::to_string(NamelessCount++); 
     for (auto &BasicBlock : Function) {
+      initVectorOfKey(&BasicBlock);
       Order.insert(std::make_pair(&BasicBlock, std::make_pair(FunctionName, Count++)));
       for (auto &Instruction : BasicBlock)
         processInstructionOfBB(Instruction, BasicBlock); 
