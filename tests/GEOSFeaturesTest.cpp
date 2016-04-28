@@ -4,6 +4,7 @@
 #include "pinhao/Features/Features.h"
 #include "pinhao/Support/JITExecutor.h"
 #include "pinhao/Support/YamlOptions.h"
+#include "pinhao/Support/YAMLWrapper.h"
 #include "pinhao/Optimizer/Optimizations.h"
 #include "pinhao/Optimizer/OptimizationSequence.h"
 #include "pinhao/Initialization.h"
@@ -43,7 +44,7 @@ TEST(GEOSFeaturesTest, CostAnalysisTest) {
     ASSERT_NE(GFCast->getValueOf(Pair.first), 0); 
   }
 
-  GF->printYaml();
+  GF->print();
 }
 
 TEST(GEOSFeaturesTest, RandomOptimizedCostAnalysisTest) {
@@ -57,7 +58,7 @@ TEST(GEOSFeaturesTest, RandomOptimizedCostAnalysisTest) {
 
     while (!Optimized) {
       std::cout << "BAD!! >> ";
-      Sequence->print();
+      YAMLWrapper::print(*Sequence);
 
       Sequence.reset(OptimizationSequence::randomize(SetSize).release());
       Optimized = applyOptimizations(*M, Sequence.get());
@@ -72,8 +73,8 @@ TEST(GEOSFeaturesTest, RandomOptimizedCostAnalysisTest) {
       LinearFeature<double> *GFCast = static_cast<LinearFeature<double>*>(GF.get());
       if (First) {
         std::cout << Pair.first << std::endl;
-        GF->printYaml();
-        Sequence->print();
+        GF->print();
+        YAMLWrapper::print(*Sequence);
         First = false;
       }
       ASSERT_NE(GFCast->getValueOf(Pair.first), 0); 

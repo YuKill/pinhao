@@ -2,6 +2,7 @@
 
 #include "pinhao/Initialization.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
+#include "pinhao/Support/YAMLWrapper.h"
 
 #include <sstream>
 #include <fstream>
@@ -82,7 +83,7 @@ std::string getStringFrom(OptimizationSequence &Seq) {
 void checkOptimizationSequencePrint(OptimizationSequence &Sequence) {
   std::string Expected = getStringFrom(Sequence);
   std::ostringstream OSS;
-  Sequence.print(OSS);
+  YAMLWrapper::print(Sequence, OSS);
   ASSERT_EQ(OSS.str(), Expected);
 }
 
@@ -92,7 +93,7 @@ TEST(OptimizerTest, PrintOptimization) {
     Set.enableOptimization(getOptimization(OptName));
     Set.generateRandomSequenceIfNone(); 
 
-    Set.DefaultSequence->print();
+    YAMLWrapper::print(*Set.DefaultSequence);
     checkOptimizationSequencePrint(*Set.DefaultSequence);
   }
 }
@@ -151,7 +152,7 @@ TEST(OptimizerTest, RandomizationFunctionTest) {
     Set.enableFunctionOptimizations();
     std::unique_ptr<OptimizationSequence> Seq(OptimizationSequence::generate(Set, N * 10)); 
     (void) applyOptimizations(*M, M->getFunction("main"), Seq.get());
-    Seq->print();
+    YAMLWrapper::print(*Seq);
 
     checkOptimizationSequencePrint(*Seq.get());
   }
@@ -163,12 +164,12 @@ TEST(OptimizerTest, YamlGetTest) {
   for (uint64_t I = 0, E = 20; I < E; ++I) {
     std::ofstream OFS(Filename);
     std::unique_ptr<OptimizationSequence> Sequence = OptimizationSequence::randomize(Size); 
-    Sequence->print(OFS);
+    YAMLWrapper::print(*Sequence, OFS);
     OFS.close();
 
     std::unique_ptr<OptimizationSequence> ReadSequence;
     YAML::Node Node = YAML::LoadFile(Filename);
-    ReadSequence = OptimizationSequence::get(Node);
+    ReadSequence = YAMLWrapper::get<OptimizationSequence>(Node);
     
     std::less<OptimizationInfo> Less;
     for (uint64_t I = 0, E = Sequence->size(); I < E; ++I) {
