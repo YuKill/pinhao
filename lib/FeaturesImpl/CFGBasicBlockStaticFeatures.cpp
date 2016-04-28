@@ -6,27 +6,12 @@
  */
 
 #include "pinhao/Features/MapVectorFeature.h"
+#include "pinhao/Support/YamlOptions.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"
 
 using namespace pinhao;
-
-namespace {
-  class CFGBasicBlockStaticFeatures; 
-}
-
-namespace pinhao {
-
-  template <>
-    class Yamlfy<CFGBasicBlockStaticFeatures> : public YamlfyTemplateBase<CFGBasicBlockStaticFeatures> {
-      public:
-        Yamlfy(const CFGBasicBlockStaticFeatures *BBSFPtr) : YamlfyTemplateBase(BBSFPtr) {} 
-        void append(YAML::Emitter &Emitter, bool PrintReduced) override;
-        void get(const YAML::Node &Node) override;
-    };
-
-}
 
 namespace {
 
@@ -44,13 +29,14 @@ namespace {
     public:
       ~CFGBasicBlockStaticFeatures() {}
       CFGBasicBlockStaticFeatures(FeatureInfo *Info) : 
-        MapVectorFeature<void*, uint64_t>(Info) {
-          Yaml = std::shared_ptr<YamlfyBase>(new Yamlfy<CFGBasicBlockStaticFeatures>(this)); 
-        }
+        MapVectorFeature<void*, uint64_t>(Info) {}
 
       std::unique_ptr<Feature> clone() const override;
 
       void processModule(llvm::Module &Module) override;
+
+      void append(YAML::Emitter &Emitter) const override;
+      void get(const YAML::Node &Node) override;
 
       friend class Yamlfy<CFGBasicBlockStaticFeatures>; 
 
@@ -233,23 +219,22 @@ void CFGBasicBlockStaticFeatures::processModule(llvm::Module& Module) {
 
 std::unique_ptr<Feature> CFGBasicBlockStaticFeatures::clone() const {
   CFGBasicBlockStaticFeatures *Clone = new CFGBasicBlockStaticFeatures(*this); 
-  Clone->Yaml.reset(new Yamlfy<CFGBasicBlockStaticFeatures>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 
-void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool PrintReduced) {
-  CFGBasicBlockStaticFeatures *Pointer = this->Value;
+void CFGBasicBlockStaticFeatures::append(YAML::Emitter &Emitter) const {
+  config::YamlOpt<bool> PrintReduced("print-reduced", "Print reduced information.", false, true);
   Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << Pointer->getName();
+  Emitter << YAML::Key << "feature-name" << YAML::Value << this->getName();
   Emitter << YAML::Key << "values";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &ValuePair : Pointer->TheFeature) {
+  for (auto &ValuePair : this->TheFeature) {
     Emitter << YAML::Key << std::to_string((uint64_t)ValuePair.first);
     Emitter << YAML::Value << YAML::BeginMap;
-    for (auto &InfoPair : *(Pointer)) {
-      if (PrintReduced && Pointer->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
+    for (auto &InfoPair : *this) {
+      if (PrintReduced.get() && this->getValueOfKey(InfoPair.first, ValuePair.first) == 0) continue;
       Emitter << YAML::Key << InfoPair.first;
-      Emitter << YAML::Value << Pointer->getValueOfKey(InfoPair.first, ValuePair.first);
+      Emitter << YAML::Value << this->getValueOfKey(InfoPair.first, ValuePair.first);
       Emitter << YAML::Comment(InfoPair.second);
     }
     Emitter << YAML::EndMap;
@@ -257,7 +242,7 @@ void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool Pr
   Emitter << YAML::EndMap;
   Emitter << YAML::Key << "index";
   Emitter << YAML::Value << YAML::BeginMap;
-  for (auto &OrderPair : Pointer->Order) {
+  for (auto &OrderPair : this->Order) {
     Emitter << YAML::Key << std::to_string((uint64_t)OrderPair.first);
     Emitter << YAML::Value << 
       YAML::BeginSeq << OrderPair.second.first << std::to_string(OrderPair.second.second) << YAML::EndSeq;
@@ -266,13 +251,12 @@ void Yamlfy<CFGBasicBlockStaticFeatures>::append(YAML::Emitter &Emitter, bool Pr
   Emitter << YAML::EndMap;
 }
 
-void Yamlfy<CFGBasicBlockStaticFeatures>::get(const YAML::Node &Node) {
-  CFGBasicBlockStaticFeatures *Pointer = this->Value;
-  Yamlfy<MapVectorFeature<void*, uint64_t>>(Pointer).get(Node);
+void CFGBasicBlockStaticFeatures::get(const YAML::Node &Node) {
+  MapVectorFeature<void*, uint64_t>::get(Node);
   YAML::Node Index = Node["index"];
   for (auto I = Index.begin(), E = Index.end(); I != E; ++I) {
     void *Key = (void*) I->first.as<uint64_t>();  
-    Pointer->Order[Key] = std::make_pair(I->second[0].as<std::string>(), I->second[1].as<uint64_t>());
+    this->Order[Key] = std::make_pair(I->second[0].as<std::string>(), I->second[1].as<uint64_t>());
   }
 }
 

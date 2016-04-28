@@ -155,7 +155,6 @@ std::string FunctionsGeneFeature::getInstructionGene(llvm::Instruction &Instruct
 
 std::unique_ptr<Feature> FunctionsGeneFeature::clone() const {
   FunctionsGeneFeature *Clone = new FunctionsGeneFeature(*this);
-  Clone->Yaml.reset(new Yamlfy<MapFeature<std::string, std::string>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 } 
 

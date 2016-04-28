@@ -49,7 +49,6 @@ void GEOSFeatures::processModule(llvm::Module &Module) {
 
 std::unique_ptr<Feature> GEOSFeatures::clone() const {
   GEOSFeatures *Clone = new GEOSFeatures(*this);
-  Clone->Yaml.reset(new Yamlfy<VectorFeature<double>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 
