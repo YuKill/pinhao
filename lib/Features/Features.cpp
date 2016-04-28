@@ -8,23 +8,32 @@
  */
 
 #include "pinhao/Features/Features.h"
+#include "pinhao/Support/YAMLWrapper.h"
 
 using namespace pinhao;
 
 /*
  * ----------------------------------=
- * Class: Yamlfy<StringFeature>
+ * Class: StringFeature
  */
+StringFeature::StringFeature(FeatureInfo *Info) : LinearFeature<std::string>(Info) {
 
-void Yamlfy<StringFeature>::append(YAML::Emitter &Emitter, bool PrintReduced) {
-  Emitter << YAML::BeginMap;
-  Emitter << YAML::Key << "feature-name" << YAML::Value << Value->getName();
-  Emitter << YAML::Key << "values";
-  Emitter << YAML::Value << Value->getValueOf(Value->getName());
-  Emitter << YAML::EndMap;
 }
 
-void Yamlfy<StringFeature>::get(const YAML::Node &Node) {
-  std::string FeatureName = Node["feature-name"].as<std::string>();
-  Value->setValueOf(FeatureName, Node["values"].as<std::string>());
+void StringFeature::setValueOf(std::string FeatureName, std::string Value) {
+  assert(FeatureName == this->Info->getName() && "FeatureName doesn't equal the name of this feature.");
+  TheFeature = Value;
+}   
+
+const std::string& StringFeature::getValueOf(std::string FeatureName) const {
+  assert(FeatureName == this->Info->getName() && "FeatureName doesn't equal the name of this feature.");
+  return TheFeature;
+}
+
+void StringFeature::append(YAML::Emitter &Emitter) const {
+  YAMLWrapper::append(*this, Emitter);
+}
+
+void StringFeature::get(const YAML::Node &Node) {
+  YAMLWrapper::fill(*this, Node);
 }
