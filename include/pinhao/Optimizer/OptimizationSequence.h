@@ -9,7 +9,6 @@
 
 #include "pinhao/Optimizer/Optimizations.h"
 #include "pinhao/Optimizer/OptimizationInfo.h"
-#include "pinhao/Support/Yamlfy.h"
 
 #include "llvm/IR/LegacyPassManager.h"
 

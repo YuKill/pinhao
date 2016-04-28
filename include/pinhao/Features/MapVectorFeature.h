@@ -77,7 +77,6 @@ namespace pinhao {
         virtual void append(YAML::Emitter &Emitter) const override;
         virtual void get(const YAML::Node &Node) override;
 
-        friend class Yamlfy<MapVectorFeature<KeyType, ElemType>>;
     };
 
 }
