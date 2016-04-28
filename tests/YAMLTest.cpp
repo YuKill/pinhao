@@ -25,12 +25,12 @@ TEST(YAMLTest, CFGModuleStaticFeatureTest) {
   ModuleReader Reader(Benchmark);
   std::unique_ptr<Feature> ModFeature = FeatureRegistry::get("cfg_md_static");
   ModFeature->processModule(*(Reader.getModule().get()));
-  ModFeature->printYaml(Of1);
+  ModFeature->print(Of1);
 
   ModFeature.reset(FeatureRegistry::get("cfg_md_static").release());
   YAML::Node LoadFile = YAML::LoadFile(YamlFile1);
-  ModFeature->getFromYamlNode(LoadFile);
-  ModFeature->printYaml(Of2);
+  ModFeature->get(LoadFile);
+  ModFeature->print(Of2);
 
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
@@ -43,12 +43,12 @@ TEST(YAMLTest, CFGFunctionStaticFeatureTest) {
   ModuleReader Reader(Benchmark);
   std::unique_ptr<Feature> FnFeature = FeatureRegistry::get("cfg_fn_static");
   FnFeature->processModule(*(Reader.getModule().get()));
-  FnFeature->printYaml(Of1);
+  FnFeature->print(Of1);
 
   FnFeature.reset(FeatureRegistry::get("cfg_fn_static").release());
   YAML::Node LoadFile = YAML::LoadFile(YamlFile1);
-  FnFeature->getFromYamlNode(LoadFile);
-  FnFeature->printYaml(Of2);
+  FnFeature->get(LoadFile);
+  FnFeature->print(Of2);
 
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
@@ -61,12 +61,12 @@ TEST(YAMLTest, CFGBasicBlockStaticFeatureTest) {
   ModuleReader Reader(Benchmark);
   std::unique_ptr<Feature> BBFeature = FeatureRegistry::get("cfg_bb_static");
   BBFeature->processModule(*(Reader.getModule().get()));
-  BBFeature->printYaml(Of1);
+  BBFeature->print(Of1);
 
   BBFeature.reset(FeatureRegistry::get("cfg_bb_static").release());
   YAML::Node LoadFile = YAML::LoadFile(YamlFile1);
-  BBFeature->getFromYamlNode(LoadFile);
-  BBFeature->printYaml(Of2);
+  BBFeature->get(LoadFile);
+  BBFeature->print(Of2);
 
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
@@ -79,12 +79,12 @@ TEST(YAMLTest, GeneFeatureTest) {
   ModuleReader Reader(Benchmark);
   std::unique_ptr<Feature> GeneFeature = FeatureRegistry::get("function-dna");
   GeneFeature->processModule(*(Reader.getModule().get()));
-  GeneFeature->printYaml(Of1);
+  GeneFeature->print(Of1);
 
   GeneFeature.reset(FeatureRegistry::get("function-dna").release());
   YAML::Node LoadFile = YAML::LoadFile(YamlFile1);
-  GeneFeature->getFromYamlNode(LoadFile);
-  GeneFeature->printYaml(Of2);
+  GeneFeature->get(LoadFile);
+  GeneFeature->print(Of2);
 
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }

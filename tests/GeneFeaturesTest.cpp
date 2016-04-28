@@ -15,7 +15,7 @@ TEST(GeneFeaturesTest, FunctionsGeneFeatureTest) {
   ASSERT_NE(FunctionsGene.get(), nullptr);
 
   FunctionsGene->processModule(*(Reader.getModule().get()));
-  FunctionsGene->printYaml();
+  FunctionsGene->print();
 }
 
 int main(int argc, char **argv) {
