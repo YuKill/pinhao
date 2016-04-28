@@ -71,7 +71,7 @@ namespace {
 bool CFGStaticFeaturesPrinterPass::runOnModule(Module &M) {
   CFGStaticFeaturesPass &StaticFeatures = getAnalysis<CFGStaticFeaturesPass>();
   for (uint64_t I = 0, E = StaticFeatures.getVectorSize(); I < E; ++I) {
-    StaticFeatures.getNthFeature(I)->printYaml(std::cerr);
+    StaticFeatures.getNthFeature(I)->print(std::cerr);
   }
   return false;
 }

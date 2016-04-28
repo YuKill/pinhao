@@ -62,7 +62,7 @@ namespace {
 
 bool FunctionsGeneFeaturePrinterPass::runOnModule(Module &M) {
   std::shared_ptr<Feature> GeneFeature = getAnalysis<FunctionsGeneFeaturePass>().getFeature();
-  GeneFeature->printYaml(std::cerr);
+  GeneFeature->print(std::cerr);
   return false;
 }
 
