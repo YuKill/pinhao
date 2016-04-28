@@ -47,7 +47,6 @@ void GEOSBasicBlockFreqFeature::processModule(llvm::Module &Module) {
 
 std::unique_ptr<Feature> GEOSBasicBlockFreqFeature::clone() const {
   GEOSBasicBlockFreqFeature *Clone = new GEOSBasicBlockFreqFeature(*this);
-  Clone->Yaml.reset(new Yamlfy<MapFeature<void*, uint64_t>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 

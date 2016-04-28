@@ -71,7 +71,6 @@ void CFGModuleStaticFeatures::processModule(llvm::Module &Module) {
 
 std::unique_ptr<Feature> CFGModuleStaticFeatures::clone() const {
   CFGModuleStaticFeatures *Clone = new CFGModuleStaticFeatures(*this);
-  Clone->Yaml.reset(new Yamlfy<VectorFeature<uint64_t>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 

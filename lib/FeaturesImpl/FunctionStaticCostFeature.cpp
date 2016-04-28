@@ -43,7 +43,6 @@ void FunctionStaticCostFeature::processModule(llvm::Module &Module) {
 
 std::unique_ptr<Feature> FunctionStaticCostFeature::clone() const {
   FunctionStaticCostFeature *Clone = new FunctionStaticCostFeature(*this);
-  Clone->Yaml.reset(new Yamlfy<MapFeature<std::string, double>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 } 
 

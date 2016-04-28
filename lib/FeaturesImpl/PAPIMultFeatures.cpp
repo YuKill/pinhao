@@ -112,7 +112,6 @@ void PAPIMultFeatures::getMeasures(long long *Values, int *EventCodes, int Size)
 
 std::unique_ptr<Feature> PAPIMultFeatures::clone() const {
   PAPIMultFeatures *Clone = new PAPIMultFeatures(*this);
-  Clone->Yaml.reset(new Yamlfy<VectorFeature<uint64_t>>(Clone));
   return std::unique_ptr<Feature>(Clone);
 }
 
