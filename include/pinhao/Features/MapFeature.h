@@ -8,6 +8,7 @@
 #define PINHAO_MAP_FEATURE_H
 
 #include "pinhao/Features/Features.h"
+#include "pinhao/Support/Iterator.h"
 
 using namespace pinhao;
 

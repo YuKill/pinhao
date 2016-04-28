@@ -10,9 +10,10 @@
 #define PINHAO_FEATURES_H
 
 #include "pinhao/Features/Feature.h"
-#include "pinhao/Support/Iterator.h"
 
 namespace pinhao {
+
+  template <class KType> class KeyIterator;
 
   /**
    * @brief Abstract class of linear features.

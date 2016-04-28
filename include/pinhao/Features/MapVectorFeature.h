@@ -9,6 +9,7 @@
 
 #include "pinhao/Features/Features.h"
 #include "pinhao/Support/Yamlfy.h"
+#include "pinhao/Support/Iterator.h"
 
 using namespace pinhao;
 
