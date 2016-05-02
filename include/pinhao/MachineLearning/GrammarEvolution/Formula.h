@@ -9,22 +9,6 @@
 
 namespace pinhao {
 
-  template<>
-    class Yamlfy<FormulaBase*> : public YamlfyTemplateBase<FormulaBase*> {
-      public:
-        Yamlfy(const FormulaBase **FB) : YamlfyTemplateBase<FormulaBase*>(FB) {}
-
-        void append(YAML::Emitter &Emitter, bool PrintReduced) override; 
-
-        void get(const YAML::Node &Node) override {
-          ValueType Type = static_cast<ValueType>(Node["type"].as<int>());
-          FormulaKind Kind = getFormulaKind(Node["kind"].as<std::string>());
-          *Value = FormulaBase::create(Kind, Type).release();
-          (*Value)->getImpl(Node);
-
-        }
-    };
-
   class FormulaBase {
     public:
       enum class FormulaKind {
@@ -109,15 +93,17 @@ namespace pinhao {
           PLUS = 0, MIN, MUL, DIV, EQ, NEQ, LT, GT, LEQ, GEQ
         };
 
-        std::unique_ptr<Formula<OpT>> Lhs;
-        std::unique_ptr<Formula<OpT>> Rhs;
         OperatorKind Operator;
 
         T doOperation(OpT One, OpT Two) = 0;
 
       public:
+        std::unique_ptr<Formula<OpT>> Lhs;
+        std::unique_ptr<Formula<OpT>> Rhs;
+
         bool isArithmeticBinOp() { return getKind() == FormulaKind::ArithmeticBinOp; }
         bool isBooleanBinOp() { return getKind() == FormulaKind::BooleanBinOp; }
+        void setOperator(int NewOperator) { Operator = static_cast<OperatorKind>(NewOperator); }
 
         void solveFor(FeatureSet *Set) override {
           Lhs->solveFor(Set); 
@@ -163,19 +149,18 @@ namespace pinhao {
         }
 
       public:
-        ValueType getType() override { return getValueTypeFor<T>(); }
+        ValueType getType() override { return getValueTypeFor<bool>(); }
         FormulaKind getKind() override { return FormulaKind::BooleanBinOp; }
 
     };
 
   template <class T>
     class IfFormula : Formula<T> {
-      private:
+      public:
         std::unique_ptr<Formula<bool>> Condition;
         std::unique_ptr<Formula<T>> ThenBody;
         std::unique_ptr<Formula<T>> ElseBody;
 
-      public:
         void solveFor(FeatureSet *Set) override {
           Condition->solveFor(Set);   
           if (Condition->getValue()) {
@@ -186,20 +171,29 @@ namespace pinhao {
             Value = ElseBody->getValue();
           }
         }
+
+        ValueType getType() override { return getValueTypeFor<T>(); }
+        FormulaKind getKind() override { return FormulaKind::If; }
     };
 
   template <class T>
     class LitFormula : Formula<T> {
       public:
+        void setValue(T Value) { this->Value = Value; }
+        ValueType getType() override { return getValueTypeFor<T>(); }
+        FormulaKind getKind() override { return FormulaKind::Literal; }
+
         void solveFor(FeatureSet *Set) override {}
     };
 
   template <class T>
     class FeatureFormula : Formula<T> {
-      private:
+      public:
         std::pair<std::string, std::string> FeaturePair;
 
-      public:
+        ValueType getType() override { return getValueTypeFor<T>(); }
+        FormulaKind getKind() override { return FormulaKind::Feature; }
+
         void solveFor(FeatureSet *Set) override {
           Value = Set->getFeature<T>(FeaturePair); 
         }
