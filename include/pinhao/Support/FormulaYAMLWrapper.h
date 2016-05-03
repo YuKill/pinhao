@@ -57,12 +57,6 @@ void YAMLWrapper::fill(Formula<T> &Value, ConstNode &Node) {
 
 template <class T>
 void YAMLWrapper::append(const Formula<T> &Value, Emitter &E) {
-  E << YAML::BeginMap;
-  E << YAML::Key << "type" << YAML::Value;
-  YAMLWrapper::append(static_cast<int>(Value.getType()), E);
-  E << YAML::Key << "kind" << YAML::Value;
-  YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
-
   switch (Value.getKind()) {
     case FormulaKind::Literal:
       YAMLWrapper::append(static_cast<const LitFormula<T>&>(Value), E);
@@ -70,8 +64,6 @@ void YAMLWrapper::append(const Formula<T> &Value, Emitter &E) {
     case FormulaKind::BooleanBinOp:
       {
         const Formula<bool> &FormulaCast = reinterpret_cast<const Formula<bool>&>(Value);
-        E << YAML::Key << "op-type" << YAML::Value;
-        YAMLWrapper::append(static_cast<int>(FormulaCast.getOperandsType()), E);
         switch (FormulaCast.getOperandsType()) {
           case ValueType::Int:
             YAMLWrapper::append(static_cast<const BooleanBinOpFormula<int>&>(FormulaCast), E);
@@ -98,8 +90,6 @@ void YAMLWrapper::append(const Formula<T> &Value, Emitter &E) {
       YAMLWrapper::append(static_cast<const FeatureFormula<T>&>(Value), E);
       break;
   }
-
-  E << YAML::EndMap;
 }
 
 /*
@@ -110,17 +100,23 @@ template <class T>
 void YAMLWrapper::fill(ArithmeticBinOpFormula<T> &Value, ConstNode &Node) {
   Value.Lhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["lhs"]).release()));
   Value.Rhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["rhs"]).release()));
-  Value.setOperator(Node["op"].as<int>());
+  Value.Operator = getOperatorKind(Node["op"].as<std::string>());
 }
 
 template <class T>
 void YAMLWrapper::append(const ArithmeticBinOpFormula<T> &Value, Emitter &E) {
+  E << YAML::BeginMap;
+  E << YAML::Key << "type" << YAML::Value;
+  YAMLWrapper::append(static_cast<int>(Value.getType()), E);
+  E << YAML::Key << "kind" << YAML::Value;
+  YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
   E << YAML::Key << "op" << YAML::Value;
-  YAMLWrapper::append(Value.getOperator(), E);
+  YAMLWrapper::append(getOperatorKindString(Value.Operator), E);
   E << YAML::Key << "lhs" << YAML::Value;
   YAMLWrapper::append(*Value.Lhs, E);
   E << YAML::Key << "rhs" << YAML::Value;
   YAMLWrapper::append(*Value.Rhs, E);
+  E << YAML::EndMap;
 }
 
 /*
@@ -131,17 +127,25 @@ template <class T>
 void YAMLWrapper::fill(BooleanBinOpFormula<T> &Value, ConstNode &Node) {
   Value.Lhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["lhs"]).release()));
   Value.Rhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["rhs"]).release()));
-  Value.setOperator(Node["op"].as<int>());
+  Value.Operator = getOperatorKind(Node["op"].as<std::string>());
 }
 
 template <class T>
 void YAMLWrapper::append(const BooleanBinOpFormula<T> &Value, Emitter &E) {
+  E << YAML::BeginMap;
+  E << YAML::Key << "type" << YAML::Value;
+  YAMLWrapper::append(static_cast<int>(Value.getType()), E);
+  E << YAML::Key << "kind" << YAML::Value;
+  YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
+  E << YAML::Key << "op-type" << YAML::Value;
+  YAMLWrapper::append(static_cast<int>(Value.getOperandsType()), E);
   E << YAML::Key << "op" << YAML::Value;
-  YAMLWrapper::append(Value.getOperator(), E);
+  YAMLWrapper::append(getOperatorKindString(Value.Operator), E);
   E << YAML::Key << "lhs" << YAML::Value;
   YAMLWrapper::append(*Value.Lhs, E);
   E << YAML::Key << "rhs" << YAML::Value;
   YAMLWrapper::append(*Value.Rhs, E);
+  E << YAML::EndMap;
 }
 
 /*
@@ -157,12 +161,18 @@ void YAMLWrapper::fill(IfFormula<T> &Value, ConstNode &Node) {
 
 template <class T>
 void YAMLWrapper::append(const IfFormula<T> &Value, Emitter &E) {
+  E << YAML::BeginMap;
+  E << YAML::Key << "type" << YAML::Value;
+  YAMLWrapper::append(static_cast<int>(Value.getType()), E);
+  E << YAML::Key << "kind" << YAML::Value;
+  YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
   E << YAML::Key << "cond" << YAML::Value;
   YAMLWrapper::append(*Value.Condition, E); 
   E << YAML::Key << "then" << YAML::Value;
   YAMLWrapper::append(*Value.ThenBody, E); 
   E << YAML::Key << "else" << YAML::Value;
   YAMLWrapper::append(*Value.ElseBody, E); 
+  E << YAML::EndMap;
 }
 
 /*
@@ -176,8 +186,14 @@ void YAMLWrapper::fill(LitFormula<T> &Value, ConstNode &Node) {
 
 template <class T>
 void YAMLWrapper::append(const LitFormula<T> &Value, Emitter &E) {
+  E << YAML::BeginMap;
+  E << YAML::Key << "type" << YAML::Value;
+  YAMLWrapper::append(static_cast<int>(Value.getType()), E);
+  E << YAML::Key << "kind" << YAML::Value;
+  YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
   E << YAML::Key << "value" << YAML::Value;
   YAMLWrapper::append(Value.getValue(), E);
+  E << YAML::EndMap;
 }
 
 /*
@@ -195,12 +211,18 @@ void YAMLWrapper::fill(FeatureFormula<T> &Value, ConstNode &Node) {
 
 template <class T>
 void YAMLWrapper::append(const FeatureFormula<T> &Value, Emitter &E) {
+  E << YAML::BeginMap;
+  E << YAML::Key << "type" << YAML::Value;
+  YAMLWrapper::append(static_cast<int>(Value.getType()), E);
+  E << YAML::Key << "kind" << YAML::Value;
+  YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
   E << YAML::Key << "feature" << YAML::Value;
   YAMLWrapper::append(Value.FeaturePair.first, E);
   if (Value.FeaturePair.second == "") {
     E << YAML::Key << "sub" << YAML::Value;
     YAMLWrapper::append(Value.FeaturePair.second, E);
   }
+  E << YAML::EndMap;
 }
 
 #endif
