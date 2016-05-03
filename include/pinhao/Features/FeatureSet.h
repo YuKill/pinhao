@@ -142,12 +142,12 @@ namespace pinhao {
 
       template <class FeatureType>
         FeatureType getFeature(std::pair<std::string, std::string> FeaturePair) {
-          getFeature<FeatureType>(FeaturePair.first, FeaturePair.second);
+          return getFeature<FeatureType>(FeaturePair.first, FeaturePair.second);
         }
 
       template <class FeatureType, class KeyType>
         FeatureType getSubfeatureOfKey(std::pair<std::string, std::string> FeaturePair, KeyType Key) {
-          getFeature<FeatureType, KeyType>(FeaturePair.first, FeaturePair.second, Key);
+          return getFeature<FeatureType, KeyType>(FeaturePair.first, FeaturePair.second, Key);
         }
 
       /**
