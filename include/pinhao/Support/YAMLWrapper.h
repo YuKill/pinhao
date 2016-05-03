@@ -33,11 +33,12 @@ namespace pinhao {
    * Formula classes.
    */
   class FormulaBase;
-  class ArithmeticBinOpFormula;
-  class BooleanBinOpFormula;
-  class IfFormula;
-  class LitFormula;
-  class FeatureFormula;
+  template <class T> class Formula;
+  template <class T> class ArithmeticBinOpFormula;
+  template <class T> class BooleanBinOpFormula;
+  template <class T> class IfFormula;
+  template <class T> class LitFormula;
+  template <class T> class FeatureFormula;
 
   /**
    * @brief This class is a wrapper class for the yaml-cpp library.
@@ -82,20 +83,10 @@ namespace pinhao {
       template <class T> 
         static void print(const T &Value, std::ostream &Out = std::cout) {
           Emitter E(Out);
-          append<T>(Value, E);
+          append(Value, E);
           Out << std::endl;
         }
-
-      // get overloads.
-      template <class T> 
-        static std::unique_ptr<ArithmeticBinOpFormula<T>> get(ConstNode &Node);
-      template <class T> 
-        static std::unique_ptr<BooleanBinOpFormula<T>> get(ConstNode &Node);
-      template <class T> 
-        static std::unique_ptr<IfFormula<T>> get(ConstNode &Node);
-      template <class T> 
-        static std::unique_ptr<LitFormula<T>> get(ConstNode &Node);
-
+    
       // fill overloads.
       template <class T> 
         static void fill(VectorFeature<T> &Value, ConstNode &Node);
@@ -103,6 +94,19 @@ namespace pinhao {
         static void fill(MapFeature<T, U> &Value, ConstNode &Node);
       template <class T, class U> 
         static void fill(MapVectorFeature<T, U> &Value, ConstNode &Node);
+
+      template <class T> 
+        static void fill(Formula<T> &Value, ConstNode &Node);
+      template <class T> 
+        static void fill(ArithmeticBinOpFormula<T> &Value, ConstNode &Node);
+      template <class T> 
+        static void fill(BooleanBinOpFormula<T> &Value, ConstNode &Node);
+      template <class T> 
+        static void fill(IfFormula<T> &Value, ConstNode &Node);
+      template <class T> 
+        static void fill(LitFormula<T> &Value, ConstNode &Node);
+      template <class T> 
+        static void fill(FeatureFormula<T> &Value, ConstNode &Node);
 
       // append overloads.
       template <class T> 
@@ -113,6 +117,8 @@ namespace pinhao {
         static void append(const MapVectorFeature<T, U> &Value, Emitter &E);
 
       template <class T> 
+        static void append(const Formula<T> &Value, Emitter &E);
+      template <class T> 
         static void append(const ArithmeticBinOpFormula<T> &Value, Emitter &E);
       template <class T> 
         static void append(const BooleanBinOpFormula<T> &Value, Emitter &E);
@@ -120,14 +126,13 @@ namespace pinhao {
         static void append(const IfFormula<T> &Value, Emitter &E);
       template <class T> 
         static void append(const LitFormula<T> &Value, Emitter &E);
+      template <class T> 
+        static void append(const FeatureFormula<T> &Value, Emitter&E);
 
   };
 
-  template<> std::unique_ptr<FormulaBase> get(ConstNode&);
-  template<> void append(const FormulaBase&, ConstNode&);
-
-  template<> std::unique_ptr<FeatureFormula> get(ConstNode&);
-  template<> void append(const FeatureFormula&, ConstNode&);
+  template<> std::unique_ptr<FormulaBase> YAMLWrapper::get<FormulaBase>(ConstNode&);
+  template<> void YAMLWrapper::append<FormulaBase>(const FormulaBase&, Emitter&);
 
   template<> void YAMLWrapper::fill<void*>(void*&, ConstNode&);
   template<> void YAMLWrapper::append<void*>(void* const&, Emitter&);

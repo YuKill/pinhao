@@ -10,3 +10,7 @@ add_library (FeatureYAMLWrapper STATIC
 add_library (OptimizerYAMLWrapper STATIC
   YAMLWrapper.cpp
   OptimizerYAMLWrapper.cpp)
+
+add_library (FormulaYAMLWrapper STATIC
+  YAMLWrapper.cpp
+  FormulaYAMLWrapper.cpp)
