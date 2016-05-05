@@ -1,0 +1,32 @@
+<map id="/home/yukiosir/workspace/CompilerProject/Software/pinhao/include/pinhao/Features/FeatureInfo.h" name="/home/yukiosir/workspace/CompilerProject/Software/pinhao/include/pinhao/Features/FeatureInfo.h">
+<area shape="rect" id="node2" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="2057,124,2263,195"/>
+<area shape="rect" id="node31" href="$FeatureInfo_8cpp.html" title="This file implements the overrided functions by the class CompositeFeatureInfo. " alt="" coords="2287,131,2518,187"/>
+<area shape="rect" id="node3" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="1566,243,1773,313"/>
+<area shape="rect" id="node27" href="$Feature_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/Features/Feature.cpp" alt="" coords="1797,250,2006,306"/>
+<area shape="rect" id="node28" href="$FeatureRegistry_8cpp.html" title="This file implements the functions and defines the static members of the FeatureRegistry class..." alt="" coords="2031,250,2289,306"/>
+<area shape="rect" id="node29" href="$CFGStaticFeaturesPass_8cpp.html" title="This file implements the CFGStaticFeaturesPass class. " alt="" coords="2313,243,2508,313"/>
+<area shape="rect" id="node30" href="$FunctionsGeneFeaturePass_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/tools/OptLibraries\l/FunctionsGeneFeaturePass.cpp" alt="" coords="2532,243,2745,313"/>
+<area shape="rect" id="node4" href="$FeatureSet_8h.html" title="This file defines a class which contains the features selected by the user (by some command line)..." alt="" coords="282,361,489,432"/>
+<area shape="rect" id="node10" href="$MapFeature_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/Features\l/MapFeature.h" alt="" coords="969,480,1175,551"/>
+<area shape="rect" id="node12" href="$MapVectorFeature_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/Features\l/MapVectorFeature.h" alt="" coords="557,717,763,788"/>
+<area shape="rect" id="node16" href="$VectorFeature_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/Features\l/VectorFeature.h" alt="" coords="934,717,1141,788"/>
+<area shape="rect" id="node19" href="$FeatureYAMLWrapper_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/Support/YAMLWrapper\l/FeatureYAMLWrapper.cpp" alt="" coords="1428,717,1647,788"/>
+<area shape="rect" id="node23" href="$Iterator_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/Support\l/Iterator.h" alt="" coords="972,361,1172,432"/>
+<area shape="rect" id="node24" href="$Features_8cpp.html" title="This file implements the functions of the basic implementations of the feature classes. Such as the StringFeature , the VectorFeature and the MapVectorFeature. " alt="" coords="1757,369,1973,425"/>
+<area shape="rect" id="node25" href="$CFGStaticFeaturesDiffPass_8cpp.html" title="This file implements the CFGStaticFeaturesDiffPass class. " alt="" coords="1998,361,2213,432"/>
+<area shape="rect" id="node26" href="$CFGStaticFeaturesGenPass_8cpp.html" title="This class generates a cfg (control flow graph) with the static features, based on the cfg..." alt="" coords="2237,361,2456,432"/>
+<area shape="rect" id="node5" href="$Formula_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/MachineLearning\l/GrammarEvolution/Formula.h" alt="" coords="259,480,512,551"/>
+<area shape="rect" id="node9" href="$FeatureSet_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/Features/FeatureSet.cpp" alt="" coords="5,487,235,543"/>
+<area shape="rect" id="node6" href="$FormulaYAMLWrapper_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/Support\l/FormulaYAMLWrapper.h" alt="" coords="225,599,425,669"/>
+<area shape="rect" id="node7" href="$Formula_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/MachineLearning\l/GrammarEvolution/Formula.cpp" alt="" coords="321,717,532,788"/>
+<area shape="rect" id="node8" href="$FormulaYAMLWrapper_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/Support/YAMLWrapper\l/FormulaYAMLWrapper.cpp" alt="" coords="79,717,297,788"/>
+<area shape="rect" id="node11" href="$FeatureYAMLWrapper_8h.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/include/pinhao/Support\l/FeatureYAMLWrapper.h" alt="" coords="857,599,1057,669"/>
+<area shape="rect" id="node20" href="$FunctionsGeneFeature_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/FeaturesImpl\l/FunctionsGeneFeature.cpp" alt="" coords="650,599,833,669"/>
+<area shape="rect" id="node21" href="$FunctionStaticCostFeature_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/FeaturesImpl\l/FunctionStaticCostFeature.cpp" alt="" coords="1082,599,1289,669"/>
+<area shape="rect" id="node22" href="$GEOSBasicBlockFreqFeature_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/FeaturesImpl\l/GEOSFeatures/GEOSBasicBlockFreqFeature.cpp" alt="" coords="1313,599,1631,669"/>
+<area shape="rect" id="node13" href="$CFGBasicBlockStaticFeatures_8cpp.html" title="This file implements the CFGBasicBlockStaticFeatures class. " alt="" coords="505,836,735,907"/>
+<area shape="rect" id="node14" href="$CFGFunctionStaticFeatures_8cpp.html" title="This file implements the CFGFunctionStaticFeatures class. " alt="" coords="266,836,481,907"/>
+<area shape="rect" id="node15" href="$CFGModuleStaticFeatures_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/FeaturesImpl\l/CFGModuleStaticFeatures.cpp" alt="" coords="759,836,966,907"/>
+<area shape="rect" id="node17" href="$GEOSFeatures_8cpp.html" title="/home/yukiosir/workspace\l/CompilerProject/Software\l/pinhao/lib/FeaturesImpl\l/GEOSFeatures/GEOSFeatures.cpp" alt="" coords="1189,836,1422,907"/>
+<area shape="rect" id="node18" href="$PAPIMultFeatures_8cpp.html" title="This file implements the features extracted by the PAPI tool by multiplexing. " alt="" coords="990,836,1165,907"/>
+</map>

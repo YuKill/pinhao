@@ -1,0 +1,11 @@
+<map id="pinhao::Feature" name="pinhao::Feature">
+<area shape="rect" id="node2" href="$classpinhao_1_1LinearFeature.html" title="pinhao::LinearFeature\l\&lt; ElemType \&gt;" alt="" coords="540,12,687,54"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1LinearFeature.html" title="pinhao::LinearFeature\l\&lt; std::string \&gt;" alt="" coords="540,80,687,122"/>
+<area shape="rect" id="node6" href="$classpinhao_1_1MappedFeature.html" title="pinhao::MappedFeature\l\&lt; KeyType, ElemType \&gt;" alt="" coords="531,208,696,250"/>
+<area shape="rect" id="node9" href="$classpinhao_1_1LinearFeature.html" title="Abstract class of linear features. " alt="" coords="177,54,324,95"/>
+<area shape="rect" id="node10" href="$classpinhao_1_1MappedFeature.html" title="Abstract class of mapped features. " alt="" coords="167,222,335,263"/>
+<area shape="rect" id="node3" href="$classpinhao_1_1VectorFeature.html" title="Implements a template vector feature class. " alt="" coords="757,12,908,54"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1StringFeature.html" title="Implements a string version of a linear feature. " alt="" coords="759,88,906,114"/>
+<area shape="rect" id="node7" href="$classpinhao_1_1MapFeature.html" title="This class maps a KeyType to a ElemType feature. " alt="" coords="750,148,915,190"/>
+<area shape="rect" id="node8" href="$classpinhao_1_1MapVectorFeature.html" title="This class maps a KeyType to a vector of ElemType features. " alt="" coords="745,214,920,255"/>
+</map>

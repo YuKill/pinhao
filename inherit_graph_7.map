@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classpinhao_1_1FormulaBase.html" title="The base class for all Formula types. A Formula is a statement which when evaluated for a FeatureSet..." alt="" coords="5,113,151,139"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1Formula.html" title="pinhao::Formula\&lt; bool \&gt;" alt="" coords="199,53,361,79"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="207,173,353,199"/>
+<area shape="rect" id="node3" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, T \&gt;" alt="" coords="414,5,595,47"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1BooleanBinOpFormula.html" title="Represents all logical operations (supported). " alt="" coords="654,13,885,39"/>
+<area shape="rect" id="node6" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; T, T \&gt;" alt="" coords="414,71,595,112"/>
+<area shape="rect" id="node8" href="$classpinhao_1_1BinOpFormulaBase.html" title="Base class for binary operations. " alt="" coords="414,136,595,177"/>
+<area shape="rect" id="node9" href="$classpinhao_1_1FeatureFormula.html" title="Holds a pair of std::strings. The first represents the feature, and the second represents the sub&#45;fea..." alt="" coords="409,202,600,229"/>
+<area shape="rect" id="node10" href="$classpinhao_1_1IfFormula.html" title="The If Formula. " alt="" coords="427,253,582,279"/>
+<area shape="rect" id="node11" href="$classpinhao_1_1LitFormula.html" title="Holds literal of the types. " alt="" coords="424,303,585,330"/>
+<area shape="rect" id="node7" href="$classpinhao_1_1ArithmeticBinOpFormula.html" title="Represents all arithmetics operations (supported). Only numerical operands type permitted. " alt="" coords="648,78,891,105"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="pinhao::LinearFeature&lt; ValueType &gt;" name="pinhao::LinearFeature&lt; ValueType &gt;">
+<area shape="rect" id="node3" href="$classpinhao_1_1LinearFeature.html" title="pinhao::LinearFeature\l\&lt; std::string \&gt;" alt="" coords="7,185,153,227"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1LinearFeature.html" title="pinhao::LinearFeature\l\&lt; ElemType \&gt;" alt="" coords="179,185,325,227"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1Feature.html" title="This is the base class for features. " alt="" coords="96,5,208,32"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1StringFeature.html" title="Implements a string version of a linear feature. " alt="" coords="5,283,152,310"/>
+<area shape="rect" id="node6" href="$classpinhao_1_1VectorFeature.html" title="Implements a template vector feature class. " alt="" coords="177,276,327,317"/>
+</map>

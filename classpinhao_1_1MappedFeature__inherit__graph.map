@@ -1,0 +1,6 @@
+<map id="pinhao::MappedFeature&lt; KeyType, ValueType &gt;" name="pinhao::MappedFeature&lt; KeyType, ValueType &gt;">
+<area shape="rect" id="node3" href="$classpinhao_1_1MappedFeature.html" title="pinhao::MappedFeature\l\&lt; KeyType, ElemType \&gt;" alt="" coords="531,39,696,80"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1Feature.html" title="This is the base class for features. " alt="" coords="5,46,117,73"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1MapFeature.html" title="This class maps a KeyType to a ElemType feature. " alt="" coords="750,5,915,47"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1MapVectorFeature.html" title="This class maps a KeyType to a vector of ElemType features. " alt="" coords="745,71,920,112"/>
+</map>
