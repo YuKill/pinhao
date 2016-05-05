@@ -31,6 +31,9 @@ namespace pinhao {
         OptimizationArgBase(Type), Value(Val) {}
     };
 
+  /**
+   * @brief Has the information (the arguments) of each optimization. 
+   */
   class OptimizationInfo {
     private:
       Optimization Opt;
