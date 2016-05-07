@@ -191,10 +191,36 @@ std::unique_ptr<FormulaBase> pinhao::generateFormula(FeatureSet *Set, ValueType 
   return std::unique_ptr<FormulaBase>(nullptr);
 }
 
+void pinhao::simplifyFormula(std::unique_ptr<FormulaBase> &Form) {
+  FormulaBase *Simplified = Form->simplify();
+  if (Simplified != nullptr)
+    Form.reset(Simplified); 
+}
+
 /*
  * ----------------------------------=
  * Class: FomulaBase
  */
+bool FormulaBase::isLiteral() const {
+  return getKind() == FormulaKind::Literal;
+}
+
+bool FormulaBase::isArithBinOp() const {
+  return getKind() == FormulaKind::ArithBinOp;
+}
+
+bool FormulaBase::isBoolBinOp() const {
+  return getKind() == FormulaKind::BoolBinOp;
+}
+
+bool FormulaBase::isFeature() const {
+  return getKind() == FormulaKind::Feature;
+}
+
+bool FormulaBase::isIf() const {
+  return getKind() == FormulaKind::If;
+}
+
 void FormulaBase::print(std::ostream &Out) {
   YAMLWrapper::print(*this, Out);
 }

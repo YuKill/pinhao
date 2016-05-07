@@ -8,6 +8,7 @@
 #define PINHAO_BINOP_FORMULA_H
 
 #include "pinhao/MachineLearning/GrammarEvolution/Formula.h"
+#include "pinhao/MachineLearning/GrammarEvolution/LitFormula.h"
 
 namespace pinhao {
 
@@ -29,8 +30,8 @@ namespace pinhao {
       public:
         virtual ~BinOpFormulaBase() {}
 
-        std::unique_ptr<Formula<OpT>> Lhs;
-        std::unique_ptr<Formula<OpT>> Rhs;
+        std::unique_ptr<FormulaBase> Lhs;
+        std::unique_ptr<FormulaBase> Rhs;
         OperatorKind Operator;
 
         /// @brief Returns the operator with its offset.
@@ -49,6 +50,7 @@ namespace pinhao {
 
         ValueType getOperandsType() const override; 
 
+        FormulaBase *simplify() override; 
         void generate(FeatureSet *Set) override; 
         void solveFor(FeatureSet *Set) override;
 
@@ -93,18 +95,31 @@ pinhao::ValueType pinhao::BinOpFormulaBase<T, OpT>::getOperandsType() const {
 }
 
 template <class T, class OpT>
+pinhao::FormulaBase *pinhao::BinOpFormulaBase<T, OpT>::simplify() {
+  simplifyFormula(Lhs);
+  simplifyFormula(Rhs);
+  if (Lhs->isLiteral() && Rhs->isLiteral()) {
+    LitFormula<T> *Simplified = new LitFormula<T>();
+    T Value = doOperation(getFormulaValue<OpT>(Lhs.get()), getFormulaValue<OpT>(Rhs.get()));
+    Simplified->setValue(Value);
+    return Simplified;
+  }
+  return nullptr;
+}
+
+template <class T, class OpT>
 void pinhao::BinOpFormulaBase<T, OpT>::generate(FeatureSet *Set) {
-  int RandomOperator = UniformRandom::getRandomInt(getMinOperator(), getNumberOfOperators()-1);
-  setOperator(static_cast<OperatorKind>(RandomOperator)); 
-  Lhs.reset(static_cast<Formula<OpT>*>(generateFormula(Set, getValueTypeFor<T>()).release()));
-  Rhs.reset(static_cast<Formula<OpT>*>(generateFormula(Set, getValueTypeFor<T>()).release()));
+  int RandomOperator = UniformRandom::getRandomInt(0, getNumberOfOperators()-1);
+  Operator = static_cast<OperatorKind>(RandomOperator);
+  Lhs = generateFormula(Set, getValueTypeFor<OpT>());
+  Rhs = generateFormula(Set, getValueTypeFor<OpT>());
 }
 
 template <class T, class OpT>
 void pinhao::BinOpFormulaBase<T, OpT>::solveFor(FeatureSet *Set) {
   Lhs->solveFor(Set); 
   Rhs->solveFor(Set); 
-  this->Value = doOperation(Lhs->getValue(), Rhs->getValue());
+  this->Value = doOperation(getFormulaValue<OpT>(Lhs.get()), getFormulaValue<OpT>(Rhs.get()));
 }
 
 namespace pinhao {

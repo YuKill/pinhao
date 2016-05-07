@@ -31,6 +31,7 @@ namespace pinhao {
 
         FormulaKind getKind() const override; 
 
+        FormulaBase *simplify() override; 
         void generate(FeatureSet *Set) override; 
         void solveFor(FeatureSet *Set) override; 
 
@@ -41,6 +42,11 @@ namespace pinhao {
 template <class T>
 void pinhao::LitFormula<T>::setValue(T Value) {
   this->Value = Value;
+}
+
+template <class T>
+pinhao::FormulaBase *pinhao::LitFormula<T>::simplify() {
+  return nullptr;
 }
 
 template <class T>

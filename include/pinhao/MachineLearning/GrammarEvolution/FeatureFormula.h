@@ -23,11 +23,17 @@ namespace pinhao {
         ValueType getType() const override;
         FormulaKind getKind() const override;
 
+        FormulaBase *simplify() override;
         void generate(FeatureSet *Set) override;
         void solveFor(FeatureSet *Set) override; 
 
     };
 
+}
+
+template <class T>
+pinhao::FormulaBase *pinhao::FeatureFormula<T>::simplify() {
+  return nullptr;
 }
 
 template <class T>

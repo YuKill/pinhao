@@ -21,13 +21,14 @@ namespace pinhao {
   template <class T>
     class IfFormula : public Formula<T> {
       public:
-        std::unique_ptr<Formula<bool>> Condition;
-        std::unique_ptr<Formula<T>> ThenBody;
-        std::unique_ptr<Formula<T>> ElseBody;
+        std::unique_ptr<FormulaBase> Condition;
+        std::unique_ptr<FormulaBase> ThenBody;
+        std::unique_ptr<FormulaBase> ElseBody;
 
         ValueType getType() const override;
         FormulaKind getKind() const override; 
 
+        FormulaBase *simplify() override; 
         void generate(FeatureSet *Set) override; 
         void solveFor(FeatureSet *Set) override; 
 
@@ -46,21 +47,34 @@ pinhao::FormulaKind pinhao::IfFormula<T>::getKind() const {
 }
 
 template <class T>
+pinhao::FormulaBase *pinhao::IfFormula<T>::simplify() {
+  simplifyFormula(Condition);
+  simplifyFormula(ThenBody);
+  simplifyFormula(ElseBody);
+  if (Condition->isLiteral()) {
+    if (getFormulaValue<bool>(Condition.get()))
+      return ThenBody.release();
+    return ElseBody.release();
+  }
+  return nullptr;
+}
+
+template <class T>
 void pinhao::IfFormula<T>::generate(FeatureSet *Set) {
-  Condition.reset(static_cast<Formula<bool>*>(generateFormula(Set, ValueType::Bool).release()));
-  ThenBody.reset(static_cast<Formula<T>*>(generateFormula(Set, getValueTypeFor<T>()).release()));
-  ElseBody.reset(static_cast<Formula<T>*>(generateFormula(Set, getValueTypeFor<T>()).release()));
+  Condition = generateFormula(Set, ValueType::Bool);
+  ThenBody = generateFormula(Set, getValueTypeFor<T>());
+  ElseBody = generateFormula(Set, getValueTypeFor<T>());
 }
 
 template <class T>
 void pinhao::IfFormula<T>::solveFor(FeatureSet *Set) {
   Condition->solveFor(Set);   
-  if (Condition->getValue()) {
+  if (getFormulaValue<bool>(Condition.get())) {
     ThenBody->solveFor(Set);
-    this->Value = ThenBody->getValue();
+    this->Value = getFormulaValue<T>(ThenBody.get());
   } else {
     ElseBody->solveFor(Set);
-    this->Value = ElseBody->getValue();
+    this->Value = getFormulaValue<T>(ElseBody.get());
   }
 }
 

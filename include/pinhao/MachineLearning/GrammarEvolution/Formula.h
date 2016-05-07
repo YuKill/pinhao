@@ -99,10 +99,24 @@ namespace pinhao {
       virtual ValueType getType() const = 0;
       /// @brief Gets a @a FormulaKind of this object.
       virtual FormulaKind getKind() const = 0;
+
+      /// @brief Returns true if it is a Literal formula.
+      virtual bool isLiteral() const;
+      /// @brief Returns true if it is a ArithBinOp formula.
+      virtual bool isArithBinOp() const;
+      /// @brief Returns true if it is a BoolBinOp formula.
+      virtual bool isBoolBinOp() const;
+      /// @brief Returns true if it is a Feature formula.
+      virtual bool isFeature() const;
+      /// @brief Returns true if it is a If formula.
+      virtual bool isIf() const;
+
+      /// @brief Randomizes the generations of a @a Formula.
+      virtual FormulaBase *simplify() = 0;
+      /// @brief Randomizes the generations of a @a Formula.
+      virtual void generate(FeatureSet *Set) = 0;
       /// @brief Evaluates the @a Formula for the @a Set.
       virtual void solveFor(FeatureSet *Set) = 0;
-
-      virtual void generate(FeatureSet *Set) = 0;
 
       /// @brief Prints to an @a std::ostream object the information of this
       /// @a Formula.
@@ -161,10 +175,15 @@ namespace pinhao {
 
   std::unique_ptr<FormulaBase> generateFormula(FeatureSet*, ValueType);
 
+  template <class T> 
+    T getFormulaValue(const FormulaBase*); 
+
+  void simplifyFormula(std::unique_ptr<FormulaBase>&);
+
 }
 
 template <class T>
-T pinhao::Formula<T>::getFormulaValue(const FormulaBase *Base) {
+T pinhao::getFormulaValue(const FormulaBase *Base) {
   const Formula<T> *F = static_cast<const Formula<T>*>(Base);
   return F->getValue();
 }
