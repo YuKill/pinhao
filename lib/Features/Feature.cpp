@@ -8,6 +8,11 @@
 
 using namespace pinhao;
 
+CompositeFeatureInfo *Feature::getCompositeFeatureInfo() const {
+  if (!isComposite()) return nullptr;
+  return static_cast<CompositeFeatureInfo*>(Info.get());
+}
+
 Feature::Feature(FeatureInfo* InfoPtr, FeatureKind FKind) : 
   Info(std::shared_ptr<FeatureInfo>(InfoPtr)), Kind(FKind) { 
     Processed = false; 
@@ -21,16 +26,27 @@ std::string Feature::getDescription() const {
   return Info->getDescription(); 
 }
 
-bool Feature::hasSubFeature(std::string SubFeatureName) const {
-  if (!isComposite()) return false;
-  CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
-  return CompInfo->hasSubFeature(SubFeatureName); 
+ValueType Feature::getType() const { 
+  return Info->getType();
 }
 
-std::string Feature::getSubFeatureDescription(std::string SubFeatureName) {
+bool Feature::hasSubFeature(std::string SubFeatureName) const {
+  if (!isComposite()) return false;
+  return getCompositeFeatureInfo()->hasSubFeature(SubFeatureName);
+}
+
+std::string Feature::getSubFeatureDescription(std::string SubFeatureName) const {
   assert(hasSubFeature(SubFeatureName) && "This feature does not have the sub-feature desired.");
-  CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
-  return CompInfo->getSubFeatureDescription(SubFeatureName); 
+  return getCompositeFeatureInfo()->getSubFeatureDescription(SubFeatureName); 
+}
+
+uint64_t Feature::getNumberOfSubFeatures() const {
+  if (!isComposite()) return 0;
+  return getCompositeFeatureInfo()->getNumberOfSubFeatures();  
+}
+
+FeatureKind Feature::getKind() const { 
+  return Kind;
 }
 
 bool Feature::isComposite() const { 
@@ -42,11 +58,11 @@ bool Feature::isProcessed() const {
 }
 
 bool Feature::isLinear() const { 
-  return Kind == LinearKind;
+  return Kind == FeatureKind::LinearKind;
 }
 
 bool Feature::isMapped() const { 
-  return Kind == MappedKind;
+  return Kind == FeatureKind::MappedKind;
 }
 
 bool Feature::isStaticFeature() const { 
@@ -58,15 +74,11 @@ bool Feature::isDynamicFeature() const {
 }
 
 Feature::iterator Feature::begin() const {
-  assert(isComposite() && "This feature is not a composite type feature.");
-  CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
-  return CompInfo->begin();
+  return getCompositeFeatureInfo()->begin();
 }
 
 Feature::iterator Feature::end() const {
-  assert(isComposite() && "This feature is not a composite type feature.");
-  CompositeFeatureInfo *CompInfo = static_cast<CompositeFeatureInfo*>(Info.get());
-  return CompInfo->end();
+  return getCompositeFeatureInfo()->end();
 }
 
 void Feature::print(std::ostream &Out) {

@@ -54,6 +54,92 @@ void FeatureSet::disableAll() {
   EnabledFeatures.clear();
 }
 
+static uint64_t incrementCount(Feature *F) {
+  if (F->isComposite()) return 1;
+  return F->getNumberOfSubFeatures();
+}
+
+Feature *FeatureSet::getFeature(iterator It) {
+  return Features[(*It).first].get();
+}
+
+uint64_t FeatureSet::count(FeatureKind FKind) {
+  uint64_t Count = 0;
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    auto F = getFeature(I);
+    if (F->getKind() == FKind)
+      ++Count;
+  }
+  return Count;
+}
+
+uint64_t FeatureSet::count(ValueType FType) {
+  uint64_t Count = 0;
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    auto F = getFeature(I);
+    if (F->getType() == FType)
+      ++Count;
+  }
+  return Count;
+}
+
+uint64_t FeatureSet::count(FeatureKind FKind, ValueType FType) {
+  uint64_t Count = 0;
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    auto F = getFeature(I);
+    if (F->getKind() == FKind && F->getType() == FType)
+      ++Count;
+  }
+  return Count;
+}
+
+uint64_t FeatureSet::count() {
+  uint64_t Count = 0;
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    ++Count;
+  }
+  return Count;
+}
+
+FeatureSet::iterator FeatureSet::get(uint64_t N, FeatureKind FKind) {
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    Feature *F = getFeature(I);
+    if (N == 0 && F->getKind() == FKind) 
+      return I;
+    --N; 
+  }
+  assert(false && "There are not N features of kind FKind.");
+}
+
+FeatureSet::iterator FeatureSet::get(uint64_t N, ValueType FType) {
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    Feature *F = getFeature(I);
+    if (N == 0 && F->getType() == FType) 
+      return I;
+    --N; 
+  }
+  assert(false && "There are not N features of type FType.");
+}
+
+FeatureSet::iterator FeatureSet::get(uint64_t N, FeatureKind FKind, ValueType FType) {
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    Feature *F = getFeature(I);
+    if (F->getKind() == FKind && F->getType() == FType) {
+      if (N == 0) return I;
+      --N; 
+    }
+  }
+  assert(false && "There are not N features of kind FKind and type FType.");
+}
+
+FeatureSet::iterator FeatureSet::get(uint64_t N) {
+  for (auto I = begin(), E = end(); I != E; ++I) {
+    if (N == 0) return I;
+    --N; 
+  }
+  assert(false && "There are not N features in this set.");
+}
+
 /*=--------------------------------------------=
  * class: FeatureSetWrapperPass::iterator
  */

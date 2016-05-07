@@ -26,7 +26,7 @@ namespace pinhao {
     class LinearFeature : public Feature {
       public:
         virtual ~LinearFeature() {}
-        LinearFeature(FeatureInfo *Info) : Feature(Info, LinearKind) {}
+        LinearFeature(FeatureInfo *Info) : Feature(Info, FeatureKind::LinearKind) {}
 
         /// @brief Sets the value of the feature @a FeatureName to @a Value.
         virtual void setValueOf(std::string FeatureName, ValueType Value) = 0;
@@ -47,7 +47,7 @@ namespace pinhao {
     class MappedFeature : public Feature {
       public:
         virtual ~MappedFeature() {}
-        MappedFeature(FeatureInfo *Info) : Feature(Info, MappedKind) {}
+        MappedFeature(FeatureInfo *Info) : Feature(Info, FeatureKind::MappedKind) {}
 
         /// @brief Returns true if the key @a Key is mapped to some value.
         virtual bool hasKey(const KeyType &Key) const = 0;

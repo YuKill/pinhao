@@ -79,6 +79,8 @@ namespace pinhao {
       /// @brief Returns true if it is a dynamic feature.
       bool isDynamicFeature() { return Mode == GatherMode::Static; }
 
+      ValueType getType() const { return Type; }
+
   };
 
   /**

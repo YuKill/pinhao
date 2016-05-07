@@ -21,6 +21,12 @@
 
 namespace pinhao {
 
+  /// @brief The kind of the feature.
+  enum class FeatureKind {
+    LinearKind, ///< Can get the value only by the name of the feature.
+    MappedKind  ///< Needs a key in order to get the value.
+  };
+
   /**
    * @brief This is the base class for features.
    *
@@ -32,18 +38,15 @@ namespace pinhao {
     public:
       typedef std::map<std::string, std::string>::iterator iterator;
 
-      /// @brief The kind of the feature.
-      enum FeatureKind {
-        LinearKind, ///< Can get the value only by the name of the feature.
-        MappedKind  ///< Needs a key in order to get the value.
-      };
-
     protected:
       std::shared_ptr<FeatureInfo> Info;
       bool Processed;
 
     private:
       FeatureKind Kind;
+
+      /// @brief Casts @a Info to a @a CompositeFeatureInfo type, if possible.
+      CompositeFeatureInfo *getCompositeFeatureInfo() const;
 
     public:
       virtual ~Feature() {};
@@ -53,16 +56,20 @@ namespace pinhao {
 
       /// @brief Gets the name of the feature.
       std::string getName() const;
-
       /// @brief Gets the description of the feature.
       std::string getDescription() const;
-
-      /// @brief Returns true if there is a sub-feature with name @a SubFeatureName.
-      bool hasSubFeature (std::string SubFeatureName) const;
+      /// @brief Gets the @a ValueType of the feature.
+      ValueType getType() const;
 
       /// @brief Gets the description of the sub-feature with name @a SubFeatureName.
-      std::string getSubFeatureDescription(std::string SubFeatureName);
+      uint64_t getNumberOfSubFeatures() const;
+      /// @brief Returns true if there is a sub-feature with name @a SubFeatureName.
+      bool hasSubFeature (std::string SubFeatureName) const;
+      /// @brief Gets the description of the sub-feature with name @a SubFeatureName.
+      std::string getSubFeatureDescription(std::string SubFeatureName) const;
 
+      /// @brief Returns the @a FeatureKind.
+      FeatureKind getKind() const;
       /// @brief Returns true if the feature has more than two sub-features.
       bool isComposite() const;
       /// @brief Returns true if the feature has already been processed.

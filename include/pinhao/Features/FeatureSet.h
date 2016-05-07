@@ -105,7 +105,30 @@ namespace pinhao {
           bool operator!=(const iterator &It);
       };
 
+    private:
+      /// @brief Returns a pointer to a feature, based on the @a Iterator.
+      Feature *getFeature(iterator);
+
+    public:
       ~FeatureSet() {}
+
+      /// @brief Returns the number of features (and subfeatures).
+      uint64_t count();
+      /// @brief Returns the number of features with kind @a FKind, and type @a FType.
+      uint64_t count(FeatureKind, ValueType);
+      /// @brief Returns the number of features with kind @a FKind.
+      uint64_t count(FeatureKind);
+      /// @brief Returns the number of features with type @a FType.
+      uint64_t count(ValueType);
+
+      /// @brief Gets an @a iterator to the @a Nth feature.
+      iterator get(uint64_t);
+      /// @brief Gets an @a iterator to the @a Nth feature with kind @a FKind, and type @a FType.
+      iterator get(uint64_t, FeatureKind, ValueType);
+      /// @brief Gets an @a iterator to the @a Nth feature with kind @a FKind.
+      iterator get(uint64_t, FeatureKind);
+      /// @brief Gets an @a iterator to the @a Nth feature with type @a FType.
+      iterator get(uint64_t, ValueType);
 
       /**
        * @brief Gets a feature or sub-feature which has type @a FeatureType.
