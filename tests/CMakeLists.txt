@@ -101,6 +101,18 @@ add_executable(RunPAPIWrapperTest
   PAPIWrapperTest.cpp)
 add_test(PAPIWrapperTest RunPAPIWrapperTest)
 
+add_executable(RunRandomTest
+  RandomTest.cpp
+  $<TARGET_OBJECTS:Support>)
+add_test(RandomTest RunRandomTest)
+
+add_executable(RunFormulaTest
+  FormulaTest.cpp
+  $<TARGET_OBJECTS:Features>
+  $<TARGET_OBJECTS:Support>
+  $<TARGET_OBJECTS:CFGStaticFeatures>)
+add_test(FormulaTest RunFormulaTest)
+
 # -----------------------------------------= Linker =------------------------------------------
 
 target_link_libraries(RunFeatureInfoTest
@@ -173,6 +185,16 @@ target_link_libraries(RunFunctionStaticCostFeatureTest
   rt dl tinfo pthread z m)
 target_link_libraries(RunPAPIWrapperTest
   PAPIWrapper
+  LLVMX86Disassembler LLVMX86AsmParser LLVMX86CodeGen LLVMSelectionDAG LLVMX86Desc LLVMMCDisassembler LLVMX86Info 
+  LLVMX86AsmPrinter LLVMX86Utils LLVMIRReader LLVMMCJIT LLVMInterpreter LLVMExecutionEngine LLVMRuntimeDyld LLVMAsmParser 
+  LLVMAsmPrinter LLVMCodeGen LLVMTarget LLVMScalarOpts LLVMProfileData LLVMObject LLVMMCParser LLVMBitReader 
+  LLVMInstCombine LLVMInstrumentation LLVMTransformUtils LLVMipa LLVMMC LLVMAnalysis LLVMCore LLVMSupport
+  gtest gtest_main yaml-cpp
+  rt dl tinfo pthread z m papi)
+target_link_libraries(RunRandomTest
+  gtest gtest_main yaml-cpp pthread)
+target_link_libraries(RunFormulaTest
+  FeatureYAMLWrapper FormulaYAMLWrapper Formula 
   LLVMX86Disassembler LLVMX86AsmParser LLVMX86CodeGen LLVMSelectionDAG LLVMX86Desc LLVMMCDisassembler LLVMX86Info 
   LLVMX86AsmPrinter LLVMX86Utils LLVMIRReader LLVMMCJIT LLVMInterpreter LLVMExecutionEngine LLVMRuntimeDyld LLVMAsmParser 
   LLVMAsmPrinter LLVMCodeGen LLVMTarget LLVMScalarOpts LLVMProfileData LLVMObject LLVMMCParser LLVMBitReader 
