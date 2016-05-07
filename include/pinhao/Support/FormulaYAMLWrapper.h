@@ -11,7 +11,7 @@
 #include "pinhao/Support/YamlOptions.h"
 #include "pinhao/Support/Types.h"
 
-#include "pinhao/MachineLearning/GrammarEvolution/Formula.h"
+#include "pinhao/MachineLearning/GrammarEvolution/Formulas.h"
 
 using namespace pinhao;
 
@@ -25,26 +25,26 @@ void YAMLWrapper::fill(Formula<T> &Value, ConstNode &Node) {
     case FormulaKind::Literal:
       YAMLWrapper::fill(static_cast<LitFormula<T>&>(Value), Node);
       break;
-    case FormulaKind::BooleanBinOp:
+    case FormulaKind::BoolBinOp:
       {
-        Formula<bool> &FormulaCast = reinterpret_cast<Formula<bool>&>(Value);
-        switch (FormulaCast.getOperandsType()) {
+        FormulaBase &FormulaCast = static_cast<FormulaBase&>(Value);
+        switch (Value.getOperandsType()) {
           case ValueType::Int: 
-            YAMLWrapper::fill(static_cast<BooleanBinOpFormula<int>&>(FormulaCast), Node);
+            YAMLWrapper::fill(static_cast<BoolBinOpFormula<int>&>(FormulaCast), Node);
             break;
           case ValueType::Float: 
-            YAMLWrapper::fill(static_cast<BooleanBinOpFormula<double>&>(FormulaCast), Node);
+            YAMLWrapper::fill(static_cast<BoolBinOpFormula<double>&>(FormulaCast), Node);
             break;
           case ValueType::String: 
-            YAMLWrapper::fill(static_cast<BooleanBinOpFormula<std::string>&>(FormulaCast), Node);
+            YAMLWrapper::fill(static_cast<BoolBinOpFormula<std::string>&>(FormulaCast), Node);
             break;
           case ValueType::Bool: 
-            YAMLWrapper::fill(static_cast<BooleanBinOpFormula<bool>&>(FormulaCast), Node);
+            YAMLWrapper::fill(static_cast<BoolBinOpFormula<bool>&>(FormulaCast), Node);
             break;
         }
       }
-    case FormulaKind::ArithmeticBinOp:
-      YAMLWrapper::fill(static_cast<ArithmeticBinOpFormula<T>&>(Value), Node);
+    case FormulaKind::ArithBinOp:
+      YAMLWrapper::fill(static_cast<ArithBinOpFormula<T>&>(Value), Node);
       break;
     case FormulaKind::If:
       YAMLWrapper::fill(static_cast<IfFormula<T>&>(Value), Node);
@@ -61,27 +61,27 @@ void YAMLWrapper::append(const Formula<T> &Value, Emitter &E) {
     case FormulaKind::Literal:
       YAMLWrapper::append(static_cast<const LitFormula<T>&>(Value), E);
       break;
-    case FormulaKind::BooleanBinOp:
+    case FormulaKind::BoolBinOp:
       {
-        const Formula<bool> &FormulaCast = reinterpret_cast<const Formula<bool>&>(Value);
-        switch (FormulaCast.getOperandsType()) {
+        const FormulaBase &FormulaCast = static_cast<const FormulaBase&>(Value);
+        switch (Value.getOperandsType()) {
           case ValueType::Int:
-            YAMLWrapper::append(static_cast<const BooleanBinOpFormula<int>&>(FormulaCast), E);
+            YAMLWrapper::append(static_cast<const BoolBinOpFormula<int>&>(FormulaCast), E);
             break;
           case ValueType::Float:
-            YAMLWrapper::append(static_cast<const BooleanBinOpFormula<double>&>(FormulaCast), E);
+            YAMLWrapper::append(static_cast<const BoolBinOpFormula<double>&>(FormulaCast), E);
             break;
           case ValueType::String:
-            YAMLWrapper::append(static_cast<const BooleanBinOpFormula<std::string>&>(FormulaCast), E);
+            YAMLWrapper::append(static_cast<const BoolBinOpFormula<std::string>&>(FormulaCast), E);
             break;
           case ValueType::Bool:
-            YAMLWrapper::append(static_cast<const BooleanBinOpFormula<bool>&>(FormulaCast), E);
+            YAMLWrapper::append(static_cast<const BoolBinOpFormula<bool>&>(FormulaCast), E);
             break;
         }
         break;
       }
-    case FormulaKind::ArithmeticBinOp:
-      YAMLWrapper::append(static_cast<const ArithmeticBinOpFormula<T>&>(Value), E);
+    case FormulaKind::ArithBinOp:
+      YAMLWrapper::append(static_cast<const ArithBinOpFormula<T>&>(Value), E);
       break;
     case FormulaKind::If:
       YAMLWrapper::append(static_cast<const IfFormula<T>&>(Value), E);
@@ -94,24 +94,24 @@ void YAMLWrapper::append(const Formula<T> &Value, Emitter &E) {
 
 /*
  * -----------------------------------
- *  Overloading for: ArithmeticBinOpFormula
+ *  Overloading for: ArithBinOpFormula
  */
 template <class T>
-void YAMLWrapper::fill(ArithmeticBinOpFormula<T> &Value, ConstNode &Node) {
+void YAMLWrapper::fill(ArithBinOpFormula<T> &Value, ConstNode &Node) {
   Value.Lhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["lhs"]).release()));
   Value.Rhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["rhs"]).release()));
-  Value.Operator = getOperatorKind(Node["op"].as<std::string>());
+  Value.setOperator(getOperatorKind(Node["op"].as<std::string>()));
 }
 
 template <class T>
-void YAMLWrapper::append(const ArithmeticBinOpFormula<T> &Value, Emitter &E) {
+void YAMLWrapper::append(const ArithBinOpFormula<T> &Value, Emitter &E) {
   E << YAML::BeginMap;
   E << YAML::Key << "type" << YAML::Value;
   YAMLWrapper::append(static_cast<int>(Value.getType()), E);
   E << YAML::Key << "kind" << YAML::Value;
   YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
   E << YAML::Key << "op" << YAML::Value;
-  YAMLWrapper::append(getOperatorKindString(Value.Operator), E);
+  YAMLWrapper::append(getOperatorKindString(Value.getOperator()), E);
   E << YAML::Key << "lhs" << YAML::Value;
   YAMLWrapper::append(*Value.Lhs, E);
   E << YAML::Key << "rhs" << YAML::Value;
@@ -121,17 +121,17 @@ void YAMLWrapper::append(const ArithmeticBinOpFormula<T> &Value, Emitter &E) {
 
 /*
  * -----------------------------------
- *  Overloading for: BooleanBinOpFormula
+ *  Overloading for: BoolBinOpFormula
  */
 template <class T>
-void YAMLWrapper::fill(BooleanBinOpFormula<T> &Value, ConstNode &Node) {
+void YAMLWrapper::fill(BoolBinOpFormula<T> &Value, ConstNode &Node) {
   Value.Lhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["lhs"]).release()));
   Value.Rhs.reset(static_cast<Formula<T>*>(YAMLWrapper::get<FormulaBase>(Node["rhs"]).release()));
-  Value.Operator = getOperatorKind(Node["op"].as<std::string>());
+  Value.setOperator(getOperatorKind(Node["op"].as<std::string>()));
 }
 
 template <class T>
-void YAMLWrapper::append(const BooleanBinOpFormula<T> &Value, Emitter &E) {
+void YAMLWrapper::append(const BoolBinOpFormula<T> &Value, Emitter &E) {
   E << YAML::BeginMap;
   E << YAML::Key << "type" << YAML::Value;
   YAMLWrapper::append(static_cast<int>(Value.getType()), E);
@@ -140,7 +140,7 @@ void YAMLWrapper::append(const BooleanBinOpFormula<T> &Value, Emitter &E) {
   E << YAML::Key << "op-type" << YAML::Value;
   YAMLWrapper::append(static_cast<int>(Value.getOperandsType()), E);
   E << YAML::Key << "op" << YAML::Value;
-  YAMLWrapper::append(getOperatorKindString(Value.Operator), E);
+  YAMLWrapper::append(getOperatorKindString(Value.getOperator()), E);
   E << YAML::Key << "lhs" << YAML::Value;
   YAMLWrapper::append(*Value.Lhs, E);
   E << YAML::Key << "rhs" << YAML::Value;
@@ -218,7 +218,7 @@ void YAMLWrapper::append(const FeatureFormula<T> &Value, Emitter &E) {
   YAMLWrapper::append(getFormulaKindString(Value.getKind()), E);
   E << YAML::Key << "feature" << YAML::Value;
   YAMLWrapper::append(Value.FeaturePair.first, E);
-  if (Value.FeaturePair.second == "") {
+  if (Value.FeaturePair.second != "") {
     E << YAML::Key << "sub" << YAML::Value;
     YAMLWrapper::append(Value.FeaturePair.second, E);
   }

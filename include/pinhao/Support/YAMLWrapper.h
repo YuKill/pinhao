@@ -34,8 +34,8 @@ namespace pinhao {
    */
   class FormulaBase;
   template <class T> class Formula;
-  template <class T> class ArithmeticBinOpFormula;
-  template <class T> class BooleanBinOpFormula;
+  template <class T> class ArithBinOpFormula;
+  template <class T> class BoolBinOpFormula;
   template <class T> class IfFormula;
   template <class T> class LitFormula;
   template <class T> class FeatureFormula;
@@ -98,9 +98,9 @@ namespace pinhao {
       template <class T> 
         static void fill(Formula<T> &Value, ConstNode &Node);
       template <class T> 
-        static void fill(ArithmeticBinOpFormula<T> &Value, ConstNode &Node);
+        static void fill(ArithBinOpFormula<T> &Value, ConstNode &Node);
       template <class T> 
-        static void fill(BooleanBinOpFormula<T> &Value, ConstNode &Node);
+        static void fill(BoolBinOpFormula<T> &Value, ConstNode &Node);
       template <class T> 
         static void fill(IfFormula<T> &Value, ConstNode &Node);
       template <class T> 
@@ -119,9 +119,9 @@ namespace pinhao {
       template <class T> 
         static void append(const Formula<T> &Value, Emitter &E);
       template <class T> 
-        static void append(const ArithmeticBinOpFormula<T> &Value, Emitter &E);
+        static void append(const ArithBinOpFormula<T> &Value, Emitter &E);
       template <class T> 
-        static void append(const BooleanBinOpFormula<T> &Value, Emitter &E);
+        static void append(const BoolBinOpFormula<T> &Value, Emitter &E);
       template <class T> 
         static void append(const IfFormula<T> &Value, Emitter &E);
       template <class T> 
