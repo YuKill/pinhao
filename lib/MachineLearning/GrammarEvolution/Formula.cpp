@@ -4,24 +4,25 @@
  * @file Formula.cpp
  */
 
-#include "pinhao/MachineLearning/GrammarEvolution/Formula.h"
+#include "pinhao/MachineLearning/GrammarEvolution/Formulas.h"
 #include "pinhao/Support/FormulaYAMLWrapper.h"
-#include "pinhao/Support/Types.h"
 
 using namespace pinhao;
 
+uint64_t pinhao::getFormulaKindWeight(FormulaKind Kind) {
+  return FormulaKindInfo.at(Kind).second;
+}
+
 FormulaKind pinhao::getFormulaKind(std::string String) {
-  int Count = 0;
-  for (auto S : FormulaKindString) {
-    if (S == String) 
-      return static_cast<FormulaKind>(Count);
-    ++Count;
+  for (auto &Pair : FormulaKindInfo) {
+    if (Pair.second.first == String) 
+      return Pair.first;
   }
-  assert(false && "There is no such FormulaKindString.");
+  assert(false && "There is no such FormulaKind.");
 }
 
 std::string pinhao::getFormulaKindString(FormulaKind K) {
-  return FormulaKindString[static_cast<int>(K)]; 
+  return FormulaKindInfo.at(K).first;
 }
 
 OperatorKind pinhao::getOperatorKind(std::string String) {
@@ -53,30 +54,30 @@ std::unique_ptr<FormulaBase> pinhao::createLitFormula(ValueType Type) {
   } 
 }
 
-std::unique_ptr<FormulaBase> pinhao::createArithmeticBinOpFormula(ValueType Type) {
+std::unique_ptr<FormulaBase> pinhao::createArithBinOpFormula(ValueType Type) {
   switch (Type) {
     case ValueType::Int: 
-      return std::unique_ptr<FormulaBase>(new ArithmeticBinOpFormula<int>());
+      return std::unique_ptr<FormulaBase>(new ArithBinOpFormula<int>());
     case ValueType::Float: 
-      return std::unique_ptr<FormulaBase>(new ArithmeticBinOpFormula<double>());
+      return std::unique_ptr<FormulaBase>(new ArithBinOpFormula<double>());
     default:
       return std::unique_ptr<FormulaBase>(nullptr);
   } 
 }
 
-std::unique_ptr<FormulaBase> pinhao::createBooleanBinOpFormula(ValueType Type) {
+std::unique_ptr<FormulaBase> pinhao::createBoolBinOpFormula(ValueType Type) {
   switch (Type) {
     case ValueType::Int: 
-      return std::unique_ptr<FormulaBase>(new BooleanBinOpFormula<int>());
+      return std::unique_ptr<FormulaBase>(new BoolBinOpFormula<int>());
     case ValueType::Float: 
-      return std::unique_ptr<FormulaBase>(new BooleanBinOpFormula<double>());
+      return std::unique_ptr<FormulaBase>(new BoolBinOpFormula<double>());
     case ValueType::String: 
-      return std::unique_ptr<FormulaBase>(new BooleanBinOpFormula<std::string>());
+      return std::unique_ptr<FormulaBase>(new BoolBinOpFormula<std::string>());
     case ValueType::Bool: 
-      return std::unique_ptr<FormulaBase>(new BooleanBinOpFormula<bool>());
+      return std::unique_ptr<FormulaBase>(new BoolBinOpFormula<bool>());
     default:
       return std::unique_ptr<FormulaBase>(nullptr);
-  } 
+  }
 }
 
 std::unique_ptr<FormulaBase> pinhao::createIfFormula(ValueType Type) {
@@ -113,10 +114,10 @@ std::unique_ptr<FormulaBase> pinhao::createFormula(FormulaKind Kind, ValueType T
   switch (Kind) {
     case FormulaKind::Literal:
       return createLitFormula(Type);
-    case FormulaKind::BooleanBinOp:
-      return createBooleanBinOpFormula(OpType);
-    case FormulaKind::ArithmeticBinOp:
-      return createArithmeticBinOpFormula(Type);
+    case FormulaKind::BoolBinOp:
+      return createBoolBinOpFormula(OpType);
+    case FormulaKind::ArithBinOp:
+      return createArithBinOpFormula(Type);
     case FormulaKind::If:
       return createIfFormula(Type);
     case FormulaKind::Feature:
@@ -124,6 +125,70 @@ std::unique_ptr<FormulaBase> pinhao::createFormula(FormulaKind Kind, ValueType T
     default:
       return std::unique_ptr<FormulaBase>(nullptr);
   }
+}
+
+static FormulaKind selectFormulaKind(std::vector<FormulaKind> FormulaKinds) {
+  int TotalSum = 0;
+  for (auto Kind : FormulaKinds)
+    TotalSum += getFormulaKindWeight(Kind);
+
+  int PartialSum = 0;
+  int Roulette = UniformRandom::getRandomInt(1, TotalSum);
+  for (unsigned I = 0; I < FormulaKinds.size(); ++I) {
+    PartialSum += getFormulaKindWeight(FormulaKinds[I]); 
+    if (PartialSum >= Roulette)
+      return FormulaKinds[I];
+  }
+
+  return FormulaKinds[FormulaKinds.size() - 1];
+}
+
+static ValueType selectValueType(std::vector<ValueType> Types) {
+  return Types[UniformRandom::getRandomInt(0, Types.size()-1)];
+}
+
+static std::unique_ptr<FormulaBase> generateBoolean(FeatureSet *Set) {
+  std::vector<FormulaKind> Kinds = {
+    FormulaKind::Literal, FormulaKind::BoolBinOp, FormulaKind::If 
+  };
+
+  std::vector<ValueType> OpTypes = {
+    ValueType::Bool, ValueType::Int 
+  };
+
+  FormulaKind Kind = selectFormulaKind(Kinds);
+  ValueType OpType = selectValueType(OpTypes);
+
+  std::unique_ptr<FormulaBase> Created(createFormula(Kind, ValueType::Bool, OpType));
+  Created->generate(Set);
+  return Created;
+}
+
+static std::unique_ptr<FormulaBase> generateNumerical(FeatureSet *Set) {
+  std::vector<FormulaKind> Kinds = {
+    FormulaKind::Literal, FormulaKind::ArithBinOp, FormulaKind::If, FormulaKind::Feature
+  };
+
+  FormulaKind Kind = selectFormulaKind(Kinds);
+
+  std::unique_ptr<FormulaBase> Created(createFormula(Kind, ValueType::Int));
+  Created->generate(Set);
+  return Created;
+}
+
+std::unique_ptr<FormulaBase> pinhao::generateFormula(FeatureSet *Set, ValueType Type) {
+  switch (Type) {
+    case ValueType::Int: 
+    case ValueType::Float: 
+      return generateNumerical(Set);
+
+    case ValueType::String: 
+      break;
+
+    case ValueType::Bool: 
+      return generateBoolean(Set);
+  }
+  return std::unique_ptr<FormulaBase>(nullptr);
 }
 
 /*

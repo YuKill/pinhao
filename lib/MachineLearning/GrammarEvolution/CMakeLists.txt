@@ -1,2 +1,3 @@
 add_library (Formula STATIC
-  Formula.cpp)
+  Formula.cpp
+  LitFormula.cpp)
