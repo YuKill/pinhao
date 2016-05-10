@@ -2,18 +2,11 @@ cmake_minimum_required (VERSION 2.8.8)
 
 project (pinhao0.1)
 
-#set (CMAKE_VERBOSE_MAKEFILE ON)
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
+include (LinkModule)
+include (CompilerFlags)
 
 include_directories ("${PROJECT_SOURCE_DIR}/include")
-
-execute_process (COMMAND llvm-config --cxxflags --ldflags 
-  OUTPUT_VARIABLE LLVM_CONFIG_N)
-
-string (REPLACE "\n" " " LLVM_CONFIG_EXCEPTION "${LLVM_CONFIG_N}")
-string (REPLACE "-fno-exceptions" "" LLVM_CONFIG_PED "${LLVM_CONFIG_EXCEPTION}")
-string (REPLACE "-pedantic" "" LLVM_CONFIG "${LLVM_CONFIG_PED}")
-
-set (CMAKE_CXX_FLAGS "-O0 -g -Wall ${LLVM_CONFIG} -Wl,-rpath,/usr/local/lib")
 
 add_subdirectory (lib)
 add_subdirectory (tools)
