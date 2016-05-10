@@ -6,6 +6,7 @@
  */
 
 #include "pinhao/Features/MapVectorFeature.h"
+#include "pinhao/InitializationRoutines.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"
@@ -131,6 +132,12 @@ void CFGFunctionStaticFeatures::processModule(llvm::Module &Module) {
 std::unique_ptr<Feature> CFGFunctionStaticFeatures::clone() const {
   CFGFunctionStaticFeatures *Clone = new CFGFunctionStaticFeatures(*this);
   return std::unique_ptr<Feature>(Clone);
+}
+
+void pinhao::initializeCFGFunctionStaticFeatures(void) {
+  initializeCFGBasicBlockStaticFeatures();
+  // This function should be called in order not to get
+  // optimized out of the executable.
 }
 
 static std::map<std::string, std::string> SubFeatures = {

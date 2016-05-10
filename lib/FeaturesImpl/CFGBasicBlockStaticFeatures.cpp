@@ -7,6 +7,7 @@
 
 #include "pinhao/Features/MapVectorFeature.h"
 #include "pinhao/Support/YamlOptions.h"
+#include "pinhao/InitializationRoutines.h"
 
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Instructions.h"
@@ -256,6 +257,11 @@ void CFGBasicBlockStaticFeatures::get(const YAML::Node &Node) {
     void *Key = (void*) I->first.as<uint64_t>();  
     this->Order[Key] = std::make_pair(I->second[0].as<std::string>(), I->second[1].as<uint64_t>());
   }
+}
+
+void pinhao::initializeCFGBasicBlockStaticFeatures(void) {
+  // This function should be called in order not to
+  // get optimized out of the executable.
 }
 
 static std::map<std::string, std::string> SubFeatures = {

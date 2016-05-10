@@ -7,7 +7,7 @@
 #include "pinhao/Support/YAMLWrapper.h"
 #include "pinhao/Optimizer/Optimizations.h"
 #include "pinhao/Optimizer/OptimizationSequence.h"
-#include "pinhao/Initialization.h"
+#include "pinhao/InitializationRoutines.h"
 
 #include "ModuleReader.h"
 

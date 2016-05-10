@@ -6,6 +6,7 @@
 
 #include "pinhao/Features/MapFeature.h"
 #include "pinhao/PerformanceAnalyser/SProfWrapper.h"
+#include "pinhao/InitializationRoutines.h"
 
 #include "llvm/IR/LegacyPassManager.h"
 
@@ -45,6 +46,11 @@ std::unique_ptr<Feature> FunctionStaticCostFeature::clone() const {
   FunctionStaticCostFeature *Clone = new FunctionStaticCostFeature(*this);
   return std::unique_ptr<Feature>(Clone);
 } 
+
+void pinhao::initializeFunctionStaticCostFeature(void) {
+  // This function should be called in order not to get
+  // optimized out of the executable.
+}
 
 static RegisterFeature<FunctionStaticCostFeature> 
 X(new FeatureInfo("static-cost", "Calculates a static cost of a function.", ValueType::Float, FeatureInfo::Static));

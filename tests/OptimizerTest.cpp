@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "pinhao/Initialization.h"
+#include "pinhao/InitializationRoutines.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
 #include "pinhao/Support/YAMLWrapper.h"
 

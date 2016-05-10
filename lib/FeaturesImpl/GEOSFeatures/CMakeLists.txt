@@ -1,3 +1,3 @@
-add_library (GEOSFeatures OBJECT
+add_library (GEOSFeatures SHARED
   GEOSFeatures.cpp
   GEOSBasicBlockFreqFeature.cpp)

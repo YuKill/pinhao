@@ -8,6 +8,7 @@
 
 #include "pinhao/Features/VectorFeature.h"
 #include "pinhao/Support/JITExecutor.h"
+#include "pinhao/InitializationRoutines.h"
 
 #include "papi.h"
 
@@ -113,6 +114,11 @@ void PAPIMultFeatures::getMeasures(long long *Values, int *EventCodes, int Size)
 std::unique_ptr<Feature> PAPIMultFeatures::clone() const {
   PAPIMultFeatures *Clone = new PAPIMultFeatures(*this);
   return std::unique_ptr<Feature>(Clone);
+}
+
+void pinhao::initializePAPIMultFeatures(void) {
+  // This function should be called in order not to get
+  // optimized out of the executable.
 }
 
 static std::map<std::string, std::string> SubFeatures = {

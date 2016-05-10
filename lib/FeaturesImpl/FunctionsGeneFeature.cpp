@@ -5,6 +5,7 @@
  */
 
 #include "pinhao/Features/MapFeature.h"
+#include "pinhao/InitializationRoutines.h"
 
 #include "llvm/IR/Instruction.h"
 
@@ -157,6 +158,11 @@ std::unique_ptr<Feature> FunctionsGeneFeature::clone() const {
   FunctionsGeneFeature *Clone = new FunctionsGeneFeature(*this);
   return std::unique_ptr<Feature>(Clone);
 } 
+
+void pinhao::initializeFunctionsGeneFeature(void) {
+  // This function should be called in order not to get
+  // optimized out of the executable.
+}
 
 static RegisterFeature<FunctionsGeneFeature> 
 X(new FeatureInfo("function-dna", "Extract Function DNA.", ValueType::String, FeatureInfo::Static));

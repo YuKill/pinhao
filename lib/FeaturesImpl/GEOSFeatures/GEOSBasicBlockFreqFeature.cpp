@@ -4,7 +4,7 @@
  * @file GEOSBasicBlockFreqFeature.cpp
  */
 
-#include "pinhao/Initialization.h"
+#include "pinhao/InitializationRoutines.h"
 #include "pinhao/Features/MapFeature.h"
 #include "pinhao/PerformanceAnalyser/GEOSWrapper.h"
 

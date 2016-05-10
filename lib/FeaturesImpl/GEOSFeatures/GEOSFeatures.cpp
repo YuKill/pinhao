@@ -4,7 +4,7 @@
  * @file GEOSFeature.cpp
  */
 
-#include "pinhao/Initialization.h"
+#include "pinhao/InitializationRoutines.h"
 #include "pinhao/Features/VectorFeature.h"
 #include "pinhao/PerformanceAnalyser/GEOSWrapper.h"
 
