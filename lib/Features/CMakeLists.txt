@@ -1,4 +1,4 @@
-add_library (Features OBJECT
+add_library (Features STATIC
   Feature.cpp
   Features.cpp
   FeatureRegistry.cpp

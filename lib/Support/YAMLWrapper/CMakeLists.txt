@@ -1,16 +1,5 @@
-add_library (YAMLWrapper STATIC
+add_library (YAMLWrapper OBJECT
   YAMLWrapper.cpp
   FeatureYAMLWrapper.cpp
-  OptimizerYAMLWrapper.cpp)
-
-add_library (FeatureYAMLWrapper STATIC
-  YAMLWrapper.cpp
-  FeatureYAMLWrapper.cpp)
-
-add_library (OptimizerYAMLWrapper STATIC
-  YAMLWrapper.cpp
-  OptimizerYAMLWrapper.cpp)
-
-add_library (FormulaYAMLWrapper STATIC
-  YAMLWrapper.cpp
+  OptimizerYAMLWrapper.cpp
   FormulaYAMLWrapper.cpp)
