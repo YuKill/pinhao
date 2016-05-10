@@ -25,15 +25,18 @@ namespace pinhao {
    * It is the container of all registered features.
    */
   class FeatureRegistry {
+    public:
+      typedef std::map<std::string, std::unique_ptr<const Feature>> FeaturesMap;
+
     private:
       /**
-       * @brief Stores unique pointers to all registered features.
+       * @brief Gets a map that stores unique pointers to all registered features.
        *
        * @details
        * In order to use a registered feature, one should clone the
        * desired feature. It maps the name to the feature.
        */
-      static std::map<std::string, std::unique_ptr<const Feature>> RegisteredFeatures;
+      static FeaturesMap &getRegisteredFeatures();
 
     public:
       /// @brief Register a feature in order to become available.
