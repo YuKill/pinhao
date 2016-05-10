@@ -4,7 +4,7 @@
  * @file Optimizations.cpp
  */
 
-#include "pinhao/Initialization.h"
+#include "pinhao/InitializationRoutines.h"
 #include "pinhao/Optimizer/Optimizations.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
 #include "pinhao/Optimizer/OptimizationSequence.h"

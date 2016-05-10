@@ -7,21 +7,15 @@ add_executable(RunFeatureInfoTest
 add_test(FeatureInfoTest RunFeatureInfoTest)
 
 add_executable(RunCFGStaticFeaturesTest
-  CFGStaticFeaturesTest.cpp
-  $<TARGET_OBJECTS:CFGStaticFeatures>)
+  CFGStaticFeaturesTest.cpp)
 add_test(CFGStaticFeaturesTest RunCFGStaticFeaturesTest)
 
 add_executable(RunKeyIteratorTest
-  KeyIteratorTest.cpp
-  $<TARGET_OBJECTS:CFGStaticFeatures>
-  $<TARGET_OBJECTS:GeneFeatures>)
+  KeyIteratorTest.cpp)
 add_test(KeyIteratorTest RunKeyIteratorTest)
 
 add_executable(RunFeatureSetTest
-  FeatureSetTest.cpp
-  $<TARGET_OBJECTS:CFGStaticFeatures>
-  $<TARGET_OBJECTS:GeneFeatures>
-  $<TARGET_OBJECTS:PAPIFeatures>)
+  FeatureSetTest.cpp)
 add_test(FeatureSetTest RunFeatureSetTest)
 
 configure_file (CFGStaticFeaturesBenchmarkTest.sh.in tmp/CFGStaticFeaturesBenchmarkTest.sh @ONLY)
@@ -31,19 +25,15 @@ file (COPY "${CMAKE_CURRENT_BINARY_DIR}/tmp/CFGStaticFeaturesBenchmarkTest.sh" D
 add_test(CFGStaticFeaturesBenchmarkTest CFGStaticFeaturesBenchmarkTest.sh)
 
 add_executable(RunPAPIFeaturesTest
-  PAPIFeaturesTest.cpp
-  $<TARGET_OBJECTS:PAPIFeatures>)
+  PAPIFeaturesTest.cpp)
 add_test(PAPIFeaturesTest RunPAPIFeaturesTest)
 
 add_executable(RunYAMLTest
-  YAMLTest.cpp
-  $<TARGET_OBJECTS:GeneFeatures>
-  $<TARGET_OBJECTS:CFGStaticFeatures>)
+  YAMLTest.cpp)
 add_test(YAMLTest RunYAMLTest)
 
 add_executable(RunGeneFeaturesTest
-  GeneFeaturesTest.cpp
-  $<TARGET_OBJECTS:GeneFeatures>)
+  GeneFeaturesTest.cpp)
 add_test(GeneFeaturesTest RunGeneFeaturesTest)
 
 add_executable(RunYamlOptionsTest
@@ -65,13 +55,11 @@ add_executable(RunOptimizerTest
 add_test(OptimizerTest RunOptimizerTest)
 
 add_executable(RunGEOSFeaturesTest
-  GEOSFeaturesTest.cpp
-  $<TARGET_OBJECTS:GEOSFeatures>)
+  GEOSFeaturesTest.cpp)
 add_test(GEOSFeaturesTest RunGEOSFeaturesTest)
 
 add_executable(RunFunctionStaticCostFeatureTest
-  FunctionStaticCostFeatureTest.cpp
-  $<TARGET_OBJECTS:StaticCostFeature>)
+  FunctionStaticCostFeatureTest.cpp)
 add_test(FunctionStaticCostFeatureTest RunFunctionStaticCostFeatureTest)
 
 add_executable(RunPAPIWrapperTest
@@ -83,30 +71,38 @@ add_executable(RunRandomTest
 add_test(RandomTest RunRandomTest)
 
 add_executable(RunFormulaTest
-  FormulaTest.cpp
-  $<TARGET_OBJECTS:CFGStaticFeatures>)
+  FormulaTest.cpp)
 add_test(FormulaTest RunFormulaTest)
 
 add_executable(RunFormulaYAMLWrapperTest
-  FormulaYAMLWrapperTest.cpp
-  $<TARGET_OBJECTS:CFGStaticFeatures>)
+  FormulaYAMLWrapperTest.cpp)
 add_test(FormulaYAMLWrapperTest RunFormulaYAMLWrapperTest)
 
 # -----------------------------------------= Linker =------------------------------------------
 
 pinhao_test_link (RunFeatureInfoTest)
-pinhao_test_link (RunCFGStaticFeaturesTest)
-pinhao_test_link (RunKeyIteratorTest)
-pinhao_test_link (RunFeatureSetTest)
-pinhao_test_link (RunPAPIFeaturesTest)
-pinhao_test_link (RunYAMLTest)
-pinhao_test_link (RunGeneFeaturesTest)
+pinhao_test_link (RunCFGStaticFeaturesTest
+  CFGStaticFeatures)
+pinhao_test_link (RunKeyIteratorTest
+  CFGStaticFeatures GeneFeatures)
+pinhao_test_link (RunFeatureSetTest
+  CFGStaticFeatures GeneFeatures PAPIFeatures)
+pinhao_test_link (RunPAPIFeaturesTest
+  PAPIFeatures)
+pinhao_test_link (RunYAMLTest
+  CFGStaticFeatures GeneFeatures)
+pinhao_test_link (RunGeneFeaturesTest
+  GeneFeatures)
 pinhao_test_link (RunYamlOptionsTest)
 pinhao_test_link (RunYamlOptionsGlobalTest)
 pinhao_test_link (RunOptimizerTest)
-pinhao_test_link (RunGEOSFeaturesTest)
-pinhao_test_link (RunFunctionStaticCostFeatureTest)
+pinhao_test_link (RunGEOSFeaturesTest
+  GEOSFeatures)
+pinhao_test_link (RunFunctionStaticCostFeatureTest
+  StaticCostFeature)
 pinhao_test_link (RunPAPIWrapperTest)
 pinhao_test_link (RunRandomTest)
-pinhao_test_link (RunFormulaTest)
-pinhao_test_link (RunFormulaYAMLWrapperTest)
+pinhao_test_link (RunFormulaTest
+  CFGStaticFeatures)
+pinhao_test_link (RunFormulaYAMLWrapperTest
+  CFGStaticFeatures)

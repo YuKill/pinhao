@@ -22,21 +22,23 @@ set (UTIL_LIBS "-lyaml-cpp -lpapi")
 # Functions
 ## Function for linking tests.
 function (pinhao_test_link TestName)
-  pinhao_link_local (${TestName})
-  target_link_libraries (${TestName} ${GTEST_LIBS})
+  target_link_libraries (${TestName} 
+    ${GTEST_LIBS})
+  pinhao_link_local (${TestName} ${ARGN})
   pinhao_link_toolset (${TestName})
 endfunction (pinhao_test_link)
 
 ## Function for linking tools.
 function (pinhao_tool_link ToolName)
-  pinhao_link_local (${ToolName})
+  pinhao_link_local (${ToolName} ${ARGN})
   pinhao_link_toolset (${ToolName})
 endfunction (pinhao_tool_link)
 
 ## Function for linking shared libraries (llvm passes).
 function (pinhao_pass_link PassName)
-  pinhao_link_local (${PassName})
-  target_link_libraries (${PassName} ${UTIL_LIBS})
+  pinhao_link_local (${PassName} ${ARGN})
+  target_link_libraries (${PassName} 
+    ${UTIL_LIBS})
 endfunction (pinhao_pass_link)
 
 ## Function for linking the toolset library.
@@ -51,7 +53,8 @@ endfunction (pinhao_link_toolset)
 ## Function for linking the local library.
 function (pinhao_link_local Target)
   target_link_libraries (${Target}
+    ${ARGN}
     Features Optimizer Formula 
     GEOSWrapper SProfWrapper PAPIWrapper 
-    Support)
+    Support Initialization)
 endfunction(pinhao_link_local)
