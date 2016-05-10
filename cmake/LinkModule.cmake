@@ -33,6 +33,12 @@ function (pinhao_tool_link ToolName)
   pinhao_link_toolset (${ToolName})
 endfunction (pinhao_tool_link)
 
+## Function for linking shared libraries (llvm passes).
+function (pinhao_pass_link PassName)
+  pinhao_link_local (${PassName})
+  target_link_libraries (${PassName} ${UTIL_LIBS})
+endfunction (pinhao_pass_link)
+
 ## Function for linking the toolset library.
 function (pinhao_link_toolset Target)
   target_link_libraries (${Target}

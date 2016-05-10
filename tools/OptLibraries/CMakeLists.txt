@@ -8,5 +8,5 @@ add_library (GeneFeaturesPass SHARED
   $<TARGET_OBJECTS:GeneFeatures>
   FunctionsGeneFeaturePass.cpp)
 
-pinhao_tool_link (CFGStaticFeaturesPass)
-pinhao_tool_link (GeneFeaturesPass)
+pinhao_pass_link (CFGStaticFeaturesPass)
+pinhao_pass_link (GeneFeaturesPass)
