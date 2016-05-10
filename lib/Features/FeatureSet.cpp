@@ -54,11 +54,6 @@ void FeatureSet::disableAll() {
   EnabledFeatures.clear();
 }
 
-static uint64_t incrementCount(Feature *F) {
-  if (F->isComposite()) return 1;
-  return F->getNumberOfSubFeatures();
-}
-
 Feature *FeatureSet::getFeature(iterator It) {
   return Features[(*It).first].get();
 }
