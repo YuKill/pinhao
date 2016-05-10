@@ -40,15 +40,20 @@ namespace pinhao {
   template <class T> class LitFormula;
   template <class T> class FeatureFormula;
 
+  template <class T, class U> class KnowledgeBase;
+
   /**
    * @brief This class is a wrapper class for the yaml-cpp library.
    */
   class YAMLWrapper {
-    private:
+    public:
       typedef const YAML::Node ConstNode;
       typedef YAML::Emitter Emitter;
 
-    public:
+      static YAML::Node loadFile(std::string Filename) {
+        return YAML::LoadFile(Filename); 
+      }
+
       /**
        * @brief Creates a new object of class @a T , by parsing a @a YAML::Node,
        * and returning an @a std::unique_ptr of it.
@@ -108,6 +113,9 @@ namespace pinhao {
       template <class T> 
         static void fill(FeatureFormula<T> &Value, ConstNode &Node);
 
+      template <class T, class U> 
+        static void fill(KnowledgeBase<T, U> &Value, ConstNode &Node);
+
       // append overloads.
       template <class T> 
         static void append(const VectorFeature<T> &Value, Emitter &E);
@@ -127,8 +135,10 @@ namespace pinhao {
       template <class T> 
         static void append(const LitFormula<T> &Value, Emitter &E);
       template <class T> 
-        static void append(const FeatureFormula<T> &Value, Emitter&E);
+        static void append(const FeatureFormula<T> &Value, Emitter &E);
 
+      template <class T, class U> 
+        static void append(const KnowledgeBase<T, U> &Value, Emitter &E);
   };
 
   template<> std::unique_ptr<FormulaBase> YAMLWrapper::get<FormulaBase>(ConstNode&);
