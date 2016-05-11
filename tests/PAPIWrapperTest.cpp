@@ -35,7 +35,7 @@ TEST(PAPIWrapperTest, CycleInstrTest) {
 }
 
 int main(int argc, char **argv) {
-  JITExecutor::init();
+  initializeJITExecutor();
 
   ModuleReader Reader(File);
   Module = Reader.getModule();

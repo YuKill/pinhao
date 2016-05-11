@@ -15,7 +15,7 @@ TEST(PAPIFeaturesTest, GetFeature) {
 }
 
 TEST(PAPIFeaturesTest, ProcessModule) {
-  JITExecutor::init();
+  initializeJITExecutor();
 
   std::string File = "../../benchmark/polybench-ll/2mm/2mm.bc";
 

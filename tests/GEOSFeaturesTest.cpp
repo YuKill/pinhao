@@ -87,7 +87,7 @@ TEST(GEOSFeaturesTest, RandomOptimizedCostAnalysisTest) {
 int main(int argc, char **argv) {
   setup();
   initializeOptimizer();
-  JITExecutor::init();
+  initializeJITExecutor();
   config::parseOptions(Node);
 
   ModuleReader Reader(ModuleName.get());
