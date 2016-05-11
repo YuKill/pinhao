@@ -8,56 +8,41 @@
 #ifndef PINHAO_JIT_EXECUTOR_H
 #define PINHAO_JIT_EXECUTOR_H
 
+#include "pinhao/InitializationRoutines.h"
+
 #include "llvm/ExecutionEngine/MCJIT.h"
-#include "llvm/Transforms/Utils/Cloning.h"
-#include "llvm/Support/TargetSelect.h"
 
 #include <vector>
 
 namespace pinhao {
+
+  /// @brief Calls the llvm initialization procedures that the @a JITExecutor depends on.
+  void initializeJITExecutor();
 
   /**
    * @brief Runs a given module at runtime.
    */
   class JITExecutor {
     private:
-
       llvm::Module *Mod;
       llvm::ExecutionEngine *Engine;
 
     public:
+      /**
+       * @brief Whenever a @a JITExecutor object is constructed, it copies the
+       * @a llvm::Module provided, and creates an @a ExecutionEngine based on that.
+       */
+      JITExecutor(llvm::Module &M); 
+      ~JITExecutor(); 
 
-      JITExecutor(llvm::Module &M) {
-        Mod = llvm::CloneModule(&M);
-        assert(Mod != nullptr && "Module nil.");
-        Engine = llvm::EngineBuilder(std::unique_ptr<llvm::Module>(Mod)).create();
-        Engine->finalizeObject(); 
-      }
+      /**
+       * @brief Runs the module copied, with args @a Argv and enviroment variables
+       * @a Env.
+       */
+      int run(std::vector<std::string> &Argv, char *const *Env); 
 
-      void run(std::vector<std::string> &Argv, char *const *Env) {
-        Engine->runFunctionAsMain(Mod->getFunction("main"), Argv, Env);
-      }
-
-
-      void flushCache() {
-        int Doubles = 30 * 1024 * 1024 / sizeof(double); // 30MB
-        double Count = 0.0;
-
-        double *Block = (double*) calloc(Doubles, sizeof(double));
-        for (int I = 0; I < Doubles; ++I)
-          Count += Block[I];
-        free(Block);
-      }
-
-      ~JITExecutor() {
-        delete Engine;
-      }
-
-      static void init() {
-        llvm::InitializeNativeTarget();
-        llvm::InitializeNativeTargetAsmPrinter();
-        llvm::InitializeNativeTargetAsmParser();
-      }
+      /// @brief Fill the cache (30MB) with zeroes.
+      void flushCache(); 
 
   };
 

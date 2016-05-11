@@ -11,6 +11,8 @@
 
 namespace pinhao {
 
+  void initializeJITExecutor();
+
   void initializeOptimizer();
 
   void initializeFeatures(llvm::Module&);
