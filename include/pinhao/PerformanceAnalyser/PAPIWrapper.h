@@ -19,8 +19,9 @@ namespace pinhao {
    */
   class PAPIWrapper {
     public:
+      typedef long long LLong;
       typedef std::vector<int> EventCodeVector;
-      typedef std::vector<long long> CounterVector;
+      typedef std::vector<LLong> CounterVector;
       typedef std::vector<std::string> ArgVector;
 
     private:
@@ -35,25 +36,25 @@ namespace pinhao {
       /// @brief Returns true if it successfuly added all events to an @a EventSet.
       static bool addEvents(int, EventCodeVector);
       /// @brief Runs the @a llvm::Module, while counting the events.
-      static void run(llvm::Module&, ArgVector, char* const*, int, long long*);
+      static int run(llvm::Module&, ArgVector, char* const*, int, long long*);
 
     public:
       /// @brief Counts specific events detailed by the user.
-      static CounterVector countEvents(llvm::Module&, EventCodeVector);
+      static std::pair<int, CounterVector> countEvents(llvm::Module&, EventCodeVector);
       /// @brief Returns the total number of clocks.
-      static long long getTotalCycles(llvm::Module&);
+      static std::pair<int, LLong> getTotalCycles(llvm::Module&);
       /// @brief Returns the total number of instructions completed.
-      static long long getTotalInstructions(llvm::Module&);
+      static std::pair<int, LLong> getTotalInstructions(llvm::Module&);
   
       /// @brief Counts specific events detailed by the user. For execution that
       /// requires arguments.
-      static CounterVector countEvents(llvm::Module&, ArgVector, EventCodeVector);
+      static std::pair<int, CounterVector> countEvents(llvm::Module&, ArgVector, EventCodeVector);
       /// @brief Returns the total number of clocks. For execution that requires
       /// arguments.
-      static long long getTotalCycles(llvm::Module&, ArgVector);
+      static std::pair<int, LLong> getTotalCycles(llvm::Module&, ArgVector);
       /// @brief Returns the total number of instructions completed. For execution
       /// that requires arguments.
-      static long long getTotalInstructions(llvm::Module&, ArgVector);
+      static std::pair<int, LLong> getTotalInstructions(llvm::Module&, ArgVector);
   };
 
 }
