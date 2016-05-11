@@ -11,23 +11,26 @@ std::string File = "../../benchmark/polybench-ll/2mm/2mm.bc";
 std::shared_ptr<llvm::Module> Module;
 
 TEST(PAPIWrapperTest, CountCycleTest) {
-  long long Cycles = PAPIWrapper::getTotalCycles(*Module);
-  ASSERT_NE(Cycles, 0);
-  std::cout << "Total Cycles: " << Cycles << std::endl;
+  auto PAPIRun = PAPIWrapper::getTotalCycles(*Module);
+  ASSERT_EQ(PAPIRun.first, 0);
+  ASSERT_NE(PAPIRun.second, 0);
+  std::cout << "Total Cycles: " << PAPIRun.second << std::endl;
 }
 
 TEST(PAPIWrapperTest, CountInstructionsTest) {
-  long long Instructions = PAPIWrapper::getTotalInstructions(*Module);
-  ASSERT_NE(Instructions, 0);
-  std::cout << "Total Instructions: " << Instructions << std::endl;
+  auto PAPIRun = PAPIWrapper::getTotalInstructions(*Module);
+  ASSERT_EQ(PAPIRun.first, 0);
+  ASSERT_NE(PAPIRun.second, 0);
+  std::cout << "Total Instructions: " << PAPIRun.second << std::endl;
 }
 
 TEST(PAPIWrapperTest, CycleInstrTest) {
   PAPIWrapper::EventCodeVector Codes = { PAPI_TOT_CYC, PAPI_TOT_INS };
-  PAPIWrapper::CounterVector Counters = PAPIWrapper::countEvents(*Module, Codes);
+  auto PAPIRun = PAPIWrapper::countEvents(*Module, Codes);
+  ASSERT_EQ(PAPIRun.first, 0);
 
   std::cout << "{ ";
-  for (auto C : Counters) {
+  for (auto C : PAPIRun.second) {
     ASSERT_NE(C, 0);
     std::cout << C << " ";
   }
