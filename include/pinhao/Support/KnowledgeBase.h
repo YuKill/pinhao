@@ -11,6 +11,7 @@
 #include "pinhao/Support/KnowledgeBaseYAMLWrapper.h"
 
 #include <set>
+#include <fstream>
 
 namespace pinhao {
 
