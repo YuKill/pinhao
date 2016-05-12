@@ -130,6 +130,9 @@ namespace pinhao {
       /// @brief Gets an @a iterator to the @a Nth feature with type @a FType.
       iterator get(uint64_t, ValueType);
 
+      /// @brief Returns the @a ValueType of some feature.
+      ValueType getFeatureType(std::string);
+
       /**
        * @brief Gets a feature or sub-feature which has type @a FeatureType.
        *

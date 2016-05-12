@@ -135,6 +135,11 @@ FeatureSet::iterator FeatureSet::get(uint64_t N) {
   assert(false && "There are not N features in this set.");
 }
 
+ValueType FeatureSet::getFeatureType(std::string FeatureName) {
+  assert(Features.count(FeatureName) > 0 && "Feature not found inside FeatureSet.");
+  return Features[FeatureName]->getType();
+}
+
 /*=--------------------------------------------=
  * class: FeatureSetWrapperPass::iterator
  */
