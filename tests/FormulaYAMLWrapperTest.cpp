@@ -29,15 +29,18 @@ TEST(FormulaTest, GetLitFormula) {
   ValueType OpType = getValueTypeFor<int>();
   FormulaKind Kind = FormulaKind::Literal;
 
-  auto Form = createFormula(Kind, Type, OpType);
-  ASSERT_NE(Form.get(), nullptr);
-  Form->generate(Set.get());
-  YAMLWrapper::print(*Form, Of1);
+  auto Form1 = createFormula(Kind, Type, OpType);
+  ASSERT_NE(Form1.get(), nullptr);
+  Form1->generate(Set.get());
+  YAMLWrapper::print(*Form1, Of1);
 
   YAML::Node Node = YAML::LoadFile(YamlFile1);
-  Form.reset(YAMLWrapper::get<FormulaBase>(Node).release());
-  YAMLWrapper::print(*Form, Of2);
+  auto Form2 = YAMLWrapper::get<FormulaBase>(Node).release();
+  YAMLWrapper::print(*Form2, Of2);
 
+  ASSERT_TRUE(*Form1 == *Form2);
+  ASSERT_FALSE(*Form1 < *Form2);
+  ASSERT_FALSE(*Form2 < *Form1);
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
 
@@ -54,15 +57,18 @@ TEST(FormulaTest, GetArithBinOpFormula) {
   ValueType OpType = getValueTypeFor<int>();
   FormulaKind Kind = FormulaKind::ArithBinOp;
 
-  auto Form = createFormula(Kind, Type, OpType);
-  ASSERT_NE(Form.get(), nullptr);
-  Form->generate(Set.get());
-  YAMLWrapper::print(*Form, Of1);
+  auto Form1 = createFormula(Kind, Type, OpType);
+  ASSERT_NE(Form1.get(), nullptr);
+  Form1->generate(Set.get());
+  YAMLWrapper::print(*Form1, Of1);
 
   YAML::Node Node = YAML::LoadFile(YamlFile1);
-  Form.reset(YAMLWrapper::get<FormulaBase>(Node).release());
-  YAMLWrapper::print(*Form, Of2);
+  auto Form2 = YAMLWrapper::get<FormulaBase>(Node).release();
+  YAMLWrapper::print(*Form2, Of2);
 
+  ASSERT_TRUE(*Form1 == *Form2);
+  ASSERT_FALSE(*Form1 < *Form2);
+  ASSERT_FALSE(*Form2 < *Form1);
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
 
@@ -79,15 +85,18 @@ TEST(FormulaTest, GetBoolBinOpFormula) {
   ValueType OpType = getValueTypeFor<int>();
   FormulaKind Kind = FormulaKind::BoolBinOp;
 
-  auto Form = createFormula(Kind, Type, OpType);
-  ASSERT_NE(Form.get(), nullptr);
-  Form->generate(Set.get());
-  YAMLWrapper::print(*Form, Of1);
+  auto Form1 = createFormula(Kind, Type, OpType);
+  ASSERT_NE(Form1.get(), nullptr);
+  Form1->generate(Set.get());
+  YAMLWrapper::print(*Form1, Of1);
 
   YAML::Node Node = YAML::LoadFile(YamlFile1);
-  Form.reset(YAMLWrapper::get<FormulaBase>(Node).release());
-  YAMLWrapper::print(*Form, Of2);
-
+  auto Form2 = YAMLWrapper::get<FormulaBase>(Node).release();
+  YAMLWrapper::print(*Form2, Of2);
+  
+  ASSERT_TRUE(*Form1 == *Form2);
+  ASSERT_FALSE(*Form1 < *Form2);
+  ASSERT_FALSE(*Form2 < *Form1);
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
 
@@ -104,15 +113,18 @@ TEST(FormulaTest, GetIfFormula) {
   ValueType OpType = getValueTypeFor<int>();
   FormulaKind Kind = FormulaKind::If;
 
-  auto Form = createFormula(Kind, Type, OpType);
-  ASSERT_NE(Form.get(), nullptr);
-  Form->generate(Set.get());
-  YAMLWrapper::print(*Form, Of1);
+  auto Form1 = createFormula(Kind, Type, OpType);
+  ASSERT_NE(Form1.get(), nullptr);
+  Form1->generate(Set.get());
+  YAMLWrapper::print(*Form1, Of1);
 
   YAML::Node Node = YAML::LoadFile(YamlFile1);
-  Form.reset(YAMLWrapper::get<FormulaBase>(Node).release());
-  YAMLWrapper::print(*Form, Of2);
+  auto Form2 = YAMLWrapper::get<FormulaBase>(Node).release();
+  YAMLWrapper::print(*Form2, Of2);
 
+  ASSERT_TRUE(*Form1 == *Form2);
+  ASSERT_FALSE(*Form1 < *Form2);
+  ASSERT_FALSE(*Form2 < *Form1);
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
 
@@ -129,15 +141,18 @@ TEST(FormulaTest, GetFeatureFormula) {
   ValueType OpType = getValueTypeFor<int>();
   FormulaKind Kind = FormulaKind::Feature;
 
-  auto Form = createFormula(Kind, Type, OpType);
-  ASSERT_NE(Form.get(), nullptr);
-  Form->generate(Set.get());
-  YAMLWrapper::print(*Form, Of1);
+  auto Form1 = createFormula(Kind, Type, OpType);
+  ASSERT_NE(Form1.get(), nullptr);
+  Form1->generate(Set.get());
+  YAMLWrapper::print(*Form1, Of1);
 
   YAML::Node Node = YAML::LoadFile(YamlFile1);
-  Form.reset(YAMLWrapper::get<FormulaBase>(Node).release());
-  YAMLWrapper::print(*Form, Of2);
+  auto Form2 = YAMLWrapper::get<FormulaBase>(Node).release();
+  YAMLWrapper::print(*Form2, Of2);
 
+  ASSERT_TRUE(*Form1 == *Form2);
+  ASSERT_FALSE(*Form1 < *Form2);
+  ASSERT_FALSE(*Form2 < *Form1);
   ASSERT_TRUE(filesEqual(YamlFile1, YamlFile2));
 }
 
