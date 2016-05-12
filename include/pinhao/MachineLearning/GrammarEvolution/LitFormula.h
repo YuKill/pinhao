@@ -31,9 +31,13 @@ namespace pinhao {
 
         FormulaKind getKind() const override; 
 
+        void evolve(FeatureSet*, Evolution*) override; 
         FormulaBase *simplify() override; 
         void generate(FeatureSet *Set) override; 
         void solveFor(FeatureSet *Set) override; 
+
+        bool operator==(const FormulaBase &Rhs) const  override;
+        bool operator<(const FormulaBase &Rhs) const override;
 
     };
 
@@ -42,6 +46,11 @@ namespace pinhao {
 template <class T>
 void pinhao::LitFormula<T>::setValue(T Value) {
   this->Value = Value;
+}
+
+template <class T>
+void pinhao::LitFormula<T>::evolve(FeatureSet *Set, Evolution *Ev) {
+  Ev->evolve(this->Value);
 }
 
 template <class T>
@@ -67,6 +76,24 @@ void pinhao::LitFormula<T>::generate(FeatureSet *Set) {
 template <class T>
 void pinhao::LitFormula<T>::solveFor(FeatureSet *Set) {
 
+}
+
+template <class T>
+bool pinhao::LitFormula<T>::operator==(const FormulaBase &Rhs) const {
+  if (this->getKind() != Rhs.getKind() || this->getType() != Rhs.getType())
+    return false;
+  auto &RhsCast = static_cast<const Formula<T>&>(Rhs);
+  return this->getValue() == RhsCast.getValue();
+}
+
+template <class T>
+bool pinhao::LitFormula<T>::operator<(const FormulaBase &Rhs) const {
+  if (this->getKind() != Rhs.getKind()) 
+    return static_cast<int>(this->getKind()) < static_cast<int>(Rhs.getKind());
+  if (this->getType() != Rhs.getType()) 
+    return static_cast<int>(this->getType()) < static_cast<int>(Rhs.getType());
+  auto &RhsCast = static_cast<const Formula<T>&>(Rhs);
+  return this->getValue() < RhsCast.getValue();
 }
 
 #endif

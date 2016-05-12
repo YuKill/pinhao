@@ -50,9 +50,13 @@ namespace pinhao {
 
         ValueType getOperandsType() const override; 
 
+        void evolve(FeatureSet*, Evolution*) override; 
         FormulaBase *simplify() override; 
         void generate(FeatureSet *Set) override; 
         void solveFor(FeatureSet *Set) override;
+
+        bool operator==(const FormulaBase &Rhs) const override;
+        bool operator<(const FormulaBase &Rhs) const override;
 
     };
 }
@@ -95,6 +99,11 @@ pinhao::ValueType pinhao::BinOpFormulaBase<T, OpT>::getOperandsType() const {
 }
 
 template <class T, class OpT>
+void pinhao::BinOpFormulaBase<T, OpT>::evolve(FeatureSet *Set, Evolution *Ev) {
+  Ev->evolve({&Lhs, &Rhs});
+}
+
+template <class T, class OpT>
 pinhao::FormulaBase *pinhao::BinOpFormulaBase<T, OpT>::simplify() {
   simplifyFormula(Lhs);
   simplifyFormula(Rhs);
@@ -120,6 +129,34 @@ void pinhao::BinOpFormulaBase<T, OpT>::solveFor(FeatureSet *Set) {
   Lhs->solveFor(Set); 
   Rhs->solveFor(Set); 
   this->Value = doOperation(getFormulaValue<OpT>(Lhs.get()), getFormulaValue<OpT>(Rhs.get()));
+}
+
+template <class T, class OpT>
+bool pinhao::BinOpFormulaBase<T, OpT>::operator==(const FormulaBase &Rhs) const {
+  auto &RhsCast = static_cast<const Formula<T>&>(Rhs);
+  if (this->getKind() != RhsCast.getKind() || this->getType() != RhsCast.getType() || 
+      this->getOperandsType() != RhsCast.getOperandsType())
+    return false;
+  auto &RhsBOCast = static_cast<const BinOpFormulaBase<T, OpT>&>(Rhs);
+  return *this->Lhs == *RhsBOCast.Lhs && *this->Rhs == *RhsBOCast.Rhs;
+}
+
+template <class T, class OpT>
+bool pinhao::BinOpFormulaBase<T, OpT>::operator<(const FormulaBase &Rhs) const {
+  auto &RhsCast = static_cast<const Formula<T>&>(Rhs);
+  if (this->getKind() != RhsCast.getKind()) 
+    return static_cast<int>(this->getKind()) < static_cast<int>(RhsCast.getKind());
+  if (this->getType() != RhsCast.getType()) 
+    return static_cast<int>(this->getType()) < static_cast<int>(RhsCast.getType());
+  if (this->getOperandsType() != RhsCast.getOperandsType()) 
+    return static_cast<int>(this->getOperandsType()) < static_cast<int>(RhsCast.getOperandsType());
+
+  auto &RhsBOCast = static_cast<const BinOpFormulaBase<T, OpT>&>(Rhs);
+  if (*this->Lhs != *RhsBOCast.Lhs)
+    return *this->Lhs < *RhsBOCast.Lhs;
+  if (*this->Rhs != *RhsBOCast.Rhs)
+    return *this->Rhs < *RhsBOCast.Rhs;
+  return false;
 }
 
 namespace pinhao {

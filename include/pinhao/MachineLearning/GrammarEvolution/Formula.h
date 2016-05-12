@@ -10,6 +10,7 @@
 #include "pinhao/Features/FeatureSet.h"
 #include "pinhao/Support/Random.h"
 #include "pinhao/Support/Types.h"
+#include "pinhao/MachineLearning/GrammarEvolution/Evolution.h"
 
 #include <string>
 #include <vector>
@@ -111,12 +112,21 @@ namespace pinhao {
       /// @brief Returns true if it is a If formula.
       virtual bool isIf() const;
 
-      /// @brief Randomizes the generations of a @a Formula.
+      /// @brief Evolves this formula, based on the @a Evolution algorithm.
+      virtual void evolve(FeatureSet*, Evolution*) = 0;
+      /// @brief Simplifies the current formula.
       virtual FormulaBase *simplify() = 0;
       /// @brief Randomizes the generations of a @a Formula.
       virtual void generate(FeatureSet *Set) = 0;
       /// @brief Evaluates the @a Formula for the @a Set.
       virtual void solveFor(FeatureSet *Set) = 0;
+
+      bool operator!=(const FormulaBase &Rhs) const;
+      bool operator>(const FormulaBase &Rhs) const;
+      bool operator>=(const FormulaBase &Rhs) const;
+      bool operator<=(const FormulaBase &Rhs) const;
+      virtual bool operator==(const FormulaBase &Rhs) const = 0;
+      virtual bool operator<(const FormulaBase &Rhs) const = 0;
 
       /// @brief Prints to an @a std::ostream object the information of this
       /// @a Formula.
@@ -178,6 +188,7 @@ namespace pinhao {
   template <class T> 
     T getFormulaValue(const FormulaBase*); 
 
+  void simplifyFormula(FormulaBase*&);
   void simplifyFormula(std::unique_ptr<FormulaBase>&);
 
 }

@@ -191,6 +191,14 @@ std::unique_ptr<FormulaBase> pinhao::generateFormula(FeatureSet *Set, ValueType 
   return std::unique_ptr<FormulaBase>(nullptr);
 }
 
+void pinhao::simplifyFormula(FormulaBase* &Form) {
+  FormulaBase *Simplified = Form->simplify();
+  if (Simplified != nullptr) {
+    delete Form;
+    Form = Simplified;
+  }
+}
+
 void pinhao::simplifyFormula(std::unique_ptr<FormulaBase> &Form) {
   FormulaBase *Simplified = Form->simplify();
   if (Simplified != nullptr)
@@ -223,4 +231,20 @@ bool FormulaBase::isIf() const {
 
 void FormulaBase::print(std::ostream &Out) {
   YAMLWrapper::print(*this, Out);
+}
+
+bool FormulaBase::operator!=(const FormulaBase &Rhs) const {
+  return !(*this == Rhs);
+}
+
+bool FormulaBase::operator>(const FormulaBase &Rhs) const {
+  return (Rhs < *this);
+}
+
+bool FormulaBase::operator>=(const FormulaBase &Rhs) const {
+  return (*this > Rhs || *this == Rhs);
+}
+
+bool FormulaBase::operator<=(const FormulaBase &Rhs) const {
+  return (*this < Rhs || *this == Rhs);
 }
