@@ -27,6 +27,10 @@ namespace pinhao {
         /// @brief Gets the minimum value for the operator.
         virtual int getMinOperator() const = 0;
 
+        /// @brief Checks if there is a division by zero. If there is,
+        /// it replaces by another literal.
+        virtual void checkZeroDivision() = 0;
+
       public:
         virtual ~BinOpFormulaBase() {}
 
@@ -107,6 +111,7 @@ template <class T, class OpT>
 pinhao::FormulaBase *pinhao::BinOpFormulaBase<T, OpT>::simplify() {
   simplifyFormula(Lhs);
   simplifyFormula(Rhs);
+  checkZeroDivision();
   if (Lhs->isLiteral() && Rhs->isLiteral()) {
     LitFormula<T> *Simplified = new LitFormula<T>();
     T Value = doOperation(getFormulaValue<OpT>(Lhs.get()), getFormulaValue<OpT>(Rhs.get()));
@@ -122,6 +127,7 @@ void pinhao::BinOpFormulaBase<T, OpT>::generate(FeatureSet *Set) {
   Operator = static_cast<OperatorKind>(RandomOperator);
   Lhs = generateFormula(Set, getValueTypeFor<OpT>());
   Rhs = generateFormula(Set, getValueTypeFor<OpT>());
+  checkZeroDivision();
 }
 
 template <class T, class OpT>
@@ -173,7 +179,10 @@ namespace pinhao {
             case OperatorKind::PLUS: return One + Two;
             case OperatorKind::MIN:  return One - Two;
             case OperatorKind::MUL:  return One * Two; 
-            case OperatorKind::DIV:  return One / Two; 
+            case OperatorKind::DIV: {
+                                      if (!Two) return 0;
+                                      return One / Two; 
+                                    }
             default: return 0;
           }
         }
@@ -184,6 +193,13 @@ namespace pinhao {
 
         int getMinOperator() const override {
           return static_cast<int>(OperatorKind::PLUS); 
+        }
+
+        void checkZeroDivision() override {
+          if (this->getOperator() == OperatorKind::DIV) {
+            while (this->Rhs->isLiteral() && getFormulaValue<T>(this->Rhs.get()) == 0)
+              this->Rhs->generate(nullptr);
+          }
         }
 
       public:
@@ -224,6 +240,8 @@ namespace pinhao {
           return static_cast<int>(OperatorKind::LT); 
         }
 
+        void checkZeroDivision() override {}
+
       public:
         ValueType getType() const override {
           return getValueTypeFor<bool>();
@@ -259,6 +277,8 @@ namespace pinhao {
         int getMinOperator() const override {
           return static_cast<int>(OperatorKind::EQ); 
         }
+
+        void checkZeroDivision() override {}
 
       public:
         ValueType getType() const override {
