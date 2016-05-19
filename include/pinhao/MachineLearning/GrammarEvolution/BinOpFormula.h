@@ -31,6 +31,9 @@ namespace pinhao {
         /// it replaces by another literal.
         virtual void checkZeroDivision() = 0;
 
+        /// @brief Constructs the specific child type.
+        virtual BinOpFormulaBase<T, OpT> *getChildConstructor() = 0;
+
       public:
         virtual ~BinOpFormulaBase() {}
 
@@ -61,6 +64,8 @@ namespace pinhao {
 
         bool operator==(const FormulaBase &Rhs) const override;
         bool operator<(const FormulaBase &Rhs) const override;
+
+        std::unique_ptr<FormulaBase> clone() override;
 
     };
 }
@@ -165,6 +170,15 @@ bool pinhao::BinOpFormulaBase<T, OpT>::operator<(const FormulaBase &Rhs) const {
   return false;
 }
 
+template <class T, class OpT>
+std::unique_ptr<pinhao::FormulaBase> pinhao::BinOpFormulaBase<T, OpT>::clone() {
+  auto Clone = getChildConstructor();
+  Clone->Lhs = Lhs->clone();
+  Clone->Rhs = Rhs->clone();
+  Clone->Operator = Operator;
+  return std::unique_ptr<FormulaBase>(Clone);
+}
+
 namespace pinhao {
 
   /**
@@ -200,6 +214,10 @@ namespace pinhao {
             while (this->Rhs->isLiteral() && getFormulaValue<T>(this->Rhs.get()) == 0)
               this->Rhs->generate(nullptr);
           }
+        }
+
+        BinOpFormulaBase<T, T> *getChildConstructor() {
+          return new ArithBinOpFormula<T>();
         }
 
       public:
@@ -242,6 +260,10 @@ namespace pinhao {
 
         void checkZeroDivision() override {}
 
+        BinOpFormulaBase<bool, T> *getChildConstructor() {
+          return new BoolBinOpFormula<T>();
+        }
+
       public:
         ValueType getType() const override {
           return getValueTypeFor<bool>();
@@ -279,6 +301,10 @@ namespace pinhao {
         }
 
         void checkZeroDivision() override {}
+
+        BinOpFormulaBase<bool, bool> *getChildConstructor() {
+          return new BoolBinOpFormula<bool>();
+        }
 
       public:
         ValueType getType() const override {

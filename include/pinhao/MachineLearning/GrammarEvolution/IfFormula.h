@@ -36,6 +36,8 @@ namespace pinhao {
         bool operator==(const FormulaBase &Rhs) const override;
         bool operator<(const FormulaBase &Rhs) const override;
 
+        std::unique_ptr<FormulaBase> clone() override;
+
     };
 
 }
@@ -112,6 +114,15 @@ bool pinhao::IfFormula<T>::operator<(const FormulaBase &Rhs) const {
   if (*this->ElseBody != *RhsCast.ElseBody)
     return *this->ElseBody < *RhsCast.ElseBody;
   return false;
+}
+
+template <class T>
+std::unique_ptr<pinhao::FormulaBase> pinhao::IfFormula<T>::clone() {
+  auto Clone = new IfFormula<T>();
+  Clone->Condition = Condition->clone();
+  Clone->ThenBody = ThenBody->clone();
+  Clone->ElseBody = ElseBody->clone();
+  return std::unique_ptr<FormulaBase>(Clone);
 }
 
 #endif

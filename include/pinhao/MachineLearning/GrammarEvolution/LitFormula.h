@@ -39,6 +39,8 @@ namespace pinhao {
         bool operator==(const FormulaBase &Rhs) const  override;
         bool operator<(const FormulaBase &Rhs) const override;
 
+        std::unique_ptr<FormulaBase> clone() override;
+
     };
 
 }
@@ -94,6 +96,13 @@ bool pinhao::LitFormula<T>::operator<(const FormulaBase &Rhs) const {
     return static_cast<int>(this->getType()) < static_cast<int>(Rhs.getType());
   auto &RhsCast = static_cast<const Formula<T>&>(Rhs);
   return this->getValue() < RhsCast.getValue();
+}
+
+template <class T>
+std::unique_ptr<pinhao::FormulaBase> pinhao::LitFormula<T>::clone() {
+  auto Clone = new LitFormula<T>();
+  Clone->setValue(this->getValue());
+  return std::unique_ptr<FormulaBase>(Clone);
 }
 
 #endif

@@ -132,6 +132,9 @@ namespace pinhao {
       /// @a Formula.
       void print(std::ostream &Out = std::cout); 
 
+      /// @brief Clones (deep copy) the formula.
+      virtual std::unique_ptr<FormulaBase> clone() = 0; 
+
   };
 
   /**
