@@ -164,6 +164,26 @@ TEST(FormulaTest, GenerateSimplifyBoolFormula) {
   YAMLWrapper::print(*BoolFormula);
 }
 
+TEST(FormulaTest, CloneTest) {
+  FeatureSet::disableAll();
+  FeatureSet::enable("cfg_md_static");
+  auto Set = FeatureSet::get();
+  auto IntFormula = generateFormula(Set.get(), ValueType::Int);
+  simplifyFormula(IntFormula);
+  auto BoolFormula = generateFormula(Set.get(), ValueType::Bool);
+  simplifyFormula(BoolFormula);
+
+  auto IntClone = IntFormula->clone();
+  ASSERT_NE(IntClone.get(), nullptr);
+  ASSERT_NE(IntClone.get(), IntFormula.get());
+  ASSERT_TRUE(*IntClone == *IntFormula);
+
+  auto BoolClone = BoolFormula->clone();
+  ASSERT_NE(BoolClone.get(), nullptr);
+  ASSERT_NE(BoolClone.get(), BoolFormula.get());
+  ASSERT_TRUE(*BoolClone == *BoolFormula);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
