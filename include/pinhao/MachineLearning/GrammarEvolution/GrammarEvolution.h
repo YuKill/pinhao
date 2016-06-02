@@ -17,6 +17,14 @@
 
 namespace pinhao {
 
+  /**
+   * @brief It represents each decision the given compiler has to make.
+   * 
+   * @details
+   * For example, there may be an decision point with each optimization name, and
+   * with type @a ValueType::Bool. Which means that this is the point that decides
+   * whether the given optimization is to be used or not.
+   */
   struct DecisionPoint {
     std::string Name;
     ValueType Type;
@@ -30,6 +38,14 @@ namespace pinhao {
 
   };
 
+  /**
+   * @brief The base @a GrammarEvolution class.
+   * 
+   * @details
+   * It contains the basic information and implementations that a @a GrammarEvolution
+   * algorithm needs. As default, it starts when the @a run function is executed, and
+   * it ends with the execution of the @a stop function.
+   */
   template <class T>
     class GrammarEvolution {
       protected:
@@ -42,10 +58,21 @@ namespace pinhao {
         std::vector<DecisionPoint> DecisionPoints;
         SerialSet<T> KnowledgeBase;
 
+        /**
+         * @brief Adds some pre-defined decision points.
+         *
+         * @details
+         * This base class adds only decision points related to whether one optimization
+         * is going to be used or not.
+         */
         virtual void addPreDefinedDecisionPoints();
+        /// @brief Imports the knowledge base that is inside the file @a KnowledgeBaseFile.
         virtual void importKnowledgeBase();
+        /// @brief Exports the knowledge base to the file @a KnowledgeBaseFile.
         virtual void exportKnowledgeBase();
 
+        /// @brief Depends on the @a DecisionPoint's added. As it changes, the way to compile
+        /// the module also changes.
         virtual llvm::Module *compileWithCandidate(llvm::Module*, T&, FeatureSet*) = 0;
 
       public:
@@ -53,8 +80,10 @@ namespace pinhao {
         GrammarEvolution(std::shared_ptr<llvm::Module> /* Module */, std::string /* KBFilename */ = "config.yaml",
             double /* EvolveProb */ = 0.2, double /* MaxEvolutionRate */ = 0.3, double /* MutateProb */ = 0.3);
 
+        /// @brief By default, is the function that starts the execution of the algorithm.
         virtual void run(int /* CandidatesNumber */, int /* GenerationsNumber */, 
             std::shared_ptr<FeatureSet>) = 0;
+        /// @brief By default, is the function that ends the execution of the algorithm.
         virtual void stop() = 0;
 
     };
