@@ -113,7 +113,7 @@ namespace pinhao {
       virtual bool isIf() const;
 
       /// @brief Evolves this formula, based on the @a Evolution algorithm.
-      virtual void evolve(FeatureSet*, Evolution*) = 0;
+      virtual void evolve(Evolution*) = 0;
       /// @brief Simplifies the current formula.
       virtual FormulaBase *simplify() = 0;
       /// @brief Randomizes the generations of a @a Formula.

@@ -57,7 +57,7 @@ namespace pinhao {
 
         ValueType getOperandsType() const override; 
 
-        void evolve(FeatureSet*, Evolution*) override; 
+        void evolve(Evolution*) override; 
         FormulaBase *simplify() override; 
         void generate(FeatureSet *Set) override; 
         void solveFor(FeatureSet *Set) override;
@@ -108,7 +108,7 @@ pinhao::ValueType pinhao::BinOpFormulaBase<T, OpT>::getOperandsType() const {
 }
 
 template <class T, class OpT>
-void pinhao::BinOpFormulaBase<T, OpT>::evolve(FeatureSet *Set, Evolution *Ev) {
+void pinhao::BinOpFormulaBase<T, OpT>::evolve(Evolution *Ev) {
   Ev->evolve({&Lhs, &Rhs});
 }
 

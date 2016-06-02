@@ -82,6 +82,10 @@ add_executable(RunKnowledgeBaseTest
   KnowledgeBaseTest.cpp)
 add_test(KnowledgeBaseTest RunKnowledgeBaseTest)
 
+add_executable(RunSerialSetTest
+  SerialSetTest.cpp)
+add_test(SerialSetTest RunSerialSetTest)
+
 # -----------------------------------------= Linker =------------------------------------------
 
 pinhao_test_link (RunFeatureInfoTest)
@@ -111,3 +115,4 @@ pinhao_test_link (RunFormulaTest
 pinhao_test_link (RunFormulaYAMLWrapperTest
   CFGStaticFeatures)
 pinhao_test_link (RunKnowledgeBaseTest)
+pinhao_test_link (RunSerialSetTest)
