@@ -40,7 +40,7 @@ namespace pinhao {
   template <class T> class LitFormula;
   template <class T> class FeatureFormula;
 
-  template <class T, class U> class KnowledgeBase;
+  template <class T, class U> class SerialSet;
 
   /**
    * @brief This class is a wrapper class for the yaml-cpp library.
@@ -114,7 +114,7 @@ namespace pinhao {
         static void fill(FeatureFormula<T> &Value, ConstNode &Node);
 
       template <class T, class U> 
-        static void fill(KnowledgeBase<T, U> &Value, ConstNode &Node);
+        static void fill(SerialSet<T, U> &Value, ConstNode &Node);
 
       // append overloads.
       template <class T> 
@@ -138,7 +138,7 @@ namespace pinhao {
         static void append(const FeatureFormula<T> &Value, Emitter &E);
 
       template <class T, class U> 
-        static void append(const KnowledgeBase<T, U> &Value, Emitter &E);
+        static void append(const SerialSet<T, U> &Value, Emitter &E);
   };
 
   template<> std::unique_ptr<FormulaBase> YAMLWrapper::get<FormulaBase>(ConstNode&);
