@@ -98,6 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="FeatureSet_8h_source.html">pinhao/Features/FeatureSet.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Random_8h_source.html">pinhao/Support/Random.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Types_8h_source.html">pinhao/Support/Types.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Evolution_8h_source.html">pinhao/MachineLearning/GrammarEvolution/Evolution.h</a>&quot;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -109,7 +110,7 @@ Include dependency graph for Formula.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="Formula_8h__dep__incl.svg" width="482" height="319"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="Formula_8h__dep__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div>
@@ -123,24 +124,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html">pinhao::Formula&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base template class for the <em>Formulas</em>.  <a href="classpinhao_1_1Formula.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1BinOpFormulaBase.html">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary operations.  <a href="classpinhao_1_1BinOpFormulaBase.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html">pinhao::ArithmeticBinOpFormula&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents all arithmetics operations (supported). Only numerical operands type permitted.  <a href="classpinhao_1_1ArithmeticBinOpFormula.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1BooleanBinOpFormula.html">pinhao::BooleanBinOpFormula&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents all logical operations (supported).  <a href="classpinhao_1_1BooleanBinOpFormula.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1IfFormula.html">pinhao::IfFormula&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <em>If</em> <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="classpinhao_1_1IfFormula.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds literal of the types.  <a href="classpinhao_1_1LitFormula.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureFormula.html">pinhao::FeatureFormula&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds a pair of <em>std::strings</em>. The first represents the feature, and the second represents the sub-feature (if there is one).  <a href="classpinhao_1_1FeatureFormula.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -151,8 +134,8 @@ Namespaces</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:ae6d7fb2e10401ce56ac2f60e552d044f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">pinhao::FormulaKind</a> { <br />
 &#160;&#160;<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::FormulaKind::Literal</a> = 0, 
-<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044faf11f09cf283666a20d228e7d6b9671c0">pinhao::FormulaKind::BooleanBinOp</a>, 
-<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa5ca89d3097dd6873dbbdfead5235f001">pinhao::FormulaKind::ArithmeticBinOp</a>, 
+<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fabcb1087b2145f98826ff4dce8b98aedd">pinhao::FormulaKind::BoolBinOp</a>, 
+<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa3bc5f2fd468867d2b160393fae7966fe">pinhao::FormulaKind::ArithBinOp</a>, 
 <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa786887572f6ef1c20f2d8177cb2f1639">pinhao::FormulaKind::If</a>, 
 <br />
 &#160;&#160;<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa21021ea0e52be8e9c599f4dff41e5be0">pinhao::FormulaKind::Feature</a>
@@ -166,13 +149,15 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a2cdf52a55876063ec93b7d18bc741f6c">pinhao::OperatorKind::MUL</a>, 
 <a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a29bbf66f7f8529ec47e394fb5a36c646">pinhao::OperatorKind::DIV</a>, 
 <br />
+&#160;&#160;<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7ac562607189d77eb9dfb707464c1e7b0b">pinhao::OperatorKind::LT</a>, 
+<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7acd6a9bd2a175104eed40f0d33a8b4020">pinhao::OperatorKind::GT</a>, 
+<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a2a8fef531add4d7bc6e1a7dcc0f208ec">pinhao::OperatorKind::LEQ</a>, 
+<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7af3a19508545196b65d938817de495891">pinhao::OperatorKind::GEQ</a>, 
+<br />
 &#160;&#160;<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a2dcbad7477fd40561e8b8198f173bd47">pinhao::OperatorKind::EQ</a>, 
 <a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a375b332cf2e0c6d522baf007ef7cb554">pinhao::OperatorKind::NEQ</a>, 
-<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7ac562607189d77eb9dfb707464c1e7b0b">pinhao::OperatorKind::LT</a>, 
-<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7acd6a9bd2a175104eed40f0d33a8b4020">pinhao::OperatorKind::GT</a>, 
-<br />
-&#160;&#160;<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a2a8fef531add4d7bc6e1a7dcc0f208ec">pinhao::OperatorKind::LEQ</a>, 
-<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7af3a19508545196b65d938817de495891">pinhao::OperatorKind::GEQ</a>
+<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a558ffc8f5770d8e4f95f51d822685532">pinhao::OperatorKind::AND</a>, 
+<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7a1d00e7dce692e8dc3f6877f035e3a616">pinhao::OperatorKind::OR</a>
 <br />
  }<tr class="memdesc:a436a52657fb7e88a286e985c48266ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of the kinds of operators available.  <a href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7">More...</a><br /></td></tr>
 </td></tr>
@@ -180,9 +165,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ada053602b9a631040db4372a58200b97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#ada053602b9a631040db4372a58200b97">pinhao::getFormulaKindWeight</a> (<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>)</td></tr>
-<tr class="memdesc:ada053602b9a631040db4372a58200b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the corresponding weight for the <em>FormulaKind</em>.  <a href="namespacepinhao.html#ada053602b9a631040db4372a58200b97">More...</a><br /></td></tr>
-<tr class="separator:ada053602b9a631040db4372a58200b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b955f40be59f186acdf9f26666193ab"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a4b955f40be59f186acdf9f26666193ab">pinhao::getFormulaKindWeight</a> (<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>)</td></tr>
+<tr class="memdesc:a4b955f40be59f186acdf9f26666193ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the corresponding weight for the <em>FormulaKind</em>.  <a href="namespacepinhao.html#a4b955f40be59f186acdf9f26666193ab">More...</a><br /></td></tr>
+<tr class="separator:a4b955f40be59f186acdf9f26666193ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0bb4b0e76a1ca68e37084dfc057b472"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#ae0bb4b0e76a1ca68e37084dfc057b472">pinhao::getFormulaKind</a> (std::string)</td></tr>
 <tr class="memdesc:ae0bb4b0e76a1ca68e37084dfc057b472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the corresponding <em>FormulaKind</em> for the <em>std::string</em>.  <a href="namespacepinhao.html#ae0bb4b0e76a1ca68e37084dfc057b472">More...</a><br /></td></tr>
 <tr class="separator:ae0bb4b0e76a1ca68e37084dfc057b472"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,17 +180,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a23d4c0b4e9ce7124de55b3efe7c43a8c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a23d4c0b4e9ce7124de55b3efe7c43a8c">pinhao::getOperatorKindString</a> (<a class="el" href="namespacepinhao.html#a436a52657fb7e88a286e985c48266ac7">OperatorKind</a>)</td></tr>
 <tr class="memdesc:a23d4c0b4e9ce7124de55b3efe7c43a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the corresponding <em>std::string</em> for the <em>OperatorKind</em>.  <a href="namespacepinhao.html#a23d4c0b4e9ce7124de55b3efe7c43a8c">More...</a><br /></td></tr>
 <tr class="separator:a23d4c0b4e9ce7124de55b3efe7c43a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1172710070a36c5f9010cb130163b895"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a1172710070a36c5f9010cb130163b895">pinhao::generateFormula</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
-<tr class="separator:a1172710070a36c5f9010cb130163b895"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab60726fac4a4e9a2829cc7491d16de80"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#ab60726fac4a4e9a2829cc7491d16de80">pinhao::createLitFormula</a> (<a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
 <tr class="memdesc:ab60726fac4a4e9a2829cc7491d16de80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1LitFormula.html" title="Holds literal of the types. ">LitFormula</a></em> of type <em>Type</em>.  <a href="namespacepinhao.html#ab60726fac4a4e9a2829cc7491d16de80">More...</a><br /></td></tr>
 <tr class="separator:ab60726fac4a4e9a2829cc7491d16de80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c109744f54676f95d67d7a4e2c52148"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a7c109744f54676f95d67d7a4e2c52148">pinhao::createArithmeticBinOpFormula</a> (<a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
-<tr class="memdesc:a7c109744f54676f95d67d7a4e2c52148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html" title="Represents all arithmetics operations (supported). Only numerical operands type permitted. ">ArithmeticBinOpFormula</a></em> whose result is of type <em>Type</em>.  <a href="namespacepinhao.html#a7c109744f54676f95d67d7a4e2c52148">More...</a><br /></td></tr>
-<tr class="separator:a7c109744f54676f95d67d7a4e2c52148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44fe5e7c7df31f3b91f6a6a71d566646"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a44fe5e7c7df31f3b91f6a6a71d566646">pinhao::createBooleanBinOpFormula</a> (<a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
-<tr class="memdesc:a44fe5e7c7df31f3b91f6a6a71d566646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1BooleanBinOpFormula.html" title="Represents all logical operations (supported). ">BooleanBinOpFormula</a></em> whose operands are of type <em>Type</em>.  <a href="namespacepinhao.html#a44fe5e7c7df31f3b91f6a6a71d566646">More...</a><br /></td></tr>
-<tr class="separator:a44fe5e7c7df31f3b91f6a6a71d566646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54c7f5d91f4ec87ca5e4172325af88f"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#ab54c7f5d91f4ec87ca5e4172325af88f">pinhao::createArithBinOpFormula</a> (<a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
+<tr class="memdesc:ab54c7f5d91f4ec87ca5e4172325af88f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em>ArithmeticBinOpFormula</em> whose result is of type <em>Type</em>.  <a href="namespacepinhao.html#ab54c7f5d91f4ec87ca5e4172325af88f">More...</a><br /></td></tr>
+<tr class="separator:ab54c7f5d91f4ec87ca5e4172325af88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d5bc293b497b1aa67c1f7e29059c28"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a36d5bc293b497b1aa67c1f7e29059c28">pinhao::createBoolBinOpFormula</a> (<a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
+<tr class="memdesc:a36d5bc293b497b1aa67c1f7e29059c28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em>BooleanBinOpFormula</em> whose operands are of type <em>Type</em>.  <a href="namespacepinhao.html#a36d5bc293b497b1aa67c1f7e29059c28">More...</a><br /></td></tr>
+<tr class="separator:a36d5bc293b497b1aa67c1f7e29059c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2546dfb481c06811e117cbcbb8f49500"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a2546dfb481c06811e117cbcbb8f49500">pinhao::createIfFormula</a> (<a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
 <tr class="memdesc:a2546dfb481c06811e117cbcbb8f49500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1IfFormula.html" title="The If Formula. ">IfFormula</a></em> whose result is of type <em>Type</em>.  <a href="namespacepinhao.html#a2546dfb481c06811e117cbcbb8f49500">More...</a><br /></td></tr>
 <tr class="separator:a2546dfb481c06811e117cbcbb8f49500"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,8 +196,17 @@ Functions</h2></td></tr>
 <tr class="memdesc:aff3f5a9bcb5054c91db82bbf288ba1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1FeatureFormula.html" title="Holds a pair of std::strings. The first represents the feature, and the second represents the sub-fea...">FeatureFormula</a></em> whose value is of type <em>Type</em>.  <a href="namespacepinhao.html#aff3f5a9bcb5054c91db82bbf288ba1c9">More...</a><br /></td></tr>
 <tr class="separator:aff3f5a9bcb5054c91db82bbf288ba1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ffd8d2bd6ec7a3d52fc7314718e658a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a6ffd8d2bd6ec7a3d52fc7314718e658a">pinhao::createFormula</a> (<a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>=ValueType::Int)</td></tr>
-<tr class="memdesc:a6ffd8d2bd6ec7a3d52fc7314718e658a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> of a kind. For the <em><a class="el" href="classpinhao_1_1BooleanBinOpFormula.html" title="Represents all logical operations (supported). ">BooleanBinOpFormula</a></em>, the operands type must be specified.  <a href="namespacepinhao.html#a6ffd8d2bd6ec7a3d52fc7314718e658a">More...</a><br /></td></tr>
+<tr class="memdesc:a6ffd8d2bd6ec7a3d52fc7314718e658a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> of a kind. For the <em>BooleanBinOpFormula</em>, the operands type must be specified.  <a href="namespacepinhao.html#a6ffd8d2bd6ec7a3d52fc7314718e658a">More...</a><br /></td></tr>
 <tr class="separator:a6ffd8d2bd6ec7a3d52fc7314718e658a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c49d2e136508bf657253c875a21e48a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a6c49d2e136508bf657253c875a21e48a">pinhao::generateFormula</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
+<tr class="separator:a6c49d2e136508bf657253c875a21e48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd2c287f50a80c98e3945e4b5bd97438"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:acd2c287f50a80c98e3945e4b5bd97438"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#acd2c287f50a80c98e3945e4b5bd97438">pinhao::getFormulaValue</a> (const FormulaBase *)</td></tr>
+<tr class="separator:acd2c287f50a80c98e3945e4b5bd97438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1b226719e04ff4e3dcf55080dfa6e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#a4e1b226719e04ff4e3dcf55080dfa6e1">pinhao::simplifyFormula</a> (<a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> *&amp;)</td></tr>
+<tr class="separator:a4e1b226719e04ff4e3dcf55080dfa6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adebf8d76533d29d7df54391f5c61eac7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#adebf8d76533d29d7df54391f5c61eac7">pinhao::simplifyFormula</a> (std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt; &amp;)</td></tr>
+<tr class="separator:adebf8d76533d29d7df54391f5c61eac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

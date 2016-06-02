@@ -88,7 +88,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">JITExecutor.h File Reference</div>  </div>
 </div><!--header-->
@@ -96,20 +97,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This file defines a class that executes a module.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;llvm/ExecutionEngine/MCJIT.h&quot;</code><br />
-<code>#include &quot;llvm/Transforms/Utils/Cloning.h&quot;</code><br />
-<code>#include &quot;llvm/Support/TargetSelect.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="InitializationRoutines_8h_source.html">pinhao/InitializationRoutines.h</a>&quot;</code><br />
+<code>#include &quot;llvm/ExecutionEngine/MCJIT.h&quot;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for JITExecutor.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="JITExecutor_8h__incl.svg" width="622" height="171"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="JITExecutor_8h__incl.svg" width="462" height="246"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="JITExecutor_8h__dep__incl.svg" width="440" height="319"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="JITExecutor_8h__dep__incl.svg" width="100%" height="539"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div>
@@ -125,6 +125,12 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacepinhao"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html">pinhao</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:af68d2cbbdca45a2c430bd7f20fc6f6d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepinhao.html#af68d2cbbdca45a2c430bd7f20fc6f6d9">pinhao::initializeJITExecutor</a> ()</td></tr>
+<tr class="memdesc:af68d2cbbdca45a2c430bd7f20fc6f6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the llvm initialization procedures that the <em><a class="el" href="classpinhao_1_1JITExecutor.html" title="Runs a given module at runtime. ">JITExecutor</a></em> depends on.  <a href="namespacepinhao.html#af68d2cbbdca45a2c430bd7f20fc6f6d9">More...</a><br /></td></tr>
+<tr class="separator:af68d2cbbdca45a2c430bd7f20fc6f6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file defines a class that executes a module. </p>

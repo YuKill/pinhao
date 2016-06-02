@@ -1,22 +1,12 @@
 var searchData=
 [
-  ['feature_2ecpp',['Feature.cpp',['../Feature_8cpp.html',1,'']]],
-  ['feature_2eh',['Feature.h',['../Feature_8h.html',1,'']]],
-  ['featureinfo_2ecpp',['FeatureInfo.cpp',['../FeatureInfo_8cpp.html',1,'']]],
-  ['featureinfo_2eh',['FeatureInfo.h',['../FeatureInfo_8h.html',1,'']]],
-  ['featureregistry_2ecpp',['FeatureRegistry.cpp',['../FeatureRegistry_8cpp.html',1,'']]],
-  ['featureregistry_2eh',['FeatureRegistry.h',['../FeatureRegistry_8h.html',1,'']]],
-  ['features_2ecpp',['Features.cpp',['../Features_8cpp.html',1,'']]],
-  ['features_2eh',['Features.h',['../Features_8h.html',1,'']]],
-  ['featureset_2ecpp',['FeatureSet.cpp',['../FeatureSet_8cpp.html',1,'']]],
-  ['featureset_2eh',['FeatureSet.h',['../FeatureSet_8h.html',1,'']]],
-  ['featureyamlwrapper_2ecpp',['FeatureYAMLWrapper.cpp',['../FeatureYAMLWrapper_8cpp.html',1,'']]],
-  ['featureyamlwrapper_2eh',['FeatureYAMLWrapper.h',['../FeatureYAMLWrapper_8h.html',1,'']]],
-  ['formula_2ecpp',['Formula.cpp',['../Formula_8cpp.html',1,'']]],
-  ['formula_2eh',['Formula.h',['../Formula_8h.html',1,'']]],
-  ['formulayamlwrapper_2ecpp',['FormulaYAMLWrapper.cpp',['../FormulaYAMLWrapper_8cpp.html',1,'']]],
-  ['formulayamlwrapper_2eh',['FormulaYAMLWrapper.h',['../FormulaYAMLWrapper_8h.html',1,'']]],
-  ['functionsgenefeature_2ecpp',['FunctionsGeneFeature.cpp',['../FunctionsGeneFeature_8cpp.html',1,'']]],
-  ['functionsgenefeaturepass_2ecpp',['FunctionsGeneFeaturePass.cpp',['../FunctionsGeneFeaturePass_8cpp.html',1,'']]],
-  ['functionstaticcostfeature_2ecpp',['FunctionStaticCostFeature.cpp',['../FunctionStaticCostFeature_8cpp.html',1,'']]]
+  ['candidate_2ecpp',['Candidate.cpp',['../Candidate_8cpp.html',1,'']]],
+  ['candidate_2eh',['Candidate.h',['../Candidate_8h.html',1,'']]],
+  ['candidateyamlwrapper_2ecpp',['CandidateYAMLWrapper.cpp',['../CandidateYAMLWrapper_8cpp.html',1,'']]],
+  ['cfgbasicblockstaticfeatures_2ecpp',['CFGBasicBlockStaticFeatures.cpp',['../CFGBasicBlockStaticFeatures_8cpp.html',1,'']]],
+  ['cfgfunctionstaticfeatures_2ecpp',['CFGFunctionStaticFeatures.cpp',['../CFGFunctionStaticFeatures_8cpp.html',1,'']]],
+  ['cfgmodulestaticfeatures_2ecpp',['CFGModuleStaticFeatures.cpp',['../CFGModuleStaticFeatures_8cpp.html',1,'']]],
+  ['cfgstaticfeaturesdiffpass_2ecpp',['CFGStaticFeaturesDiffPass.cpp',['../CFGStaticFeaturesDiffPass_8cpp.html',1,'']]],
+  ['cfgstaticfeaturesgenpass_2ecpp',['CFGStaticFeaturesGenPass.cpp',['../CFGStaticFeaturesGenPass_8cpp.html',1,'']]],
+  ['cfgstaticfeaturespass_2ecpp',['CFGStaticFeaturesPass.cpp',['../CFGStaticFeaturesPass_8cpp.html',1,'']]]
 ];

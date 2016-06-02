@@ -1,14 +1,15 @@
 <map id="/home/yukiosir/workspace/CompilerProject/Software/pinhao/lib/FeaturesImpl/CFGModuleStaticFeatures.cpp" name="/home/yukiosir/workspace/CompilerProject/Software/pinhao/lib/FeaturesImpl/CFGModuleStaticFeatures.cpp">
-<area shape="rect" id="node2" href="$FeatureRegistry_8h.html" title="This file defines a class that has all the registered features. " alt="" coords="5,587,228,613"/>
-<area shape="rect" id="node6" href="$MapVectorFeature_8h.html" title="pinhao/Features/MapVector\lFeature.h" alt="" coords="440,124,623,165"/>
-<area shape="rect" id="node20" href="$VectorFeature_8h.html" title="pinhao/Features/VectorFeature.h" alt="" coords="265,288,477,315"/>
-<area shape="rect" id="node7" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="294,437,475,464"/>
-<area shape="rect" id="node16" href="$FeatureYAMLWrapper_8h.html" title="pinhao/Support/FeatureYAMLWrapper.h" alt="" coords="427,213,681,240"/>
-<area shape="rect" id="node22" href="$Iterator_8h.html" title="pinhao/Support/Iterator.h" alt="" coords="505,363,670,389"/>
-<area shape="rect" id="node8" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="299,512,473,539"/>
-<area shape="rect" id="node9" href="$FeatureInfo_8h.html" title="This file defines a class that holds some informations about a feature. " alt="" coords="551,587,747,613"/>
-<area shape="rect" id="node10" href="$Types_8h.html" title="pinhao/Support/Types.h" alt="" coords="569,661,729,688"/>
-<area shape="rect" id="node17" href="$YAMLWrapper_8h.html" title="pinhao/Support/YAMLWrapper.h" alt="" coords="844,512,1053,539"/>
-<area shape="rect" id="node19" href="$YamlOptions_8h.html" title="pinhao/Support/YamlOptions.h" alt="" coords="703,363,901,389"/>
-<area shape="rect" id="node21" href="$MapFeature_8h.html" title="pinhao/Features/MapFeature.h" alt="" coords="501,288,700,315"/>
+<area shape="rect" id="node2" href="$FeatureRegistry_8h.html" title="This file defines a class that has all the registered features. " alt="" coords="93,587,315,613"/>
+<area shape="rect" id="node6" href="$MapVectorFeature_8h.html" title="pinhao/Features/MapVector\lFeature.h" alt="" coords="438,124,621,165"/>
+<area shape="rect" id="node20" href="$VectorFeature_8h.html" title="pinhao/Features/VectorFeature.h" alt="" coords="194,288,406,315"/>
+<area shape="rect" id="node24" href="$InitializationRoutines_8h.html" title="pinhao/InitializationRoutines.h" alt="" coords="975,213,1171,240"/>
+<area shape="rect" id="node7" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="439,437,620,464"/>
+<area shape="rect" id="node16" href="$FeatureYAMLWrapper_8h.html" title="pinhao/Support/FeatureYAMLWrapper.h" alt="" coords="403,213,656,240"/>
+<area shape="rect" id="node22" href="$Iterator_8h.html" title="pinhao/Support/Iterator.h" alt="" coords="125,363,291,389"/>
+<area shape="rect" id="node8" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="443,512,618,539"/>
+<area shape="rect" id="node9" href="$FeatureInfo_8h.html" title="This file defines a class that holds some informations about a feature. " alt="" coords="441,587,637,613"/>
+<area shape="rect" id="node10" href="$Types_8h.html" title="pinhao/Support/Types.h" alt="" coords="533,661,693,688"/>
+<area shape="rect" id="node17" href="$YAMLWrapper_8h.html" title="pinhao/Support/YAMLWrapper.h" alt="" coords="655,512,865,539"/>
+<area shape="rect" id="node19" href="$YamlOptions_8h.html" title="pinhao/Support/YamlOptions.h" alt="" coords="702,363,901,389"/>
+<area shape="rect" id="node21" href="$MapFeature_8h.html" title="pinhao/Features/MapFeature.h" alt="" coords="430,288,629,315"/>
 </map>

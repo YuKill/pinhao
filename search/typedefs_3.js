@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iterator',['iterator',['../classpinhao_1_1Feature.html#a3100998a45eb6c850dc324ec0465a02d',1,'pinhao::Feature::iterator()'],['../classpinhao_1_1MapFeature.html#a2cd60d3af633cc11ed530198a7ce2939',1,'pinhao::MapFeature::iterator()'],['../classpinhao_1_1MapVectorFeature.html#a180aa08be53982de547c282390265cb2',1,'pinhao::MapVectorFeature::iterator()']]]
+  ['featuresmap',['FeaturesMap',['../classpinhao_1_1FeatureRegistry.html#a5055ba189e15c7d9d90662a0c8e4fb3e',1,'pinhao::FeatureRegistry::FeaturesMap()'],['../FeatureRegistry_8cpp.html#a6b7c14ab51f4c0d2dfef5697d845e105',1,'FeaturesMap():&#160;FeatureRegistry.cpp']]]
 ];

@@ -141,6 +141,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a440bcf46e37af94ba4670c581ae68793"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpinhao_1_1FeatureSet_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureSet.html#a440bcf46e37af94ba4670c581ae68793">get</a> (uint64_t, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>)</td></tr>
 <tr class="memdesc:a440bcf46e37af94ba4670c581ae68793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an <em>iterator</em> to the <em>Nth</em> feature with type <em>FType</em>.  <a href="#a440bcf46e37af94ba4670c581ae68793">More...</a><br /></td></tr>
 <tr class="separator:a440bcf46e37af94ba4670c581ae68793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee000e31fddef04bc0e96f1abd932ed5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureSet.html#aee000e31fddef04bc0e96f1abd932ed5">getFeatureType</a> (std::string)</td></tr>
+<tr class="memdesc:aee000e31fddef04bc0e96f1abd932ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <em>ValueType</em> of some feature.  <a href="#aee000e31fddef04bc0e96f1abd932ed5">More...</a><br /></td></tr>
+<tr class="separator:aee000e31fddef04bc0e96f1abd932ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219e2a2dda7f7cea81d252bbd28e1a3d"><td class="memTemplParams" colspan="2">template&lt;class FeatureType &gt; </td></tr>
 <tr class="memitem:a219e2a2dda7f7cea81d252bbd28e1a3d"><td class="memTemplItemLeft" align="right" valign="top">FeatureType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureSet.html#a219e2a2dda7f7cea81d252bbd28e1a3d">getFeature</a> (std::string FeatureName, std::string SubfeatureName)</td></tr>
 <tr class="memdesc:a219e2a2dda7f7cea81d252bbd28e1a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a feature or sub-feature which has type <em>FeatureType</em>.  <a href="#a219e2a2dda7f7cea81d252bbd28e1a3d">More...</a><br /></td></tr>
@@ -262,7 +265,7 @@ Friends</h2></td></tr>
 
 <p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00113">113</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
-<p>References <a class="el" href="FeatureSet_8cpp_source.html#l00096">count()</a>.</p>
+<p>References <a class="el" href="FeatureSet_8cpp_source.html#l00091">count()</a>, and <a class="el" href="FeatureSet_8cpp_source.html#l00138">getFeatureType()</a>.</p>
 
 </div>
 </div>
@@ -298,7 +301,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00185">185</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00188">188</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
 <p>References <a class="el" href="FeatureSet_8h_source.html#l00084">pinhao::FeatureSet::iterator::FeatureName</a>, and <a class="el" href="FeatureSet_8h_source.html#l00091">pinhao::FeatureSet::iterator::iterator()</a>.</p>
 
@@ -319,7 +322,7 @@ Friends</h2></td></tr>
 
 <p>Returns the number of features (and subfeatures). </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00096">96</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00091">91</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -349,9 +352,7 @@ Friends</h2></td></tr>
 
 <p>Returns the number of features with kind <em>FKind</em>, and type <em>FType</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00086">86</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
-
-<p>References <a class="el" href="Feature_8cpp_source.html#l00048">pinhao::Feature::getKind()</a>, and <a class="el" href="Feature_8cpp_source.html#l00029">pinhao::Feature::getType()</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00081">81</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -371,9 +372,7 @@ Friends</h2></td></tr>
 
 <p>Returns the number of features with kind <em>FKind</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00066">66</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
-
-<p>References <a class="el" href="Feature_8cpp_source.html#l00048">pinhao::Feature::getKind()</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00061">61</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -393,9 +392,7 @@ Friends</h2></td></tr>
 
 <p>Returns the number of features with type <em>FType</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00076">76</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
-
-<p>References <a class="el" href="Feature_8cpp_source.html#l00029">pinhao::Feature::getType()</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00071">71</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -423,8 +420,6 @@ Friends</h2></td></tr>
 <p>Disables all enabled features. </p>
 
 <p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00053">53</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
-
-<p>References <a class="el" href="Feature_8cpp_source.html#l00043">pinhao::Feature::getNumberOfSubFeatures()</a>, and <a class="el" href="Feature_8cpp_source.html#l00052">pinhao::Feature::isComposite()</a>.</p>
 
 </div>
 </div>
@@ -518,7 +513,7 @@ Friends</h2></td></tr>
 
 <p>Gets a iterator to the end of the features list. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00190">190</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00193">193</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
 <p>References <a class="el" href="FeatureSet_8h_source.html#l00084">pinhao::FeatureSet::iterator::FeatureName</a>, and <a class="el" href="FeatureSet_8h_source.html#l00091">pinhao::FeatureSet::iterator::iterator()</a>.</p>
 
@@ -549,7 +544,7 @@ Friends</h2></td></tr>
 
 <p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00020">20</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
-<p>References <a class="el" href="FeatureSet_8h_source.html#l00031">Features</a>, and <a class="el" href="FeatureRegistry_8cpp_source.html#l00023">pinhao::FeatureRegistry::get()</a>.</p>
+<p>References <a class="el" href="FeatureSet_8h_source.html#l00031">Features</a>, and <a class="el" href="FeatureRegistry_8cpp_source.html#l00030">pinhao::FeatureRegistry::get()</a>.</p>
 
 </div>
 </div>
@@ -569,7 +564,7 @@ Friends</h2></td></tr>
 
 <p>Gets an <em>iterator</em> to the <em>Nth</em> feature. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00135">135</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00130">130</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -605,7 +600,7 @@ Friends</h2></td></tr>
 
 <p>Gets an <em>iterator</em> to the <em>Nth</em> feature with kind <em>FKind</em>, and type <em>FType</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00124">124</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00119">119</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 <p>References <a class="el" href="Feature_8cpp_source.html#l00048">pinhao::Feature::getKind()</a>, and <a class="el" href="Feature_8cpp_source.html#l00029">pinhao::Feature::getType()</a>.</p>
 
@@ -637,7 +632,7 @@ Friends</h2></td></tr>
 
 <p>Gets an <em>iterator</em> to the <em>Nth</em> feature with kind <em>FKind</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00104">104</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00099">99</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 <p>References <a class="el" href="Feature_8cpp_source.html#l00048">pinhao::Feature::getKind()</a>.</p>
 
@@ -669,7 +664,7 @@ Friends</h2></td></tr>
 
 <p>Gets an <em>iterator</em> to the <em>Nth</em> feature with type <em>FType</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00114">114</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00109">109</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 <p>References <a class="el" href="Feature_8cpp_source.html#l00029">pinhao::Feature::getType()</a>.</p>
 
@@ -699,7 +694,7 @@ Friends</h2></td></tr>
 
 <p>Returns a pointer to a feature, based on the <em>Iterator</em>. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00062">62</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00057">57</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 <p>References <a class="el" href="classpinhao_1_1Feature.html#a9bd883b382d224a80eeeb94fc14571db">pinhao::Feature::get()</a>.</p>
 
@@ -750,7 +745,7 @@ template&lt;class FeatureType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value of the feature/sub-feature desired. </dd></dl>
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00146">146</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00149">149</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
 <p>References <a class="el" href="FeatureSet_8h_source.html#l00084">pinhao::FeatureSet::iterator::FeatureName</a>, and <a class="el" href="classpinhao_1_1LinearFeature.html#abdc9012aa0cfec67938c646754dbb7f4">pinhao::LinearFeature&lt; ValueType &gt;::getValueOf()</a>.</p>
 
@@ -780,7 +775,27 @@ template&lt;class FeatureType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00167">167</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00170">170</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aee000e31fddef04bc0e96f1abd932ed5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a> FeatureSet::getFeatureType </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>FeatureName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the <em>ValueType</em> of some feature. </p>
+
+<p>Definition at line <a class="el" href="FeatureSet_8cpp_source.html#l00138">138</a> of file <a class="el" href="FeatureSet_8cpp_source.html">FeatureSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -826,7 +841,7 @@ template&lt;class FeatureType , class KeyType &gt; </div>
 
 <p>Has the same functionality as the <em>getFeature</em> method, but it should be provided a key. </p>
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00157">157</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00160">160</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
 <p>References <a class="el" href="FeatureSet_8h_source.html#l00084">pinhao::FeatureSet::iterator::FeatureName</a>, and <a class="el" href="classpinhao_1_1MappedFeature.html#a5ebb17f4d39fc5084b328dba0424f43c">pinhao::MappedFeature&lt; KeyType, ValueType &gt;::getValueOfKey()</a>.</p>
 
@@ -866,7 +881,7 @@ template&lt;class FeatureType , class KeyType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00172">172</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00175">175</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
 </div>
 </div>
@@ -953,7 +968,7 @@ template&lt;class FeatureType , class KeyType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00192">192</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
+<p>Definition at line <a class="el" href="FeatureSet_8h_source.html#l00195">195</a> of file <a class="el" href="FeatureSet_8h_source.html">FeatureSet.h</a>.</p>
 
 </div>
 </div>

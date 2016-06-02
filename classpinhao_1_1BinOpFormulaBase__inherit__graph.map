@@ -1,8 +1,10 @@
 <map id="pinhao::BinOpFormulaBase&lt; T, OpT &gt;" name="pinhao::BinOpFormulaBase&lt; T, OpT &gt;">
-<area shape="rect" id="node4" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, T \&gt;" alt="" coords="50,261,231,303"/>
-<area shape="rect" id="node6" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; T, T \&gt;" alt="" coords="281,261,462,303"/>
-<area shape="rect" id="node2" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="157,81,303,108"/>
-<area shape="rect" id="node3" href="$classpinhao_1_1FormulaBase.html" title="The base class for all Formula types. A Formula is a statement which when evaluated for a FeatureSet..." alt="" coords="157,5,303,32"/>
-<area shape="rect" id="node5" href="$classpinhao_1_1BooleanBinOpFormula.html" title="Represents all logical operations (supported). " alt="" coords="5,352,236,379"/>
-<area shape="rect" id="node7" href="$classpinhao_1_1ArithmeticBinOpFormula.html" title="Represents all arithmetics operations (supported). Only numerical operands type permitted. " alt="" coords="261,352,503,379"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, T \&gt;" alt="" coords="711,5,892,47"/>
+<area shape="rect" id="node6" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; T, T \&gt;" alt="" coords="711,71,892,112"/>
+<area shape="rect" id="node8" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, bool \&gt;" alt="" coords="711,136,892,177"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="200,78,347,105"/>
+<area shape="rect" id="node3" href="$classpinhao_1_1FormulaBase.html" title="The base class for all Formula types. A Formula is a statement which when evaluated for a FeatureSet..." alt="" coords="5,78,151,105"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1BoolBinOpFormula.html" title="Represents all logical operations (supported). " alt="" coords="942,13,1151,39"/>
+<area shape="rect" id="node7" href="$classpinhao_1_1ArithBinOpFormula.html" title="Represents all arithmetics operations (supported). Only numerical operands type permitted. " alt="" coords="941,78,1152,105"/>
+<area shape="rect" id="node9" href="$classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html" title="The operations that can only be applied to two Boolean operands. " alt="" coords="958,136,1135,177"/>
 </map>

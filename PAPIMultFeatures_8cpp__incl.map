@@ -1,15 +1,16 @@
 <map id="/home/yukiosir/workspace/CompilerProject/Software/pinhao/lib/FeaturesImpl/PAPIMultFeatures.cpp" name="/home/yukiosir/workspace/CompilerProject/Software/pinhao/lib/FeaturesImpl/PAPIMultFeatures.cpp">
-<area shape="rect" id="node2" href="$VectorFeature_8h.html" title="pinhao/Features/VectorFeature.h" alt="" coords="498,124,710,151"/>
-<area shape="rect" id="node24" href="$JITExecutor_8h.html" title="This file defines a class that executes a module. " alt="" coords="1132,124,1327,151"/>
-<area shape="rect" id="node3" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="511,452,692,479"/>
-<area shape="rect" id="node16" href="$FeatureYAMLWrapper_8h.html" title="pinhao/Support/FeatureYAMLWrapper.h" alt="" coords="351,206,604,233"/>
-<area shape="rect" id="node4" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="463,527,638,553"/>
-<area shape="rect" id="node5" href="$FeatureInfo_8h.html" title="This file defines a class that holds some informations about a feature. " alt="" coords="883,601,1079,628"/>
-<area shape="rect" id="node11" href="$FeatureRegistry_8h.html" title="This file defines a class that has all the registered features. " alt="" coords="389,601,611,628"/>
-<area shape="rect" id="node6" href="$Types_8h.html" title="pinhao/Support/Types.h" alt="" coords="801,676,961,703"/>
-<area shape="rect" id="node17" href="$YAMLWrapper_8h.html" title="pinhao/Support/YAMLWrapper.h" alt="" coords="43,527,253,553"/>
-<area shape="rect" id="node19" href="$YamlOptions_8h.html" title="pinhao/Support/YamlOptions.h" alt="" coords="190,377,389,404"/>
-<area shape="rect" id="node20" href="$MapFeature_8h.html" title="pinhao/Features/MapFeature.h" alt="" coords="287,295,486,322"/>
-<area shape="rect" id="node23" href="$MapVectorFeature_8h.html" title="pinhao/Features/MapVector\lFeature.h" alt="" coords="510,288,693,329"/>
-<area shape="rect" id="node21" href="$Iterator_8h.html" title="pinhao/Support/Iterator.h" alt="" coords="740,377,905,404"/>
+<area shape="rect" id="node2" href="$VectorFeature_8h.html" title="pinhao/Features/VectorFeature.h" alt="" coords="491,124,703,151"/>
+<area shape="rect" id="node24" href="$JITExecutor_8h.html" title="This file defines a class that executes a module. " alt="" coords="1137,124,1331,151"/>
+<area shape="rect" id="node25" href="$InitializationRoutines_8h.html" title="pinhao/InitializationRoutines.h" alt="" coords="1001,206,1197,233"/>
+<area shape="rect" id="node3" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="498,452,679,479"/>
+<area shape="rect" id="node16" href="$FeatureYAMLWrapper_8h.html" title="pinhao/Support/FeatureYAMLWrapper.h" alt="" coords="341,206,594,233"/>
+<area shape="rect" id="node4" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="525,527,700,553"/>
+<area shape="rect" id="node5" href="$FeatureInfo_8h.html" title="This file defines a class that holds some informations about a feature. " alt="" coords="856,601,1052,628"/>
+<area shape="rect" id="node11" href="$FeatureRegistry_8h.html" title="This file defines a class that has all the registered features. " alt="" coords="559,601,781,628"/>
+<area shape="rect" id="node6" href="$Types_8h.html" title="pinhao/Support/Types.h" alt="" coords="958,676,1118,703"/>
+<area shape="rect" id="node17" href="$YAMLWrapper_8h.html" title="pinhao/Support/YAMLWrapper.h" alt="" coords="140,527,349,553"/>
+<area shape="rect" id="node19" href="$YamlOptions_8h.html" title="pinhao/Support/YamlOptions.h" alt="" coords="5,377,204,404"/>
+<area shape="rect" id="node20" href="$MapFeature_8h.html" title="pinhao/Features/MapFeature.h" alt="" coords="489,295,688,322"/>
+<area shape="rect" id="node23" href="$MapVectorFeature_8h.html" title="pinhao/Features/MapVector\lFeature.h" alt="" coords="283,288,465,329"/>
+<area shape="rect" id="node21" href="$Iterator_8h.html" title="pinhao/Support/Iterator.h" alt="" coords="305,377,470,404"/>
 </map>

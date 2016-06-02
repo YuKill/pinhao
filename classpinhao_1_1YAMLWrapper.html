@@ -89,9 +89,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-types">Private Types</a> &#124;
 <a href="classpinhao_1_1YAMLWrapper-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pinhao::YAMLWrapper Class Reference</div>  </div>
@@ -103,8 +103,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a046419d3ff2959c445e4fa8a2047bfaf"><td class="memItemLeft" align="right" valign="top">typedef const YAML::Node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a></td></tr>
+<tr class="separator:a046419d3ff2959c445e4fa8a2047bfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0d195318e6d1069a6144b58aa54140"><td class="memItemLeft" align="right" valign="top">typedef YAML::Emitter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a></td></tr>
+<tr class="separator:a0f0d195318e6d1069a6144b58aa54140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ae398f8a779df91912272290f101a32a2"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:ae398f8a779df91912272290f101a32a2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#ae398f8a779df91912272290f101a32a2">append</a> (const <a class="el" href="structpinhao_1_1Candidate.html">Candidate</a> &amp;, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;)</td></tr>
+<tr class="separator:ae398f8a779df91912272290f101a32a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bcd8249c41dcd43bfa94c27faaf1c59"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr class="memitem:a3bcd8249c41dcd43bfa94c27faaf1c59"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a3bcd8249c41dcd43bfa94c27faaf1c59">fill</a> (<a class="el" href="structpinhao_1_1Candidate.html">Candidate</a> &amp;, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;)</td></tr>
+<tr class="separator:a3bcd8249c41dcd43bfa94c27faaf1c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba9b1abe1b0d22bd2e3fd01e67c28b75"><td class="memTemplParams" colspan="2">template&lt;class Type &gt; </td></tr>
 <tr class="memitem:aba9b1abe1b0d22bd2e3fd01e67c28b75"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#aba9b1abe1b0d22bd2e3fd01e67c28b75">fill</a> (<a class="el" href="classpinhao_1_1VectorFeature.html">VectorFeature</a>&lt; Type &gt; &amp;Vf, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
 <tr class="separator:aba9b1abe1b0d22bd2e3fd01e67c28b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,6 +205,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6d4acfd6c2705e4e1ab1f969bec5dda5"><td class="memItemLeft" align="right" valign="top">static YAML::Node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a6d4acfd6c2705e4e1ab1f969bec5dda5">loadFile</a> (std::string Filename)</td></tr>
+<tr class="separator:a6d4acfd6c2705e4e1ab1f969bec5dda5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a420616c92ac608aaabecc999c6396bfb"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a420616c92ac608aaabecc999c6396bfb"><td class="memTemplItemLeft" align="right" valign="top">static std::unique_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a420616c92ac608aaabecc999c6396bfb">get</a> (<a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
 <tr class="memdesc:a420616c92ac608aaabecc999c6396bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new object of class <em>T</em> , by parsing a <em>YAML::Node</em>, and returning an <em>std::unique_ptr</em> of it.  <a href="#a420616c92ac608aaabecc999c6396bfb">More...</a><br /></td></tr>
@@ -220,12 +235,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4376365f349da6e4c48be0f9b4d1f3b3"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a4376365f349da6e4c48be0f9b4d1f3b3"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a4376365f349da6e4c48be0f9b4d1f3b3">fill</a> (<a class="el" href="classpinhao_1_1Formula.html">Formula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
 <tr class="separator:a4376365f349da6e4c48be0f9b4d1f3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fae7245ba16cec2b32bfb1ea3e4e60c"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:a5fae7245ba16cec2b32bfb1ea3e4e60c"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a5fae7245ba16cec2b32bfb1ea3e4e60c">fill</a> (<a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html">ArithmeticBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
-<tr class="separator:a5fae7245ba16cec2b32bfb1ea3e4e60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef3099164130836fe3e46a6ff6f25d9b"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:aef3099164130836fe3e46a6ff6f25d9b"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#aef3099164130836fe3e46a6ff6f25d9b">fill</a> (<a class="el" href="classpinhao_1_1BooleanBinOpFormula.html">BooleanBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
-<tr class="separator:aef3099164130836fe3e46a6ff6f25d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92dde23db04f0f5e36abd56839b27147"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a92dde23db04f0f5e36abd56839b27147"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a92dde23db04f0f5e36abd56839b27147">fill</a> (<a class="el" href="classpinhao_1_1ArithBinOpFormula.html">ArithBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
+<tr class="separator:a92dde23db04f0f5e36abd56839b27147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d4971c9c85a14b4e858af0757ba8003"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a7d4971c9c85a14b4e858af0757ba8003"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a7d4971c9c85a14b4e858af0757ba8003">fill</a> (<a class="el" href="classpinhao_1_1BoolBinOpFormula.html">BoolBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
+<tr class="separator:a7d4971c9c85a14b4e858af0757ba8003"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1d729b077b6d0516b5eba9598726f34"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:ac1d729b077b6d0516b5eba9598726f34"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#ac1d729b077b6d0516b5eba9598726f34">fill</a> (<a class="el" href="classpinhao_1_1IfFormula.html">IfFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
 <tr class="separator:ac1d729b077b6d0516b5eba9598726f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,6 +250,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a96ff44e46c1cf3288d70aa9ece8c5cfe"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a96ff44e46c1cf3288d70aa9ece8c5cfe"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a96ff44e46c1cf3288d70aa9ece8c5cfe">fill</a> (<a class="el" href="classpinhao_1_1FeatureFormula.html">FeatureFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
 <tr class="separator:a96ff44e46c1cf3288d70aa9ece8c5cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f509076799f26d90b115703f090444c"><td class="memTemplParams" colspan="2">template&lt;class T , class U &gt; </td></tr>
+<tr class="memitem:a1f509076799f26d90b115703f090444c"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a1f509076799f26d90b115703f090444c">fill</a> (<a class="el" href="classpinhao_1_1SerialSet.html">SerialSet</a>&lt; T, U &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;Node)</td></tr>
+<tr class="separator:a1f509076799f26d90b115703f090444c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a21d5e15a1b231d4c59698e91248be0"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a3a21d5e15a1b231d4c59698e91248be0"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a3a21d5e15a1b231d4c59698e91248be0">append</a> (const <a class="el" href="classpinhao_1_1VectorFeature.html">VectorFeature</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
 <tr class="separator:a3a21d5e15a1b231d4c59698e91248be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,12 +265,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a1a20426b5dc12f67af70c7f5454d8c"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a2a1a20426b5dc12f67af70c7f5454d8c"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a2a1a20426b5dc12f67af70c7f5454d8c">append</a> (const <a class="el" href="classpinhao_1_1Formula.html">Formula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
 <tr class="separator:a2a1a20426b5dc12f67af70c7f5454d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17e69afb4d23115b894fa91a9f355706"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:a17e69afb4d23115b894fa91a9f355706"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a17e69afb4d23115b894fa91a9f355706">append</a> (const <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html">ArithmeticBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
-<tr class="separator:a17e69afb4d23115b894fa91a9f355706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af597fd72d3e78d614a5a7e1191da7009"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:af597fd72d3e78d614a5a7e1191da7009"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#af597fd72d3e78d614a5a7e1191da7009">append</a> (const <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html">BooleanBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
-<tr class="separator:af597fd72d3e78d614a5a7e1191da7009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad07559448d35c7f592879b4da650d8fe"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:ad07559448d35c7f592879b4da650d8fe"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#ad07559448d35c7f592879b4da650d8fe">append</a> (const <a class="el" href="classpinhao_1_1ArithBinOpFormula.html">ArithBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
+<tr class="separator:ad07559448d35c7f592879b4da650d8fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6040bd1a643d36d1b8594baae600bc21"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a6040bd1a643d36d1b8594baae600bc21"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a6040bd1a643d36d1b8594baae600bc21">append</a> (const <a class="el" href="classpinhao_1_1BoolBinOpFormula.html">BoolBinOpFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
+<tr class="separator:a6040bd1a643d36d1b8594baae600bc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eae3cb3ee0a61b942d4e05c2db0aefa"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a8eae3cb3ee0a61b942d4e05c2db0aefa"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a8eae3cb3ee0a61b942d4e05c2db0aefa">append</a> (const <a class="el" href="classpinhao_1_1IfFormula.html">IfFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
 <tr class="separator:a8eae3cb3ee0a61b942d4e05c2db0aefa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -262,60 +280,40 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a99b948bebeeb1539c7577c14d6f37928"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a99b948bebeeb1539c7577c14d6f37928"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a99b948bebeeb1539c7577c14d6f37928">append</a> (const <a class="el" href="classpinhao_1_1FeatureFormula.html">FeatureFormula</a>&lt; T &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
 <tr class="separator:a99b948bebeeb1539c7577c14d6f37928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:a046419d3ff2959c445e4fa8a2047bfaf"><td class="memItemLeft" align="right" valign="top">typedef const YAML::Node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a></td></tr>
-<tr class="separator:a046419d3ff2959c445e4fa8a2047bfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f0d195318e6d1069a6144b58aa54140"><td class="memItemLeft" align="right" valign="top">typedef YAML::Emitter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a></td></tr>
-<tr class="separator:a0f0d195318e6d1069a6144b58aa54140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6dcbf97736d3e4bff7eb9ecac3f08c8"><td class="memTemplParams" colspan="2">template&lt;class T , class U &gt; </td></tr>
+<tr class="memitem:ac6dcbf97736d3e4bff7eb9ecac3f08c8"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpinhao_1_1YAMLWrapper.html#ac6dcbf97736d3e4bff7eb9ecac3f08c8">append</a> (const <a class="el" href="classpinhao_1_1SerialSet.html">SerialSet</a>&lt; T, U &gt; &amp;Value, <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;E)</td></tr>
+<tr class="separator:ac6dcbf97736d3e4bff7eb9ecac3f08c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class is a wrapper class for the yaml-cpp library. </p>
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00046">46</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00048">48</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a046419d3ff2959c445e4fa8a2047bfaf"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">typedef const YAML::Node <a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">pinhao::YAMLWrapper::ConstNode</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00048">48</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00050">50</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
 </div>
 </div>
 <a class="anchor" id="a0f0d195318e6d1069a6144b58aa54140"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">typedef YAML::Emitter <a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">pinhao::YAMLWrapper::Emitter</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00049">49</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00051">51</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
 </div>
 </div>
@@ -440,24 +438,19 @@ template&lt;&gt; </div>
 
 <p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00043">43</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3d6cdc2369322e9f980f02a90b69ee87"></a>
+<a class="anchor" id="ae398f8a779df91912272290f101a32a2"></a>
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void pinhao::YAMLWrapper::append </td>
+          <td class="memname">void pinhao::YAMLWrapper::append </td>
           <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>Value</em>, </td>
+          <td class="paramtype">const <a class="el" href="structpinhao_1_1Candidate.html">Candidate</a> &amp;&#160;</td>
+          <td class="paramname"><em>Cand</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -471,16 +464,11 @@ template&lt;class T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Appends the information of <em>Value</em> to the <em>YAML::Emitter</em> <em>E</em>. </p>
+<p>Definition at line <a class="el" href="Candidate_8cpp_source.html#l00083">83</a> of file <a class="el" href="Candidate_8cpp_source.html">Candidate.cpp</a>.</p>
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00076">76</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="Candidate_8h_source.html#l00027">pinhao::Candidate::Count</a>, and <a class="el" href="Candidate_8h_source.html#l00026">pinhao::Candidate::Score</a>.</p>
 
 </div>
 </div>
@@ -544,7 +532,47 @@ template&lt;&gt; </div>
 
 <p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00081">81</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3d6cdc2369322e9f980f02a90b69ee87"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void pinhao::YAMLWrapper::append </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;&#160;</td>
+          <td class="paramname"><em>E</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends the information of <em>Value</em> to the <em>YAML::Emitter</em> <em>E</em>. </p>
+
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00081">81</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
 </div>
 </div>
@@ -576,7 +604,39 @@ template&lt;&gt; </div>
 
 <p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00107">107</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a513936176a5360ba3805000e12b055a9"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class KType , class VType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::append </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1MapVectorFeature.html">MapVectorFeature</a>&lt; KType, VType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Mvf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;&#160;</td>
+          <td class="paramname"><em>E</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="FeatureYAMLWrapper_8h_source.html#l00119">119</a> of file <a class="el" href="FeatureYAMLWrapper_8h_source.html">FeatureYAMLWrapper.h</a>.</p>
+
+<p>References <a class="el" href="MapVectorFeature_8h_source.html#l00110">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;::beginKeys()</a>, <a class="el" href="MapVectorFeature_8h_source.html#l00117">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;::endKeys()</a>, and <a class="el" href="Feature_8cpp_source.html#l00021">pinhao::Feature::getName()</a>.</p>
 
 </div>
 </div>
@@ -688,38 +748,6 @@ template&lt;class T , class U &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a513936176a5360ba3805000e12b055a9"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class KType , class VType &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void pinhao::YAMLWrapper::append </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpinhao_1_1MapVectorFeature.html">MapVectorFeature</a>&lt; KType, VType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>Mvf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;&#160;</td>
-          <td class="paramname"><em>E</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="FeatureYAMLWrapper_8h_source.html#l00119">119</a> of file <a class="el" href="FeatureYAMLWrapper_8h_source.html">FeatureYAMLWrapper.h</a>.</p>
-
-<p>References <a class="el" href="MapVectorFeature_8h_source.html#l00110">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;::beginKeys()</a>, <a class="el" href="MapVectorFeature_8h_source.html#l00117">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;::endKeys()</a>, and <a class="el" href="Feature_8cpp_source.html#l00021">pinhao::Feature::getName()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a2a1a20426b5dc12f67af70c7f5454d8c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -756,11 +784,11 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00059">59</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa5ca89d3097dd6873dbbdfead5235f001">pinhao::ArithmeticBinOp</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044faf11f09cf283666a20d228e7d6b9671c0">pinhao::BooleanBinOp</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa21021ea0e52be8e9c599f4dff41e5be0">pinhao::Feature</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00127">pinhao::Formula&lt; T &gt;::getOperandsType()</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa786887572f6ef1c20f2d8177cb2f1639">pinhao::If</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::Literal</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa3bc5f2fd468867d2b160393fae7966fe">pinhao::ArithBinOp</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fabcb1087b2145f98826ff4dce8b98aedd">pinhao::BoolBinOp</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa21021ea0e52be8e9c599f4dff41e5be0">pinhao::Feature</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00216">pinhao::Formula&lt; T &gt;::getOperandsType()</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa786887572f6ef1c20f2d8177cb2f1639">pinhao::If</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::Literal</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a17e69afb4d23115b894fa91a9f355706"></a>
+<a class="anchor" id="ad07559448d35c7f592879b4da650d8fe"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -772,7 +800,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void YAMLWrapper::append </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html">ArithmeticBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1ArithBinOpFormula.html">ArithBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>Value</em>, </td>
         </tr>
         <tr>
@@ -796,11 +824,11 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00107">107</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="Formula_8cpp_source.html#l00026">pinhao::getFormulaKindString()</a>, <a class="el" href="Formula_8h_source.html#l00217">pinhao::ArithmeticBinOpFormula&lt; T &gt;::getKind()</a>, <a class="el" href="Formula_8cpp_source.html#l00040">pinhao::getOperatorKindString()</a>, <a class="el" href="Formula_8h_source.html#l00213">pinhao::ArithmeticBinOpFormula&lt; T &gt;::getType()</a>, <a class="el" href="Formula_8h_source.html#l00149">pinhao::BinOpFormulaBase&lt; T, T &gt;::Lhs</a>, <a class="el" href="Formula_8h_source.html#l00151">pinhao::BinOpFormulaBase&lt; T, T &gt;::Operator</a>, and <a class="el" href="Formula_8h_source.html#l00150">pinhao::BinOpFormulaBase&lt; T, T &gt;::Rhs</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="Formula_8cpp_source.html#l00024">pinhao::getFormulaKindString()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00228">pinhao::ArithBinOpFormula&lt; T &gt;::getKind()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00074">pinhao::BinOpFormulaBase&lt; T, T &gt;::getOperator()</a>, <a class="el" href="Formula_8cpp_source.html#l00038">pinhao::getOperatorKindString()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00224">pinhao::ArithBinOpFormula&lt; T &gt;::getType()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00040">pinhao::BinOpFormulaBase&lt; T, T &gt;::Lhs</a>, and <a class="el" href="BinOpFormula_8h_source.html#l00041">pinhao::BinOpFormulaBase&lt; T, T &gt;::Rhs</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af597fd72d3e78d614a5a7e1191da7009"></a>
+<a class="anchor" id="a6040bd1a643d36d1b8594baae600bc21"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -812,7 +840,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void YAMLWrapper::append </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html">BooleanBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1BoolBinOpFormula.html">BoolBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>Value</em>, </td>
         </tr>
         <tr>
@@ -836,7 +864,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00134">134</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="Formula_8cpp_source.html#l00026">pinhao::getFormulaKindString()</a>, <a class="el" href="Formula_8h_source.html#l00251">pinhao::BooleanBinOpFormula&lt; T &gt;::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00173">pinhao::BinOpFormulaBase&lt; bool, T &gt;::getOperandsType()</a>, <a class="el" href="Formula_8cpp_source.html#l00040">pinhao::getOperatorKindString()</a>, <a class="el" href="Formula_8h_source.html#l00247">pinhao::BooleanBinOpFormula&lt; T &gt;::getType()</a>, <a class="el" href="Formula_8h_source.html#l00149">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Lhs</a>, <a class="el" href="Formula_8h_source.html#l00151">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Operator</a>, and <a class="el" href="Formula_8h_source.html#l00150">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Rhs</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="Formula_8cpp_source.html#l00024">pinhao::getFormulaKindString()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00272">pinhao::BoolBinOpFormula&lt; T &gt;::getKind()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00106">pinhao::BinOpFormulaBase&lt; bool, T &gt;::getOperandsType()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00074">pinhao::BinOpFormulaBase&lt; bool, T &gt;::getOperator()</a>, <a class="el" href="Formula_8cpp_source.html#l00038">pinhao::getOperatorKindString()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00268">pinhao::BoolBinOpFormula&lt; T &gt;::getType()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00040">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Lhs</a>, and <a class="el" href="BinOpFormula_8h_source.html#l00041">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Rhs</a>.</p>
 
 </div>
 </div>
@@ -876,7 +904,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00163">163</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="Formula_8h_source.html#l00267">pinhao::IfFormula&lt; T &gt;::Condition</a>, <a class="el" href="Formula_8h_source.html#l00269">pinhao::IfFormula&lt; T &gt;::ElseBody</a>, <a class="el" href="Formula_8cpp_source.html#l00026">pinhao::getFormulaKindString()</a>, <a class="el" href="Formula_8h_source.html#l00275">pinhao::IfFormula&lt; T &gt;::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00271">pinhao::IfFormula&lt; T &gt;::getType()</a>, and <a class="el" href="Formula_8h_source.html#l00268">pinhao::IfFormula&lt; T &gt;::ThenBody</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="IfFormula_8h_source.html#l00024">pinhao::IfFormula&lt; T &gt;::Condition</a>, <a class="el" href="IfFormula_8h_source.html#l00026">pinhao::IfFormula&lt; T &gt;::ElseBody</a>, <a class="el" href="Formula_8cpp_source.html#l00024">pinhao::getFormulaKindString()</a>, <a class="el" href="IfFormula_8h_source.html#l00051">pinhao::IfFormula&lt; T &gt;::getKind()</a>, <a class="el" href="IfFormula_8h_source.html#l00046">pinhao::IfFormula&lt; T &gt;::getType()</a>, and <a class="el" href="IfFormula_8h_source.html#l00025">pinhao::IfFormula&lt; T &gt;::ThenBody</a>.</p>
 
 </div>
 </div>
@@ -916,7 +944,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00188">188</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="Formula_8cpp_source.html#l00026">pinhao::getFormulaKindString()</a>, <a class="el" href="Formula_8h_source.html#l00313">pinhao::LitFormula&lt; T &gt;::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00309">pinhao::LitFormula&lt; T &gt;::getType()</a>, and <a class="el" href="Formula_8h_source.html#l00116">pinhao::Formula&lt; T &gt;::getValue()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="Formula_8cpp_source.html#l00024">pinhao::getFormulaKindString()</a>, <a class="el" href="LitFormula_8h_source.html#l00069">pinhao::LitFormula&lt; T &gt;::getKind()</a>, <a class="el" href="LitFormula_8h_source.html#l00064">pinhao::LitFormula&lt; T &gt;::getType()</a>, and <a class="el" href="Formula_8h_source.html#l00206">pinhao::Formula&lt; T &gt;::getValue()</a>.</p>
 
 </div>
 </div>
@@ -956,7 +984,47 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00213">213</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="Formula_8h_source.html#l00332">pinhao::FeatureFormula&lt; T &gt;::FeaturePair</a>, <a class="el" href="Formula_8cpp_source.html#l00026">pinhao::getFormulaKindString()</a>, <a class="el" href="Formula_8h_source.html#l00338">pinhao::FeatureFormula&lt; T &gt;::getKind()</a>, and <a class="el" href="Formula_8h_source.html#l00334">pinhao::FeatureFormula&lt; T &gt;::getType()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="FeatureFormula_8h_source.html#l00021">pinhao::FeatureFormula&lt; T &gt;::FeaturePair</a>, <a class="el" href="Formula_8cpp_source.html#l00024">pinhao::getFormulaKindString()</a>, <a class="el" href="FeatureFormula_8h_source.html#l00056">pinhao::FeatureFormula&lt; T &gt;::getKind()</a>, and <a class="el" href="FeatureFormula_8h_source.html#l00051">pinhao::FeatureFormula&lt; T &gt;::getType()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac6dcbf97736d3e4bff7eb9ecac3f08c8"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::append </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1SerialSet.html">SerialSet</a>&lt; T, U &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a0f0d195318e6d1069a6144b58aa54140">Emitter</a> &amp;&#160;</td>
+          <td class="paramname"><em>E</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="SerialSetYAMLWrapper_8h_source.html#l00020">20</a> of file <a class="el" href="SerialSetYAMLWrapper_8h_source.html">SerialSetYAMLWrapper.h</a>.</p>
+
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>.</p>
 
 </div>
 </div>
@@ -986,7 +1054,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8cpp_source.html#l00041">41</a> of file <a class="el" href="FormulaYAMLWrapper_8cpp_source.html">FormulaYAMLWrapper.cpp</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a0a11e3f1411959fe00f54d9ba7ca35fe">pinhao::FormulaBase::getType()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a0a11e3f1411959fe00f54d9ba7ca35fe">pinhao::FormulaBase::getType()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
 
 </div>
 </div>
@@ -1254,6 +1322,36 @@ template&lt;class Type &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a3bcd8249c41dcd43bfa94c27faaf1c59"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpinhao_1_1Candidate.html">Candidate</a> &amp;&#160;</td>
+          <td class="paramname"><em>Cand</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>Node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="Candidate_8cpp_source.html#l00102">102</a> of file <a class="el" href="Candidate_8cpp_source.html">Candidate.cpp</a>.</p>
+
+<p>References <a class="el" href="Candidate_8h_source.html#l00027">pinhao::Candidate::Count</a>, and <a class="el" href="Candidate_8h_source.html#l00026">pinhao::Candidate::Score</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a336f4d5b6a8eeb305d3271b20643bd0c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1283,6 +1381,38 @@ template&lt;class KType , class VType &gt; </div>
 <p>Definition at line <a class="el" href="FeatureYAMLWrapper_8h_source.html#l00064">64</a> of file <a class="el" href="FeatureYAMLWrapper_8h_source.html">FeatureYAMLWrapper.h</a>.</p>
 
 <p>References <a class="el" href="Feature_8cpp_source.html#l00021">pinhao::Feature::getName()</a>, and <a class="el" href="MapFeature_8h_source.html#l00061">pinhao::MapFeature&lt; KeyType, ElemType &gt;::setValueOfKey()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a87d2242f2590c9cab5cc90ddee4b3fc6"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1OptimizationInfo.html">OptimizationInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>Info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>Node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00071">71</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
+
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>, and <a class="el" href="Optimizations_8cpp_source.html#l00044">pinhao::getOptimization()</a>.</p>
 
 </div>
 </div>
@@ -1322,39 +1452,7 @@ template&lt;class T &gt; </div>
 
 <p>Parses the node <em>Node</em>, and stores the information inside <em>Value</em>. </p>
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00068">68</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a87d2242f2590c9cab5cc90ddee4b3fc6"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void pinhao::YAMLWrapper::fill </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1OptimizationInfo.html">OptimizationInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>Info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
-          <td class="paramname"><em>Node</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00071">71</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
-
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00068">fill()</a>, and <a class="el" href="Optimizations_8cpp_source.html#l00044">pinhao::getOptimization()</a>.</p>
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00073">73</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
 </div>
 </div>
@@ -1391,6 +1489,38 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a39cb4767edf415349dafe63c5d9cda88"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1OptimizationSequence.html">OptimizationSequence</a> &amp;&#160;</td>
+          <td class="paramname"><em>OSeq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>Node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00099">99</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
+
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>.</p>
 
 </div>
 </div>
@@ -1466,6 +1596,38 @@ template&lt;class T , class U &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="ae1791442d2358f48596a1a93a76fa5b0"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class KType , class VType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1MapVectorFeature.html">MapVectorFeature</a>&lt; KType, VType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Mvf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>Node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="FeatureYAMLWrapper_8h_source.html#l00102">102</a> of file <a class="el" href="FeatureYAMLWrapper_8h_source.html">FeatureYAMLWrapper.h</a>.</p>
+
+<p>References <a class="el" href="MapVectorFeature_8h_source.html#l00090">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;::setValueOfKey()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4376365f349da6e4c48be0f9b4d1f3b3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1502,43 +1664,11 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00023">23</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa5ca89d3097dd6873dbbdfead5235f001">pinhao::ArithmeticBinOp</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044faf11f09cf283666a20d228e7d6b9671c0">pinhao::BooleanBinOp</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa21021ea0e52be8e9c599f4dff41e5be0">pinhao::Feature</a>, <a class="el" href="YAMLWrapper_8h_source.html#l00068">fill()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00127">pinhao::Formula&lt; T &gt;::getOperandsType()</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa786887572f6ef1c20f2d8177cb2f1639">pinhao::If</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::Literal</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
+<p>References <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa3bc5f2fd468867d2b160393fae7966fe">pinhao::ArithBinOp</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fabcb1087b2145f98826ff4dce8b98aedd">pinhao::BoolBinOp</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa21021ea0e52be8e9c599f4dff41e5be0">pinhao::Feature</a>, <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase::getKind()</a>, <a class="el" href="Formula_8h_source.html#l00216">pinhao::Formula&lt; T &gt;::getOperandsType()</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa786887572f6ef1c20f2d8177cb2f1639">pinhao::If</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::Literal</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a39cb4767edf415349dafe63c5d9cda88"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void pinhao::YAMLWrapper::fill </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1OptimizationSequence.html">OptimizationSequence</a> &amp;&#160;</td>
-          <td class="paramname"><em>OSeq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
-          <td class="paramname"><em>Node</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html#l00099">99</a> of file <a class="el" href="OptimizerYAMLWrapper_8cpp_source.html">OptimizerYAMLWrapper.cpp</a>.</p>
-
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00068">fill()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5fae7245ba16cec2b32bfb1ea3e4e60c"></a>
+<a class="anchor" id="a92dde23db04f0f5e36abd56839b27147"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -1550,7 +1680,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void YAMLWrapper::fill </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html">ArithmeticBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1ArithBinOpFormula.html">ArithBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>Value</em>, </td>
         </tr>
         <tr>
@@ -1574,43 +1704,11 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00100">100</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="Formula_8cpp_source.html#l00030">pinhao::getOperatorKind()</a>, <a class="el" href="Formula_8h_source.html#l00149">pinhao::BinOpFormulaBase&lt; T, T &gt;::Lhs</a>, <a class="el" href="Formula_8h_source.html#l00151">pinhao::BinOpFormulaBase&lt; T, T &gt;::Operator</a>, and <a class="el" href="Formula_8h_source.html#l00150">pinhao::BinOpFormulaBase&lt; T, T &gt;::Rhs</a>.</p>
+<p>References <a class="el" href="Formula_8cpp_source.html#l00028">pinhao::getOperatorKind()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00040">pinhao::BinOpFormulaBase&lt; T, T &gt;::Lhs</a>, <a class="el" href="BinOpFormula_8h_source.html#l00041">pinhao::BinOpFormulaBase&lt; T, T &gt;::Rhs</a>, and <a class="el" href="BinOpFormula_8h_source.html#l00080">pinhao::BinOpFormulaBase&lt; T, T &gt;::setOperator()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae1791442d2358f48596a1a93a76fa5b0"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class KType , class VType &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void pinhao::YAMLWrapper::fill </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1MapVectorFeature.html">MapVectorFeature</a>&lt; KType, VType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>Mvf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
-          <td class="paramname"><em>Node</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="FeatureYAMLWrapper_8h_source.html#l00102">102</a> of file <a class="el" href="FeatureYAMLWrapper_8h_source.html">FeatureYAMLWrapper.h</a>.</p>
-
-<p>References <a class="el" href="MapVectorFeature_8h_source.html#l00090">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;::setValueOfKey()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aef3099164130836fe3e46a6ff6f25d9b"></a>
+<a class="anchor" id="a7d4971c9c85a14b4e858af0757ba8003"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -1622,7 +1720,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void YAMLWrapper::fill </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpinhao_1_1BooleanBinOpFormula.html">BooleanBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1BoolBinOpFormula.html">BoolBinOpFormula</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>Value</em>, </td>
         </tr>
         <tr>
@@ -1646,7 +1744,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00127">127</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="Formula_8cpp_source.html#l00030">pinhao::getOperatorKind()</a>, <a class="el" href="Formula_8h_source.html#l00149">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Lhs</a>, <a class="el" href="Formula_8h_source.html#l00151">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Operator</a>, and <a class="el" href="Formula_8h_source.html#l00150">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Rhs</a>.</p>
+<p>References <a class="el" href="Formula_8cpp_source.html#l00028">pinhao::getOperatorKind()</a>, <a class="el" href="BinOpFormula_8h_source.html#l00040">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Lhs</a>, <a class="el" href="BinOpFormula_8h_source.html#l00041">pinhao::BinOpFormulaBase&lt; bool, T &gt;::Rhs</a>, and <a class="el" href="BinOpFormula_8h_source.html#l00080">pinhao::BinOpFormulaBase&lt; bool, T &gt;::setOperator()</a>.</p>
 
 </div>
 </div>
@@ -1686,7 +1784,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00156">156</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="Formula_8h_source.html#l00267">pinhao::IfFormula&lt; T &gt;::Condition</a>, <a class="el" href="Formula_8h_source.html#l00269">pinhao::IfFormula&lt; T &gt;::ElseBody</a>, and <a class="el" href="Formula_8h_source.html#l00268">pinhao::IfFormula&lt; T &gt;::ThenBody</a>.</p>
+<p>References <a class="el" href="IfFormula_8h_source.html#l00024">pinhao::IfFormula&lt; T &gt;::Condition</a>, <a class="el" href="IfFormula_8h_source.html#l00026">pinhao::IfFormula&lt; T &gt;::ElseBody</a>, and <a class="el" href="IfFormula_8h_source.html#l00025">pinhao::IfFormula&lt; T &gt;::ThenBody</a>.</p>
 
 </div>
 </div>
@@ -1726,7 +1824,7 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00183">183</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="Formula_8h_source.html#l00305">pinhao::LitFormula&lt; T &gt;::setValue()</a>.</p>
+<p>References <a class="el" href="LitFormula_8h_source.html#l00049">pinhao::LitFormula&lt; T &gt;::setValue()</a>.</p>
 
 </div>
 </div>
@@ -1766,7 +1864,47 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8h_source.html#l00204">204</a> of file <a class="el" href="FormulaYAMLWrapper_8h_source.html">FormulaYAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="Formula_8h_source.html#l00332">pinhao::FeatureFormula&lt; T &gt;::FeaturePair</a>.</p>
+<p>References <a class="el" href="FeatureFormula_8h_source.html#l00021">pinhao::FeatureFormula&lt; T &gt;::FeaturePair</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1f509076799f26d90b115703f090444c"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pinhao::YAMLWrapper::fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1SerialSet.html">SerialSet</a>&lt; T, U &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1YAMLWrapper.html#a046419d3ff2959c445e4fa8a2047bfaf">ConstNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>Node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="SerialSetYAMLWrapper_8h_source.html#l00011">11</a> of file <a class="el" href="SerialSetYAMLWrapper_8h_source.html">SerialSetYAMLWrapper.h</a>.</p>
+
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>.</p>
 
 </div>
 </div>
@@ -1936,9 +2074,9 @@ template&lt;class T &gt; </div>
 
 <p>Creates a new object of class <em>T</em> , by parsing a <em>YAML::Node</em>, and returning an <em>std::unique_ptr</em> of it. </p>
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00057">57</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00062">62</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00068">fill()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>.</p>
 
 </div>
 </div>
@@ -1958,7 +2096,33 @@ template&lt;class T &gt; </div>
 
 <p>Definition at line <a class="el" href="FormulaYAMLWrapper_8cpp_source.html#l00019">19</a> of file <a class="el" href="FormulaYAMLWrapper_8cpp_source.html">FormulaYAMLWrapper.cpp</a>.</p>
 
-<p>References <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="Formula_8cpp_source.html#l00115">pinhao::createFormula()</a>, <a class="el" href="YAMLWrapper_8h_source.html#l00068">fill()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="Formula_8cpp_source.html#l00016">pinhao::getFormulaKind()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
+<p>References <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6ac26f15e86e3de4c398a8273272aba034">pinhao::Bool</a>, <a class="el" href="Formula_8cpp_source.html#l00113">pinhao::createFormula()</a>, <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a22ae0e2b89e5e3d477f988cc36d3272b">pinhao::Float</a>, <a class="el" href="Formula_8cpp_source.html#l00016">pinhao::getFormulaKind()</a>, <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a1686a6c336b71b36d77354cea19a8b52">pinhao::Int</a>, and <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6a27118326006d3829667a400ad23d5d98">pinhao::String</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6d4acfd6c2705e4e1ab1f969bec5dda5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static YAML::Node pinhao::YAMLWrapper::loadFile </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>Filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00053">53</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
 </div>
 </div>
@@ -1998,9 +2162,9 @@ template&lt;class T &gt; </div>
 
 <p>Prints to an <em>std::ostream</em> object the information of <em>Value</em>. </p>
 
-<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00084">84</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
+<p>Definition at line <a class="el" href="YAMLWrapper_8h_source.html#l00089">89</a> of file <a class="el" href="YAMLWrapper_8h_source.html">YAMLWrapper.h</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00076">append()</a>, and <a class="el" href="YAMLWrapper_8h_source.html#l00068">fill()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00081">append()</a>, and <a class="el" href="YAMLWrapper_8h_source.html#l00073">fill()</a>.</p>
 
 </div>
 </div>

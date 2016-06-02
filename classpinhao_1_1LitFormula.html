@@ -99,7 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Holds literal of the types.  
  <a href="classpinhao_1_1LitFormula.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="Formula_8h_source.html">Formula.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for pinhao::LitFormula&lt; T &gt;:</div>
 <div class="dyncontent">
@@ -112,32 +112,69 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a72e41c6b9212e43b28e4769a0bfc1a9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a72e41c6b9212e43b28e4769a0bfc1a9b">setValue</a> (T <a class="el" href="classpinhao_1_1Formula.html#a634097de10ab863cb795204c405bd521">Value</a>)</td></tr>
 <tr class="memdesc:a72e41c6b9212e43b28e4769a0bfc1a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the literal value.  <a href="#a72e41c6b9212e43b28e4769a0bfc1a9b">More...</a><br /></td></tr>
 <tr class="separator:a72e41c6b9212e43b28e4769a0bfc1a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba412c39711b4242b4a5d7a08fd244e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#aba412c39711b4242b4a5d7a08fd244e8">getType</a> () const override</td></tr>
-<tr class="memdesc:aba412c39711b4242b4a5d7a08fd244e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> (what is the returning type).  <a href="#aba412c39711b4242b4a5d7a08fd244e8">More...</a><br /></td></tr>
-<tr class="separator:aba412c39711b4242b4a5d7a08fd244e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9172b7e68940953ade33887dae7522bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a9172b7e68940953ade33887dae7522bd">getKind</a> () const override</td></tr>
-<tr class="memdesc:a9172b7e68940953ade33887dae7522bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a <em>FormulaKind</em> of this object.  <a href="#a9172b7e68940953ade33887dae7522bd">More...</a><br /></td></tr>
-<tr class="separator:a9172b7e68940953ade33887dae7522bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb859abc1c79b301995eb0cd23c7148"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a3cb859abc1c79b301995eb0cd23c7148">getType</a> () const override</td></tr>
+<tr class="memdesc:a3cb859abc1c79b301995eb0cd23c7148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> (what is the returning type).  <a href="#a3cb859abc1c79b301995eb0cd23c7148">More...</a><br /></td></tr>
+<tr class="separator:a3cb859abc1c79b301995eb0cd23c7148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a20585340342f2b2772be04eb6d66c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a3a20585340342f2b2772be04eb6d66c0">getKind</a> () const override</td></tr>
+<tr class="memdesc:a3a20585340342f2b2772be04eb6d66c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a <em>FormulaKind</em> of this object.  <a href="#a3a20585340342f2b2772be04eb6d66c0">More...</a><br /></td></tr>
+<tr class="separator:a3a20585340342f2b2772be04eb6d66c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f23b7881b429262ddaf946332b17e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a81f23b7881b429262ddaf946332b17e0">evolve</a> (<a class="el" href="classpinhao_1_1Evolution.html">Evolution</a> *) override</td></tr>
+<tr class="memdesc:a81f23b7881b429262ddaf946332b17e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evolves this formula, based on the <em><a class="el" href="classpinhao_1_1Evolution.html" title="This is a strategy class, that modifies the operands of each FormulaBase type. ">Evolution</a></em> algorithm.  <a href="#a81f23b7881b429262ddaf946332b17e0">More...</a><br /></td></tr>
+<tr class="separator:a81f23b7881b429262ddaf946332b17e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44b979ddef628e80deb3d01ac34c2c80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a44b979ddef628e80deb3d01ac34c2c80">simplify</a> () override</td></tr>
+<tr class="memdesc:a44b979ddef628e80deb3d01ac34c2c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simplifies the current formula.  <a href="#a44b979ddef628e80deb3d01ac34c2c80">More...</a><br /></td></tr>
+<tr class="separator:a44b979ddef628e80deb3d01ac34c2c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a706130eb15cae64f9b68a7a11ec7c516"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a706130eb15cae64f9b68a7a11ec7c516">generate</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *Set) override</td></tr>
+<tr class="memdesc:a706130eb15cae64f9b68a7a11ec7c516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomizes the generations of a <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="#a706130eb15cae64f9b68a7a11ec7c516">More...</a><br /></td></tr>
 <tr class="separator:a706130eb15cae64f9b68a7a11ec7c516"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaefebe671afc534526c6188a4e87e6fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#aaefebe671afc534526c6188a4e87e6fb">solveFor</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *Set) override</td></tr>
 <tr class="memdesc:aaefebe671afc534526c6188a4e87e6fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> for the <em>Set</em>.  <a href="#aaefebe671afc534526c6188a4e87e6fb">More...</a><br /></td></tr>
 <tr class="separator:aaefebe671afc534526c6188a4e87e6fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac25ec2bd1a13632cdec9ead1773885e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#ac25ec2bd1a13632cdec9ead1773885e4">operator==</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const override</td></tr>
+<tr class="separator:ac25ec2bd1a13632cdec9ead1773885e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af657a86b1c1a06d94c1856e86c8fa5b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#af657a86b1c1a06d94c1856e86c8fa5b0">operator&lt;</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const override</td></tr>
+<tr class="separator:af657a86b1c1a06d94c1856e86c8fa5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b32d38803bcf16d3f47933e6be318c5"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1LitFormula.html#a7b32d38803bcf16d3f47933e6be318c5">clone</a> () override</td></tr>
+<tr class="memdesc:a7b32d38803bcf16d3f47933e6be318c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clones (deep copy) the formula.  <a href="#a7b32d38803bcf16d3f47933e6be318c5">More...</a><br /></td></tr>
+<tr class="separator:a7b32d38803bcf16d3f47933e6be318c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classpinhao_1_1Formula"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classpinhao_1_1Formula')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classpinhao_1_1Formula.html">pinhao::Formula&lt; T &gt;</a></td></tr>
 <tr class="memitem:a260baaea81058c07f3cbf16cdd191e39 inherit pub_methods_classpinhao_1_1Formula"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html#a260baaea81058c07f3cbf16cdd191e39">~Formula</a> ()</td></tr>
 <tr class="separator:a260baaea81058c07f3cbf16cdd191e39 inherit pub_methods_classpinhao_1_1Formula"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5615cf061ce62bab54354de177e924 inherit pub_methods_classpinhao_1_1Formula"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html#a8e5615cf061ce62bab54354de177e924">getValue</a> ()</td></tr>
-<tr class="memdesc:a8e5615cf061ce62bab54354de177e924 inherit pub_methods_classpinhao_1_1Formula"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a reference to the value.  <a href="classpinhao_1_1Formula.html#a8e5615cf061ce62bab54354de177e924">More...</a><br /></td></tr>
-<tr class="separator:a8e5615cf061ce62bab54354de177e924 inherit pub_methods_classpinhao_1_1Formula"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07d4c91831f59cf5913c891421062cd9 inherit pub_methods_classpinhao_1_1Formula"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html#a07d4c91831f59cf5913c891421062cd9">getValue</a> ()</td></tr>
+<tr class="memdesc:a07d4c91831f59cf5913c891421062cd9 inherit pub_methods_classpinhao_1_1Formula"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a reference to the value.  <a href="classpinhao_1_1Formula.html#a07d4c91831f59cf5913c891421062cd9">More...</a><br /></td></tr>
+<tr class="separator:a07d4c91831f59cf5913c891421062cd9 inherit pub_methods_classpinhao_1_1Formula"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a674c54914a279541683b48d31b00b60a inherit pub_methods_classpinhao_1_1Formula"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html#a674c54914a279541683b48d31b00b60a">getValue</a> () const</td></tr>
 <tr class="memdesc:a674c54914a279541683b48d31b00b60a inherit pub_methods_classpinhao_1_1Formula"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a copy of the value.  <a href="classpinhao_1_1Formula.html#a674c54914a279541683b48d31b00b60a">More...</a><br /></td></tr>
 <tr class="separator:a674c54914a279541683b48d31b00b60a inherit pub_methods_classpinhao_1_1Formula"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3a8e5867ed5020108f917b27abee3df inherit pub_methods_classpinhao_1_1Formula"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html#ab3a8e5867ed5020108f917b27abee3df">getOperandsType</a> () const</td></tr>
-<tr class="memdesc:ab3a8e5867ed5020108f917b27abee3df inherit pub_methods_classpinhao_1_1Formula"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the type of the operands. If it has none, it returns the type of the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="classpinhao_1_1Formula.html#ab3a8e5867ed5020108f917b27abee3df">More...</a><br /></td></tr>
-<tr class="separator:ab3a8e5867ed5020108f917b27abee3df inherit pub_methods_classpinhao_1_1Formula"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af19fc73b5eef216502c3fb2130b2156b inherit pub_methods_classpinhao_1_1Formula"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1Formula.html#af19fc73b5eef216502c3fb2130b2156b">getOperandsType</a> () const</td></tr>
+<tr class="memdesc:af19fc73b5eef216502c3fb2130b2156b inherit pub_methods_classpinhao_1_1Formula"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the type of the operands. If it has none, it returns the type of the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="classpinhao_1_1Formula.html#af19fc73b5eef216502c3fb2130b2156b">More...</a><br /></td></tr>
+<tr class="separator:af19fc73b5eef216502c3fb2130b2156b inherit pub_methods_classpinhao_1_1Formula"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classpinhao_1_1FormulaBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classpinhao_1_1FormulaBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classpinhao_1_1FormulaBase.html">pinhao::FormulaBase</a></td></tr>
 <tr class="memitem:a87d3a6d23872cd6619c154f231a2ab30 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a87d3a6d23872cd6619c154f231a2ab30">~FormulaBase</a> ()</td></tr>
 <tr class="separator:a87d3a6d23872cd6619c154f231a2ab30 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af71e740bdc0db63e0dfb86f8cecce054 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#af71e740bdc0db63e0dfb86f8cecce054">isLiteral</a> () const</td></tr>
+<tr class="memdesc:af71e740bdc0db63e0dfb86f8cecce054 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a Literal formula.  <a href="classpinhao_1_1FormulaBase.html#af71e740bdc0db63e0dfb86f8cecce054">More...</a><br /></td></tr>
+<tr class="separator:af71e740bdc0db63e0dfb86f8cecce054 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a067e6320f896d8b8dad960c5255ae inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a95a067e6320f896d8b8dad960c5255ae">isArithBinOp</a> () const</td></tr>
+<tr class="memdesc:a95a067e6320f896d8b8dad960c5255ae inherit pub_methods_classpinhao_1_1FormulaBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a ArithBinOp formula.  <a href="classpinhao_1_1FormulaBase.html#a95a067e6320f896d8b8dad960c5255ae">More...</a><br /></td></tr>
+<tr class="separator:a95a067e6320f896d8b8dad960c5255ae inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe2160ce3df7841a6e230969dc1bbc8f inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#abe2160ce3df7841a6e230969dc1bbc8f">isBoolBinOp</a> () const</td></tr>
+<tr class="memdesc:abe2160ce3df7841a6e230969dc1bbc8f inherit pub_methods_classpinhao_1_1FormulaBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a BoolBinOp formula.  <a href="classpinhao_1_1FormulaBase.html#abe2160ce3df7841a6e230969dc1bbc8f">More...</a><br /></td></tr>
+<tr class="separator:abe2160ce3df7841a6e230969dc1bbc8f inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a4b060d77febc27e471ca047ca2721 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a50a4b060d77febc27e471ca047ca2721">isFeature</a> () const</td></tr>
+<tr class="memdesc:a50a4b060d77febc27e471ca047ca2721 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a <a class="el" href="classpinhao_1_1Feature.html" title="This is the base class for features. ">Feature</a> formula.  <a href="classpinhao_1_1FormulaBase.html#a50a4b060d77febc27e471ca047ca2721">More...</a><br /></td></tr>
+<tr class="separator:a50a4b060d77febc27e471ca047ca2721 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a2c45d8bd12d22393c73a5889519a2 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#af7a2c45d8bd12d22393c73a5889519a2">isIf</a> () const</td></tr>
+<tr class="memdesc:af7a2c45d8bd12d22393c73a5889519a2 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a If formula.  <a href="classpinhao_1_1FormulaBase.html#af7a2c45d8bd12d22393c73a5889519a2">More...</a><br /></td></tr>
+<tr class="separator:af7a2c45d8bd12d22393c73a5889519a2 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd3dfecd0a3b9fe0f3472b1d77dc772 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a8dd3dfecd0a3b9fe0f3472b1d77dc772">operator!=</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a8dd3dfecd0a3b9fe0f3472b1d77dc772 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ea9caceb1a9823969d2c02a7566aa3 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a49ea9caceb1a9823969d2c02a7566aa3">operator&gt;</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a49ea9caceb1a9823969d2c02a7566aa3 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b690047e5e9a358780a728a3880ecdd inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a6b690047e5e9a358780a728a3880ecdd">operator&gt;=</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a6b690047e5e9a358780a728a3880ecdd inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f65b093ad15d414496dc51de2b7ace2 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a5f65b093ad15d414496dc51de2b7ace2">operator&lt;=</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a5f65b093ad15d414496dc51de2b7ace2 inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207f7577a68c4e218304c4178c9f24ff inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a207f7577a68c4e218304c4178c9f24ff">print</a> (std::ostream &amp;Out=std::cout)</td></tr>
 <tr class="memdesc:a207f7577a68c4e218304c4178c9f24ff inherit pub_methods_classpinhao_1_1FormulaBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints to an <em>std::ostream</em> object the information of this <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="classpinhao_1_1FormulaBase.html#a207f7577a68c4e218304c4178c9f24ff">More...</a><br /></td></tr>
 <tr class="separator:a207f7577a68c4e218304c4178c9f24ff inherit pub_methods_classpinhao_1_1FormulaBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,13 +196,80 @@ class pinhao::LitFormula&lt; T &gt;</h3>
 
 <p>Holds literal of the types. </p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00302">302</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00025">25</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a7b32d38803bcf16d3f47933e6be318c5"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">pinhao::FormulaBase</a> &gt; <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clones (deep copy) the formula. </p>
+
+<p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a21ea3e69a777de10a1b5dd7e1540436d">pinhao::FormulaBase</a>.</p>
+
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00102">102</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+<p>References <a class="el" href="Formula_8h_source.html#l00206">pinhao::Formula&lt; T &gt;::getValue()</a>, and <a class="el" href="LitFormula_8h_source.html#l00049">pinhao::LitFormula&lt; T &gt;::setValue()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a81f23b7881b429262ddaf946332b17e0"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::evolve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1Evolution.html">Evolution</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evolves this formula, based on the <em><a class="el" href="classpinhao_1_1Evolution.html" title="This is a strategy class, that modifies the operands of each FormulaBase type. ">Evolution</a></em> algorithm. </p>
+
+<p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a375657c49c529c7d28951df8ad6de00f">pinhao::FormulaBase</a>.</p>
+
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00054">54</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+<p>References <a class="el" href="classpinhao_1_1Evolution.html#aca6f24ab16a02cb466dd62e47d121056">pinhao::Evolution::evolve()</a>, and <a class="el" href="Formula_8h_source.html#l00147">pinhao::Formula&lt; T &gt;::Value</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a706130eb15cae64f9b68a7a11ec7c516"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -180,28 +284,32 @@ template&lt;class T&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Randomizes the generations of a <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>. </p>
+
 <p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a4c42082a7d85b420533fcd7233c6efb2">pinhao::FormulaBase</a>.</p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00317">317</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00074">74</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+<p>References <a class="el" href="Formula_8h_source.html#l00147">pinhao::Formula&lt; T &gt;::Value</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9172b7e68940953ade33887dae7522bd"></a>
+<a class="anchor" id="a3a20585340342f2b2772be04eb6d66c0"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a> <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::getKind </td>
+          <td class="memname"><a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">pinhao::FormulaKind</a> <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::getKind </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -209,7 +317,7 @@ template&lt;class T&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -218,23 +326,23 @@ template&lt;class T&gt; </div>
 
 <p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase</a>.</p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00313">313</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00069">69</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
 
 <p>References <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::Literal</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aba412c39711b4242b4a5d7a08fd244e8"></a>
+<a class="anchor" id="a3cb859abc1c79b301995eb0cd23c7148"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">ValueType</a> <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::getType </td>
+          <td class="memname"><a class="el" href="namespacepinhao.html#a0fcbba5416711ab097873ac5865094f6">pinhao::ValueType</a> <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::getType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -242,7 +350,7 @@ template&lt;class T&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -251,7 +359,71 @@ template&lt;class T&gt; </div>
 
 <p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a0a11e3f1411959fe00f54d9ba7ca35fe">pinhao::FormulaBase</a>.</p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00309">309</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00064">64</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af657a86b1c1a06d94c1856e86c8fa5b0"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#ad7847222a183ab57f9064583f487eff5">pinhao::FormulaBase</a>.</p>
+
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00092">92</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+<p>References <a class="el" href="LitFormula_8h_source.html#l00069">pinhao::LitFormula&lt; T &gt;::getKind()</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase::getKind()</a>, <a class="el" href="LitFormula_8h_source.html#l00064">pinhao::LitFormula&lt; T &gt;::getType()</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a0a11e3f1411959fe00f54d9ba7ca35fe">pinhao::FormulaBase::getType()</a>, and <a class="el" href="Formula_8h_source.html#l00206">pinhao::Formula&lt; T &gt;::getValue()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac25ec2bd1a13632cdec9ead1773885e4"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#ab30de251aa1079fc662b77c7cc8ef6db">pinhao::FormulaBase</a>.</p>
+
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00084">84</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+<p>References <a class="el" href="LitFormula_8h_source.html#l00069">pinhao::LitFormula&lt; T &gt;::getKind()</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase::getKind()</a>, <a class="el" href="LitFormula_8h_source.html#l00064">pinhao::LitFormula&lt; T &gt;::getType()</a>, <a class="el" href="classpinhao_1_1FormulaBase.html#a0a11e3f1411959fe00f54d9ba7ca35fe">pinhao::FormulaBase::getType()</a>, and <a class="el" href="Formula_8h_source.html#l00206">pinhao::Formula&lt; T &gt;::getValue()</a>.</p>
 
 </div>
 </div>
@@ -259,10 +431,7 @@ template&lt;class T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::setValue </td>
@@ -272,16 +441,44 @@ template&lt;class T&gt; </div>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Sets the literal value. </p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00305">305</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00049">49</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
+
+<p>References <a class="el" href="Formula_8h_source.html#l00147">pinhao::Formula&lt; T &gt;::Value</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a44b979ddef628e80deb3d01ac34c2c80"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpinhao_1_1FormulaBase.html">pinhao::FormulaBase</a> * <a class="el" href="classpinhao_1_1LitFormula.html">pinhao::LitFormula</a>&lt; T &gt;::simplify </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Simplifies the current formula. </p>
+
+<p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a8cbdf7ecb2203d3dfb81a93eb779aed0">pinhao::FormulaBase</a>.</p>
+
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00059">59</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
 
 </div>
 </div>
@@ -289,7 +486,7 @@ template&lt;class T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T&gt; </div>
+template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -304,7 +501,7 @@ template&lt;class T&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -313,7 +510,7 @@ template&lt;class T&gt; </div>
 
 <p>Implements <a class="el" href="classpinhao_1_1FormulaBase.html#a7039a12889a36f02326d74a1a1522e13">pinhao::FormulaBase</a>.</p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00321">321</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="LitFormula_8h_source.html#l00079">79</a> of file <a class="el" href="LitFormula_8h_source.html">LitFormula.h</a>.</p>
 
 </div>
 </div>

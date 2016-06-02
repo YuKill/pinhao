@@ -1,13 +1,15 @@
 <map id="pinhao::FormulaBase" name="pinhao::FormulaBase">
-<area shape="rect" id="node2" href="$classpinhao_1_1Formula.html" title="pinhao::Formula\&lt; bool \&gt;" alt="" coords="473,5,636,32"/>
-<area shape="rect" id="node5" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="200,112,347,139"/>
-<area shape="rect" id="node3" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, T \&gt;" alt="" coords="892,18,1073,59"/>
-<area shape="rect" id="node4" href="$classpinhao_1_1BooleanBinOpFormula.html" title="Represents all logical operations (supported). " alt="" coords="1129,25,1359,52"/>
-<area shape="rect" id="node6" href="$classpinhao_1_1BinOpFormulaBase.html" title="BinOpFormulaBase\&lt; T, T \&gt;" alt="" coords="685,161,868,188"/>
-<area shape="rect" id="node8" href="$classpinhao_1_1BinOpFormulaBase.html" title="Base class for binary operations. " alt="" coords="448,107,661,133"/>
-<area shape="rect" id="node10" href="$classpinhao_1_1FeatureFormula.html" title="Holds a pair of std::strings. The first represents the feature, and the second represents the sub&#45;fea..." alt="" coords="459,208,650,235"/>
-<area shape="rect" id="node11" href="$classpinhao_1_1IfFormula.html" title="The If Formula. " alt="" coords="477,259,632,285"/>
-<area shape="rect" id="node12" href="$classpinhao_1_1LitFormula.html" title="Holds literal of the types. " alt="" coords="474,56,635,83"/>
-<area shape="rect" id="node7" href="$classpinhao_1_1ArithmeticBinOpFormula.html" title="Represents all arithmetics operations (supported). Only numerical operands type permitted. " alt="" coords="1123,139,1365,165"/>
-<area shape="rect" id="node9" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; T, T \&gt;" alt="" coords="892,97,1073,138"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1Formula.html" title="pinhao::Formula\&lt; bool \&gt;" alt="" coords="473,26,636,53"/>
+<area shape="rect" id="node7" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="200,133,347,159"/>
+<area shape="rect" id="node3" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, bool \&gt;" alt="" coords="892,5,1073,47"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, T \&gt;" alt="" coords="892,85,1073,127"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html" title="The operations that can only be applied to two Boolean operands. " alt="" coords="1139,5,1317,47"/>
+<area shape="rect" id="node6" href="$classpinhao_1_1BoolBinOpFormula.html" title="Represents all logical operations (supported). " alt="" coords="1123,93,1333,119"/>
+<area shape="rect" id="node8" href="$classpinhao_1_1BinOpFormulaBase.html" title="BinOpFormulaBase\&lt; T, T \&gt;" alt="" coords="685,273,868,299"/>
+<area shape="rect" id="node10" href="$classpinhao_1_1BinOpFormulaBase.html" title="Base class for binary operations. " alt="" coords="448,79,661,106"/>
+<area shape="rect" id="node12" href="$classpinhao_1_1FeatureFormula.html" title="Holds a pair of std::strings. The first represents the feature, and the second represents the sub&#45;fea..." alt="" coords="459,130,650,157"/>
+<area shape="rect" id="node13" href="$classpinhao_1_1IfFormula.html" title="The If Formula. " alt="" coords="477,181,632,207"/>
+<area shape="rect" id="node14" href="$classpinhao_1_1LitFormula.html" title="Holds literal of the types. " alt="" coords="474,231,635,258"/>
+<area shape="rect" id="node9" href="$classpinhao_1_1ArithBinOpFormula.html" title="Represents all arithmetics operations (supported). Only numerical operands type permitted. " alt="" coords="1123,225,1333,251"/>
+<area shape="rect" id="node11" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; T, T \&gt;" alt="" coords="892,159,1073,200"/>
 </map>

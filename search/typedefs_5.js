@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pairtype',['PairType',['../classpinhao_1_1FeatureSet_1_1iterator.html#a957ea385c7ed9bca7fb40596b625a02f',1,'pinhao::FeatureSet::iterator']]]
+  ['llong',['LLong',['../classpinhao_1_1PAPIWrapper.html#ac4330c9ede35c4a272890ed52acfdf79',1,'pinhao::PAPIWrapper']]]
 ];

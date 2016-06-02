@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for pinhao::FormulaBase:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classpinhao_1_1FormulaBase__inherit__graph.svg" width="100%" height="518"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classpinhao_1_1FormulaBase__inherit__graph.svg" width="100%" height="529"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -117,19 +117,56 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a88d942491e7f389081efb0fdcc670f6e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044f">FormulaKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">getKind</a> () const =0</td></tr>
 <tr class="memdesc:a88d942491e7f389081efb0fdcc670f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a <em>FormulaKind</em> of this object.  <a href="#a88d942491e7f389081efb0fdcc670f6e">More...</a><br /></td></tr>
 <tr class="separator:a88d942491e7f389081efb0fdcc670f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af71e740bdc0db63e0dfb86f8cecce054"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#af71e740bdc0db63e0dfb86f8cecce054">isLiteral</a> () const</td></tr>
+<tr class="memdesc:af71e740bdc0db63e0dfb86f8cecce054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a Literal formula.  <a href="#af71e740bdc0db63e0dfb86f8cecce054">More...</a><br /></td></tr>
+<tr class="separator:af71e740bdc0db63e0dfb86f8cecce054"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a067e6320f896d8b8dad960c5255ae"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a95a067e6320f896d8b8dad960c5255ae">isArithBinOp</a> () const</td></tr>
+<tr class="memdesc:a95a067e6320f896d8b8dad960c5255ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a ArithBinOp formula.  <a href="#a95a067e6320f896d8b8dad960c5255ae">More...</a><br /></td></tr>
+<tr class="separator:a95a067e6320f896d8b8dad960c5255ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe2160ce3df7841a6e230969dc1bbc8f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#abe2160ce3df7841a6e230969dc1bbc8f">isBoolBinOp</a> () const</td></tr>
+<tr class="memdesc:abe2160ce3df7841a6e230969dc1bbc8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a BoolBinOp formula.  <a href="#abe2160ce3df7841a6e230969dc1bbc8f">More...</a><br /></td></tr>
+<tr class="separator:abe2160ce3df7841a6e230969dc1bbc8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a4b060d77febc27e471ca047ca2721"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a50a4b060d77febc27e471ca047ca2721">isFeature</a> () const</td></tr>
+<tr class="memdesc:a50a4b060d77febc27e471ca047ca2721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a <a class="el" href="classpinhao_1_1Feature.html" title="This is the base class for features. ">Feature</a> formula.  <a href="#a50a4b060d77febc27e471ca047ca2721">More...</a><br /></td></tr>
+<tr class="separator:a50a4b060d77febc27e471ca047ca2721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a2c45d8bd12d22393c73a5889519a2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#af7a2c45d8bd12d22393c73a5889519a2">isIf</a> () const</td></tr>
+<tr class="memdesc:af7a2c45d8bd12d22393c73a5889519a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if it is a If formula.  <a href="#af7a2c45d8bd12d22393c73a5889519a2">More...</a><br /></td></tr>
+<tr class="separator:af7a2c45d8bd12d22393c73a5889519a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a375657c49c529c7d28951df8ad6de00f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a375657c49c529c7d28951df8ad6de00f">evolve</a> (<a class="el" href="classpinhao_1_1Evolution.html">Evolution</a> *)=0</td></tr>
+<tr class="memdesc:a375657c49c529c7d28951df8ad6de00f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evolves this formula, based on the <em><a class="el" href="classpinhao_1_1Evolution.html" title="This is a strategy class, that modifies the operands of each FormulaBase type. ">Evolution</a></em> algorithm.  <a href="#a375657c49c529c7d28951df8ad6de00f">More...</a><br /></td></tr>
+<tr class="separator:a375657c49c529c7d28951df8ad6de00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cbdf7ecb2203d3dfb81a93eb779aed0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a8cbdf7ecb2203d3dfb81a93eb779aed0">simplify</a> ()=0</td></tr>
+<tr class="memdesc:a8cbdf7ecb2203d3dfb81a93eb779aed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simplifies the current formula.  <a href="#a8cbdf7ecb2203d3dfb81a93eb779aed0">More...</a><br /></td></tr>
+<tr class="separator:a8cbdf7ecb2203d3dfb81a93eb779aed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c42082a7d85b420533fcd7233c6efb2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a4c42082a7d85b420533fcd7233c6efb2">generate</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *Set)=0</td></tr>
+<tr class="memdesc:a4c42082a7d85b420533fcd7233c6efb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomizes the generations of a <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="#a4c42082a7d85b420533fcd7233c6efb2">More...</a><br /></td></tr>
+<tr class="separator:a4c42082a7d85b420533fcd7233c6efb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7039a12889a36f02326d74a1a1522e13"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a7039a12889a36f02326d74a1a1522e13">solveFor</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *Set)=0</td></tr>
 <tr class="memdesc:a7039a12889a36f02326d74a1a1522e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> for the <em>Set</em>.  <a href="#a7039a12889a36f02326d74a1a1522e13">More...</a><br /></td></tr>
 <tr class="separator:a7039a12889a36f02326d74a1a1522e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c42082a7d85b420533fcd7233c6efb2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a4c42082a7d85b420533fcd7233c6efb2">generate</a> (<a class="el" href="classpinhao_1_1FeatureSet.html">FeatureSet</a> *Set)=0</td></tr>
-<tr class="separator:a4c42082a7d85b420533fcd7233c6efb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd3dfecd0a3b9fe0f3472b1d77dc772"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a8dd3dfecd0a3b9fe0f3472b1d77dc772">operator!=</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a8dd3dfecd0a3b9fe0f3472b1d77dc772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ea9caceb1a9823969d2c02a7566aa3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a49ea9caceb1a9823969d2c02a7566aa3">operator&gt;</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a49ea9caceb1a9823969d2c02a7566aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b690047e5e9a358780a728a3880ecdd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a6b690047e5e9a358780a728a3880ecdd">operator&gt;=</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a6b690047e5e9a358780a728a3880ecdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f65b093ad15d414496dc51de2b7ace2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a5f65b093ad15d414496dc51de2b7ace2">operator&lt;=</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const</td></tr>
+<tr class="separator:a5f65b093ad15d414496dc51de2b7ace2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab30de251aa1079fc662b77c7cc8ef6db"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#ab30de251aa1079fc662b77c7cc8ef6db">operator==</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const =0</td></tr>
+<tr class="separator:ab30de251aa1079fc662b77c7cc8ef6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7847222a183ab57f9064583f487eff5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#ad7847222a183ab57f9064583f487eff5">operator&lt;</a> (const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;Rhs) const =0</td></tr>
+<tr class="separator:ad7847222a183ab57f9064583f487eff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207f7577a68c4e218304c4178c9f24ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a207f7577a68c4e218304c4178c9f24ff">print</a> (std::ostream &amp;Out=std::cout)</td></tr>
 <tr class="memdesc:a207f7577a68c4e218304c4178c9f24ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints to an <em>std::ostream</em> object the information of this <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>.  <a href="#a207f7577a68c4e218304c4178c9f24ff">More...</a><br /></td></tr>
 <tr class="separator:a207f7577a68c4e218304c4178c9f24ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21ea3e69a777de10a1b5dd7e1540436d"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FormulaBase.html#a21ea3e69a777de10a1b5dd7e1540436d">clone</a> ()=0</td></tr>
+<tr class="memdesc:a21ea3e69a777de10a1b5dd7e1540436d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clones (deep copy) the formula.  <a href="#a21ea3e69a777de10a1b5dd7e1540436d">More...</a><br /></td></tr>
+<tr class="separator:a21ea3e69a777de10a1b5dd7e1540436d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The base class for all <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> types. A <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> is a statement which when evaluated for a <em><a class="el" href="classpinhao_1_1FeatureSet.html" title="This class holds all enabled features. ">FeatureSet</a></em>, it yields a value. </p>
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00076">76</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
+<p>Definition at line <a class="el" href="Formula_8h_source.html#l00095">95</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a87d3a6d23872cd6619c154f231a2ab30"></a>
 <div class="memitem">
@@ -152,13 +189,66 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="Formula_8h_source.html#l00078">78</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
-
-<p>References <a class="el" href="Formula_8cpp_source.html#l00170">pinhao::generateFormula()</a>.</p>
+<p>Definition at line <a class="el" href="Formula_8h_source.html#l00097">97</a> of file <a class="el" href="Formula_8h_source.html">Formula.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a21ea3e69a777de10a1b5dd7e1540436d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a>&gt; pinhao::FormulaBase::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clones (deep copy) the formula. </p>
+
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a195ca410f91f2a537a662988ddc58bf1">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a195ca410f91f2a537a662988ddc58bf1">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a195ca410f91f2a537a662988ddc58bf1">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a195ca410f91f2a537a662988ddc58bf1">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a7b32d38803bcf16d3f47933e6be318c5">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a7575cc045127a8b7afac1bda3197068a">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#ae2aa5adc3a5fa582a54dd56f3af852b7">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a375657c49c529c7d28951df8ad6de00f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void pinhao::FormulaBase::evolve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpinhao_1_1Evolution.html">Evolution</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evolves this formula, based on the <em><a class="el" href="classpinhao_1_1Evolution.html" title="This is a strategy class, that modifies the operands of each FormulaBase type. ">Evolution</a></em> algorithm. </p>
+
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a4bca8e0ceea2a156f8dee4006484f2ad">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a4bca8e0ceea2a156f8dee4006484f2ad">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a4bca8e0ceea2a156f8dee4006484f2ad">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a4bca8e0ceea2a156f8dee4006484f2ad">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a81f23b7881b429262ddaf946332b17e0">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a052ac20c74096e8ce2d0223e0e8ea967">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#a58709edc9f1192cff354ea530108e1a3">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4c42082a7d85b420533fcd7233c6efb2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +271,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classpinhao_1_1FeatureFormula.html#af9f647126a92fd3336c97130879aa1c1">pinhao::FeatureFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a706130eb15cae64f9b68a7a11ec7c516">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a730283a507a597a13859aad1b4b17eb2">pinhao::IfFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, and <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>.</p>
+<p>Randomizes the generations of a <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>. </p>
+
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#afb8143c727d4282e37a1899949ed0ae9">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a706130eb15cae64f9b68a7a11ec7c516">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a730283a507a597a13859aad1b4b17eb2">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#af9f647126a92fd3336c97130879aa1c1">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -208,7 +300,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Gets a <em>FormulaKind</em> of this object. </p>
 
-<p>Implemented in <a class="el" href="classpinhao_1_1FeatureFormula.html#a144b2e5515ca4fdece8666b01099b3d6">pinhao::FeatureFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a9172b7e68940953ade33887dae7522bd">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#aa43e8e22bb76cb69f0300efc61b64f4a">pinhao::IfFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html#aec54668cb24a6f95fc1dde22736946e8">pinhao::BooleanBinOpFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html#a45597abefc28f8d1472c9f5c33a8001a">pinhao::ArithmeticBinOpFormula&lt; T &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#a3e6490ff88dbb4579438a53dec202f03">pinhao::BoolBinOpFormula&lt; bool &gt;</a>, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#a826eefd942aa7f721eb1e33246c09503">pinhao::BoolBinOpFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#afedd7700214162b655d54b61f4eb9d4e">pinhao::ArithBinOpFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a3a20585340342f2b2772be04eb6d66c0">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#ac907289a5f2425d26c8d164aebe58a15">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#a29c1d75e016dfe6f4344c1096f32fc58">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -235,7 +327,276 @@ Public Member Functions</h2></td></tr>
 
 <p>Gets the type of the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> (what is the returning type). </p>
 
-<p>Implemented in <a class="el" href="classpinhao_1_1FeatureFormula.html#accff7df7c5f8c9e369305dd5a08af198">pinhao::FeatureFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#aba412c39711b4242b4a5d7a08fd244e8">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a8cabeca789534f3961695474905d2ce1">pinhao::IfFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html#a01602d3f62e7c0d9faf6db96a3d2332d">pinhao::BooleanBinOpFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html#ab81247f97086c86724e9e4d6252cd48e">pinhao::ArithmeticBinOpFormula&lt; T &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#a874a1dee2c5fa4dfd6a041326d437e44">pinhao::BoolBinOpFormula&lt; bool &gt;</a>, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#aac9ced114e7d4a2ec91cd3ded9f70f20">pinhao::BoolBinOpFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#af1f746d59d6718f8900dc23ed39750c0">pinhao::ArithBinOpFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a3cb859abc1c79b301995eb0cd23c7148">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#ac80f10d567c4858da6519e617ff2ba22">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#ab5d59a8d4f329c9b700164ef7f0837b5">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95a067e6320f896d8b8dad960c5255ae"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::isArithBinOp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if it is a ArithBinOp formula. </p>
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00216">216</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+<p>References <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa3bc5f2fd468867d2b160393fae7966fe">pinhao::ArithBinOp</a>, and <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">getKind()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abe2160ce3df7841a6e230969dc1bbc8f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::isBoolBinOp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if it is a BoolBinOp formula. </p>
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00220">220</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+<p>References <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fabcb1087b2145f98826ff4dce8b98aedd">pinhao::BoolBinOp</a>, and <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">getKind()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a50a4b060d77febc27e471ca047ca2721"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::isFeature </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if it is a <a class="el" href="classpinhao_1_1Feature.html" title="This is the base class for features. ">Feature</a> formula. </p>
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00224">224</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+<p>References <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa21021ea0e52be8e9c599f4dff41e5be0">pinhao::Feature</a>, and <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">getKind()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af7a2c45d8bd12d22393c73a5889519a2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::isIf </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if it is a If formula. </p>
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00228">228</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+<p>References <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">getKind()</a>, and <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fa786887572f6ef1c20f2d8177cb2f1639">pinhao::If</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af71e740bdc0db63e0dfb86f8cecce054"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::isLiteral </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if it is a Literal formula. </p>
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00212">212</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+<p>References <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">getKind()</a>, and <a class="el" href="namespacepinhao.html#ae6d7fb2e10401ce56ac2f60e552d044fad7da1b76e5799f53a399b7a96ba67437">pinhao::Literal</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8dd3dfecd0a3b9fe0f3472b1d77dc772"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00236">236</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad7847222a183ab57f9064583f487eff5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool pinhao::FormulaBase::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a31430a1a57bbe603ba87eb0752bb3aca">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a31430a1a57bbe603ba87eb0752bb3aca">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a31430a1a57bbe603ba87eb0752bb3aca">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a31430a1a57bbe603ba87eb0752bb3aca">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#af657a86b1c1a06d94c1856e86c8fa5b0">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a69ae29d6dd3a86ec237484690504101d">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#a502675184eb780b892c10d93ca7aa27e">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f65b093ad15d414496dc51de2b7ace2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00248">248</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab30de251aa1079fc662b77c7cc8ef6db"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool pinhao::FormulaBase::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a39eb31d7abb6d40d28e2a40eccbb5935">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a39eb31d7abb6d40d28e2a40eccbb5935">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a39eb31d7abb6d40d28e2a40eccbb5935">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a39eb31d7abb6d40d28e2a40eccbb5935">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#ac25ec2bd1a13632cdec9ead1773885e4">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#afc0a52e113991f9a80714c06ec78ee6b">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#a6fd9fdcbb736f3028687341a352c63ea">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a49ea9caceb1a9823969d2c02a7566aa3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00240">240</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6b690047e5e9a358780a728a3880ecdd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FormulaBase::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>Rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00244">244</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
 
 </div>
 </div>
@@ -255,9 +616,36 @@ Public Member Functions</h2></td></tr>
 
 <p>Prints to an <em>std::ostream</em> object the information of this <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em>. </p>
 
-<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00189">189</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
+<p>Definition at line <a class="el" href="Formula_8cpp_source.html#l00232">232</a> of file <a class="el" href="Formula_8cpp_source.html">Formula.cpp</a>.</p>
 
-<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00084">pinhao::YAMLWrapper::print()</a>.</p>
+<p>References <a class="el" href="YAMLWrapper_8h_source.html#l00089">pinhao::YAMLWrapper::print()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8cbdf7ecb2203d3dfb81a93eb779aed0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classpinhao_1_1FormulaBase.html">FormulaBase</a>* pinhao::FormulaBase::simplify </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Simplifies the current formula. </p>
+
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a52300e22eecf1daecf94eafb9805368a">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a52300e22eecf1daecf94eafb9805368a">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a52300e22eecf1daecf94eafb9805368a">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a52300e22eecf1daecf94eafb9805368a">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#a44b979ddef628e80deb3d01ac34c2c80">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a2794abb9df192e0902f03a5fb9318905">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#a2f72e496ba99f136e32f61693fcd0a7f">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -285,7 +673,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Evaluates the <em><a class="el" href="classpinhao_1_1Formula.html" title="The base template class for the Formulas. ">Formula</a></em> for the <em>Set</em>. </p>
 
-<p>Implemented in <a class="el" href="classpinhao_1_1FeatureFormula.html#a7ee2df45a1dc30103fba3ccb70e8fd50">pinhao::FeatureFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#aaefebe671afc534526c6188a4e87e6fb">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a0635cbce4226383f571d46f3bc111430">pinhao::IfFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, and <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; bool, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; T, T &gt;</a>, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3dfecb2d18141bd37d8590ca844778cb">pinhao::BinOpFormulaBase&lt; bool, bool &gt;</a>, <a class="el" href="classpinhao_1_1LitFormula.html#aaefebe671afc534526c6188a4e87e6fb">pinhao::LitFormula&lt; T &gt;</a>, <a class="el" href="classpinhao_1_1IfFormula.html#a0635cbce4226383f571d46f3bc111430">pinhao::IfFormula&lt; T &gt;</a>, and <a class="el" href="classpinhao_1_1FeatureFormula.html#a7ee2df45a1dc30103fba3ccb70e8fd50">pinhao::FeatureFormula&lt; T &gt;</a>.</p>
 
 </div>
 </div>

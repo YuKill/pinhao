@@ -1,0 +1,6 @@
+<map id="pinhao::ArithBinOpFormula&lt; T &gt;" name="pinhao::ArithBinOpFormula&lt; T &gt;">
+<area shape="rect" id="node2" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; T, T \&gt;" alt="" coords="20,261,201,303"/>
+<area shape="rect" id="node3" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="11,81,157,108"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1BinOpFormulaBase.html" title="Base class for binary operations. " alt="" coords="105,157,287,199"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1FormulaBase.html" title="The base class for all Formula types. A Formula is a statement which when evaluated for a FeatureSet..." alt="" coords="11,5,157,32"/>
+</map>

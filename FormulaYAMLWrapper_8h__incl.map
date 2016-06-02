@@ -1,12 +1,18 @@
 <map id="/home/yukiosir/workspace/CompilerProject/Software/pinhao/include/pinhao/Support/FormulaYAMLWrapper.h" name="/home/yukiosir/workspace/CompilerProject/Software/pinhao/include/pinhao/Support/FormulaYAMLWrapper.h">
-<area shape="rect" id="node2" href="$YAMLWrapper_8h.html" title="pinhao/Support/YAMLWrapper.h" alt="" coords="93,363,303,389"/>
-<area shape="rect" id="node6" href="$YamlOptions_8h.html" title="pinhao/Support/YamlOptions.h" alt="" coords="5,131,204,158"/>
-<area shape="rect" id="node7" href="$Types_8h.html" title="pinhao/Support/Types.h" alt="" coords="1147,512,1307,539"/>
-<area shape="rect" id="node9" href="$Formula_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/Formula.h" alt="" coords="1279,124,1475,165"/>
-<area shape="rect" id="node10" href="$FeatureSet_8h.html" title="This file defines a class which contains the features selected by the user (by some command line)..." alt="" coords="789,213,983,240"/>
-<area shape="rect" id="node20" href="$Random_8h.html" title="pinhao/Support/Random.h" alt="" coords="1422,213,1595,240"/>
-<area shape="rect" id="node11" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="682,288,863,315"/>
-<area shape="rect" id="node12" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="675,363,849,389"/>
-<area shape="rect" id="node13" href="$FeatureInfo_8h.html" title="This file defines a class that holds some informations about a feature. " alt="" coords="999,437,1195,464"/>
-<area shape="rect" id="node17" href="$FeatureRegistry_8h.html" title="This file defines a class that has all the registered features. " alt="" coords="453,437,676,464"/>
+<area shape="rect" id="node2" href="$YAMLWrapper_8h.html" title="pinhao/Support/YAMLWrapper.h" alt="" coords="31,631,241,657"/>
+<area shape="rect" id="node6" href="$YamlOptions_8h.html" title="pinhao/Support/YamlOptions.h" alt="" coords="195,310,394,337"/>
+<area shape="rect" id="node7" href="$Types_8h.html" title="pinhao/Support/Types.h" alt="" coords="1400,795,1560,821"/>
+<area shape="rect" id="node9" href="$Formulas_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/Formulas.h" alt="" coords="549,124,752,165"/>
+<area shape="rect" id="node10" href="$Formula_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/Formula.h" alt="" coords="633,392,829,433"/>
+<area shape="rect" id="node24" href="$BinOpFormula_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/BinOpFormula.h" alt="" coords="767,213,999,255"/>
+<area shape="rect" id="node25" href="$LitFormula_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/LitFormula.h" alt="" coords="817,303,1028,344"/>
+<area shape="rect" id="node26" href="$IfFormula_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/IfFormula.h" alt="" coords="429,303,633,344"/>
+<area shape="rect" id="node27" href="$FeatureFormula_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/FeatureFormula.h" alt="" coords="452,213,692,255"/>
+<area shape="rect" id="node11" href="$FeatureSet_8h.html" title="This file defines a class which contains the features selected by the user (by some command line)..." alt="" coords="633,481,828,508"/>
+<area shape="rect" id="node21" href="$Random_8h.html" title="pinhao/Support/Random.h" alt="" coords="1095,481,1268,508"/>
+<area shape="rect" id="node23" href="$Evolution_8h.html" title="pinhao/MachineLearning\l/GrammarEvolution/Evolution.h" alt="" coords="389,705,592,747"/>
+<area shape="rect" id="node12" href="$Features_8h.html" title="This file implements some basic feature classes that extends the base class Feature. " alt="" coords="777,556,959,583"/>
+<area shape="rect" id="node13" href="$Feature_8h.html" title="This file defines the base feature class. " alt="" coords="889,631,1063,657"/>
+<area shape="rect" id="node14" href="$FeatureInfo_8h.html" title="This file defines a class that holds some informations about a feature. " alt="" coords="1211,713,1407,739"/>
+<area shape="rect" id="node18" href="$FeatureRegistry_8h.html" title="This file defines a class that has all the registered features. " alt="" coords="767,713,990,739"/>
 </map>

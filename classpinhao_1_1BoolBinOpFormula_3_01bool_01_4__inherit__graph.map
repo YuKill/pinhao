@@ -1,0 +1,7 @@
+<map id="pinhao::BoolBinOpFormula&lt; bool &gt;" name="pinhao::BoolBinOpFormula&lt; bool &gt;">
+<area shape="rect" id="node2" href="$classpinhao_1_1BinOpFormulaBase.html" title="pinhao::BinOpFormulaBase\l\&lt; bool, bool \&gt;" alt="" coords="55,275,236,316"/>
+<area shape="rect" id="node3" href="$classpinhao_1_1Formula.html" title="pinhao::Formula\&lt; bool \&gt;" alt="" coords="5,178,168,205"/>
+<area shape="rect" id="node4" href="$classpinhao_1_1FormulaBase.html" title="The base class for all Formula types. A Formula is a statement which when evaluated for a FeatureSet..." alt="" coords="50,5,195,32"/>
+<area shape="rect" id="node5" href="$classpinhao_1_1Formula.html" title="The base template class for the Formulas. " alt="" coords="124,81,271,108"/>
+<area shape="rect" id="node6" href="$classpinhao_1_1BinOpFormulaBase.html" title="Base class for binary operations. " alt="" coords="192,171,373,212"/>
+</map>

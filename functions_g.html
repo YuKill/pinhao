@@ -137,16 +137,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classpinhao_1_1OptimizationSequence.html#a2614013ab199abf84739ace17936c2b6">pinhao::OptimizationSequence</a>
 , <a class="el" href="classpinhao_1_1OptimizationSet.html#a59595b80bad46a50b263935d8bc171a5">pinhao::OptimizationSet</a>
 </li>
+<li>generateMissing()
+: <a class="el" href="structpinhao_1_1Candidate.html#ada4c4e3071ccb67b725df8daf5e71dbd">pinhao::Candidate</a>
+</li>
 <li>generateRandomSequenceIfNone()
 : <a class="el" href="classpinhao_1_1OptimizationSet.html#a98f6f8019eb681efb78136692082a6a8">pinhao::OptimizationSet</a>
 </li>
 <li>get()
-: <a class="el" href="classpinhao_1_1config_1_1YamlOpt.html#ac8ee4561f53139c385e9057f78e12eb4">pinhao::config::YamlOpt&lt; ValueType &gt;</a>
+: <a class="el" href="structpinhao_1_1Candidate.html#a926910f182703490e8ad0d313c643854">pinhao::Candidate</a>
+, <a class="el" href="classpinhao_1_1config_1_1YamlOpt.html#ac8ee4561f53139c385e9057f78e12eb4">pinhao::config::YamlOpt&lt; ValueType &gt;</a>
 , <a class="el" href="classpinhao_1_1Feature.html#a9bd883b382d224a80eeeb94fc14571db">pinhao::Feature</a>
 , <a class="el" href="classpinhao_1_1FeatureRegistry.html#a5540c9756d69e565dafcecc38754c1ef">pinhao::FeatureRegistry</a>
-, <a class="el" href="classpinhao_1_1FeatureSet.html#ac4f1f8c412b06e186b31167cd2fa5d76">pinhao::FeatureSet</a>
+, <a class="el" href="classpinhao_1_1FeatureSet.html#a00710a85312d960774d442cbe82bc269">pinhao::FeatureSet</a>
 , <a class="el" href="classpinhao_1_1MapFeature.html#aca79e821f3c5ccf8d2760d1c89db92ca">pinhao::MapFeature&lt; KeyType, ElemType &gt;</a>
 , <a class="el" href="classpinhao_1_1MapVectorFeature.html#a867ab666dd36669ae85a87ffcad528ee">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;</a>
+, <a class="el" href="classpinhao_1_1SerialSet.html#a350c9fcbba0b0fa366e084105f74f500">pinhao::SerialSet&lt; T, CompareType &gt;</a>
 , <a class="el" href="classpinhao_1_1StringFeature.html#ab45dc38ce64af47f72435202da8e0e07">pinhao::StringFeature</a>
 , <a class="el" href="classpinhao_1_1VectorFeature.html#a7e8a32f9781ef7bd511c0510dc2abb29">pinhao::VectorFeature&lt; ElemType &gt;</a>
 , <a class="el" href="classpinhao_1_1YAMLWrapper.html#a420616c92ac608aaabecc999c6396bfb">pinhao::YAMLWrapper</a>
@@ -166,6 +171,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getArgType()
 : <a class="el" href="classpinhao_1_1OptimizationInfo.html#aadb59a37d07b817ed7841d8edb258691">pinhao::OptimizationInfo</a>
 </li>
+<li>getChildConstructor()
+: <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#a1ee00f4fb92526cebdf7df83e5617c2e">pinhao::ArithBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a733470d5a4039efa0883700628c2ec44">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#ab7203110b6fbc7c2d337ab3d3ef44e36">pinhao::BoolBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#a34db83c48d973106e9bc4dda4bb26efc">pinhao::BoolBinOpFormula&lt; bool &gt;</a>
+</li>
 <li>getCompositeFeatureInfo()
 : <a class="el" href="classpinhao_1_1Feature.html#a62bb40ca7832fda1c05310a512747e6a">pinhao::Feature</a>
 </li>
@@ -175,6 +186,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>getFeature()
 : <a class="el" href="classpinhao_1_1FeatureSet.html#acc9243e7aff874754be5bcc58d601b63">pinhao::FeatureSet</a>
+</li>
+<li>getFeatureType()
+: <a class="el" href="classpinhao_1_1FeatureSet.html#aee000e31fddef04bc0e96f1abd932ed5">pinhao::FeatureSet</a>
 </li>
 <li>getFormulaValue()
 : <a class="el" href="classpinhao_1_1Formula.html#a804b6e20bb90c8c1732afd0e4c3ff3e6">pinhao::Formula&lt; T &gt;</a>
@@ -195,18 +209,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpinhao_1_1UniformRandom.html#ac5de27b6b3cd4b8f8a68751e76a55131">pinhao::UniformRandom</a>
 </li>
 <li>getKind()
-: <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html#a45597abefc28f8d1472c9f5c33a8001a">pinhao::ArithmeticBinOpFormula&lt; T &gt;</a>
-, <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html#aec54668cb24a6f95fc1dde22736946e8">pinhao::BooleanBinOpFormula&lt; T &gt;</a>
+: <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#afedd7700214162b655d54b61f4eb9d4e">pinhao::ArithBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#a826eefd942aa7f721eb1e33246c09503">pinhao::BoolBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#a3e6490ff88dbb4579438a53dec202f03">pinhao::BoolBinOpFormula&lt; bool &gt;</a>
 , <a class="el" href="classpinhao_1_1Feature.html#ada1e624c33e603957fa49fad6fe9202e">pinhao::Feature</a>
-, <a class="el" href="classpinhao_1_1FeatureFormula.html#a144b2e5515ca4fdece8666b01099b3d6">pinhao::FeatureFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1FeatureFormula.html#a29c1d75e016dfe6f4344c1096f32fc58">pinhao::FeatureFormula&lt; T &gt;</a>
 , <a class="el" href="classpinhao_1_1FormulaBase.html#a88d942491e7f389081efb0fdcc670f6e">pinhao::FormulaBase</a>
-, <a class="el" href="classpinhao_1_1IfFormula.html#aa43e8e22bb76cb69f0300efc61b64f4a">pinhao::IfFormula&lt; T &gt;</a>
-, <a class="el" href="classpinhao_1_1LitFormula.html#a9172b7e68940953ade33887dae7522bd">pinhao::LitFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1IfFormula.html#ac907289a5f2425d26c8d164aebe58a15">pinhao::IfFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1LitFormula.html#a3a20585340342f2b2772be04eb6d66c0">pinhao::LitFormula&lt; T &gt;</a>
 </li>
-<li>getMaxOperator()
-: <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html#aa04a455d8477bcf90d0a0720546b7aa6">pinhao::ArithmeticBinOpFormula&lt; T &gt;</a>
-, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a3cc7658f1baa60dc47ae51906881acf5">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
-, <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html#aa5454e0fe9b9d611127ec5a129971c41">pinhao::BooleanBinOpFormula&lt; T &gt;</a>
+<li>getMinOperator()
+: <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#a78fa489c84424631007feed9098cdf97">pinhao::ArithBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a8d1e83363e9758ca6283fd76ac6a19f8">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#adfd6623e7868785db6da2dc0b77657b3">pinhao::BoolBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#ac1ee4a8e7639623bf85f6e055bd407db">pinhao::BoolBinOpFormula&lt; bool &gt;</a>
 </li>
 <li>getModuleCost()
 : <a class="el" href="classpinhao_1_1SProfWrapper.html#a0b8c891173bc7d6215c8d4780490d404">pinhao::SProfWrapper</a>
@@ -220,13 +236,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getNumberOfArguments()
 : <a class="el" href="classpinhao_1_1OptimizationInfo.html#a61296c1e4b6dbb85c2adfe0623a55bc9">pinhao::OptimizationInfo</a>
 </li>
+<li>getNumberOfOperators()
+: <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#ad618a13f63ceb5e5adfc1bffb27e70e2">pinhao::ArithBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a2295421c02cc3e85c48cb7b2564d2ec1">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#a9a6f062cfb1b05273e75eb43857b6ebf">pinhao::BoolBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#a68f703343432f632879457aa36b7aaaf">pinhao::BoolBinOpFormula&lt; bool &gt;</a>
+</li>
 <li>getNumberOfSubFeatures()
 : <a class="el" href="classpinhao_1_1CompositeFeatureInfo.html#a93a9720c94f4573e23f3fe220e28e292">pinhao::CompositeFeatureInfo</a>
 , <a class="el" href="classpinhao_1_1Feature.html#a789d926d306a8fb92ef5ca3f8eff7e05">pinhao::Feature</a>
 </li>
 <li>getOperandsType()
-: <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a5ce65ef360e75f2185a96604dc18caf2">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
-, <a class="el" href="classpinhao_1_1Formula.html#ab3a8e5867ed5020108f917b27abee3df">pinhao::Formula&lt; T &gt;</a>
+: <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#aadadf31bea056dbd6149bf41bcf1dc3d">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
+, <a class="el" href="classpinhao_1_1Formula.html#af19fc73b5eef216502c3fb2130b2156b">pinhao::Formula&lt; T &gt;</a>
+</li>
+<li>getOperator()
+: <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a778c9f0af01cad98c9399d3b188b5abb">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
 </li>
 <li>getOperatorId()
 : <a class="el" href="classpinhao_1_1BinOpFormulaBase.html#a69c808fd56be60bef6eacfac26f96980">pinhao::BinOpFormulaBase&lt; T, OpT &gt;</a>
@@ -247,8 +272,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getReal()
 : <a class="el" href="classpinhao_1_1UniformRandom.html#a33657cf3df56736e3874079ee9cea421">pinhao::UniformRandom</a>
 </li>
+<li>getRegisteredFeatures()
+: <a class="el" href="classpinhao_1_1FeatureRegistry.html#a9382daa4d76868a9cc76e604e7c8a50c">pinhao::FeatureRegistry</a>
+</li>
 <li>getRepetition()
-: <a class="el" href="classpinhao_1_1OptimizationSet.html#a07e20adb7e9c1e60dfaa62db667ca989">pinhao::OptimizationSet</a>
+: <a class="el" href="classpinhao_1_1OptimizationSet.html#ae76cc4ad08bb8cb57a0281ffb8344108">pinhao::OptimizationSet</a>
 </li>
 <li>getSProfPass()
 : <a class="el" href="classpinhao_1_1SProfWrapper.html#ab014f04199fea33c26619652f50d9e04">pinhao::SProfWrapper</a>
@@ -261,26 +289,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpinhao_1_1FeatureSet.html#a7e0dc7d63bb38af0051fdbd646ab347a">pinhao::FeatureSet</a>
 </li>
 <li>getTotalCycles()
-: <a class="el" href="classpinhao_1_1PAPIWrapper.html#a9464471ff06404c1cb26730e8e337ce0">pinhao::PAPIWrapper</a>
+: <a class="el" href="classpinhao_1_1PAPIWrapper.html#aeeaf772ba5f8f7ac4e774bf4b16fa8c3">pinhao::PAPIWrapper</a>
 </li>
 <li>getTotalInstructions()
-: <a class="el" href="classpinhao_1_1PAPIWrapper.html#a3bb799c69cb2ea15be7d6ff17620d154">pinhao::PAPIWrapper</a>
+: <a class="el" href="classpinhao_1_1PAPIWrapper.html#ab4b30bab77da4c285d7a36429be16f49">pinhao::PAPIWrapper</a>
 </li>
 <li>getType()
-: <a class="el" href="classpinhao_1_1ArithmeticBinOpFormula.html#ab81247f97086c86724e9e4d6252cd48e">pinhao::ArithmeticBinOpFormula&lt; T &gt;</a>
-, <a class="el" href="classpinhao_1_1BooleanBinOpFormula.html#a01602d3f62e7c0d9faf6db96a3d2332d">pinhao::BooleanBinOpFormula&lt; T &gt;</a>
+: <a class="el" href="classpinhao_1_1ArithBinOpFormula.html#af1f746d59d6718f8900dc23ed39750c0">pinhao::ArithBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula.html#aac9ced114e7d4a2ec91cd3ded9f70f20">pinhao::BoolBinOpFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1BoolBinOpFormula_3_01bool_01_4.html#a874a1dee2c5fa4dfd6a041326d437e44">pinhao::BoolBinOpFormula&lt; bool &gt;</a>
 , <a class="el" href="classpinhao_1_1Feature.html#aea011ab715259935b7041b9743a7b216">pinhao::Feature</a>
-, <a class="el" href="classpinhao_1_1FeatureFormula.html#accff7df7c5f8c9e369305dd5a08af198">pinhao::FeatureFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1FeatureFormula.html#ab5d59a8d4f329c9b700164ef7f0837b5">pinhao::FeatureFormula&lt; T &gt;</a>
 , <a class="el" href="classpinhao_1_1FeatureInfo.html#a0468b081bd5defe01138966655b454a9">pinhao::FeatureInfo</a>
 , <a class="el" href="classpinhao_1_1FormulaBase.html#a0a11e3f1411959fe00f54d9ba7ca35fe">pinhao::FormulaBase</a>
-, <a class="el" href="classpinhao_1_1IfFormula.html#a8cabeca789534f3961695474905d2ce1">pinhao::IfFormula&lt; T &gt;</a>
-, <a class="el" href="classpinhao_1_1LitFormula.html#aba412c39711b4242b4a5d7a08fd244e8">pinhao::LitFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1IfFormula.html#ac80f10d567c4858da6519e617ff2ba22">pinhao::IfFormula&lt; T &gt;</a>
+, <a class="el" href="classpinhao_1_1LitFormula.html#a3cb859abc1c79b301995eb0cd23c7148">pinhao::LitFormula&lt; T &gt;</a>
 </li>
 <li>getUniformRandom()
 : <a class="el" href="classpinhao_1_1UniformRandom.html#afdfcfefc2c64acfd484ddf4e513eef04">pinhao::UniformRandom</a>
 </li>
 <li>getValue()
-: <a class="el" href="classpinhao_1_1Formula.html#a8e5615cf061ce62bab54354de177e924">pinhao::Formula&lt; T &gt;</a>
+: <a class="el" href="classpinhao_1_1Formula.html#a674c54914a279541683b48d31b00b60a">pinhao::Formula&lt; T &gt;</a>
 </li>
 <li>getValueOf()
 : <a class="el" href="classpinhao_1_1LinearFeature.html#abdc9012aa0cfec67938c646754dbb7f4">pinhao::LinearFeature&lt; ValueType &gt;</a>
@@ -291,6 +320,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpinhao_1_1MapFeature.html#acba05c41ae9d7a24164c83e975fc7af4">pinhao::MapFeature&lt; KeyType, ElemType &gt;</a>
 , <a class="el" href="classpinhao_1_1MappedFeature.html#a5ebb17f4d39fc5084b328dba0424f43c">pinhao::MappedFeature&lt; KeyType, ValueType &gt;</a>
 , <a class="el" href="classpinhao_1_1MapVectorFeature.html#a248fa69d4d6c31b80f8b2499b4b8a0f3">pinhao::MapVectorFeature&lt; KeyType, ElemType &gt;</a>
+</li>
+<li>GrammarEvolution()
+: <a class="el" href="classpinhao_1_1GrammarEvolution.html#af6216b5e9b2f982b01f5660a57e0946a">pinhao::GrammarEvolution&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

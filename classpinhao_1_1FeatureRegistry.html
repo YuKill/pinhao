@@ -89,8 +89,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="classpinhao_1_1FeatureRegistry-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pinhao::FeatureRegistry Class Reference</div>  </div>
@@ -102,6 +103,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="FeatureRegistry_8h_source.html">FeatureRegistry.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a5055ba189e15c7d9d90662a0c8e4fb3e"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, std::unique_ptr&lt; const <a class="el" href="classpinhao_1_1Feature.html">Feature</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureRegistry.html#a5055ba189e15c7d9d90662a0c8e4fb3e">FeaturesMap</a></td></tr>
+<tr class="separator:a5055ba189e15c7d9d90662a0c8e4fb3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ab182c413da1f3b701519246063cbc280"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureRegistry.html#ab182c413da1f3b701519246063cbc280">registerFeature</a> (<a class="el" href="classpinhao_1_1Feature.html">Feature</a> *F)</td></tr>
@@ -111,18 +117,33 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5540c9756d69e565dafcecc38754c1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clones a feature with name <em>FeatureName</em> and returns it.  <a href="#a5540c9756d69e565dafcecc38754c1ef">More...</a><br /></td></tr>
 <tr class="separator:a5540c9756d69e565dafcecc38754c1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a2e317cb16f42ba3939ba87ff77a3a5ee"><td class="memItemLeft" align="right" valign="top">static std::map&lt; std::string, std::unique_ptr&lt; const <a class="el" href="classpinhao_1_1Feature.html">Feature</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureRegistry.html#a2e317cb16f42ba3939ba87ff77a3a5ee">RegisteredFeatures</a></td></tr>
-<tr class="memdesc:a2e317cb16f42ba3939ba87ff77a3a5ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores unique pointers to all registered features.  <a href="#a2e317cb16f42ba3939ba87ff77a3a5ee">More...</a><br /></td></tr>
-<tr class="separator:a2e317cb16f42ba3939ba87ff77a3a5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a9382daa4d76868a9cc76e604e7c8a50c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpinhao_1_1FeatureRegistry.html#a5055ba189e15c7d9d90662a0c8e4fb3e">FeaturesMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpinhao_1_1FeatureRegistry.html#a9382daa4d76868a9cc76e604e7c8a50c">getRegisteredFeatures</a> ()</td></tr>
+<tr class="memdesc:a9382daa4d76868a9cc76e604e7c8a50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a map that stores unique pointers to all registered features.  <a href="#a9382daa4d76868a9cc76e604e7c8a50c">More...</a><br /></td></tr>
+<tr class="separator:a9382daa4d76868a9cc76e604e7c8a50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class contains all registered features as well as its manipulation methods. </p>
 <p>When a <a class="el" href="classpinhao_1_1RegisterFeature.html" title="Class responsible to register the new feature. ">RegisterFeature</a> variable is created it calls a static method of this class in order to insert the new feature in the registry. It is the container of all registered features. </p>
 
 <p>Definition at line <a class="el" href="FeatureRegistry_8h_source.html#l00027">27</a> of file <a class="el" href="FeatureRegistry_8h_source.html">FeatureRegistry.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a5055ba189e15c7d9d90662a0c8e4fb3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;std::string, std::unique_ptr&lt;const <a class="el" href="classpinhao_1_1Feature.html">Feature</a>&gt; &gt; <a class="el" href="classpinhao_1_1FeatureRegistry.html#a5055ba189e15c7d9d90662a0c8e4fb3e">pinhao::FeatureRegistry::FeaturesMap</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="FeatureRegistry_8h_source.html#l00029">29</a> of file <a class="el" href="FeatureRegistry_8h_source.html">FeatureRegistry.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a5540c9756d69e565dafcecc38754c1ef"></a>
 <div class="memitem">
 <div class="memproto">
@@ -155,9 +176,37 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A unique pointer with a clone of the feature (if found). </dd></dl>
 
-<p>Definition at line <a class="el" href="FeatureRegistry_8cpp_source.html#l00023">23</a> of file <a class="el" href="FeatureRegistry_8cpp_source.html">FeatureRegistry.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureRegistry_8cpp_source.html#l00030">30</a> of file <a class="el" href="FeatureRegistry_8cpp_source.html">FeatureRegistry.cpp</a>.</p>
 
-<p>References <a class="el" href="FeatureRegistry_8h_source.html#l00036">RegisteredFeatures</a>.</p>
+<p>References <a class="el" href="FeatureRegistry_8cpp_source.html#l00016">getRegisteredFeatures()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9382daa4d76868a9cc76e604e7c8a50c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpinhao_1_1FeatureRegistry.html#a5055ba189e15c7d9d90662a0c8e4fb3e">FeaturesMap</a> &amp; FeatureRegistry::getRegisteredFeatures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets a map that stores unique pointers to all registered features. </p>
+<p>In order to use a registered feature, one should clone the desired feature. It maps the name to the feature. </p>
+
+<p>Definition at line <a class="el" href="FeatureRegistry_8cpp_source.html#l00016">16</a> of file <a class="el" href="FeatureRegistry_8cpp_source.html">FeatureRegistry.cpp</a>.</p>
 
 </div>
 </div>
@@ -185,35 +234,9 @@ Static Private Attributes</h2></td></tr>
 
 <p>Register a feature in order to become available. </p>
 
-<p>Definition at line <a class="el" href="FeatureRegistry_8cpp_source.html#l00016">16</a> of file <a class="el" href="FeatureRegistry_8cpp_source.html">FeatureRegistry.cpp</a>.</p>
+<p>Definition at line <a class="el" href="FeatureRegistry_8cpp_source.html#l00021">21</a> of file <a class="el" href="FeatureRegistry_8cpp_source.html">FeatureRegistry.cpp</a>.</p>
 
-<p>References <a class="el" href="Feature_8cpp_source.html#l00021">pinhao::Feature::getName()</a>, and <a class="el" href="FeatureRegistry_8h_source.html#l00036">RegisteredFeatures</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a2e317cb16f42ba3939ba87ff77a3a5ee"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::map&lt; std::string, std::unique_ptr&lt; const <a class="el" href="classpinhao_1_1Feature.html">Feature</a> &gt; &gt; FeatureRegistry::RegisteredFeatures</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Stores unique pointers to all registered features. </p>
-<p>In order to use a registered feature, one should clone the desired feature. It maps the name to the feature. </p>
-
-<p>Definition at line <a class="el" href="FeatureRegistry_8h_source.html#l00036">36</a> of file <a class="el" href="FeatureRegistry_8h_source.html">FeatureRegistry.h</a>.</p>
+<p>References <a class="el" href="Feature_8cpp_source.html#l00021">pinhao::Feature::getName()</a>, and <a class="el" href="FeatureRegistry_8cpp_source.html#l00016">getRegisteredFeatures()</a>.</p>
 
 </div>
 </div>

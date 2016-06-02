@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpinhao_1_1FeatureSet.html" title="This class holds all enabled features. " alt="" coords="5,5,137,32"/>
+<area shape="rect" id="node1" href="$classpinhao_1_1Evolution.html" title="This is a strategy class, that modifies the operands of each FormulaBase type. " alt="" coords="5,5,128,32"/>
+<area shape="rect" id="node2" href="$classSimpleEvolution.html" title="SimpleEvolution" alt="" coords="176,5,292,32"/>
 </map>

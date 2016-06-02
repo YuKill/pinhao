@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpinhao_1_1OptimizationSet.html" title="Holds all enabled optimizations as well as the number of repetition of each one. " alt="" coords="5,5,167,32"/>
+<area shape="rect" id="node1" href="$classpinhao_1_1GrammarEvolution.html" title="pinhao::GrammarEvolution\l\&lt; Candidate \&gt;" alt="" coords="5,5,181,47"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1SimpleGrammarEvolution.html" title="This is a simple implementation of the GrammarEvolution class. " alt="" coords="229,13,445,39"/>
 </map>

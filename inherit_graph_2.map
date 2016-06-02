@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpinhao_1_1FeatureInfo.html" title="This class is the base and most simple feature information holder class. " alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node2" href="$classpinhao_1_1CompositeFeatureInfo.html" title="This is the composite feature&#39;s information. " alt="" coords="188,5,385,32"/>
+<area shape="rect" id="node1" href="$classpinhao_1_1config_1_1YamlOptBase.html" title="The base class for the creation of yaml options. " alt="" coords="5,13,197,39"/>
+<area shape="rect" id="node2" href="$classpinhao_1_1config_1_1YamlOpt.html" title="A template class for the registration of yaml options. " alt="" coords="245,5,408,47"/>
 </map>
