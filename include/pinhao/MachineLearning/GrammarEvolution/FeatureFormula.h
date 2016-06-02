@@ -23,7 +23,7 @@ namespace pinhao {
         ValueType getType() const override;
         FormulaKind getKind() const override;
 
-        void evolve(FeatureSet*, Evolution*) override;
+        void evolve(Evolution*) override;
         FormulaBase *simplify() override;
         void generate(FeatureSet *Set) override;
         void solveFor(FeatureSet *Set) override; 
@@ -38,8 +38,8 @@ namespace pinhao {
 }
 
 template <class T>
-void pinhao::FeatureFormula<T>::evolve(FeatureSet *Set, Evolution *Ev) {
-  Ev->evolve(Set, FeaturePair);
+void pinhao::FeatureFormula<T>::evolve(Evolution *Ev) {
+  Ev->evolve(FeaturePair);
 }
 
 template <class T>

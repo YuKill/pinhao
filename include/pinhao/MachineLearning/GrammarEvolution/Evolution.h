@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 namespace pinhao {
   class FormulaBase;
@@ -16,6 +17,9 @@ namespace pinhao {
   
   class Evolution {
     public:
+      FeatureSet *Set;
+
+      Evolution(FeatureSet *Set) : Set(Set) {}
       virtual ~Evolution() {}
 
       virtual void evolve(std::vector<std::unique_ptr<FormulaBase>*>) = 0;
@@ -25,7 +29,7 @@ namespace pinhao {
       virtual void evolve(double &Value) {} 
       virtual void evolve(std::string &Value) {} 
 
-      virtual void evolve(FeatureSet*, std::pair<std::string, std::string>&) = 0;
+      virtual void evolve(std::pair<std::string, std::string>&) = 0;
   };
 
 }
