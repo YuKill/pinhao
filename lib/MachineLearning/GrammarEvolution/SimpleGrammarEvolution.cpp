@@ -128,7 +128,6 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
         double EvolveDie = UniformRandom::getRandomReal();
         if (EvolveDie < EvolveProbability) {
           C.evolve(MaxEvolutionRate, &EvolutionStrategy);
-          std::cout << "Evolved." << std::endl;
         }
       }
 
@@ -145,7 +144,6 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
         auto PAPIPair = PAPIWrapper::getTotalCycles(*Compiled); 
         if (PAPIPair.first == 0) {
           double SpeedUp = (double) BaseLine / PAPIPair.second;
-          std::cout << "Speedup: " << SpeedUp << std::endl;
           RankingTmp.insert(std::make_pair(SpeedUp, C));
           continue;
         }
@@ -168,8 +166,6 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
       Ranking.insert(RPair);
     }
 
-    std::cout << "Max speedup[" << I << "]: " << (*Ranking.begin()).first << std::endl;
-    std::cout << "KnowledgeBase size:" << KnowledgeBase.size() << std::endl;
   }
 
   stop();

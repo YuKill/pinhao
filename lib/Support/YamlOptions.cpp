@@ -144,7 +144,6 @@ config::YamlOptBase::~YamlOptBase() {
 config::YamlOptBase::YamlOptBase(std::string Name, std::string Description, bool Required) : 
   Name(Name), Description(Description), Required(Required), Parsed(false) {
     registerOption();
-    std::cout << "Registering " << Name << " ..." << std::endl;
   }
 
 void config::YamlOptBase::registerOption() {
