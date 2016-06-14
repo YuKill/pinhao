@@ -15,6 +15,8 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Support/TargetSelect.h"
+#include "llvm/Support/ManagedStatic.h"
 
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Transforms/Vectorize.h"
@@ -30,15 +32,30 @@
 using namespace pinhao;
 
 void pinhao::initializeOptimizer() {
+  llvm::InitializeAllTargets();
+  llvm::InitializeAllTargetMCs();
+  llvm::InitializeAllAsmPrinters();
+
   llvm::PassRegistry *Registry = llvm::PassRegistry::getPassRegistry();
   llvm::initializeCore(*Registry);
-  llvm::initializeTransformUtils(*Registry);
   llvm::initializeScalarOpts(*Registry);
-  llvm::initializeInstCombine(*Registry);
-  llvm::initializeAnalysis(*Registry);
+  llvm::initializeObjCARCOpts(*Registry);
   llvm::initializeVectorization(*Registry);
   llvm::initializeIPO(*Registry);
+  llvm::initializeAnalysis(*Registry);
+  llvm::initializeIPA(*Registry);
+  llvm::initializeTransformUtils(*Registry);
+  llvm::initializeInstCombine(*Registry);
+  llvm::initializeInstrumentation(*Registry);
+  llvm::initializeTarget(*Registry);
   llvm::initializeCodeGen(*Registry);
+
+  llvm::initializeCodeGenPreparePass(*Registry);
+  llvm::initializeAtomicExpandPass(*Registry);
+  llvm::initializeRewriteSymbolsPass(*Registry);
+  llvm::initializeWinEHPreparePass(*Registry);
+  llvm::initializeDwarfEHPreparePass(*Registry);
+  llvm::initializeSjLjEHPreparePass(*Registry);
 }
 
 Optimization pinhao::getOptimization(std::string OptName) {
@@ -102,10 +119,23 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, OptimizationSeque
 
   if (Pid == 0) {
     llvm::legacy::PassManager PM; 
+    llvm::legacy::FunctionPassManager FPM(&Module);
+    Sequence->addDefaultPasses(Module, PM, FPM);
     Sequence->populatePassManager(PM);
+
+    FPM.doInitialization();
+    for (auto &F : Module)
+      FPM.run(F);
+    FPM.doFinalization();
+
     PM.run(Module);
 
     printModule(&Module, TmpName);
+
+    auto ReadCheck = readModule(TmpName);
+    if (!ReadCheck)
+      exit(1);
+
     exit(0);
   }
 
@@ -131,11 +161,19 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, llvm::Function *F
   fflush(stdout);
   pid_t Pid = fork();
   if (Pid == 0) {
+    llvm::legacy::PassManager PM;
     llvm::legacy::FunctionPassManager FPM(&Module);
+    Sequence->addDefaultPasses(Module, PM, FPM);
     Sequence->populateFunctionPassManager(FPM);
+
     FPM.run(*Function);
 
     printModule(&Module, TmpName);
+
+    auto ReadCheck = readModule(TmpName);
+    if (!ReadCheck)
+      exit(1);
+
     exit(0);
   }
 
