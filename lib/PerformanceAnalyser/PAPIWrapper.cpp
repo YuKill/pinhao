@@ -6,14 +6,19 @@
 
 #include "pinhao/PerformanceAnalyser/PAPIWrapper.h"
 
+#include <unistd.h>
+#include <sys/wait.h>
+#include <fstream>
+#include <iostream>
+
 using namespace pinhao;
 
-void PAPIWrapper::init() {
+void PAPIWrapper::initialize() {
   assert(PAPI_library_init(PAPI_VER_CURRENT) == PAPI_VER_CURRENT
       && "Error: PAPI library failed on initialization.");
 }
 
-bool PAPIWrapper::codesAreValid(PAPIWrapper::EventCodeVector Codes) {
+bool PAPIWrapper::codesAreValid(EventCodeVector Codes) {
   for (auto I : Codes)
     if (PAPI_query_event(I) != PAPI_OK)
       return false;
@@ -33,10 +38,10 @@ int PAPIWrapper::createEventSet() {
 
 void PAPIWrapper::addEvent(int EventSet, int Code) {
   assert(PAPI_add_event(EventSet, Code) == PAPI_OK &&
-     "Error: PAPI library failed to add event.");
+      "Error: PAPI library failed to add event.");
 }
 
-bool PAPIWrapper::addEvents(int EventSet, PAPIWrapper::EventCodeVector Codes) {
+bool PAPIWrapper::addEvents(int EventSet, EventCodeVector Codes) {
   if (!codesAreValid(Codes)) return false;
 
   for (auto I : Codes)
@@ -46,41 +51,67 @@ bool PAPIWrapper::addEvents(int EventSet, PAPIWrapper::EventCodeVector Codes) {
 }
 
 int PAPIWrapper::run(llvm::Module &Module, std::vector<std::string> Args, 
-    char* const* Envp, int EventSet, long long *Values) {
+    char* const* Envp, EventCodeVector CodeVector, long long *Values) {
+  int EventSet = 0;
   int ExitStatus = 0;
+  std::string TmpName = ".papi-" + std::to_string(time(0));
 
-  JITExecutor JIT(Module);
-  JIT.flushCache();
+  pid_t Pid = fork();
 
-  assert(PAPI_start(EventSet) == PAPI_OK &&  
-      "Error: PAPI library failed to start.");
+  if (Pid == 0) {
+    std::cerr << "ChildPid: " << getpid() << std::endl;
 
-  ExitStatus = JIT.run(Args, Envp);
+    initialize();
+    EventSet = createEventSet();
+    if (!addEvents(EventSet, CodeVector))
+      return 1;
 
-  assert(PAPI_stop(EventSet, Values) == PAPI_OK &&  
-      "Error: PAPI library failed to stop counters.");
+    std::ofstream TmpOut(TmpName);
+
+    JITExecutor JIT(Module);
+    JIT.flushCache();
+
+    assert(PAPI_start(EventSet) == PAPI_OK &&  
+        "Error: PAPI library failed to start.");
+
+    ExitStatus = JIT.run(Args, Envp);
+
+    assert(PAPI_stop(EventSet, Values) == PAPI_OK &&  
+        "Error: PAPI library failed to stop counters.");
+
+    for (unsigned I = 0; I < CodeVector.size(); ++I) {
+      TmpOut << Values[I] << std::endl;
+      std::cout << "Values[" << I << "]: " << Values[I] << std::endl;
+    }
+
+    exit(ExitStatus);
+  }
+  
+  waitpid(Pid, &ExitStatus, 0);
+  if (ExitStatus != 0) {
+    std::cerr << "Error while executing module." << std::endl; 
+  } else {
+    std::ifstream TmpIn(TmpName); 
+    for (unsigned I = 0; I < CodeVector.size(); ++I)
+      TmpIn >> Values[I];
+  }
 
   return ExitStatus;
+
 }
 
 std::pair<int, PAPIWrapper::CounterVector> PAPIWrapper::countEvents(llvm::Module &Module,
-    PAPIWrapper::EventCodeVector Codes) {
+    EventCodeVector Codes) {
   ArgVector Args = { "papi-profiling" };
   return countEvents(Module, Args, Codes);
 }
 
 std::pair<int, PAPIWrapper::CounterVector> PAPIWrapper::countEvents(llvm::Module &Module,
-    PAPIWrapper::ArgVector Args, PAPIWrapper::EventCodeVector Codes) {
+    ArgVector Args, EventCodeVector Codes) {
   CounterVector Counters;
   long long Values[Codes.size()];
 
-  init(); 
-  int EventSet = createEventSet();
-
-  if (!addEvents(EventSet, Codes))
-    return std::make_pair(1, Counters);
-
-  int ExitStatus = run(Module, Args, nullptr, EventSet, Values);
+  int ExitStatus = run(Module, Args, nullptr, Codes, Values);
 
   for (uint64_t I = 0, E = Codes.size(); I < E; ++I)
     Counters.push_back(Values[I]);
@@ -97,11 +128,7 @@ std::pair<int, PAPIWrapper::LLong> PAPIWrapper::getTotalCycles(llvm::Module &Mod
     PAPIWrapper::ArgVector Args) {
   long long Value;
 
-  init();
-  int EventSet = createEventSet();
-  addEvent(EventSet, PAPI_TOT_CYC);
-
-  int ExitStatus = run(Module, Args, nullptr, EventSet, &Value);
+  int ExitStatus = run(Module, Args, nullptr, { PAPI_TOT_CYC }, &Value);
 
   return std::make_pair(ExitStatus, Value);
 }
@@ -115,11 +142,7 @@ std::pair<int, PAPIWrapper::LLong> PAPIWrapper::getTotalInstructions(llvm::Modul
     PAPIWrapper::ArgVector Args) {
   long long Value;
 
-  init();
-  int EventSet = createEventSet();
-  addEvent(EventSet, PAPI_TOT_INS);
-
-  int ExitStatus = run(Module, Args, nullptr, EventSet, &Value);
+  int ExitStatus = run(Module, Args, nullptr, { PAPI_TOT_INS }, &Value);
 
   return std::make_pair(ExitStatus, Value);
 }

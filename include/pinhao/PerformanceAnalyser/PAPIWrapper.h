@@ -26,7 +26,7 @@ namespace pinhao {
 
     private:
       /// @brief Initializes the papi library.
-      static void init();
+      static void initialize();
       /// @brief Creates an @a EventSet.
       static int createEventSet();
       /// @brief Returns true if all the events inside the vector are valid (available).
@@ -36,7 +36,7 @@ namespace pinhao {
       /// @brief Returns true if it successfuly added all events to an @a EventSet.
       static bool addEvents(int, EventCodeVector);
       /// @brief Runs the @a llvm::Module, while counting the events.
-      static int run(llvm::Module&, ArgVector, char* const*, int, long long*);
+      static int run(llvm::Module&, ArgVector, char* const*, EventCodeVector, long long*);
 
     public:
       /// @brief Counts specific events detailed by the user.
