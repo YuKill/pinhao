@@ -78,10 +78,6 @@ add_executable(RunFormulaYAMLWrapperTest
   FormulaYAMLWrapperTest.cpp)
 add_test(FormulaYAMLWrapperTest RunFormulaYAMLWrapperTest)
 
-add_executable(RunKnowledgeBaseTest
-  KnowledgeBaseTest.cpp)
-add_test(KnowledgeBaseTest RunKnowledgeBaseTest)
-
 add_executable(RunSerialSetTest
   SerialSetTest.cpp)
 add_test(SerialSetTest RunSerialSetTest)
@@ -114,5 +110,4 @@ pinhao_test_link (RunFormulaTest
   CFGStaticFeatures)
 pinhao_test_link (RunFormulaYAMLWrapperTest
   CFGStaticFeatures)
-pinhao_test_link (RunKnowledgeBaseTest)
 pinhao_test_link (RunSerialSetTest)
