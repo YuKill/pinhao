@@ -12,8 +12,10 @@
 #include "pinhao/Support/SerialSet.h"
 #include "pinhao/Support/YAMLWrapper.h"
 #include "pinhao/Support/Types.h"
+#include "pinhao/Support/Random.h"
 
 #include <vector>
+#include <algorithm>
 
 namespace pinhao {
 
@@ -56,7 +58,10 @@ namespace pinhao {
         double MutateProbability;
 
         std::vector<DecisionPoint> DecisionPoints;
+        std::vector<int> Sequence;
         SerialSet<T> KnowledgeBase;
+
+        std::vector<std::string> Argv;
 
         /**
          * @brief Adds some pre-defined decision points.
@@ -71,6 +76,11 @@ namespace pinhao {
         /// @brief Exports the knowledge base to the file @a KnowledgeBaseFile.
         virtual void exportKnowledgeBase();
 
+        /// @brief Generates a sequence for the execution.
+        virtual void generateSequence();
+        /// @brief Gets the sequence from a file, for the execution.
+        virtual void getSequence(std::string);
+
         /// @brief Depends on the @a DecisionPoint's added. As it changes, the way to compile
         /// the module also changes.
         virtual llvm::Module *compileWithCandidate(llvm::Module*, T&, FeatureSet*) = 0;
@@ -79,6 +89,9 @@ namespace pinhao {
         virtual ~GrammarEvolution();
         GrammarEvolution(std::shared_ptr<llvm::Module> /* Module */, std::string /* KBFilename */ = "config.yaml",
             double /* EvolveProb */ = 0.2, double /* MaxEvolutionRate */ = 0.3, double /* MutateProb */ = 0.3);
+
+        /// @brief Sets the arguments to be used, in order to execute the module.
+        void setModuleArgv(std::vector<std::string>);
 
         /// @brief By default, is the function that starts the execution of the algorithm.
         virtual void run(int /* CandidatesNumber */, int /* GenerationsNumber */, 
@@ -121,6 +134,35 @@ template <class T>
 void pinhao::GrammarEvolution<T>::exportKnowledgeBase() {
   std::ofstream Of(KnowledgeBaseFile);
   YAMLWrapper::print(KnowledgeBase, Of);
+}
+
+template <class T>
+void pinhao::GrammarEvolution<T>::generateSequence() {
+  std::vector<std::string> OptimizationsCopy = Optimizations;
+  while (!OptimizationsCopy.empty()) {
+    int Idx = UniformRandom::getRandomInt(0, OptimizationsCopy.size()-1);
+    auto It = std::find(OptimizationsCopy.begin(), OptimizationsCopy.end(), OptimizationsCopy[Idx]);
+    Sequence.push_back((int)getOptimization(OptimizationsCopy[Idx]));
+    OptimizationsCopy.erase(It);
+  }
+}
+
+template <class T>
+void pinhao::GrammarEvolution<T>::getSequence(std::string SequenceFile) {
+  if (FILE *f = fopen(SequenceFile.c_str(), "r")) {
+    fclose(f); 
+    auto Node = YAMLWrapper::loadFile(SequenceFile);
+    YAMLWrapper::fill(Sequence, Node);
+  } else {
+    generateSequence(); 
+    std::ofstream FOut(SequenceFile);
+    YAMLWrapper::print(Sequence, FOut);
+  }
+}
+
+template <class T>
+void pinhao::GrammarEvolution<T>::setModuleArgv(std::vector<std::string> Argv) {
+  this->Argv = Argv;
 }
 
 #endif

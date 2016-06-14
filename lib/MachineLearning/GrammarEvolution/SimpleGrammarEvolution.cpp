@@ -11,6 +11,8 @@
 #include "pinhao/Optimizer/OptimizationSet.h"
 #include "pinhao/PerformanceAnalyser/PAPIWrapper.h"
 
+#include <algorithm>
+
 using namespace pinhao;
 
 /*
@@ -63,6 +65,8 @@ void SimpleEvolution::evolve(bool &Value) {
  * -------------------------------------
  *  Class: SimpleGrammarEvolution
  */
+static std::string SequenceFile = ".sequence-" + std::to_string(time(0)) + ".yaml";
+
 SimpleGrammarEvolution::~SimpleGrammarEvolution() {
 
 }
@@ -77,8 +81,11 @@ llvm::Module *pinhao::SimpleGrammarEvolution::
 compileWithCandidate(llvm::Module *Module, Candidate &C, FeatureSet *Set) {
 
   OptimizationSet OptSet;
+  OptimizationSequence OptSequence;
 
   for (auto &Pair : C) {
+    if (std::find(Optimizations.begin(), Optimizations.end(), Pair.first.Name) == Optimizations.end())
+      continue;
     FormulaBase *Form = Pair.second;
     std::string OptName = Pair.first.Name;
 
@@ -86,15 +93,25 @@ compileWithCandidate(llvm::Module *Module, Candidate &C, FeatureSet *Set) {
     bool EnableOpt = getFormulaValue<bool>(Form);
     if (EnableOpt)
       OptSet.addOptimization(getOptimization(OptName));
-  }   
+  }
 
-  return applyOptimizations(*Module, &OptSet);
+  for (auto O : Sequence) {
+    Optimization Opt = (Optimization) O;
+    if (!OptSet.hasEnabled(Opt)) continue;
+
+    OptimizationInfo Info = OptSet.getOptimizationInfo(Opt); 
+    OptSequence.push_back(Info);
+  }
+
+  return applyOptimizations(*Module, &OptSequence);
 }
 
 void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNumber, 
     std::shared_ptr<FeatureSet> Set) {
   typedef std::pair<double, Candidate> RankingPair;
   typedef std::greater<RankingPair> DecendantOrder;
+
+  getSequence(SequenceFile);
 
   SimpleEvolution EvolutionStrategy(MutateProbability, Set.get());
 
@@ -103,7 +120,7 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
 
   std::set<RankingPair, DecendantOrder> Ranking;
 
-  uint64_t BaseLine = PAPIWrapper::getTotalCycles(*Module).second;
+  uint64_t BaseLine = PAPIWrapper::getTotalCycles(*Module, Argv).second;
 
   for (int I = 0; I < GenerationsNumber; ++I) {
     std::set<RankingPair, DecendantOrder> RankingTmp;
@@ -141,13 +158,15 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
 
       auto Compiled = compileWithCandidate(Module.get(), C, Set.get());
       if (Compiled) {
-        auto PAPIPair = PAPIWrapper::getTotalCycles(*Compiled); 
+        auto PAPIPair = PAPIWrapper::getTotalCycles(*Compiled, Argv); 
         if (PAPIPair.first == 0) {
           double SpeedUp = (double) BaseLine / PAPIPair.second;
           RankingTmp.insert(std::make_pair(SpeedUp, C));
+          std::cerr << "SpeedUp: " << SpeedUp << std::endl;
           continue;
         }
       }
+      std::cerr << "SpeedUp: 0.7" << std::endl;
       RankingTmp.insert(std::make_pair(0.7, C));
     }
 
@@ -168,6 +187,7 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
 
   }
 
+  std::cerr << "Best: " << (*Ranking.begin()).first << std::endl;
   stop();
 }
 
