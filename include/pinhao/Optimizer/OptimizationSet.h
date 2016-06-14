@@ -16,46 +16,6 @@
 #include <vector>
 #include <map>
 
-namespace std {
-
-  template<> struct less<pinhao::OptimizationInfo> {
-
-    template <class Type>
-      bool isArgLess(const pinhao::OptimizationInfo &Lhs, const pinhao::OptimizationInfo &Rhs, uint64_t I) const {
-        if (Lhs.getArg<Type>(I) != Rhs.getArg<Type>(I))
-          return Lhs.getArg<Type>(I) < Rhs.getArg<Type>(I); 
-        if (I < Lhs.getNumberOfArguments() - 1)
-          return checkArg(Lhs, Rhs, I+1);
-        return false;
-      }
-
-    bool checkArg(const pinhao::OptimizationInfo &Lhs, const pinhao::OptimizationInfo &Rhs, uint64_t I) const {
-      assert(Lhs.getArgType(I) == Rhs.getArgType(I) && "Argument type of same optimizations doesn't match.");
-      switch (Lhs.getArgType(I)) {
-        case pinhao::ValueType::Int:    return isArgLess<int>(Lhs, Rhs, I);
-        case pinhao::ValueType::Float:  return isArgLess<double>(Lhs, Rhs, I);
-        case pinhao::ValueType::String: return isArgLess<std::string>(Lhs, Rhs, I);
-        case pinhao::ValueType::Bool:   return isArgLess<bool>(Lhs, Rhs, I);
-      }
-      return false;
-    }
-
-    bool operator()(const pinhao::OptimizationInfo &Lhs, const pinhao::OptimizationInfo &Rhs) const {
-      if (Lhs.getOptimization() != Rhs.getOptimization())
-        return Lhs.getOptimization() < Rhs.getOptimization();
-
-      assert(Lhs.getNumberOfArguments() == Rhs.getNumberOfArguments() && 
-          "Number of arguments of same optimizations doesn't match.");
-
-      if (Lhs.getNumberOfArguments() > 0)
-        return checkArg(Lhs, Rhs, 0);
-      return false;
-    } 
-
-  };
-
-}
-
 namespace pinhao {
 
   /**
@@ -63,9 +23,14 @@ namespace pinhao {
    * of each one.
    */
   class OptimizationSet {
+    public:
+      typedef std::multimap<Optimization, std::pair<OptimizationInfo, uint64_t>> OptimizationsMultiMap;
+
     private:
       /// @brief The enabled optimizations paired with its repetition number.
-      std::map<OptimizationInfo, uint64_t> EnabledOptimizations;
+      OptimizationsMultiMap EnabledOptimizations;
+
+      OptimizationsMultiMap::iterator findOptimizationInfo(OptimizationInfo Info);
 
     public:
       OptimizationSet();
@@ -128,6 +93,9 @@ namespace pinhao {
       /// @a Info is enabled.
       uint64_t getRepetition(OptimizationInfo Info);
 
+      /// @brief Gets a reference to the first @a OptimizationInfo of @a Opt that was found.
+      OptimizationInfo &getOptimizationInfo(Optimization Opt);
+
       /// @brief Generates a random sequence (it will be the default sequence),
       /// in order to compile.
       void generateRandomSequenceIfNone();
@@ -135,7 +103,7 @@ namespace pinhao {
       /// @brief Returns the number of enabled optimizations.
       uint64_t size();
 
-      typedef std::map<OptimizationInfo, uint64_t>::iterator SetIterator;
+      typedef OptimizationsMultiMap::iterator SetIterator;
       SetIterator begin() { return EnabledOptimizations.begin(); }
       SetIterator end() { return EnabledOptimizations.end(); }
   };

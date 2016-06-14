@@ -11,6 +11,19 @@
 
 using namespace pinhao;
 
+pinhao::OptimizationSet::OptimizationsMultiMap::iterator
+pinhao::OptimizationSet::findOptimizationInfo(OptimizationInfo Info) {
+  if (!hasEnabled(Info.getOptimization()))
+    return EnabledOptimizations.end();
+
+  std::less<OptimizationInfo> LessComp;
+  auto ItPair = EnabledOptimizations.equal_range(Info.getOptimization());
+  for (auto I = ItPair.first; I != ItPair.second; ++I)
+    if (!LessComp((*I).second.first, Info) && !LessComp(Info, (*I).second.first))
+      return I;
+  return EnabledOptimizations.end();
+}
+
 OptimizationSet::OptimizationSet() {
   DefaultSequence = nullptr;
 }
@@ -20,22 +33,21 @@ OptimizationSet::~OptimizationSet() {
 }
 
 bool OptimizationSet::hasEnabled(Optimization Opt) {
-  OptimizationInfo Info(Opt);
-  return hasEnabled(Info);
+  return EnabledOptimizations.count(Opt) > 0;
 }
 
 bool OptimizationSet::hasEnabled(OptimizationInfo Info) {
-  return EnabledOptimizations.count(Info) > 0;
+  return findOptimizationInfo(Info) != EnabledOptimizations.end();
 }
 
 void OptimizationSet::disableOptimization(Optimization Opt) {
-  OptimizationInfo Info(Opt);
-  disableOptimization(Info);
+  if (!hasEnabled(Opt)) return;
+  EnabledOptimizations.erase(Opt);
 }
 
 void OptimizationSet::disableOptimization(OptimizationInfo Info) {
   if (!hasEnabled(Info)) return;
-  EnabledOptimizations.erase(Info);
+  EnabledOptimizations.erase(findOptimizationInfo(Info));
 }
 
 void OptimizationSet::enableOptimization(Optimization Opt, uint64_t Repetition) {
@@ -45,7 +57,7 @@ void OptimizationSet::enableOptimization(Optimization Opt, uint64_t Repetition) 
 
 void OptimizationSet::enableOptimization(OptimizationInfo Info, uint64_t Repetition) {
   if (hasEnabled(Info)) return;
-  EnabledOptimizations.insert(std::make_pair(Info, Repetition));
+  EnabledOptimizations.insert(std::make_pair(Info.getOptimization(), std::make_pair(Info, Repetition)));
 }
 
 void OptimizationSet::enableOptimizations(std::vector<Optimization> Opts) {
@@ -81,23 +93,31 @@ void OptimizationSet::addOptimization(OptimizationInfo Info) {
 }
 
 void OptimizationSet::setRepetition(Optimization Opt, uint64_t Rep) {
+  if (!hasEnabled(Opt)) return;
   OptimizationInfo Info(Opt);
   setRepetition(Info, Rep);
 }
 
 void OptimizationSet::setRepetition(OptimizationInfo Info, uint64_t Rep) {
   if (!hasEnabled(Info)) return;
-  EnabledOptimizations[Info] = Rep;
+  auto It = findOptimizationInfo(Info);
+  (*It).second.second = Rep;
 }
 
 uint64_t OptimizationSet::getRepetition(Optimization Opt) {
+  if (!hasEnabled(Opt)) return 0;
   OptimizationInfo Info(Opt);
   return getRepetition(Info);
 }
 
 uint64_t OptimizationSet::getRepetition(OptimizationInfo Info) {
   if (!hasEnabled(Info)) return 0;
-  return EnabledOptimizations[Info];
+  return (*findOptimizationInfo(Info)).second.second;
+}
+
+pinhao::OptimizationInfo &OptimizationSet::getOptimizationInfo(Optimization Opt) {
+  auto ItPair = EnabledOptimizations.equal_range(Opt);
+  return (*ItPair.first).second.first;
 }
 
 void OptimizationSet::generateRandomSequenceIfNone() {

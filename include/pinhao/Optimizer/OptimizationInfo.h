@@ -64,7 +64,7 @@ namespace pinhao {
 
       /// @brief Sets the @a Nth argument to @a Value.
       template <class ArgType>
-        void setArg(int N, ArgType Value) const {
+        void setArg(uint64_t N, ArgType Value) const {
           assert(N < Args.size() && "Setting out of bounds argument.");
           OptimizationArg<ArgType> *CastArg = static_cast<OptimizationArg<ArgType>*>(Args[N]);
           CastArg->Value = Value;
@@ -90,6 +90,47 @@ namespace pinhao {
       typedef std::vector<OptimizationArgBase*>::iterator ArgsIterator;
       ArgsIterator begin() { return Args.begin(); }
       ArgsIterator end() { return Args.end(); }
+
+  };
+
+}
+
+
+namespace std {
+
+  template<> struct less<pinhao::OptimizationInfo> {
+
+    template <class Type>
+      bool isArgLess(const pinhao::OptimizationInfo &Lhs, const pinhao::OptimizationInfo &Rhs, uint64_t I) const {
+        if (Lhs.getArg<Type>(I) != Rhs.getArg<Type>(I))
+          return Lhs.getArg<Type>(I) < Rhs.getArg<Type>(I); 
+        if (I < Lhs.getNumberOfArguments() - 1)
+          return checkArg(Lhs, Rhs, I+1);
+        return false;
+      }
+
+    bool checkArg(const pinhao::OptimizationInfo &Lhs, const pinhao::OptimizationInfo &Rhs, uint64_t I) const {
+      assert(Lhs.getArgType(I) == Rhs.getArgType(I) && "Argument type of same optimizations doesn't match.");
+      switch (Lhs.getArgType(I)) {
+        case pinhao::ValueType::Int:    return isArgLess<int>(Lhs, Rhs, I);
+        case pinhao::ValueType::Float:  return isArgLess<double>(Lhs, Rhs, I);
+        case pinhao::ValueType::String: return isArgLess<std::string>(Lhs, Rhs, I);
+        case pinhao::ValueType::Bool:   return isArgLess<bool>(Lhs, Rhs, I);
+      }
+      return false;
+    }
+
+    bool operator()(const pinhao::OptimizationInfo &Lhs, const pinhao::OptimizationInfo &Rhs) const {
+      if (Lhs.getOptimization() != Rhs.getOptimization())
+        return Lhs.getOptimization() < Rhs.getOptimization();
+
+      assert(Lhs.getNumberOfArguments() == Rhs.getNumberOfArguments() && 
+          "Number of arguments of same optimizations doesn't match.");
+
+      if (Lhs.getNumberOfArguments() > 0)
+        return checkArg(Lhs, Rhs, 0);
+      return false;
+    } 
 
   };
 
