@@ -5,6 +5,7 @@
  */
 
 #include "pinhao/MachineLearning/GrammarEvolution/SimpleGrammarEvolution.h"
+#include "pinhao/MachineLearning/GrammarEvolution/ParSimpleGrammarEvolution.h"
 
 #include "pinhao/PinhaoOptions.h"
 #include "pinhao/InitializationRoutines.h"
@@ -24,7 +25,7 @@ static config::YamlOpt<std::string> KnowledgeBasePath
 ("kb-path", "The path of the knowledge base.", false, "./");
 
 static config::YamlOpt<int> BestCandidatesNumber
-("best-n", "The number of candidates chosen by elitism.", false, 5);
+("best-n", "The number of candidates chosen by elitism.", false, 6);
 
 static config::YamlOpt<double> EvolveProbability
 ("evol-prob", "The probability that one candidate evolves.", false, 0.2);
@@ -36,7 +37,10 @@ static config::YamlOpt<double> MutateProbability
 ("mut-prob", "The probability that when evolving, it occurs a mutation.", false, 0.3);
 
 static config::YamlOpt<int> GenerationsNumber
-("generations", "The maximum number of generations.", false, 5);
+("generations", "The maximum number of generations.", false, 3);
+
+static config::YamlOpt<bool> Parameterized
+("opt-param", "Whether the parameters should also vary.", false, false);
 
 llvm::Module *readModule() {
   std::string FilePath = LLVMModulePath.get() + "/" + LLVMModuleName.get();
@@ -64,8 +68,23 @@ int main(int argc, char **argv) {
   SetPass->runOnModule(*Module);
 
   std::string KnowledgeBaseFP = KnowledgeBasePath.get() + KnowledgeBaseName.get();
-  SimpleGrammarEvolution SGE(Module, KnowledgeBaseFP, EvolveProbability.get(), 
-      MaxEvolutionRate.get(), MutateProbability.get());
 
-  SGE.run(BestCandidatesNumber.get(), GenerationsNumber.get(), Set);
+  if (Parameterized.get()) {
+    std::cerr << "Parameterized." << std::endl;
+    ParSimpleGrammarEvolution PSGE(Module, KnowledgeBaseFP, EvolveProbability.get(), 
+        MaxEvolutionRate.get(), MutateProbability.get());
+
+    PSGE.setModuleArgv(LLVMModuleArgv.get());
+
+    PSGE.run(BestCandidatesNumber.get(), GenerationsNumber.get(), Set);
+
+  } else {
+    std::cerr << "Not Parameterized." << std::endl;
+    SimpleGrammarEvolution SGE(Module, KnowledgeBaseFP, EvolveProbability.get(), 
+        MaxEvolutionRate.get(), MutateProbability.get());
+
+    SGE.setModuleArgv(LLVMModuleArgv.get());
+
+    SGE.run(BestCandidatesNumber.get(), GenerationsNumber.get(), Set);
+  }
 }

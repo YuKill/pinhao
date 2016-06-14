@@ -5,4 +5,5 @@ add_library (Formula STATIC
 add_library (SimpleGrammarEvolution STATIC
   Candidate.cpp
   CandidateYAMLWrapper.cpp
-  SimpleGrammarEvolution.cpp)
+  SimpleGrammarEvolution.cpp
+  ParSimpleGrammarEvolution.cpp)
