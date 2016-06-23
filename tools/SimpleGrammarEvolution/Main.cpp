@@ -6,6 +6,7 @@
 
 #include "pinhao/MachineLearning/GrammarEvolution/SimpleGrammarEvolution.h"
 #include "pinhao/MachineLearning/GrammarEvolution/ParSimpleGrammarEvolution.h"
+#include "pinhao/MachineLearning/GrammarEvolution/GEOSSimpleGrammarEvolution.h"
 
 #include "pinhao/PinhaoOptions.h"
 #include "pinhao/InitializationRoutines.h"
@@ -42,6 +43,9 @@ static config::YamlOpt<int> GenerationsNumber
 static config::YamlOpt<bool> Parameterized
 ("opt-param", "Whether the parameters should also vary.", false, false);
 
+static config::YamlOpt<std::string> PerfStrategy
+("perf", "The performance measure of the modules.", false, "cycles");
+
 llvm::Module *readModule() {
   std::string FilePath = LLVMModulePath.get() + "/" + LLVMModuleName.get();
   std::cout << "Reading module at: " << FilePath << std::endl;
@@ -54,6 +58,16 @@ void initialize() {
   initializeJITExecutor(); 
   initializeOptimizer(); 
   initializeCFGModuleStaticFeatures(); 
+}
+
+void startGEOSSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::string KnowledgeBase, 
+    std::shared_ptr<FeatureSet> Set) {
+  std::cerr << "Using GEOS." << std::endl;
+  GEOSSimpleGrammarEvolution GSGE(Module, KnowledgeBase, EvolveProbability.get(), 
+        MaxEvolutionRate.get(), MutateProbability.get());
+
+  GSGE.setModuleArgv(LLVMModuleArgv.get());
+  GSGE.run(BestCandidatesNumber.get(), GenerationsNumber.get(), Set);
 }
 
 int main(int argc, char **argv) {
@@ -69,7 +83,9 @@ int main(int argc, char **argv) {
 
   std::string KnowledgeBaseFP = KnowledgeBasePath.get() + KnowledgeBaseName.get();
 
-  if (Parameterized.get()) {
+  if (PerfStrategy.get() == "geos")
+    startGEOSSimpleGrammarEvolution(Module, KnowledgeBaseFP, Set);
+  else if (Parameterized.get()) {
     std::cerr << "Parameterized." << std::endl;
     ParSimpleGrammarEvolution PSGE(Module, KnowledgeBaseFP, EvolveProbability.get(), 
         MaxEvolutionRate.get(), MutateProbability.get());
