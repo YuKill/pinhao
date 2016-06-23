@@ -15,6 +15,28 @@ namespace pinhao {
   class Candidate;
 
   /**
+   * @brief A simple evolution implementation.
+   */
+  class SimpleEvolution : public Evolution {
+    private:
+      double M;
+
+    public:
+      SimpleEvolution(double M, FeatureSet *Set) : Evolution(Set), M(M) {}
+
+      /// @brief Mutates the node's @a FormulaBases.
+      void mutate(std::unique_ptr<FormulaBase>*);
+      /// @brief Evolves a @a FormulaBase from a node.
+      void evolve(std::vector<std::unique_ptr<FormulaBase>*>) override;
+      /// @brief Evolves an @a FeaturePair.
+      void evolve(std::pair<std::string, std::string>&) override;
+      /// @brief Evolvels an @a int value.
+      void evolve(int&) override;
+      /// @brief Evolves a @a bool value.
+      void evolve(bool&) override;
+  };
+
+  /**
    * @brief This is a simple implementation of the @a GrammarEvolution class.
    *
    * @details
@@ -22,7 +44,7 @@ namespace pinhao {
    * function.
    */
   class SimpleGrammarEvolution : public GrammarEvolution<Candidate> {
-    private:
+    protected:
       virtual llvm::Module *compileWithCandidate(llvm::Module*, Candidate&, FeatureSet*) override;
 
     public:

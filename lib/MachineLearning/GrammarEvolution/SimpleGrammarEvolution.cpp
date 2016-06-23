@@ -10,6 +10,7 @@
 
 #include "pinhao/Optimizer/OptimizationSet.h"
 #include "pinhao/PerformanceAnalyser/PAPIWrapper.h"
+#include "pinhao/Support/YamlOptions.h"
 
 #include <algorithm>
 
@@ -19,20 +20,6 @@ using namespace pinhao;
  * -------------------------------------
  *  Class: SimpleEvolution
  */
-class SimpleEvolution : public Evolution {
-  private:
-    double M;
-
-  public:
-    SimpleEvolution(double M, FeatureSet *Set) : Evolution(Set), M(M) {}
-
-    void mutate(std::unique_ptr<FormulaBase>*);
-    void evolve(std::vector<std::unique_ptr<FormulaBase>*>) override; 
-    void evolve(std::pair<std::string, std::string>&) override; 
-    void evolve(int&) override;
-    void evolve(bool&) override;
-};
-
 void SimpleEvolution::mutate(std::unique_ptr<FormulaBase>* Form) {
   ValueType Type = (*Form)->getType();
   (*Form).reset(generateFormula(Set, Type).release());
@@ -65,7 +52,8 @@ void SimpleEvolution::evolve(bool &Value) {
  * -------------------------------------
  *  Class: SimpleGrammarEvolution
  */
-static std::string SequenceFile = ".sequence-" + std::to_string(time(0)) + ".yaml";
+static config::YamlOpt<std::string> SequenceFile
+("sequence", "The file which contains a sequence of optimization.", false, ".sequence.yaml");
 
 SimpleGrammarEvolution::~SimpleGrammarEvolution() {
 
@@ -111,7 +99,7 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
   typedef std::pair<double, Candidate> RankingPair;
   typedef std::greater<RankingPair> DecendantOrder;
 
-  getSequence(SequenceFile);
+  getSequence(SequenceFile.get());
 
   SimpleEvolution EvolutionStrategy(MutateProbability, Set.get());
 
@@ -158,7 +146,7 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
 
       auto Compiled = compileWithCandidate(Module.get(), C, Set.get());
       if (Compiled) {
-        auto PAPIPair = PAPIWrapper::getTotalCycles(*Compiled, Argv); 
+        auto PAPIPair = PAPIWrapper::getTotalCycles(*Compiled, Argv);
         if (PAPIPair.first == 0) {
           double SpeedUp = (double) BaseLine / PAPIPair.second;
           RankingTmp.insert(std::make_pair(SpeedUp, C));
@@ -187,7 +175,8 @@ void pinhao::SimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNu
 
   }
 
-  std::cerr << "Best: " << (*Ranking.begin()).first << std::endl;
+  std::cerr << "Best:" << (*Ranking.begin()).first << std::endl;
+  std::cerr << "Cycles:" << (uint64_t)(BaseLine/(*Ranking.begin()).first) << std::endl;
   stop();
 }
 
