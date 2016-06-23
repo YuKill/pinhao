@@ -9,20 +9,12 @@
 #include "pinhao/Optimizer/OptimizationSequence.h"
 #include "pinhao/Optimizer/OptimizationSet.h"
 
-#include "pinhao/Support/YAMLWrapper.h"
-#include "pinhao/Support/Random.h"
-
 #include "llvm/IR/Verifier.h"
-#include "llvm/ADT/Triple.h"
-#include "llvm/Target/TargetOptions.h"
-#include "llvm/Target/TargetMachine.h"
-#include "llvm/Support/TargetRegistry.h"
-#include "llvm/Analysis/TargetLibraryInfo.h"
-#include "llvm/Analysis/TargetTransformInfo.h"
 #include "llvm/Transforms/IPO.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
-#include "llvm/Transforms/Scalar.h"
-#include "llvm/CodeGen/CommandFlags.h"
+
+#include "pinhao/Support/YAMLWrapper.h"
+#include "pinhao/Support/Random.h"
 
 #include <ostream>
 
@@ -118,64 +110,6 @@ void OptimizationSequence::populateFunctionPassManager(llvm::legacy::FunctionPas
   }
 }
 
-static llvm::CodeGenOpt::Level GetCodeGenOptLevel(OptLevel OLevel) {
-  if (OLevel == OptLevel::O1)
-    return llvm::CodeGenOpt::Less;
-  if (OLevel == OptLevel::O2)
-    return llvm::CodeGenOpt::Default;
-  if (OLevel == OptLevel::O3)
-    return llvm::CodeGenOpt::Aggressive;
-  return llvm::CodeGenOpt::None;
-}
-
-static TargetMachine* GetTargetMachine(Triple TheTriple, StringRef CPUStr,
-    StringRef FeaturesStr, const TargetOptions &Options, OptLevel OLevel) {
-
-  std::string Error;
-  const llvm::Target *TheTarget = llvm::TargetRegistry::lookupTarget(MArch, TheTriple, Error);
-
-  if (!TheTarget) {
-    return nullptr;
-  }
-
-  return TheTarget->createTargetMachine(TheTriple.getTriple(), CPUStr, FeaturesStr, Options,
-      llvm::Reloc::Default, llvm::CodeModel::JITDefault, GetCodeGenOptLevel(OLevel));
-
-}
-
-void OptimizationSequence::addDefaultPasses(llvm::Module &Module, llvm::legacy::PassManager &PM,
-    llvm::legacy::FunctionPassManager &FPM) {
-
-  /*
-  llvm::Triple ModuleTriple(Module.getTargetTriple());
-  std::string CPUStr, FeaturesStr;
-  llvm::TargetMachine *Machine = nullptr;
-  const llvm::TargetOptions Options = InitTargetOptionsFromCodeGenFlags();
-
-  if (ModuleTriple.getArch()) {
-    CPUStr = getCPUStr();
-    FeaturesStr = getFeaturesStr();
-    Machine = GetTargetMachine(ModuleTriple, CPUStr, FeaturesStr, Options, OLevel);
-  }
-
-  std::unique_ptr<llvm::TargetMachine> TM(Machine);
-  setFunctionAttributes(CPUStr, FeaturesStr, Module);
-
-  llvm::TargetLibraryInfoImpl TLII(ModuleTriple);
-  PM.add(new llvm::TargetLibraryInfoWrapperPass(TLII));
-
-  if (TM) {
-    PM.add(llvm::createTargetTransformInfoWrapperPass(TM->getTargetIRAnalysis()));
-    FPM.add(llvm::createTargetTransformInfoWrapperPass(TM->getTargetIRAnalysis()));
-  } else {
-    PM.add(llvm::createTargetTransformInfoWrapperPass(llvm::TargetIRAnalysis()));
-    FPM.add(llvm::createTargetTransformInfoWrapperPass(llvm::TargetIRAnalysis()));
-  }
-  */
-
-  populateWithOLevel(PM, FPM);
-}
-
 void OptimizationSequence::populateWithOLevel(llvm::legacy::PassManager &PM, 
     llvm::legacy::FunctionPassManager &FPM) {
   if (OLevel == OptLevel::None) return;
@@ -187,14 +121,19 @@ void OptimizationSequence::populateWithOLevel(llvm::legacy::PassManager &PM,
   } else {
     Builder.OptLevel = (int) OLevel;
     Builder.SizeLevel = 0;
-
-    if (OLevel > OptLevel::O1) {
-      Builder.Inliner = llvm::createFunctionInliningPass((int) OLevel, 0);
-    } else {
-      Builder.Inliner = llvm::createAlwaysInlinerPass();
-    }
-
   }
+
+  if (OLevel > OptLevel::O1) {
+    Builder.Inliner = llvm::createFunctionInliningPass((int) OLevel, 0);
+  } else {
+    Builder.Inliner = llvm::createAlwaysInlinerPass();
+  }
+
+  Builder.DisableUnitAtATime = false; 
+  Builder.DisableUnrollLoops = false;
+  if (!Builder.LoopVectorize)
+    Builder.LoopVectorize = OLevel > OptLevel::O1 && OLevel < OptLevel::Oz;
+  Builder.SLPVectorize = OLevel > OptLevel::O1 && OLevel < OptLevel::Oz;
 
   Builder.populateFunctionPassManager(FPM);
   Builder.populateModulePassManager(PM);

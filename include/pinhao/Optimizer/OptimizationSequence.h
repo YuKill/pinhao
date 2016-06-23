@@ -26,15 +26,14 @@ namespace pinhao {
    * @brief Contains a sequence for a specific @a OptimizationSet.
    */
   class OptimizationSequence : public std::vector<OptimizationInfo> {
-    private:
+    public:
+      OptimizationSequence(OptLevel OLevel = OptLevel::None) : OLevel(OLevel) {}
+
       OptLevel OLevel;
 
       /// @brief This function should be used when @a OLevel is set. It is called by
       /// @a populateDefaultPasses.
       void populateWithOLevel(llvm::legacy::PassManager &PM, llvm::legacy::FunctionPassManager &FPM);
-
-    public:
-      OptimizationSequence(OptLevel OLevel = OptLevel::None) : OLevel(OLevel) {}
 
       /// @brief Generates a @a OptimizationSequence from a specified @a OptimizationSet.
       static std::unique_ptr<OptimizationSequence> generate(OptimizationSet &Set, int Size = -1);

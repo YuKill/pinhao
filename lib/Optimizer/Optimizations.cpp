@@ -10,19 +10,20 @@
 #include "pinhao/Optimizer/OptimizationSequence.h"
 
 #include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IRReader/IRReader.h"
 #include "llvm/Bitcode/ReaderWriter.h"
+#include "llvm/ADT/Triple.h"
+#include "llvm/Target/TargetOptions.h"
+#include "llvm/Target/TargetMachine.h"
+#include "llvm/Support/TargetRegistry.h"
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Support/TargetSelect.h"
-#include "llvm/Support/ManagedStatic.h"
-
-#include "llvm/Transforms/Scalar.h"
-#include "llvm/Transforms/Vectorize.h"
-#include "llvm/Transforms/IPO.h"
-
-#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/Analysis/TargetLibraryInfo.h"
+#include "llvm/Analysis/TargetTransformInfo.h"
+#include "llvm/CodeGen/CommandFlags.h"
 
 #include <iostream>
 #include <unistd.h>
@@ -111,6 +112,31 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, std::string Funct
   return applyOptimizations(Module, Module.getFunction(FunctionName), Set->DefaultSequence);
 }
 
+static llvm::CodeGenOpt::Level GetCodeGenOptLevel(OptLevel OLevel) {
+  if (OLevel == OptLevel::O1)
+    return llvm::CodeGenOpt::Less;
+  if (OLevel == OptLevel::O2)
+    return llvm::CodeGenOpt::Default;
+  if (OLevel == OptLevel::O3)
+    return llvm::CodeGenOpt::Aggressive;
+  return llvm::CodeGenOpt::None;
+}
+
+static TargetMachine* GetTargetMachine(Triple TheTriple, StringRef CPUStr,
+    StringRef FeaturesStr, const TargetOptions &Options, OptLevel OLevel) {
+
+  std::string Error;
+  const llvm::Target *TheTarget = llvm::TargetRegistry::lookupTarget(MArch, TheTriple, Error);
+
+  if (!TheTarget) {
+    return nullptr;
+  }
+
+  return TheTarget->createTargetMachine(TheTriple.getTriple(), CPUStr, FeaturesStr, Options,
+      llvm::Reloc::Default, llvm::CodeModel::JITDefault, GetCodeGenOptLevel(OLevel));
+
+}
+
 llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, OptimizationSequence *Sequence) {
   std::string TmpName = ".tmp-" + std::to_string(time(0));
 
@@ -120,14 +146,44 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, OptimizationSeque
   if (Pid == 0) {
     llvm::legacy::PassManager PM; 
     llvm::legacy::FunctionPassManager FPM(&Module);
-    Sequence->addDefaultPasses(Module, PM, FPM);
-    Sequence->populatePassManager(PM);
+
+    // Populating with target machine analysis pass.
+    llvm::Triple ModuleTriple(Module.getTargetTriple());
+    std::string CPUStr, FeaturesStr;
+    llvm::TargetMachine *Machine = nullptr;
+    const llvm::TargetOptions Options = InitTargetOptionsFromCodeGenFlags();
+
+    if (ModuleTriple.getArch()) {
+      CPUStr = getCPUStr();
+      FeaturesStr = getFeaturesStr();
+      Machine = GetTargetMachine(ModuleTriple, CPUStr, FeaturesStr, 
+          Options, Sequence->OLevel);
+    }
+
+    std::unique_ptr<llvm::TargetMachine> TM(Machine);
+    setFunctionAttributes(CPUStr, FeaturesStr, Module);
+
+    llvm::TargetLibraryInfoImpl TLII(ModuleTriple);
+    PM.add(new llvm::TargetLibraryInfoWrapperPass(TLII));
+
+    if (TM) {
+      PM.add(llvm::createTargetTransformInfoWrapperPass(TM->getTargetIRAnalysis()));
+      FPM.add(llvm::createTargetTransformInfoWrapperPass(TM->getTargetIRAnalysis()));
+    } else {
+      PM.add(llvm::createTargetTransformInfoWrapperPass(llvm::TargetIRAnalysis()));
+      FPM.add(llvm::createTargetTransformInfoWrapperPass(llvm::TargetIRAnalysis()));
+    }
+
+    // Populating OLevel specific optimizations.
+    Sequence->populateWithOLevel(PM, FPM);
 
     FPM.doInitialization();
     for (auto &F : Module)
       FPM.run(F);
     FPM.doFinalization();
 
+    // Populating with Sequence.
+    Sequence->populatePassManager(PM);
     PM.run(Module);
 
     printModule(&Module, TmpName);
@@ -163,10 +219,34 @@ llvm::Module *pinhao::applyOptimizations(llvm::Module &Module, llvm::Function *F
   if (Pid == 0) {
     llvm::legacy::PassManager PM;
     llvm::legacy::FunctionPassManager FPM(&Module);
-    Sequence->addDefaultPasses(Module, PM, FPM);
+
+    // Populating with target machine analysis pass.
+    llvm::Triple ModuleTriple(Module.getTargetTriple());
+    std::string CPUStr, FeaturesStr;
+    llvm::TargetMachine *Machine = nullptr;
+    const llvm::TargetOptions Options = InitTargetOptionsFromCodeGenFlags();
+
+    if (ModuleTriple.getArch()) {
+      CPUStr = getCPUStr();
+      FeaturesStr = getFeaturesStr();
+      Machine = GetTargetMachine(ModuleTriple, CPUStr, FeaturesStr, 
+          Options, Sequence->OLevel);
+    }
+
+    std::unique_ptr<llvm::TargetMachine> TM(Machine);
+    setFunctionAttributes(CPUStr, FeaturesStr, Module);
+
+    if (TM) {
+      FPM.add(llvm::createTargetTransformInfoWrapperPass(TM->getTargetIRAnalysis()));
+    } else {
+      FPM.add(llvm::createTargetTransformInfoWrapperPass(llvm::TargetIRAnalysis()));
+    }
+
     Sequence->populateFunctionPassManager(FPM);
 
+    FPM.doInitialization();
     FPM.run(*Function);
+    FPM.doFinalization();
 
     printModule(&Module, TmpName);
 
