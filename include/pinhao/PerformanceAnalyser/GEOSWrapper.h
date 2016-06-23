@@ -42,13 +42,18 @@ namespace pinhao {
       /// to the instructions.
       static void propagateToInstructions(ProfileModule&);
 
+      /// @brief Runs the @a llvm::Module inside the @a ProfileModule, in order
+      /// to get the @a BasicBlock frequencies.
+      static void getFrequencies(std::shared_ptr<ProfileModule>, std::vector<std::string>);
+
     public:
       /// @brief Loads the callcost provided.
       static void loadCallCostFile(llvm::Module&);
 
-      /// @brief Runs the @a llvm::Module inside the @a ProfileModule, in order
-      /// to get the @a BasicBlock frequencies.
-      static void getFrequencies(std::shared_ptr<ProfileModule>);
+      /// @brief Wraps the @a llvm::Module into a @a ProfileModule, and passes it
+      /// to the private @a getFrequencies.
+      static void getFrequencies(llvm::Module&);
+      static void getFrequencies(llvm::Module&, std::vector<std::string>);
 
       /// @brief Repairs the frequencies (from the instructions), and calculates
       /// all GEOS' costs.
@@ -57,6 +62,7 @@ namespace pinhao {
       /// @brief Gets the frequencies by running the @a llvm::Module, and calculates
       /// all GEOS' costs.
       static std::vector<double> getFrequenciesAndAnalyse(llvm::Module&);
+      static std::vector<double> getFrequenciesAndAnalyse(llvm::Module&, std::vector<std::string>);
   
   };
 

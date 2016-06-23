@@ -70,19 +70,30 @@ void GEOSWrapper::propagateToInstructions(ProfileModule &PModule) {
   }
 }
 
-void GEOSWrapper::loadCallCostFile(llvm::Module &M) {
-  ProfileModule PModule(&M);
-  loadCallCost(CallCostFile.get(), &PModule);
-}
-
-void GEOSWrapper::getFrequencies(std::shared_ptr<ProfileModule> PModule) {
+void GEOSWrapper::getFrequencies(std::shared_ptr<ProfileModule> PModule, std::vector<std::string> Args) {
   llvm::SMDiagnostic Error;
   llvm::LLVMContext &Context = llvm::getGlobalContext();
   llvm::Module *GEOSProfLib = parseIRFile(GEOSProfLibFile.get(), Error, Context).release();
 
   std::unique_ptr<GEOSProfiler> GProfiler(new GEOSProfiler());
-  GProfiler->populateFrequency(PModule.get(), GEOSProfLib);
+  GProfiler->populateFrequency(PModule.get(), Args, GEOSProfLib);
   propagateToInstructions(*PModule);
+}
+
+void GEOSWrapper::loadCallCostFile(llvm::Module &M) {
+  ProfileModule PModule(&M);
+  loadCallCost(CallCostFile.get(), &PModule);
+}
+
+void GEOSWrapper::getFrequencies(llvm::Module &M) {
+  std::shared_ptr<ProfileModule> PModule(new ProfileModule(&M));
+  std::vector<std::string> Args = { "geos-wrapper" };
+  getFrequencies(PModule, Args);
+}
+
+void GEOSWrapper::getFrequencies(llvm::Module &M, std::vector<std::string> Args) {
+  std::shared_ptr<ProfileModule> PModule(new ProfileModule(&M));
+  getFrequencies(PModule, Args);
 }
 
 std::vector<double> GEOSWrapper::repairAndAnalyse(llvm::Module &M) {
@@ -92,8 +103,13 @@ std::vector<double> GEOSWrapper::repairAndAnalyse(llvm::Module &M) {
 }
 
 std::vector<double> GEOSWrapper::getFrequenciesAndAnalyse(llvm::Module &M) {
-  std::shared_ptr<ProfileModule> PModule(new ProfileModule(&M));
-  getFrequencies(PModule);
-  return getAnalysisCost(PModule);
+  std::vector<std::string> Args = { "geos-wrapper" };
+  return getFrequenciesAndAnalyse(M, Args);
+}
+
+std::vector<double> GEOSWrapper::getFrequenciesAndAnalyse(llvm::Module &M, 
+    std::vector<std::string> Args) {
+  getFrequencies(M, Args);
+  return repairAndAnalyse(M);
 }
 
