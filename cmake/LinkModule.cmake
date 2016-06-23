@@ -54,7 +54,7 @@ endfunction (pinhao_link_toolset)
 function (pinhao_link_local Target)
   target_link_libraries (${Target}
     ${ARGN}
-    SimpleGrammarEvolution
+    GrammarEvolution
     Formula Features Optimizer
     GEOSWrapper SProfWrapper PAPIWrapper
     Support Initialization)
