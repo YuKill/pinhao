@@ -95,6 +95,7 @@ int PAPIWrapper::run(llvm::Module &Module, std::vector<std::string> Args,
     for (unsigned I = 0; I < CodeVector.size(); ++I)
       TmpIn >> Values[I];
   }
+  remove(TmpName.c_str());
 
   return ExitStatus;
 
