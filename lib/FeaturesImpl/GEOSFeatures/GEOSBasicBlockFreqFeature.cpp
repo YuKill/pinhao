@@ -12,8 +12,6 @@
 
 using namespace pinhao;
 
-static std::shared_ptr<ProfileModule> PModule;
-
 namespace {
 
   class GEOSBasicBlockFreqFeature : public MapFeature<void*, uint64_t> {
@@ -29,13 +27,9 @@ namespace {
 }
 
 void GEOSBasicBlockFreqFeature::processModule(llvm::Module &Module) {
-  std::shared_ptr<ProfileModule> PM(PModule);
+  std::shared_ptr<ProfileModule> PM(new ProfileModule(&Module));
 
-  if (&Module != PModule->getLLVMModule()) {
-    PM.reset(PModule->getCopy(false));
-    PM->setLLVMModule(&Module);
-    PM->repairProfiling();
-  }
+  PM->repairProfiling();
 
   for (auto &Function : Module)
     for (auto &BasicBlock : Function) {
@@ -51,8 +45,12 @@ std::unique_ptr<Feature> GEOSBasicBlockFreqFeature::clone() const {
 }
 
 void pinhao::initializeGEOSBasicBlockFreqFeature(llvm::Module &Module) {
-  PModule.reset(new ProfileModule(&Module));
-  GEOSWrapper::getFrequencies(PModule);
+  std::vector<std::string> Argv = { "geos-init" };
+  initializeGEOSBasicBlockFreqFeature(Module, Argv);
+}
+
+void pinhao::initializeGEOSBasicBlockFreqFeature(llvm::Module &Module, std::vector<std::string> Argv) {
+  GEOSWrapper::getFrequencies(Module, Argv);
 }
 
 static RegisterFeature<GEOSBasicBlockFreqFeature> 

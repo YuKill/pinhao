@@ -20,6 +20,7 @@ namespace pinhao {
   void initializeDynamicFeatures(llvm::Module&);
   void initializeGEOSFeatures(llvm::Module&);
   void initializeGEOSBasicBlockFreqFeature(llvm::Module&);
+  void initializeGEOSBasicBlockFreqFeature(llvm::Module&, std::vector<std::string>);
   void initializePAPIMultFeatures();
 
   void initializeStaticFeatures();
