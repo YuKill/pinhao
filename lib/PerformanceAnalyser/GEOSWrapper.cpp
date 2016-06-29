@@ -19,10 +19,10 @@
 using namespace pinhao;
 
 static config::YamlOpt<std::string> 
-GEOSProfLibFile("geos-prof-lib", "The GEOSProfLib file name.", true, "");
+GEOSProfLibFile("geos-prof-lib", "The GEOSProfLib file name.", false, "GEOSProfLib.bc");
 
 static config::YamlOpt<std::string>
-CallCostFile("call-cost", "File with call cost of extern functions.", true, "");
+CallCostFile("call-cost", "File with call cost of extern functions.", false, "callcost");
 
 std::vector<double> GEOSWrapper::getAnalysisCost(std::shared_ptr<ProfileModule> PModule) {
   std::vector<double> Cost;

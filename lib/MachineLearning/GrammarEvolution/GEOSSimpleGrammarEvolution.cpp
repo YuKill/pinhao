@@ -25,7 +25,7 @@ static config::YamlOpt<std::string> SequenceFile
 GEOSSimpleGrammarEvolution::GEOSSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::string KBFilename,
     double EvolveProb, double MaxEvolutionRate, double MutateProb) : 
   SimpleGrammarEvolution(Module, KBFilename, EvolveProb, MaxEvolutionRate, MutateProb) {
-
+    GEOSWrapper::loadCallCostFile(*Module);
   }
 
 void pinhao::GEOSSimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNumber, 
