@@ -7,6 +7,7 @@
 #include "pinhao/Support/YamlOptions.h"
 
 #include <map>
+#include <cassert>
 
 using namespace pinhao;
 
