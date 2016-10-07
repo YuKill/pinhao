@@ -7,4 +7,5 @@ add_library (GrammarEvolution STATIC
   CandidateYAMLWrapper.cpp
   SimpleGrammarEvolution.cpp
   GEOSSimpleGrammarEvolution.cpp
+  SProfSimpleGrammarEvolution.cpp
   ParSimpleGrammarEvolution.cpp)

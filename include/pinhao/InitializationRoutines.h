@@ -9,11 +9,17 @@
 
 #include "llvm/IR/Module.h"
 
+namespace llvm {
+  class PassRegistry;
+}
+
 namespace pinhao {
 
   void initializeJITExecutor();
 
   void initializeOptimizer();
+
+  void initializeStaticProfilerPasses(llvm::PassRegistry&);
 
   void initializeFeatures(llvm::Module&);
 

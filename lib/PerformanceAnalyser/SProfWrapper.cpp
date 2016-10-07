@@ -6,37 +6,41 @@
 
 #include "pinhao/PerformanceAnalyser/SProfWrapper.h"
 #include "pinhao/Support/YamlOptions.h"
+#include "pinhao/InitializationRoutines.h"
+
+#include "sprof/InitializeRoutines.h"
 
 using namespace pinhao;
 
-llvm::Pass *SProfWrapper::getSProfPass(StaticFunctionCostPtr SFC) {
-  return new llvm::StaticFunctionCostPass(&SFC);
+void pinhao::initializeStaticProfilerPasses(llvm::PassRegistry &Registry) {
+  llvm::initializeStaticProfilerPasses(Registry);
 }
 
-double SProfWrapper::sumAllFunctionsCost(SProfWrapper::CostMap &Map) {
-  double TotalCost = 0.0;
-  for (auto &Pair : Map)
-    TotalCost += Pair.second;
-  return TotalCost;
+llvm::Pass *SProfWrapper::getSProfPass(StaticModuleCostPtr SMC) {
+  return new llvm::StaticModuleCostPass(&SMC);
+}
+
+std::shared_ptr<llvm::StaticModuleCost> SProfWrapper::runSProfPass(llvm::Module &Module) {
+  StaticModuleCostPtr SMC(new llvm::StaticModuleCost());
+  llvm::legacy::PassManager PM; 
+  PM.add(getSProfPass(SMC));
+  PM.run(Module);
+  return SMC;
 }
 
 double SProfWrapper::getFunctionCost(llvm::Module &Module, llvm::Function &Function) {
-  StaticFunctionCostPtr SFC(new llvm::StaticFunctionCost());
-  llvm::legacy::FunctionPassManager FPM(&Module); 
-  FPM.add(getSProfPass(SFC));
-  FPM.run(Function);
-  return SFC->Cost[&Function];
+  StaticModuleCostPtr SMC = runSProfPass(Module);
+  return SMC->Cost[&Function];
 }
 
 double SProfWrapper::getModuleCost(llvm::Module &Module) {
-  CostMap Map = getAllFunctionsCost(Module);
-  return sumAllFunctionsCost(Map);
+  StaticModuleCostPtr SMC = runSProfPass(Module);
+  std::cerr << "ModuleCost: " << SMC->ModuleCost << std::endl;
+  return SMC->ModuleCost;
 }
 
 SProfWrapper::CostMap SProfWrapper::getAllFunctionsCost(llvm::Module &Module) {
-  StaticFunctionCostPtr SFC(new llvm::StaticFunctionCost());
-  llvm::legacy::PassManager PM;
-  PM.add(getSProfPass(SFC));
-  PM.run(Module);
-  return SFC->Cost;
+  StaticModuleCostPtr SMC = runSProfPass(Module);
+  return SMC->Cost;
 }
+

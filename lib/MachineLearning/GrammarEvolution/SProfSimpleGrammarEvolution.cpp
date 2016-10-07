@@ -4,31 +4,30 @@
  * @file SimpleGrammarEvolution.cpp
  */
 
-#include "pinhao/MachineLearning/GrammarEvolution/GEOSSimpleGrammarEvolution.h"
+#include "pinhao/MachineLearning/GrammarEvolution/SProfSimpleGrammarEvolution.h"
 #include "pinhao/MachineLearning/GrammarEvolution/Candidate.h"
 #include "pinhao/MachineLearning/GrammarEvolution/Formula.h"
 
 #include "pinhao/Optimizer/OptimizationSet.h"
 #include "pinhao/PerformanceAnalyser/PAPIWrapper.h"
-#include "pinhao/PerformanceAnalyser/GEOSWrapper.h"
+#include "pinhao/PerformanceAnalyser/SProfWrapper.h"
 #include "pinhao/Support/YamlOptions.h"
 
 using namespace pinhao;
 
 /*
  * -------------------------------------
- *  Class: GEOSSimpleGrammarEvolution
+ *  Class: SProfSimpleGrammarEvolution
  */
 static config::YamlOpt<std::string> SequenceFile
 ("sequence", "The file which contains a sequence of optimization.", false, ".sequence.yaml");
 
-GEOSSimpleGrammarEvolution::GEOSSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::string KBFilename,
+SProfSimpleGrammarEvolution::SProfSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::string KBFilename,
     double EvolveProb, double MaxEvolutionRate, double MutateProb) : 
   SimpleGrammarEvolution(Module, KBFilename, EvolveProb, MaxEvolutionRate, MutateProb) {
-    GEOSWrapper::loadCallCostFile(*Module);
   }
 
-void pinhao::GEOSSimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNumber, 
+void pinhao::SProfSimpleGrammarEvolution::run(int CandidatesNumber, int GenerationsNumber, 
     std::shared_ptr<FeatureSet> Set) {
   typedef std::pair<double, Candidate> RankingPair;
   typedef std::greater<RankingPair> DecendantOrder;
@@ -42,10 +41,8 @@ void pinhao::GEOSSimpleGrammarEvolution::run(int CandidatesNumber, int Generatio
 
   std::set<RankingPair, DecendantOrder> Ranking;
 
-  GEOSWrapper::getFrequencies(*Module, Argv);
-  double BaseLine = GEOSWrapper::repairAndAnalyse(*Module).back();
-
-  //uint64_t RealBaseLine = PAPIWrapper::getTotalCycles(*Module, Argv).second;
+  double BaseLine = SProfWrapper::getModuleCost(*Module);
+  uint64_t RealBaseLine = PAPIWrapper::getTotalCycles(*Module, Argv).second;
 
   for (int I = 0; I < GenerationsNumber; ++I) {
     std::set<RankingPair, DecendantOrder> RankingTmp;
@@ -83,7 +80,7 @@ void pinhao::GEOSSimpleGrammarEvolution::run(int CandidatesNumber, int Generatio
 
       auto Compiled = compileWithCandidate(Module.get(), C, Set.get());
       if (Compiled) {
-        double Cost = GEOSWrapper::repairAndAnalyse(*Compiled).back();
+        double Cost = SProfWrapper::getModuleCost(*Compiled);
         if (Cost > 0.01) {
           double SpeedUp = BaseLine / Cost;
           RankingTmp.insert(std::make_pair(SpeedUp, C));
@@ -112,13 +109,13 @@ void pinhao::GEOSSimpleGrammarEvolution::run(int CandidatesNumber, int Generatio
 
   }
 
-  /*
   auto Compiled = compileWithCandidate(Module.get(), const_cast<Candidate&>((*Ranking.begin()).second), Set.get());
   assert(Compiled && "Error while compiling best candidate.");
-  uint64_t RealBest = PAPIWrapper::getTotalCycles(*Compiled, Argv).second;
-  */
+  auto PAPIPair = PAPIWrapper::getTotalCycles(*Compiled, Argv);
+  assert(!PAPIPair.first && "Error while compiling best candidate.");
 
-  std::cerr << "Best:" << (*Ranking.begin()).first << std::endl;
-  std::cerr << "Cycles:" << (uint64_t) BaseLine/(*Ranking.begin()).first << std::endl;
+  std::cerr << "BestPred:" << (*Ranking.begin()).first << std::endl;
+  std::cerr << "Best:" << (double) RealBaseLine / PAPIPair.second << std::endl;
+  std::cerr << "Cycles:" << PAPIPair.second << std::endl;
   stop();
 }

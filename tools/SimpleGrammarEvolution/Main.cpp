@@ -7,6 +7,7 @@
 #include "pinhao/MachineLearning/GrammarEvolution/SimpleGrammarEvolution.h"
 #include "pinhao/MachineLearning/GrammarEvolution/ParSimpleGrammarEvolution.h"
 #include "pinhao/MachineLearning/GrammarEvolution/GEOSSimpleGrammarEvolution.h"
+#include "pinhao/MachineLearning/GrammarEvolution/SProfSimpleGrammarEvolution.h"
 
 #include "pinhao/PinhaoOptions.h"
 #include "pinhao/InitializationRoutines.h"
@@ -55,9 +56,11 @@ llvm::Module *readModule() {
 }
 
 void initialize() {
+  llvm::PassRegistry *Registry = llvm::PassRegistry::getPassRegistry();
   initializeJITExecutor(); 
   initializeOptimizer(); 
   initializeCFGModuleStaticFeatures(); 
+  initializeStaticProfilerPasses(*Registry);
 }
 
 void startGEOSSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::string KnowledgeBase, 
@@ -68,6 +71,16 @@ void startGEOSSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::
 
   GSGE.setModuleArgv(LLVMModuleArgv.get());
   GSGE.run(BestCandidatesNumber.get(), GenerationsNumber.get(), Set);
+}
+
+void startSProfSimpleGrammarEvolution(std::shared_ptr<llvm::Module> Module, std::string KnowledgeBase, 
+    std::shared_ptr<FeatureSet> Set) {
+  std::cerr << "Using StaticProfiler." << std::endl;
+  SProfSimpleGrammarEvolution SPGE(Module, KnowledgeBase, EvolveProbability.get(), 
+        MaxEvolutionRate.get(), MutateProbability.get());
+
+  SPGE.setModuleArgv(LLVMModuleArgv.get());
+  SPGE.run(BestCandidatesNumber.get(), GenerationsNumber.get(), Set);
 }
 
 int main(int argc, char **argv) {
@@ -85,6 +98,8 @@ int main(int argc, char **argv) {
 
   if (PerfStrategy.get() == "geos")
     startGEOSSimpleGrammarEvolution(Module, KnowledgeBaseFP, Set);
+  else if (PerfStrategy.get() == "sprof")
+    startSProfSimpleGrammarEvolution(Module, KnowledgeBaseFP, Set);
   else if (Parameterized.get()) {
     std::cerr << "Parameterized." << std::endl;
     ParSimpleGrammarEvolution PSGE(Module, KnowledgeBaseFP, EvolveProbability.get(), 

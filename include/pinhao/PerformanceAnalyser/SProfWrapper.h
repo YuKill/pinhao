@@ -9,7 +9,7 @@
 
 #include "llvm/IR/LegacyPassManager.h"
 
-#include "sprof/StaticFunctionCost.h"
+#include "sprof/StaticModuleCost.h"
 
 #include <map>
 
@@ -24,15 +24,15 @@ namespace pinhao {
    */
   class SProfWrapper {
     public:
-      typedef std::shared_ptr<llvm::StaticFunctionCost> StaticFunctionCostPtr;
+      typedef std::shared_ptr<llvm::StaticModuleCost> StaticModuleCostPtr;
       typedef std::map<llvm::Function*, double> CostMap;
 
     private:
       /// @brief Creates the @a StaticProfiler main @a llvm::Pass.
-      static llvm::Pass *getSProfPass(StaticFunctionCostPtr);
+      static llvm::Pass *getSProfPass(StaticModuleCostPtr);
 
-      /// @brief Sums all function costs.
-      static double sumAllFunctionsCost(CostMap&);
+      /// @brief Runs the @a llvm::Pass, and returns a struct with its results.
+      static StaticModuleCostPtr runSProfPass(llvm::Module&);
 
     public:
       /// @brief Gets a @a llvm::Function cost.
