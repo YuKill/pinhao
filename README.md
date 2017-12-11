@@ -1,3 +1,3 @@
 [Documentation][PinhaoDocumentation]
 
-[PinhaoDocumentation]: http://yukill.github.io/pinhao/
+[PinhaoDocumentation]: http://ysiraichi.github.io/pinhao/
